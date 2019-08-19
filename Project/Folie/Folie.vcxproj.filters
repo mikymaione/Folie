@@ -30,13 +30,16 @@
     <ClInclude Include="Team.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Globals.h">
+    <ClInclude Include="Ball.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Teams\Gruppo1.h">
+    <ClInclude Include="BawiTim.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Teams\BawiTim.h">
+    <ClInclude Include="Gruppo1.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="GB.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
@@ -54,6 +57,18 @@
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="Team.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="Ball.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="BawiTim.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="Gruppo1.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="GB.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>

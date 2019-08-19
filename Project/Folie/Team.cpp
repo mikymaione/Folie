@@ -8,3 +8,16 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #include "stdafx.h"
 #include "Team.h"
+
+Folie::Team::Team(String ^name_, array<Player ^> ^players_)
+{
+	name = name_;
+	players = players_;
+}
+
+Folie::Player ^Folie::Team::getPlayerAtPosition(Folie::GB::ePosition position)
+{
+	for (size_t i = 0; i < 6; i++)
+		if (players[i]->currentPosition == position)
+			return players[i];
+}

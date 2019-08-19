@@ -7,29 +7,9 @@ Permission is hereby granted, free of charge, toE any person obtaining a copy of
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "stdafx.h"
-#include "Player.h"
+#include "Ball.h"
 
-Folie::Player::Player(String ^name_, Folie::GB::ePosition startingPosition_)
+Ball::Ball()
 {
-	name = name_;
-
-	startingPosition = startingPosition_;
-	currentPosition = startingPosition_;
-	currentArea = Folie::GB::getAreaFromPosition(startingPosition_);
-}
-
-void Folie::Player::moveToNextPosition()
-{
-	currentPosition = Folie::GB::getNextRotationPosition(currentPosition);
-	currentArea = Folie::GB::getAreaFromPosition(currentPosition);
-}
-
-void Folie::Player::setPlayerServing()
-{
-	currentArea = Folie::GB::eArea::a1S;
-}
-
-void Folie::Player::lookAtTheBall()
-{
-	throw gcnew System::NotImplementedException();
+	//
 }

@@ -14,18 +14,18 @@ using namespace System;
 
 namespace Folie
 {
-	public ref class Team
+	ref class Team
 	{
 
 	public:
 		String ^name;
 		array<Player ^> ^players;
 
-		Team(String ^name_, array<Player ^> ^players_)
-		{
-			name = name_;
-			players = players_;
-		}
+
+		Team(String ^name_, array<Player ^> ^players_);
+
+		Player ^getPlayerAtPosition(Folie::GB::ePosition position);
+
 
 	};
 }

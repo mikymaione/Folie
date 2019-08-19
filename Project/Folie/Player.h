@@ -8,29 +8,25 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #pragma once
 
-#include "Globals.h"
+#include "GB.h"
 
 using namespace System;
 
 namespace Folie
 {
-	public ref class Player
+	ref class Player
 	{
 
 	public:
 		String ^name;
-		ePosition startingPosition, currentPosition;
+		Folie::GB::ePosition startingPosition, currentPosition;
+		Folie::GB::eArea currentArea;
 
-		Player(String ^name_, ePosition startingPosition_)
-		{
-			name = name_;
-			startingPosition = startingPosition_;
-		}
+		Player(String ^name_, Folie::GB::ePosition startingPosition_);
 
-		void moveToNextPosition()
-		{
-			currentPosition = getNextRotationPosition(currentPosition);
-		}
+		void moveToNextPosition();
+		void setPlayerServing();
+		void lookAtTheBall();
 
 	};
 }
