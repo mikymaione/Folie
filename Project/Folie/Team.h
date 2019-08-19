@@ -24,7 +24,7 @@ namespace Folie
 
 		Team(String ^name_, array<Player ^> ^players_);
 
-		Player ^getPlayerAtPosition(Folie::GB::ePosition position);
+		Player ^getPlayerAtPosition(GB::ePosition position);
 
 
 	};

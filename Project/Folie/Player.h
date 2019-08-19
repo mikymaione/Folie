@@ -19,10 +19,10 @@ namespace Folie
 
 	public:
 		String ^name;
-		Folie::GB::ePosition startingPosition, currentPosition;
-		Folie::GB::eArea currentArea;
+		GB::ePosition startingPosition, currentPosition;
+		GB::eArea currentArea;
 
-		Player(String ^name_, Folie::GB::ePosition startingPosition_);
+		Player(String ^name_, GB::ePosition startingPosition_);
 
 		void moveToNextPosition();
 		void setPlayerServing();

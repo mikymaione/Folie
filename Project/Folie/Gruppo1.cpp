@@ -9,12 +9,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "stdafx.h"
 #include "Gruppo1.h"
 
-Folie::Gruppo1::Gruppo1() : Team("Gruppo 1", gcnew array<Player ^>(6))
+Folie::Teams::Gruppo1::Gruppo1() : Team("Gruppo 1", gcnew array<Player ^>(6))
 {
-	players[0] = gcnew Player("Piero", Folie::GB::ePosition::p4);
-	players[1] = gcnew Player("Carla", Folie::GB::ePosition::p3);
-	players[2] = gcnew Player("Filippo", Folie::GB::ePosition::p2);
-	players[3] = gcnew Player("Margherita", Folie::GB::ePosition::p5);
-	players[4] = gcnew Player("Alessandro", Folie::GB::ePosition::p6);
-	players[5] = gcnew Player("Dayana", Folie::GB::ePosition::p1);
+	players[0] = gcnew Player("Piero", GB::ePosition::p4);
+	players[1] = gcnew Player("Carla", GB::ePosition::p3);
+	players[2] = gcnew Player("Filippo", GB::ePosition::p2);
+	players[3] = gcnew Player("Margherita", GB::ePosition::p5);
+	players[4] = gcnew Player("Alessandro", GB::ePosition::p6);
+	players[5] = gcnew Player("Dayana", GB::ePosition::p1);
 }

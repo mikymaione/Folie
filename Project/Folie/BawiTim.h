@@ -16,12 +16,15 @@ using namespace System;
 
 namespace Folie
 {
-	ref class BawiTim :Team
+	namespace Teams
 	{
+		ref class BawiTim :Team
+		{
 
-	public:
-		BawiTim();
+		public:
+			BawiTim();
 
 
-	};
+		};
+	}
 }

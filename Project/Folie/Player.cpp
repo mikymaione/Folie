@@ -9,7 +9,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "stdafx.h"
 #include "Player.h"
 
-Folie::Player::Player(String ^name_, Folie::GB::ePosition startingPosition_)
+Folie::Player::Player(String ^name_, GB::ePosition startingPosition_)
 {
 	name = name_;
 
@@ -20,13 +20,13 @@ Folie::Player::Player(String ^name_, Folie::GB::ePosition startingPosition_)
 
 void Folie::Player::moveToNextPosition()
 {
-	currentPosition = Folie::GB::getNextRotationPosition(currentPosition);
-	currentArea = Folie::GB::getAreaFromPosition(currentPosition);
+	currentPosition = GB::getNextRotationPosition(currentPosition);
+	currentArea = GB::getAreaFromPosition(currentPosition);
 }
 
 void Folie::Player::setPlayerServing()
 {
-	currentArea = Folie::GB::eArea::a1S;
+	currentArea = GB::eArea::a1S;
 }
 
 void Folie::Player::lookAtTheBall()

@@ -15,7 +15,7 @@ Folie::Team::Team(String ^name_, array<Player ^> ^players_)
 	players = players_;
 }
 
-Folie::Player ^Folie::Team::getPlayerAtPosition(Folie::GB::ePosition position)
+Folie::Player ^Folie::Team::getPlayerAtPosition(GB::ePosition position)
 {
 	for (size_t i = 0; i < 6; i++)
 		if (players[i]->currentPosition == position)

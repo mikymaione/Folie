@@ -16,12 +16,15 @@ using namespace System;
 
 namespace Folie
 {
-	ref class Gruppo1 :Team
+	namespace Teams
 	{
+		ref class Gruppo1 :Team
+		{
 
-	public:
-		Gruppo1();
+		public:
+			Gruppo1();
 
 
-	};
+		};
+	}
 }

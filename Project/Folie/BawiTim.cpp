@@ -9,12 +9,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "stdafx.h"
 #include "BawiTim.h"
 
-Folie::BawiTim::BawiTim() : Team("BawiTim", gcnew array<Player ^>(6))
+Folie::Teams::BawiTim::BawiTim() : Team("BawiTim", gcnew array<Player ^>(6))
 {
-	players[0] = gcnew Player("Michele", Folie::GB::ePosition::p4);
-	players[1] = gcnew Player("Laura", Folie::GB::ePosition::p3);
-	players[2] = gcnew Player("Federico", Folie::GB::ePosition::p2);
-	players[3] = gcnew Player("Lara", Folie::GB::ePosition::p5);
-	players[4] = gcnew Player("Lorenzo", Folie::GB::ePosition::p6);
-	players[5] = gcnew Player("Martina", Folie::GB::ePosition::p1);
+	players[0] = gcnew Player("Michele", GB::ePosition::p4);
+	players[1] = gcnew Player("Laura", GB::ePosition::p3);
+	players[2] = gcnew Player("Federico", GB::ePosition::p2);
+	players[3] = gcnew Player("Lara", GB::ePosition::p5);
+	players[4] = gcnew Player("Lorenzo", GB::ePosition::p6);
+	players[5] = gcnew Player("Martina", GB::ePosition::p1);
 }
