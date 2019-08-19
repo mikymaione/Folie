@@ -9,6 +9,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #pragma once
 
 #include "GB.h"
+#include "Ball.h"
 
 using namespace System;
 
@@ -22,11 +23,17 @@ namespace Folie
 		GB::ePosition startingPosition, currentPosition;
 		GB::eArea currentArea;
 
+		double pos_x, pos_y, pos_z;
+		double rot_x, rot_y, rot_z;
+
 		Player(String ^name_, GB::ePosition startingPosition_);
 
 		void moveToNextPosition();
-		void setPlayerServing();
-		void lookAtTheBall();
+
+		void pass(Ball ^ball);
+		void serve(Random ^rnd, Ball ^ball);
+		void hit(Random ^rnd, Ball ^ball);
+		void lookAtTheBall(Ball ^ball);
 
 	};
 }

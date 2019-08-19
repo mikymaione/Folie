@@ -24,12 +24,32 @@ void Folie::Player::moveToNextPosition()
 	currentArea = GB::getAreaFromPosition(currentPosition);
 }
 
-void Folie::Player::setPlayerServing()
+void Folie::Player::pass(Ball ^ball)
 {
-	currentArea = GB::eArea::a1S;
+	auto distanceToTheBall = GB::distanceBetweenTwoPoints3D(ball->pos_x, ball->pos_y, ball->pos_z, pos_x, pos_y, pos_z);
+
+	if (distanceToTheBall < 1)
+		ball->moveTo(GB::ePosition::p3);
 }
 
-void Folie::Player::lookAtTheBall()
+void Folie::Player::serve(Random ^rnd, Ball ^ball)
 {
-	throw gcnew System::NotImplementedException();
+	currentArea = GB::eArea::a1S;
+	hit(rnd, ball);
+}
+
+void Folie::Player::hit(Random ^rnd, Ball ^ball)
+{
+	auto distanceToTheBall = GB::distanceBetweenTwoPoints3D(ball->pos_x, ball->pos_y, ball->pos_z, pos_x, pos_y, pos_z);
+
+	if (distanceToTheBall < 1)
+	{
+		auto target = GB::selectRandomPosition(rnd);
+		ball->moveTo(target);
+	}
+}
+
+void Folie::Player::lookAtTheBall(Ball ^ball)
+{
+	rot_y = GB::angleBetweenTwoPoints2D(ball->pos_x, ball->pos_z, pos_x, pos_z);
 }

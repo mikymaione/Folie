@@ -9,7 +9,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "stdafx.h"
 #include "Ball.h"
 
-Ball::Ball()
+Folie::Ball::Ball()
 {
 	//
+}
+
+void Folie::Ball::moveTo(GB::ePosition)
+{
+	throw gcnew System::NotImplementedException();
 }

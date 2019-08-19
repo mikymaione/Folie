@@ -8,10 +8,20 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #pragma once
 
-ref class Ball
+#include "GB.h"
+
+namespace Folie
 {
+	ref class Ball
+	{
 
-public:
-	Ball();
+	public:
+		float pos_x, pos_y, pos_z;
+		float rot_x, rot_y, rot_z;
 
-};
+		Ball();
+		
+		void moveTo(GB::ePosition);		
+
+	};
+}
