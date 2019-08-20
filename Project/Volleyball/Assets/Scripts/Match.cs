@@ -14,6 +14,7 @@ public class Match : MonoBehaviour
 
     private Folie.Game game = new Folie.Game(25);
 
+    public GameObject ball;
 
     public GameObject TeamA_C1, TeamA_P1, TeamA_B1;
     public GameObject TeamA_C2, TeamA_P2, TeamA_B2;
@@ -24,7 +25,7 @@ public class Match : MonoBehaviour
     private Dictionary<Folie.Player, GameObject> playersTeamA, playersTeamB;
 
 
-    void Start()
+    private void Start()
     {
         var teamA = game.teamA;
         var teamB = game.teamB;
@@ -49,30 +50,32 @@ public class Match : MonoBehaviour
             { teamB.getPlayerWithRole(Folie.GB.eRole.c2), TeamB_C2}
         };
 
+        updatePositionOfTeams(4);
         //game.start();
     }
 
-    void Update()
+    private void Update()
     {
-        updatePositionOfTeams();
+        //updatePositionOfTeams(8);
     }
 
-    private void updatePositionOfTeams()
+    private void updatePositionOfTeams(float speed)
     {
-        updatePositionOfPlayers(playersTeamA);
-        updatePositionOfPlayers(playersTeamB);
+        updatePositionOfPlayers(speed, playersTeamA);
+        updatePositionOfPlayers(speed, playersTeamB);
     }
 
-    private void updatePositionOfPlayers(Dictionary<Folie.Player, GameObject> team)
+    private void updatePositionOfPlayers(float speed, Dictionary<Folie.Player, GameObject> team)
     {
         foreach (var p in team)
-            updatePositionOfPlayer(p.Value, p.Key);
+            updatePositionOfPlayer(speed, p.Value, p.Key);
     }
 
-    private void updatePositionOfPlayer(GameObject obj, Folie.Player player)
+    private void updatePositionOfPlayer(float speed, GameObject obj, Folie.Player player)
     {
         var p = obj.GetComponent<Player>();
-        p.playerWalkTo(new Vector3(player.pos_x, player.pos_y, player.pos_z));
+        p.ball = ball;
+        p.moveTo(speed, new Vector3(player.pos_x, player.pos_y, player.pos_z));
     }
 
 

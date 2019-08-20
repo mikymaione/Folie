@@ -7,34 +7,33 @@ Permission is hereby granted, free of charge, toE any person obtaining a copy of
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Player : MonoBehaviour
 {
 
-    private float speed = 4;
-    private bool moving = false;
-    private Vector3 destination;
+    private NavMeshAgent agent;
+    internal GameObject ball;
 
 
-    void Update()
+    private void Start()
     {
-        if (moving)
-            walk();
+        agent = GetComponent<NavMeshAgent>();
     }
 
-    public void playerWalkTo(Vector3 to)
+    private void Update()
     {
-        destination = to;
-        moving = true;
+        if (agent.remainingDistance == 0)
+        {
+            var targetPostition = new Vector3(ball.transform.position.x, transform.position.y, ball.transform.position.z);
+            transform.LookAt(targetPostition);
+        }
     }
 
-    private void walk()
+    public void moveTo(float speed, Vector3 to)
     {
-        var step = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, destination, step);
-
-        if (Vector3.Distance(transform.position, destination) < 0.001f)
-            moving = false;
+        agent.speed = speed;
+        agent.destination = to;
     }
 
 
