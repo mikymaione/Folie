@@ -12,11 +12,9 @@ using namespace System;
 
 namespace Folie
 {
-	ref class GB  abstract sealed
+	public ref class GB abstract sealed
 	{
-
 	public:
-
 		enum class eArea
 		{
 			a4O, a4, a3, a2, a2E,
@@ -30,7 +28,14 @@ namespace Folie
 			p5, p6, p1
 		};
 
+		enum class eRole
+		{
+			c1, p1, b1,
+			c2, p2, b2
+		};
 
+
+	public:
 		static eArea getAreaFromPosition(ePosition current);
 		static ePosition getNextRotationPosition(ePosition current);
 		static ePosition selectRandomPosition(Random ^rnd);

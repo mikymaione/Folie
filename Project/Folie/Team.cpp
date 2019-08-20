@@ -21,3 +21,10 @@ Folie::Player ^Folie::Team::getPlayerAtPosition(GB::ePosition position)
 		if (players[i]->currentPosition == position)
 			return players[i];
 }
+
+Folie::Player ^Folie::Team::getPlayerWithRole(GB::eRole role)
+{
+	for (UInt16 i = 0; i < 6; i++)
+		if (players[i]->role == role)
+			return players[i];
+}

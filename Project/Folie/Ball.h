@@ -12,16 +12,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 namespace Folie
 {
-	ref class Ball
+	public ref class Ball
 	{
-
 	public:
 		float pos_x, pos_y, pos_z;
 		float rot_x, rot_y, rot_z;
 
+
+	public:
 		Ball();
-		
-		void moveTo(GB::ePosition);		
+		void moveTo(GB::ePosition);
+
 
 	};
 }

@@ -15,25 +15,26 @@ using namespace System;
 
 namespace Folie
 {
-	ref class Player
+	public ref class Player
 	{
-
 	public:
 		String ^name;
 		GB::ePosition startingPosition, currentPosition;
 		GB::eArea currentArea;
+		GB::eRole role;
 
-		double pos_x, pos_y, pos_z;
-		double rot_x, rot_y, rot_z;
+		float pos_x, pos_y, pos_z;
+		float rot_x, rot_y, rot_z;
 
-		Player(String ^name_, GB::ePosition startingPosition_);
 
-		void moveToNextPosition();
+	public:
+		Player(String ^name_, GB::ePosition startingPosition_, GB::eRole role_);
 
+		void moveToNextPosition();		
 		void pass(Ball ^ball);
 		void serve(Random ^rnd, Ball ^ball);
 		void hit(Random ^rnd, Ball ^ball);
-		void lookAtTheBall(Ball ^ball);
+		void lookAtTheBall(Ball ^ball);		
 
 	};
 }
