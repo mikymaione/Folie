@@ -6,6 +6,8 @@
 # Prerequisites
 *.d
 
+Project/Volleyball/Temp
+
 # Compiled Object files
 *.slo
 *.lo
