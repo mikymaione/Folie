@@ -21,6 +21,8 @@ namespace Folie
 		event shootHandler ^shootAt;
 
 	public:
+
+		void attachToHand(float pos_x_, float pos_y_, float pos_z_);
 		void moveTo(Random ^rnd, GB::eCampo campo, GB::ePosition position);
 
 	};

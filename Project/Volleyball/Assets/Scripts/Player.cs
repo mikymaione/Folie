@@ -13,11 +13,27 @@ public class Player : MonoBehaviour
 {
 
     private NavMeshAgent agent;
-    internal GameObject ball;
+    private GameObject mano;
+    private GameObject ball;
+    private Folie.Player player;
+
+
+    public void init(GameObject ball, Folie.Player player)
+    {
+        this.ball = ball;
+        this.player = player;
+        this.player.moveAt += player_moveAt;
+    }
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        mano = GameObject.FindGameObjectWithTag("Mano");        
+    }
+
+    private void player_moveAt(float pos_x, float pos_z)
+    {
+        agent.destination = new Vector3(pos_x, 0, pos_z);
     }
 
     private void Update()
@@ -29,15 +45,6 @@ public class Player : MonoBehaviour
                     var targetPostition = new Vector3(ball.transform.position.x, transform.position.y, ball.transform.position.z);
                     transform.LookAt(targetPostition);
                 }
-    }
-
-    public void moveTo(float speed, Vector3 to)
-    {
-        if (agent != null)
-        {
-            agent.speed = speed;
-            agent.destination = to;
-        }
     }
 
 

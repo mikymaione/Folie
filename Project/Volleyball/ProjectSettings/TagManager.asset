@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ball
   - Court
+  - Mano
   layers:
   - Default
   - TransparentFX

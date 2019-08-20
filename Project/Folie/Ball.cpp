@@ -9,6 +9,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "stdafx.h"
 #include "Ball.h"
 
+void Folie::Ball::attachToHand(float pos_x_, float pos_y_, float pos_z_)
+{
+	pos_x = pos_x_;
+	pos_y = pos_y_;
+	pos_z = pos_z_;
+}
+
 void Folie::Ball::moveTo(Random ^rnd, GB::eCampo campo, GB::ePosition position)
 {
 	auto c = GB::getCoordinatesFromPosition(campo, position);

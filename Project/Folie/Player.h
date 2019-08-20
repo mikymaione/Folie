@@ -18,12 +18,16 @@ namespace Folie
 	public ref class Player
 	{
 	public:
+		delegate void moveHandler(float pos_x, float pos_z);
+		event moveHandler ^moveAt;
+
 		String ^name;
 		GB::ePosition startingPosition, currentPosition;
 		GB::eArea currentArea;
 		GB::eRole role;
 		GB::eCampo campo;
-
+		
+		float hand_pos_x, hand_pos_y, hand_pos_z;
 		float pos_x, pos_y, pos_z;
 		float rot_x, rot_y, rot_z;
 

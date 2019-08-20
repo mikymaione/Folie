@@ -27,8 +27,7 @@ void Folie::Player::move()
 {
 	auto xy = GB::getCoordinatesFromArea(campo, currentArea);
 
-	pos_x = xy.X;
-	pos_z = xy.Y;
+	moveAt(xy.X, xy.Y);
 }
 
 void Folie::Player::moveToNextPosition()
