@@ -15,7 +15,6 @@ public class Player : MonoBehaviour
     private NavMeshAgent agent;
     internal GameObject ball;
 
-
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -23,17 +22,22 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (agent.remainingDistance == 0)
-        {
-            var targetPostition = new Vector3(ball.transform.position.x, transform.position.y, ball.transform.position.z);
-            transform.LookAt(targetPostition);
-        }
+        if (agent != null)
+            if (ball != null)
+                if (agent.remainingDistance == 0)
+                {
+                    var targetPostition = new Vector3(ball.transform.position.x, transform.position.y, ball.transform.position.z);
+                    transform.LookAt(targetPostition);
+                }
     }
 
     public void moveTo(float speed, Vector3 to)
     {
-        agent.speed = speed;
-        agent.destination = to;
+        if (agent != null)
+        {
+            agent.speed = speed;
+            agent.destination = to;
+        }
     }
 
 

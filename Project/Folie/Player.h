@@ -30,9 +30,6 @@ namespace Folie
 	public:
 		Player(String ^name_, GB::eCampo campo_, GB::ePosition startingPosition_, GB::eRole role_);
 
-		void setPos(float x, float y, float z);
-		void setPos(float x, float z);
-
 		void move();
 		void moveToNextPosition();
 		void pass(Random ^rnd, Ball ^ball);

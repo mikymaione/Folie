@@ -23,24 +23,12 @@ Folie::Player::Player(String ^name_, GB::eCampo campo_, GB::ePosition startingPo
 	move();
 }
 
-void Folie::Player::setPos(float x, float y, float z)
-{
-	pos_x = x;
-	pos_y = y;
-	pos_z = z;
-}
-
-void Folie::Player::setPos(float x, float z)
-{
-	setPos(x, pos_y, z);
-}
-
 void Folie::Player::move()
 {
 	auto xy = GB::getCoordinatesFromArea(campo, currentArea);
 
 	pos_x = xy.X;
-	pos_y = xy.Y;
+	pos_z = xy.Y;
 }
 
 void Folie::Player::moveToNextPosition()
