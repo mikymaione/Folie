@@ -11,10 +11,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 Folie::Teams::Gruppo1::Gruppo1() : Team("Gruppo 1", gcnew array<Player ^>(6))
 {
-	players[0] = gcnew Player("Piero", GB::ePosition::p4);
-	players[1] = gcnew Player("Carla", GB::ePosition::p3);
-	players[2] = gcnew Player("Filippo", GB::ePosition::p2);
-	players[3] = gcnew Player("Margherita", GB::ePosition::p5);
-	players[4] = gcnew Player("Alessandro", GB::ePosition::p6);
-	players[5] = gcnew Player("Dayana", GB::ePosition::p1);
+	auto x = -1;
+	players[x += 1] = gcnew Player("Squilla", GB::ePosition::p4);
+	players[x += 1] = gcnew Player("Margherita", GB::ePosition::p3);
+	players[x += 1] = gcnew Player("Filippo", GB::ePosition::p2);
+	players[x += 1] = gcnew Player("Alessandro", GB::ePosition::p5);
+	players[x += 1] = gcnew Player("Carla", GB::ePosition::p6);
+	players[x += 1] = gcnew Player("Davide", GB::ePosition::p1);
 }

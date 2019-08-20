@@ -11,10 +11,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 Folie::Teams::BawiTim::BawiTim() : Team("BawiTim", gcnew array<Player ^>(6))
 {
-	players[0] = gcnew Player("Michele", GB::ePosition::p4);
-	players[1] = gcnew Player("Laura", GB::ePosition::p3);
-	players[2] = gcnew Player("Federico", GB::ePosition::p2);
-	players[3] = gcnew Player("Lara", GB::ePosition::p5);
-	players[4] = gcnew Player("Lorenzo", GB::ePosition::p6);
-	players[5] = gcnew Player("Martina", GB::ePosition::p1);
+	auto x = -1;
+	players[x += 1] = gcnew Player("Michele", GB::ePosition::p4);
+	players[x += 1] = gcnew Player("Laura", GB::ePosition::p3);
+	players[x += 1] = gcnew Player("Piero", GB::ePosition::p2);
+	players[x += 1] = gcnew Player("Federico", GB::ePosition::p5);
+	players[x += 1] = gcnew Player("Lara", GB::ePosition::p6);
+	players[x += 1] = gcnew Player("Lorenzo", GB::ePosition::p1);
 }
