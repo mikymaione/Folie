@@ -35,103 +35,12 @@ void Folie::Player::setPos(float x, float z)
 	setPos(x, pos_y, z);
 }
 
-void Folie::Player::moveCampoUp()
-{
-	switch (currentArea)
-	{
-	case Folie::GB::eArea::a4O:
-		break;
-	case Folie::GB::eArea::a4:
-		setPos(2, 8);
-		break;
-	case Folie::GB::eArea::a3:
-		setPos(5, 8);
-		break;
-	case Folie::GB::eArea::a2:
-		setPos(8, 8);
-		break;
-	case Folie::GB::eArea::a2E:
-		break;
-	case Folie::GB::eArea::a5O:
-		break;
-	case Folie::GB::eArea::a5:
-		setPos(2, 3);
-		break;
-	case Folie::GB::eArea::a6:
-		setPos(5, 3);
-		break;
-	case Folie::GB::eArea::a1:
-		setPos(8, 3);
-		break;
-	case Folie::GB::eArea::a1E:
-		break;
-	case Folie::GB::eArea::a5OS:
-		break;
-	case Folie::GB::eArea::a5S:
-		break;
-	case Folie::GB::eArea::a6S:
-		break;
-	case Folie::GB::eArea::a1S:
-		break;
-	case Folie::GB::eArea::a1ES:
-		break;
-	}
-}
-
-void Folie::Player::moveCampoDown()
-{
-	switch (currentArea)
-	{
-	case Folie::GB::eArea::a4O:
-		break;
-	case Folie::GB::eArea::a4:
-		setPos(8, 11);
-		break;
-	case Folie::GB::eArea::a3:
-		setPos(5, 11);
-		break;
-	case Folie::GB::eArea::a2:
-		setPos(2, 11);
-		break;
-	case Folie::GB::eArea::a2E:
-		break;
-	case Folie::GB::eArea::a5O:
-		break;
-	case Folie::GB::eArea::a5:
-		setPos(8, 16);
-		break;
-	case Folie::GB::eArea::a6:
-		setPos(5, 16);
-		break;
-	case Folie::GB::eArea::a1:
-		setPos(2, 16);
-		break;
-	case Folie::GB::eArea::a1E:
-		break;
-	case Folie::GB::eArea::a5OS:
-		break;
-	case Folie::GB::eArea::a5S:
-		break;
-	case Folie::GB::eArea::a6S:
-		break;
-	case Folie::GB::eArea::a1S:
-		break;
-	case Folie::GB::eArea::a1ES:
-		break;
-	}
-}
-
 void Folie::Player::move()
 {
-	switch (campo)
-	{
-	case Folie::GB::eCampo::up:
-		moveCampoUp();
-		break;
-	case Folie::GB::eCampo::down:
-		moveCampoDown();
-		break;
-	}
+	auto xy = GB::getCoordinatesFromArea(campo, currentArea);
+
+	pos_x = xy.X;
+	pos_y = xy.Y;
 }
 
 void Folie::Player::moveToNextPosition()
@@ -141,12 +50,12 @@ void Folie::Player::moveToNextPosition()
 	move();
 }
 
-void Folie::Player::pass(Ball ^ball)
+void Folie::Player::pass(Random ^rnd, Ball ^ball)
 {
 	auto distanceToTheBall = GB::distanceBetweenTwoPoints3D(ball->pos_x, ball->pos_y, ball->pos_z, pos_x, pos_y, pos_z);
 
 	if (distanceToTheBall < 1)
-		ball->moveTo(GB::ePosition::p3);
+		ball->moveTo(rnd, campo, GB::ePosition::p3);
 }
 
 void Folie::Player::serve(Random ^rnd, Ball ^ball)
@@ -160,10 +69,10 @@ void Folie::Player::hit(Random ^rnd, Ball ^ball)
 {
 	auto distanceToTheBall = GB::distanceBetweenTwoPoints3D(ball->pos_x, ball->pos_y, ball->pos_z, pos_x, pos_y, pos_z);
 
-	if (distanceToTheBall < 1)
+	if (distanceToTheBall < 0.01)
 	{
 		auto target = GB::selectRandomPosition(rnd);
-		ball->moveTo(target);
+		ball->moveTo(rnd, campo, target);
 	}
 }
 

@@ -10,6 +10,101 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "GB.h"
 
 
+Folie::GB::eCampo Folie::GB::oppositeField(eCampo campo)
+{
+	switch (campo)
+	{
+	case Folie::GB::eCampo::up:
+		return GB::eCampo::down;
+	case Folie::GB::eCampo::down:
+		return GB::eCampo::up;
+	}
+}
+
+Point Folie::GB::getCoordinatesFromPosition(eCampo campo, ePosition position)
+{
+	auto area = getAreaFromPosition(position);
+
+	return getCoordinatesFromArea(campo, area);
+}
+
+Point Folie::GB::getCoordinatesFromArea(eCampo campo, eArea area)
+{
+	switch (campo)
+	{
+	case Folie::GB::eCampo::up:
+		switch (area)
+		{
+		case Folie::GB::eArea::a4O:
+			return Point(0, 0);
+		case Folie::GB::eArea::a4:
+			return Point(2, 8);
+		case Folie::GB::eArea::a3:
+			return Point(5, 8);
+		case Folie::GB::eArea::a2:
+			return Point(8, 8);
+		case Folie::GB::eArea::a2E:
+			return Point(0, 0);
+		case Folie::GB::eArea::a5O:
+			return Point(0, 0);
+		case Folie::GB::eArea::a5:
+			return Point(2, 3);
+		case Folie::GB::eArea::a6:
+			return Point(5, 3);
+		case Folie::GB::eArea::a1:
+			return Point(8, 3);
+		case Folie::GB::eArea::a1E:
+			return Point(0, 0);
+		case Folie::GB::eArea::a5OS:
+			return Point(0, 0);
+		case Folie::GB::eArea::a5S:
+			return Point(0, 0);
+		case Folie::GB::eArea::a6S:
+			return Point(0, 0);
+		case Folie::GB::eArea::a1S:
+			return Point(0, 0);
+		case Folie::GB::eArea::a1ES:
+			return Point(0, 0);
+		}
+		break;
+	case Folie::GB::eCampo::down:
+		switch (area)
+		{
+		case Folie::GB::eArea::a4O:
+			return Point(0, 0);
+		case Folie::GB::eArea::a4:
+			return Point(8, 11);
+		case Folie::GB::eArea::a3:
+			return Point(5, 11);
+		case Folie::GB::eArea::a2:
+			return Point(2, 11);
+		case Folie::GB::eArea::a2E:
+			return Point(0, 0);
+		case Folie::GB::eArea::a5O:
+			return Point(0, 0);
+		case Folie::GB::eArea::a5:
+			return Point(8, 16);
+		case Folie::GB::eArea::a6:
+			return Point(5, 16);
+		case Folie::GB::eArea::a1:
+			return Point(2, 16);
+		case Folie::GB::eArea::a1E:
+			return Point(0, 0);
+		case Folie::GB::eArea::a5OS:
+			return Point(0, 0);
+		case Folie::GB::eArea::a5S:
+			return Point(0, 0);
+		case Folie::GB::eArea::a6S:
+			return Point(0, 0);
+		case Folie::GB::eArea::a1S:
+			return Point(0, 0);
+		case Folie::GB::eArea::a1ES:
+			return Point(0, 0);
+		}
+		break;
+	}
+}
+
 Folie::GB::eArea Folie::GB::getAreaFromPosition(ePosition current)
 {
 	switch (current)

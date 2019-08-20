@@ -16,13 +16,12 @@ namespace Folie
 	{
 	public:
 		float pos_x, pos_y, pos_z;
-		float rot_x, rot_y, rot_z;
 
+		delegate void shootHandler(float pos_x, float pos_z);
+		event shootHandler ^shootAt;
 
 	public:
-		Ball();
-		void moveTo(GB::ePosition);
-
+		void moveTo(Random ^rnd, GB::eCampo campo, GB::ePosition position);
 
 	};
 }

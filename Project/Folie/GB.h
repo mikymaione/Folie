@@ -9,6 +9,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #pragma once
 
 using namespace System;
+using namespace System::Drawing;
 
 namespace Folie
 {
@@ -41,6 +42,11 @@ namespace Folie
 
 
 	public:
+		static eCampo oppositeField(eCampo campo);
+
+		static Point getCoordinatesFromPosition(eCampo campo, ePosition position);
+		static Point getCoordinatesFromArea(eCampo campo, eArea area);
+
 		static eArea getAreaFromPosition(ePosition current);
 		static ePosition getNextRotationPosition(ePosition current);
 		static ePosition selectRandomPosition(Random ^rnd);

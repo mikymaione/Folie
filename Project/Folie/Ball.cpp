@@ -9,12 +9,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "stdafx.h"
 #include "Ball.h"
 
-Folie::Ball::Ball()
+void Folie::Ball::moveTo(Random ^rnd, GB::eCampo campo, GB::ePosition position)
 {
-	//
-}
+	auto c = GB::getCoordinatesFromPosition(campo, position);
 
-void Folie::Ball::moveTo(GB::ePosition)
-{
-	throw gcnew System::NotImplementedException();
+	shootAt(c.X, c.Y);
 }

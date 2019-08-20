@@ -27,10 +27,6 @@ namespace Folie
 		float pos_x, pos_y, pos_z;
 		float rot_x, rot_y, rot_z;
 
-	private:
-		void moveCampoUp();
-		void moveCampoDown();
-
 	public:
 		Player(String ^name_, GB::eCampo campo_, GB::ePosition startingPosition_, GB::eRole role_);
 
@@ -39,7 +35,7 @@ namespace Folie
 
 		void move();
 		void moveToNextPosition();
-		void pass(Ball ^ball);
+		void pass(Random ^rnd, Ball ^ball);
 		void serve(Random ^rnd, Ball ^ball);
 		void hit(Random ^rnd, Ball ^ball);
 		void lookAtTheBall(Ball ^ball);

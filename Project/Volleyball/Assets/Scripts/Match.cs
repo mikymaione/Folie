@@ -50,13 +50,17 @@ public class Match : MonoBehaviour
             { teamB.getPlayerWithRole(Folie.GB.eRole.c2), TeamB_C2}
         };
 
+        var ballClass = ball.GetComponent<Ball>();
+        ballClass.init(game.ball);
+
         updatePositionOfTeams(4);
-        //game.start();
+
+        game.start();
     }
 
     private void Update()
     {
-        //updatePositionOfTeams(8);
+        updatePositionOfTeams(8);
     }
 
     private void updatePositionOfTeams(float speed)
