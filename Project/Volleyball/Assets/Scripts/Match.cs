@@ -71,13 +71,8 @@ public class Match : MonoBehaviour
 
     private void updatePositionOfPlayer(GameObject obj, Folie.Player player)
     {
-        var pos = obj.transform.position;
-
-        pos.x = player.pos_x;
-        pos.y = player.pos_y;
-        pos.z = player.pos_z;
-
-        obj.transform.position = pos;
+        var p = obj.GetComponent<Player>();
+        p.playerWalkTo(new Vector3(player.pos_x, player.pos_y, player.pos_z));
     }
 
 
