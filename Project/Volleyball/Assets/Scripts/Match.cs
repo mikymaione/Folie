@@ -11,12 +11,12 @@ using UnityEngine;
 public class Match : MonoBehaviour
 {
 
-    private Folie.Game game = new Folie.Game(25);
+    //private Folie.Game game = new Folie.Game(25);
 
 
     void Start()
     {
-        game.start();    
+        //game.start();    
     }
 
     void Update()
