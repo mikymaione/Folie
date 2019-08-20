@@ -54,16 +54,30 @@ public class Match : MonoBehaviour
 
     void Update()
     {
-        updatePositionOfPlayers();
+        updatePositionOfTeams();
     }
 
-    private void updatePositionOfPlayers()
+    private void updatePositionOfTeams()
     {
-        foreach (var p in playersTeamA)
-            p.Value.transform.position.Set(p.Key.pos_x, p.Key.pos_y, p.Key.pos_z);
+        updatePositionOfPlayers(playersTeamA);
+        updatePositionOfPlayers(playersTeamB);
+    }
 
-        foreach (var p in playersTeamB)
-            p.Value.transform.position.Set(p.Key.pos_x, p.Key.pos_y, p.Key.pos_z);
+    private void updatePositionOfPlayers(Dictionary<Folie.Player, GameObject> team)
+    {
+        foreach (var p in team)
+            updatePositionOfPlayer(p.Value, p.Key);
+    }
+
+    private void updatePositionOfPlayer(GameObject obj, Folie.Player player)
+    {
+        var pos = obj.transform.position;
+
+        pos.x = player.pos_x;
+        pos.y = player.pos_y;
+        pos.z = player.pos_z;
+
+        obj.transform.position = pos;
     }
 
 
