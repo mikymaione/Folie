@@ -20,9 +20,12 @@ namespace Folie
 	{
 		ref class BawiTim :Team
 		{
+		public:
+			GB::eCampo campo;
+
 
 		public:
-			BawiTim();
+			BawiTim(GB::eCampo campo_);
 
 
 		};

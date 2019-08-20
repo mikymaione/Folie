@@ -20,9 +20,11 @@ namespace Folie
 	{
 		ref class Gruppo1 :Team
 		{
+		public:
+			GB::eCampo campo;
 
 		public:
-			Gruppo1();
+			Gruppo1(GB::eCampo campo_);
 
 
 		};

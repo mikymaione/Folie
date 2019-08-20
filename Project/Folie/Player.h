@@ -22,19 +22,27 @@ namespace Folie
 		GB::ePosition startingPosition, currentPosition;
 		GB::eArea currentArea;
 		GB::eRole role;
+		GB::eCampo campo;
 
 		float pos_x, pos_y, pos_z;
 		float rot_x, rot_y, rot_z;
 
+	private:
+		void moveCampoUp();
+		void moveCampoDown();
 
 	public:
-		Player(String ^name_, GB::ePosition startingPosition_, GB::eRole role_);
+		Player(String ^name_, GB::eCampo campo_, GB::ePosition startingPosition_, GB::eRole role_);
 
-		void moveToNextPosition();		
+		void setPos(float x, float y, float z);
+		void setPos(float x, float z);
+
+		void move();
+		void moveToNextPosition();
 		void pass(Ball ^ball);
 		void serve(Random ^rnd, Ball ^ball);
 		void hit(Random ^rnd, Ball ^ball);
-		void lookAtTheBall(Ball ^ball);		
+		void lookAtTheBall(Ball ^ball);
 
 	};
 }

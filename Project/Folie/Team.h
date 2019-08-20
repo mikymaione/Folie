@@ -19,10 +19,10 @@ namespace Folie
 	public:
 		String ^name;
 		array<Player ^> ^players;
-
+		GB::eCampo campo;
 
 	public:
-		Team(String ^name_, array<Player ^> ^players_);
+		Team(String ^name_, GB::eCampo campo_, array<Player ^> ^players_);
 
 		Player ^getPlayerAtPosition(GB::ePosition position);
 		Player ^getPlayerWithRole(GB::eRole role);

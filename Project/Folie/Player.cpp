@@ -10,20 +10,135 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "stdafx.h"
 #include "Player.h"
 
-Folie::Player::Player(String ^name_, GB::ePosition startingPosition_, GB::eRole role_)
+Folie::Player::Player(String ^name_, GB::eCampo campo_, GB::ePosition startingPosition_, GB::eRole role_)
 {
 	name = name_;
 	role = role_;
+	campo = campo_;
 
 	startingPosition = startingPosition_;
 	currentPosition = startingPosition_;
 	currentArea = Folie::GB::getAreaFromPosition(startingPosition_);
+
+	move();
+}
+
+void Folie::Player::setPos(float x, float y, float z)
+{
+	pos_x = x;
+	pos_y = y;
+	pos_z = z;
+}
+
+void Folie::Player::setPos(float x, float z)
+{
+	setPos(x, pos_y, z);
+}
+
+void Folie::Player::moveCampoUp()
+{
+	switch (currentArea)
+	{
+	case Folie::GB::eArea::a4O:
+		break;
+	case Folie::GB::eArea::a4:
+		setPos(2, 8);
+		break;
+	case Folie::GB::eArea::a3:
+		setPos(5, 8);
+		break;
+	case Folie::GB::eArea::a2:
+		setPos(8, 8);
+		break;
+	case Folie::GB::eArea::a2E:
+		break;
+	case Folie::GB::eArea::a5O:
+		break;
+	case Folie::GB::eArea::a5:
+		setPos(2, 3);
+		break;
+	case Folie::GB::eArea::a6:
+		setPos(5, 3);
+		break;
+	case Folie::GB::eArea::a1:
+		setPos(8, 3);
+		break;
+	case Folie::GB::eArea::a1E:
+		break;
+	case Folie::GB::eArea::a5OS:
+		break;
+	case Folie::GB::eArea::a5S:
+		break;
+	case Folie::GB::eArea::a6S:
+		break;
+	case Folie::GB::eArea::a1S:
+		break;
+	case Folie::GB::eArea::a1ES:
+		break;
+	}
+}
+
+void Folie::Player::moveCampoDown()
+{
+	switch (currentArea)
+	{
+	case Folie::GB::eArea::a4O:
+		break;
+	case Folie::GB::eArea::a4:
+		setPos(8, 11);
+		break;
+	case Folie::GB::eArea::a3:
+		setPos(5, 11);
+		break;
+	case Folie::GB::eArea::a2:
+		setPos(2, 11);
+		break;
+	case Folie::GB::eArea::a2E:
+		break;
+	case Folie::GB::eArea::a5O:
+		break;
+	case Folie::GB::eArea::a5:
+		setPos(8, 16);
+		break;
+	case Folie::GB::eArea::a6:
+		setPos(5, 16);
+		break;
+	case Folie::GB::eArea::a1:
+		setPos(2, 16);
+		break;
+	case Folie::GB::eArea::a1E:
+		break;
+	case Folie::GB::eArea::a5OS:
+		break;
+	case Folie::GB::eArea::a5S:
+		break;
+	case Folie::GB::eArea::a6S:
+		break;
+	case Folie::GB::eArea::a1S:
+		break;
+	case Folie::GB::eArea::a1ES:
+		break;
+	}
+}
+
+void Folie::Player::move()
+{
+	switch (campo)
+	{
+	case Folie::GB::eCampo::up:
+		moveCampoUp();
+		break;
+	case Folie::GB::eCampo::down:
+		moveCampoDown();
+		break;
+	}
 }
 
 void Folie::Player::moveToNextPosition()
 {
 	currentPosition = GB::getNextRotationPosition(currentPosition);
 	currentArea = GB::getAreaFromPosition(currentPosition);
+	move();
 }
 
 void Folie::Player::pass(Ball ^ball)
@@ -37,6 +152,7 @@ void Folie::Player::pass(Ball ^ball)
 void Folie::Player::serve(Random ^rnd, Ball ^ball)
 {
 	currentArea = GB::eArea::a1S;
+	move();
 	hit(rnd, ball);
 }
 

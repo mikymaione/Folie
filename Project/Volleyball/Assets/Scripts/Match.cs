@@ -36,7 +36,7 @@ public class Match : MonoBehaviour
             { teamA.getPlayerWithRole(Folie.GB.eRole.b1), TeamA_B1},
             { teamA.getPlayerWithRole(Folie.GB.eRole.b2), TeamA_B2},
             { teamA.getPlayerWithRole(Folie.GB.eRole.p2), TeamA_P2},
-            { teamA.getPlayerWithRole(Folie.GB.eRole.c2), TeamA_C2}            
+            { teamA.getPlayerWithRole(Folie.GB.eRole.c2), TeamA_C2}
         };
 
         playersTeamB = new Dictionary<Folie.Player, GameObject>
@@ -60,98 +60,10 @@ public class Match : MonoBehaviour
     private void updatePositionOfPlayers()
     {
         foreach (var p in playersTeamA)
-            updatePositionOfPlayerTeamA(p.Value, p.Key.currentArea);
+            p.Value.transform.position.Set(p.Key.pos_x, p.Key.pos_y, p.Key.pos_z);
 
         foreach (var p in playersTeamB)
-            updatePositionOfPlayerTeamB(p.Value, p.Key.currentArea);
-    }
-
-    private void updatePositionOfPlayerTeamA(GameObject player, Folie.GB.eArea area)
-    {
-        switch (area)
-        {
-            case Folie.GB.eArea.a4:
-                player.transform.position = new Vector3(2, 0, 8);
-                break;
-            case Folie.GB.eArea.a3:
-                player.transform.position = new Vector3(5, 0, 8);
-                break;
-            case Folie.GB.eArea.a2:
-                player.transform.position = new Vector3(8, 0, 8);
-                break;
-            case Folie.GB.eArea.a5:
-                player.transform.position = new Vector3(2, 0, 3);
-                break;
-            case Folie.GB.eArea.a6:
-                player.transform.position = new Vector3(5, 0, 3);
-                break;
-            case Folie.GB.eArea.a1:
-                player.transform.position = new Vector3(8, 0, 3);
-                break;
-
-            case Folie.GB.eArea.a4O:
-                break;
-            case Folie.GB.eArea.a2E:
-                break;
-            case Folie.GB.eArea.a5O:
-                break;
-            case Folie.GB.eArea.a1E:
-                break;
-            case Folie.GB.eArea.a5OS:
-                break;
-            case Folie.GB.eArea.a5S:
-                break;
-            case Folie.GB.eArea.a6S:
-                break;
-            case Folie.GB.eArea.a1S:
-                break;
-            case Folie.GB.eArea.a1ES:
-                break;
-        }
-    }
-
-    private void updatePositionOfPlayerTeamB(GameObject player, Folie.GB.eArea area)
-    {
-        switch (area)
-        {
-            case Folie.GB.eArea.a4:
-                player.transform.position = new Vector3(8, 0, 11);
-                break;
-            case Folie.GB.eArea.a3:
-                player.transform.position = new Vector3(5, 0, 11);
-                break;
-            case Folie.GB.eArea.a2:
-                player.transform.position = new Vector3(2, 0, 11);
-                break;
-            case Folie.GB.eArea.a5:
-                player.transform.position = new Vector3(8, 0, 16);
-                break;
-            case Folie.GB.eArea.a6:
-                player.transform.position = new Vector3(5, 0, 16);
-                break;
-            case Folie.GB.eArea.a1:
-                player.transform.position = new Vector3(2, 0, 16);
-                break;
-
-            case Folie.GB.eArea.a4O:
-                break;
-            case Folie.GB.eArea.a2E:
-                break;
-            case Folie.GB.eArea.a5O:
-                break;
-            case Folie.GB.eArea.a1E:
-                break;
-            case Folie.GB.eArea.a5OS:
-                break;
-            case Folie.GB.eArea.a5S:
-                break;
-            case Folie.GB.eArea.a6S:
-                break;
-            case Folie.GB.eArea.a1S:
-                break;
-            case Folie.GB.eArea.a1ES:
-                break;
-        }
+            p.Value.transform.position.Set(p.Key.pos_x, p.Key.pos_y, p.Key.pos_z);
     }
 
 

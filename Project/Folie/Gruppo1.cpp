@@ -9,13 +9,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "stdafx.h"
 #include "Gruppo1.h"
 
-Folie::Teams::Gruppo1::Gruppo1() : Team("Gruppo 1", gcnew array<Player ^>(6))
+Folie::Teams::Gruppo1::Gruppo1(GB::eCampo campo_) :Team("Gruppo 1", campo_, gcnew array<Player ^>(6))
 {
+	campo = campo_;
+
 	auto x = -1;
-	players[x += 1] = gcnew Player("Squilla", GB::ePosition::p4, GB::eRole::b1);
-	players[x += 1] = gcnew Player("Margherita", GB::ePosition::p3, GB::eRole::p1);
-	players[x += 1] = gcnew Player("Filippo", GB::ePosition::p2, GB::eRole::c1);
-	players[x += 1] = gcnew Player("Alessandro", GB::ePosition::p5, GB::eRole::c2);
-	players[x += 1] = gcnew Player("Carla", GB::ePosition::p6, GB::eRole::p2);
-	players[x += 1] = gcnew Player("Davide", GB::ePosition::p1, GB::eRole::b2);
+	players[x += 1] = gcnew Player("Squilla", campo_, GB::ePosition::p4, GB::eRole::b1);
+	players[x += 1] = gcnew Player("Margherita", campo_, GB::ePosition::p3, GB::eRole::p1);
+	players[x += 1] = gcnew Player("Filippo", campo_, GB::ePosition::p2, GB::eRole::c1);
+	players[x += 1] = gcnew Player("Alessandro", campo_, GB::ePosition::p5, GB::eRole::c2);
+	players[x += 1] = gcnew Player("Carla", campo_, GB::ePosition::p6, GB::eRole::p2);
+	players[x += 1] = gcnew Player("Davide", campo_, GB::ePosition::p1, GB::eRole::b2);
 }

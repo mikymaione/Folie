@@ -15,6 +15,11 @@ namespace Folie
 	public ref class GB abstract sealed
 	{
 	public:
+		enum class eCampo
+		{
+			up, down
+		};
+
 		enum class eArea
 		{
 			a4O, a4, a3, a2, a2E,

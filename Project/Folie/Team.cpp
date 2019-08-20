@@ -9,9 +9,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "stdafx.h"
 #include "Team.h"
 
-Folie::Team::Team(String ^name_, array<Player ^> ^players_)
+Folie::Team::Team(String ^name_, GB::eCampo campo_, array<Player ^> ^players_)
 {
 	name = name_;
+	campo = campo_;
 	players = players_;
 }
 
