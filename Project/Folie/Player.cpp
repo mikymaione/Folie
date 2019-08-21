@@ -15,26 +15,31 @@ Folie::Player::Player(String ^name_, GB::eCampo campo_, GB::ePosition startingPo
 	name = name_;
 	role = role_;
 	campo = campo_;
-
 	startingPosition = startingPosition_;
-	currentPosition = startingPosition_;
-	currentArea = Folie::GB::getAreaFromPosition(startingPosition_);
-
-	move();
 }
 
 void Folie::Player::move()
 {
 	auto xy = GB::getCoordinatesFromArea(campo, currentArea);
+	event_moveAt(xy.X, xy.Y);
+}
 
-	moveAt(xy.X, xy.Y);
+void Folie::Player::moveToPosition(GB::ePosition position)
+{
+	currentPosition = position;
+	currentArea = GB::getAreaFromPosition(position);
+
+	move();
 }
 
 void Folie::Player::moveToNextPosition()
 {
-	currentPosition = GB::getNextRotationPosition(currentPosition);
-	currentArea = GB::getAreaFromPosition(currentPosition);
-	move();
+	moveToPosition(GB::getNextRotationPosition(currentPosition));
+}
+
+void Folie::Player::resetPosition()
+{
+	moveToPosition(startingPosition);
 }
 
 void Folie::Player::pass(Random ^rnd, Ball ^ball)
@@ -66,4 +71,5 @@ void Folie::Player::hit(Random ^rnd, Ball ^ball)
 void Folie::Player::lookAtTheBall(Ball ^ball)
 {
 	rot_y = GB::angleBetweenTwoPoints2D(ball->pos_x, ball->pos_z, pos_x, pos_z);
+	event_rotate(rot_y);
 }

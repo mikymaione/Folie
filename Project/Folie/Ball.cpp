@@ -20,5 +20,5 @@ void Folie::Ball::moveTo(Random ^rnd, GB::eCampo campo, GB::ePosition position)
 {
 	auto c = GB::getCoordinatesFromPosition(campo, position);
 
-	shootAt(c.X, c.Y);
+	event_shootAt(c.X, c.Y);
 }

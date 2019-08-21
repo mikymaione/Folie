@@ -29,3 +29,9 @@ Folie::Player ^Folie::Team::getPlayerWithRole(GB::eRole role)
 		if (players[i]->role == role)
 			return players[i];
 }
+
+void Folie::Team::resetPositionsOfPlayers()
+{
+	for (UInt16 i = 0; i < 6; i++)
+		players[i]->resetPosition();
+}

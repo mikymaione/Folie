@@ -27,5 +27,7 @@ namespace Folie
 		Player ^getPlayerAtPosition(GB::ePosition position);
 		Player ^getPlayerWithRole(GB::eRole role);
 
+		void resetPositionsOfPlayers();
+
 	};
 }

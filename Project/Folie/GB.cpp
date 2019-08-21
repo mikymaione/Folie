@@ -62,7 +62,7 @@ Point Folie::GB::getCoordinatesFromArea(eCampo campo, eArea area)
 		case Folie::GB::eArea::a6S:
 			return Point(0, 0);
 		case Folie::GB::eArea::a1S:
-			return Point(0, 0);
+			return Point(8, -1);
 		case Folie::GB::eArea::a1ES:
 			return Point(0, 0);
 		}
@@ -97,7 +97,7 @@ Point Folie::GB::getCoordinatesFromArea(eCampo campo, eArea area)
 		case Folie::GB::eArea::a6S:
 			return Point(0, 0);
 		case Folie::GB::eArea::a1S:
-			return Point(0, 0);
+			return Point(2, 20);
 		case Folie::GB::eArea::a1ES:
 			return Point(0, 0);
 		}

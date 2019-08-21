@@ -18,7 +18,7 @@ public class Ball : MonoBehaviour
     public void init(Folie.Ball ball)
     {
         this.ball = ball;
-        this.ball.shootAt += ball_shootAt;
+        this.ball.event_shootAt += ball_event_shootAt;
     }
 
     private void Start()
@@ -26,7 +26,7 @@ public class Ball : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
     }
 
-    private void ball_shootAt(float pos_x, float pos_z)
+    private void ball_event_shootAt(float pos_x, float pos_z)
     {
         //shootAt(new Vector3(pos_x, 0, pos_z));
     }

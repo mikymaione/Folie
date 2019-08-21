@@ -18,7 +18,7 @@ namespace Folie
 		float pos_x, pos_y, pos_z;
 
 		delegate void shootHandler(float pos_x, float pos_z);
-		event shootHandler ^shootAt;
+		event shootHandler ^event_shootAt;
 
 	public:
 

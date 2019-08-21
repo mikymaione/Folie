@@ -17,34 +17,38 @@ public class Player : MonoBehaviour
     private GameObject ball;
     private Folie.Player player;
 
+    internal bool initComplete = false;
 
-    public void init(GameObject ball, Folie.Player player)
-    {
-        this.ball = ball;
-        this.player = player;
-        this.player.moveAt += player_moveAt;
-    }
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        mano = GameObject.FindGameObjectWithTag("Mano");        
-    }
+        mano = GameObject.FindGameObjectWithTag("Mano");
 
-    private void player_moveAt(float pos_x, float pos_z)
-    {
-        agent.destination = new Vector3(pos_x, 0, pos_z);
+        initComplete = true;
     }
 
     private void Update()
     {
-        if (agent != null)
-            if (ball != null)
-                if (agent.remainingDistance == 0)
-                {
-                    var targetPostition = new Vector3(ball.transform.position.x, transform.position.y, ball.transform.position.z);
-                    transform.LookAt(targetPostition);
-                }
+        //
+    }
+
+    internal void init(GameObject ball, Folie.Player player)
+    {
+        this.ball = ball;
+        this.player = player;
+        this.player.event_moveAt += player_event_moveAt;
+        this.player.event_rotate += player_event_rotate;
+    }
+
+    private void player_event_rotate(float rot_y)
+    {
+        transform.Rotate(Vector3.up, rot_y, Space.Self);
+    }
+
+    private void player_event_moveAt(float pos_x, float pos_z)
+    {
+        agent.destination = new Vector3(pos_x, 0, pos_z);
     }
 
 
