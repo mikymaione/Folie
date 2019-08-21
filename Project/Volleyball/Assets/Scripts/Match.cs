@@ -62,7 +62,7 @@ public class Match : MonoBehaviour
             p.init(ball, pair.Key);
         });
 
-        StartCoroutine(GB.waiter(this, 2,
+        GB.waiterFor(this, 1,
             () =>
             {
                 var ok = true;
@@ -80,8 +80,9 @@ public class Match : MonoBehaviour
             () =>
             {
                 game.start();
+                GB.waiter(this, 4, () => game.serving());
             }
-        ));
+        );
     }
 
     private void game_event_gameFinished()

@@ -13,14 +13,24 @@ using UnityEngine;
 public static class GB
 {
 
-    public static IEnumerator waiter(MonoBehaviour this_, float seconds, Func<bool> evalutation, Action ok)
+    public static void waiter(MonoBehaviour this_, float seconds, Action ok)
+    {
+        this_.StartCoroutine(coroutine_waiterFor(this_, seconds, () => true, ok));
+    }
+
+    public static void waiterFor(MonoBehaviour this_, float seconds, Func<bool> evalutation, Action ok)
+    {
+        this_.StartCoroutine(coroutine_waiterFor(this_, seconds, evalutation, ok));
+    }
+
+    private static IEnumerator coroutine_waiterFor(MonoBehaviour this_, float seconds, Func<bool> evalutation, Action ok)
     {
         yield return new WaitForSeconds(seconds);
 
         if (evalutation())
             ok();
         else
-            this_.StartCoroutine(waiter(this_, seconds, evalutation, ok));
+            this_.StartCoroutine(coroutine_waiterFor(this_, seconds, evalutation, ok));
     }
 
 
