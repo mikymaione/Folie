@@ -52,9 +52,16 @@ void Folie::Player::pass(Random ^rnd, Ball ^ball)
 
 void Folie::Player::serve(Random ^rnd, Ball ^ball)
 {
+	event_moveAt(ball->pos_x, ball->pos_z);
+
+	ball->attachToHand(hand_pos_x, hand_pos_y, hand_pos_z);
+
 	currentArea = GB::eArea::a1S;
 	move();
+
 	hit(rnd, ball);
+
+	moveToPosition(currentPosition);
 }
 
 void Folie::Player::hit(Random ^rnd, Ball ^ball)
