@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
 
     private void player_event_moveAt(float pos_x, float pos_z)
     {
-        agent.destination = new Vector3(pos_x, 0, pos_z);
+        agent.destination = new Vector3(pos_x, 0, pos_z);        
     }
 
 
