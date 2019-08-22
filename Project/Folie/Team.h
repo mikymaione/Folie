@@ -33,10 +33,8 @@ namespace Folie
 
 		Player ^getPlayerAtPosition(GB::ePosition position);
 		Player ^getPlayerWithRole(GB::eRole role);
-			
-
-	internal:
-		void propagateEvent(GB::eEvent e, Object ^p1) override;
+				
+		void propagateEvent(GB::eEvent e) override;
 
 
 	};

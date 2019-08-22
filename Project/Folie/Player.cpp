@@ -17,79 +17,86 @@ Folie::Player::Player(String ^name_, GB::eCampo campo_, GB::ePosition startingPo
 	startingPosition = startingPosition_;
 }
 
-void Folie::Player::moveTo(float pos_x, float pos_z)
+void Folie::Player::moveTo(GB::eEvent e, float pos_x, float pos_z)
 {
-	event_moveAt(pos_x, pos_z);
+	event_moveAt(e, pos_x, pos_z);
 }
 
-void Folie::Player::move()
+void Folie::Player::move(GB::eEvent e)
 {
 	auto xy = GB::getCoordinatesFromArea(campo, currentArea);
-	moveTo(xy.X, xy.Y);
+	moveTo(e, xy.X, xy.Y);
 }
 
-void Folie::Player::moveToPosition(GB::ePosition position)
+void Folie::Player::moveToPosition(GB::eEvent e, GB::ePosition position)
 {
 	currentPosition = position;
 	currentArea = GB::getAreaFromPosition(position);
 
-	move();
+	move(e);
 }
 
-void Folie::Player::moveToNextPosition()
+void Folie::Player::moveToNextPosition(GB::eEvent e)
 {
-	moveToPosition(GB::getNextRotationPosition(currentPosition));
+	moveToPosition(e, GB::getNextRotationPosition(currentPosition));
 }
 
-void Folie::Player::pass(Random ^rnd, Ball ^ball)
+void Folie::Player::pass(Ball ^ball)
 {
 	auto distanceToTheBall = GB::distanceBetweenTwoPoints3D(ball->pos_x, ball->pos_y, ball->pos_z, pos_x, pos_y, pos_z);
 
 	if (distanceToTheBall < 1)
-		ball->moveTo(rnd, campo, GB::ePosition::p3);
+		ball->moveTo(campo, GB::ePosition::p3);
 }
 
-void Folie::Player::serve(Random ^rnd, Ball ^ball)
+void Folie::Player::serve(Ball ^ ball)
 {
-	moveTo(ball->pos_x, ball->pos_z);
-
-	ball->attachToHand();
-
-	currentArea = GB::eArea::a1S;
-	move();
-
-	hit(rnd, ball);
-
-	moveToPosition(currentPosition);
+	hit(ball);
+	moveToPosition(GB::eEvent::currentPosition, currentPosition);
 }
 
-void Folie::Player::hit(Random ^rnd, Ball ^ball)
+void Folie::Player::hit(Ball ^ball)
 {
 	auto distanceToTheBall = GB::distanceBetweenTwoPoints3D(ball->pos_x, ball->pos_y, ball->pos_z, pos_x, pos_y, pos_z);
 
 	if (distanceToTheBall < 0.01)
 	{
-		auto target = GB::selectRandomPosition(rnd);
-		ball->moveTo(rnd, campo, target);
+		auto target = GB::selectRandomPosition();
+		ball->moveTo(campo, target);
 	}
 }
 
-void Folie::Player::propagateEvent(GB::eEvent e, Object ^p1)
+void Folie::Player::propagateEvent(GB::eEvent e)
 {
+	auto _ball = (Ball ^)GB::ball;
+
 	switch (e)
 	{
 	case Folie::GB::eEvent::giocatoriPrenderePosizioniInCampo:
-		moveToPosition(startingPosition);
+		moveToPosition(GB::eEvent::giocatoriPrenderePosizioniInCampo_end, startingPosition);
 		break;
+
+	case Folie::GB::eEvent::giocatoriPrenderePosizioniInCampo_end:
+		event_bubbleUp(e);
+		break;
+
 	case Folie::GB::eEvent::lookAtTheBall:
-		event_LookAt(((Ball ^)p1)->pos_x, ((Ball ^)p1)->pos_z);
+		event_LookAt(_ball->pos_x, _ball->pos_z);
 		break;
-	case Folie::GB::eEvent::serving:
+
+	case Folie::GB::eEvent::takeTheBall:
+		if (currentPosition == GB::ePosition::p1)
+			moveTo(GB::eEvent::takeTheBall_end, _ball->pos_x, _ball->pos_z);
+		break;
+
+	case Folie::GB::eEvent::takeTheBall_end:
+		_ball->attachToHand(this);
+		currentArea = GB::eArea::a1S;
+		move(GB::eEvent::gotoServingPosition_end);
+		break;
+
+	case Folie::GB::eEvent::gotoServingPosition_end:
+		serve(_ball);
 		break;
 	}
-}
-
-void Folie::Player::destinationReached()
-{
-	event_bubbleUp(GB::eEvent::destinationReached);
 }

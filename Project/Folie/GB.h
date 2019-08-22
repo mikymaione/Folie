@@ -19,9 +19,17 @@ namespace Folie
 		enum class eEvent
 		{
 			giocatoriPrenderePosizioniInCampo,
-			serving,
-			destinationReached,
+			giocatoriPrenderePosizioniInCampo_end,
+
+			takeTheBall,
+			takeTheBall_end,
+
 			lookAtTheBall,
+
+			currentPosition,
+
+			gotoServingPosition,
+			gotoServingPosition_end,
 		};
 
 		enum class eCampo
@@ -48,8 +56,12 @@ namespace Folie
 			c2, p2, b2
 		};
 
+	internal:
+		static Object ^ball;
 
-	public:
+	internal:
+		static Random ^rnd;
+
 		static eCampo oppositeField(eCampo campo);
 
 		static Point getCoordinatesFromPosition(eCampo campo, ePosition position);
@@ -57,8 +69,8 @@ namespace Folie
 
 		static eArea getAreaFromPosition(ePosition current);
 		static ePosition getNextRotationPosition(ePosition current);
-		static ePosition selectRandomPosition(Random ^rnd);
-		
+		static ePosition selectRandomPosition();
+
 		static double distanceBetweenTwoPoints3D(double x1, double y1, double z1, double x2, double y2, double z2);
 
 	};

@@ -11,40 +11,58 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
 
+    private SphereCollider sphereCollider;
     private Rigidbody rigidBody;
     private Folie.Ball ball;
+
+    private GameObject attaccatoAllaMano;
 
 
     public void init(Folie.Ball ball)
     {
         this.ball = ball;
         this.ball.event_shootAt += ball_event_shootAt;
+        this.ball.event_attachToHand += ball_event_attachToHand;
+    }
+
+    private void ball_event_attachToHand(object player)
+    {
+        var p = (Folie.Player)player;
+
+        if (GB.playersTeamA.ContainsKey(p))
+            attaccatoAllaMano = GB.playersTeamA[p];
+        else if (GB.playersTeamB.ContainsKey(p))
+            attaccatoAllaMano = GB.playersTeamB[p];
     }
 
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
+        sphereCollider = GetComponent<SphereCollider>();
     }
 
     private void Update()
     {
         if (ball != null)
         {
+            if (attaccatoAllaMano != null)
+                transform.position = attaccatoAllaMano.transform.position;
+
             ball.pos_x = transform.position.x;
             ball.pos_y = transform.position.y;
             ball.pos_z = transform.position.z;
         }
     }
 
+
     private void ball_event_shootAt(float pos_x, float pos_z)
     {
-        //shootAt(new Vector3(pos_x, 0, pos_z));
+        shootAt(new Vector3(pos_x, 0, pos_z));
     }
 
     private void shootAt(Vector3 point)
     {
         var velocity = ballisticVelocity(point, 45);
-
         rigidBody.velocity = velocity;
     }
 

@@ -18,20 +18,20 @@ namespace Folie
 	public:
 		float pos_x, pos_y, pos_z;
 
-		delegate void attachToHandHandler();
+		delegate void attachToHandHandler(Object ^player);
 		event attachToHandHandler ^event_attachToHand;
 
 		delegate void shootHandler(float pos_x, float pos_z);
 		event shootHandler ^event_shootAt;
 
+	internal:
+		void attachToHand(Object ^player);
+
 	public:
 
-		void attachToHand();
-		void moveTo(Random ^rnd, GB::eCampo campo, GB::ePosition position);
+		void moveTo(GB::eCampo campo, GB::ePosition position);
 
-
-	internal:
-		void propagateEvent(GB::eEvent e, Object ^p1) override;
+		void propagateEvent(GB::eEvent e) override;
 
 	};
 }

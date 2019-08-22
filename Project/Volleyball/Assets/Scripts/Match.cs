@@ -23,15 +23,13 @@ public class Match : MonoBehaviour
     public GameObject TeamB_C1, TeamB_P1, TeamB_B1;
     public GameObject TeamB_C2, TeamB_P2, TeamB_B2;
 
-    private Dictionary<Folie.Player, GameObject> playersTeamA, playersTeamB;
-
 
     private void Start()
     {
         var teamA = game.teamA;
         var teamB = game.teamB;
 
-        playersTeamA = new Dictionary<Folie.Player, GameObject>
+        GB.playersTeamA = new Dictionary<Folie.Player, GameObject>
         {
             { teamA.getPlayerWithRole(Folie.GB.eRole.c1), TeamA_C1},
             { teamA.getPlayerWithRole(Folie.GB.eRole.p1), TeamA_P1},
@@ -41,7 +39,7 @@ public class Match : MonoBehaviour
             { teamA.getPlayerWithRole(Folie.GB.eRole.c2), TeamA_C2}
         };
 
-        playersTeamB = new Dictionary<Folie.Player, GameObject>
+        GB.playersTeamB = new Dictionary<Folie.Player, GameObject>
         {
             { teamB.getPlayerWithRole(Folie.GB.eRole.c1), TeamB_C1},
             { teamB.getPlayerWithRole(Folie.GB.eRole.p1), TeamB_P1},
@@ -96,8 +94,8 @@ public class Match : MonoBehaviour
 
     private void forEachTeam(Action<KeyValuePair<Folie.Player, GameObject>> callback)
     {
-        forEachPlayer(callback, playersTeamA);
-        forEachPlayer(callback, playersTeamB);
+        forEachPlayer(callback, GB.playersTeamA);
+        forEachPlayer(callback, GB.playersTeamB);
     }
 
     private void forEachPlayer(Action<KeyValuePair<Folie.Player, GameObject>> callback, Dictionary<Folie.Player, GameObject> team)

@@ -18,7 +18,7 @@ namespace Folie
 {
 	public ref class Player :BaseEvent
 	{
-	public:
+	public:		
 		String ^name;
 
 		GB::ePosition startingPosition, currentPosition;
@@ -33,7 +33,7 @@ namespace Folie
 		delegate void eLookAt(float pos_x, float pos_z);
 		event eLookAt ^event_LookAt;
 
-		delegate void eMoveAt(float pos_x, float pos_z);
+		delegate void eMoveAt(GB::eEvent e, float pos_x, float pos_z);
 		event eMoveAt ^event_moveAt;
 
 		delegate void eRotate(float rot_y);
@@ -41,25 +41,21 @@ namespace Folie
 
 
 	private:
-		void moveTo(float pos_x, float pos_z);
+		void moveTo(GB::eEvent e, float pos_x, float pos_z);
 
 
 	public:
-		Player(String ^name_, GB::eCampo campo_, GB::ePosition startingPosition_, GB::eRole role_);
+		Player(String ^name_, GB::eCampo campo_, GB::ePosition startingPosition_, GB::eRole role_);		
 
-		void destinationReached();
+		void move(GB::eEvent e);
+		void moveToPosition(GB::eEvent e, GB::ePosition position);
+		void moveToNextPosition(GB::eEvent e);
 
-		void move();
-		void pass(Random ^rnd, Ball ^ball);
-		void serve(Random ^rnd, Ball ^ball);
-		void hit(Random ^rnd, Ball ^ball);
+		void pass(Ball ^ball);
+		void serve(Ball ^ball);			
+		void hit(Ball ^ball);		
 
-		void moveToPosition(GB::ePosition position);
-		void moveToNextPosition();
-
-
-	internal:
-		void propagateEvent(GB::eEvent e, Object ^p1) override;
+		void propagateEvent(GB::eEvent e) override;
 
 
 	};

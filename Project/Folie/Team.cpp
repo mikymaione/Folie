@@ -30,21 +30,17 @@ Folie::Player ^Folie::Team::getPlayerWithRole(GB::eRole role)
 			return players[i];
 }
 
-void Folie::Team::propagateEvent(GB::eEvent e, Object ^p1)
+void Folie::Team::propagateEvent(GB::eEvent e)
 {
 	for (UInt16 i = 0; i < 6; i++)
-		players[i]->propagateEvent(e, p1);
+		players[i]->propagateEvent(e);
 }
 
 void Folie::Team::player_bubbleUp(GB::eEvent e)
 {
 	switch (e)
 	{
-	case Folie::GB::eEvent::giocatoriPrenderePosizioniInCampo:
-		break;
-	case Folie::GB::eEvent::serving:
-		break;
-	case Folie::GB::eEvent::destinationReached:
+	case Folie::GB::eEvent::giocatoriPrenderePosizioniInCampo_end:
 		destinationReached++;
 
 		if (destinationReached == 6)

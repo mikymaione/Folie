@@ -9,19 +9,19 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "stdafx.h"
 #include "Ball.h"
 
-void Folie::Ball::attachToHand()
+void Folie::Ball::attachToHand(Object ^player)
 {
-	event_attachToHand();
+	event_attachToHand(player);
 }
 
-void Folie::Ball::moveTo(Random ^rnd, GB::eCampo campo, GB::ePosition position)
+void Folie::Ball::moveTo(GB::eCampo campo, GB::ePosition position)
 {
 	auto c = GB::getCoordinatesFromPosition(campo, position);
 
 	event_shootAt(c.X, c.Y);
 }
 
-void Folie::Ball::propagateEvent(GB::eEvent e, Object ^p1)
+void Folie::Ball::propagateEvent(GB::eEvent e)
 {
 	throw gcnew System::NotImplementedException();
 }

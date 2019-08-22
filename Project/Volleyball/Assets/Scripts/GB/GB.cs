@@ -8,10 +8,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class GB
 {
+
+    public static Dictionary<Folie.Player, GameObject> playersTeamA, playersTeamB;
+
 
     public static void waiter(MonoBehaviour this_, float seconds, Action ok)
     {

@@ -143,7 +143,7 @@ Folie::GB::ePosition Folie::GB::getNextRotationPosition(ePosition current)
 	}
 }
 
-Folie::GB::ePosition Folie::GB::selectRandomPosition(Random ^ rnd)
+Folie::GB::ePosition Folie::GB::selectRandomPosition()
 {
 	auto i = rnd->Next(1, 7);
 

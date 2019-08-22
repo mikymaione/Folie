@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
 
     internal bool initComplete = false;
 
-    private bool moving = false;
+    private Folie.GB.eEvent? moving;
 
 
     private void Start()
@@ -32,10 +32,12 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (moving && agent.transform.position.Equals(agent.destination))
+        if (moving.HasValue && agent.transform.position.Equals(agent.destination))
         {
-            moving = false;
-            player.destinationReached();
+            var e = moving.Value;
+            moving = null;
+
+            player.propagateEvent(e);
         }
     }
 
@@ -49,20 +51,20 @@ public class Player : MonoBehaviour
         this.player.event_LookAt += player_event_LookAt;
     }
 
+    private void player_event_moveAt(Folie.GB.eEvent e, float pos_x, float pos_z)
+    {
+        agent.destination = new Vector3(pos_x, 0, pos_z);
+        moving = e;
+    }
+
     private void player_event_LookAt(float pos_x, float pos_z)
     {
-        transform.LookAt(new Vector3(pos_x, transform.position.y, pos_z));
+        transform.LookAt(new Vector3(pos_x, transform.position.y, pos_z));        
     }
 
     private void player_event_rotate(float rot_y)
     {
         transform.Rotate(Vector3.up, rot_y, Space.Self);
-    }
-
-    private void player_event_moveAt(float pos_x, float pos_z)
-    {
-        agent.destination = new Vector3(pos_x, 0, pos_z);
-        moving = true;
     }
 
 

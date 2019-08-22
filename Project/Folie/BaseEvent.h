@@ -18,8 +18,8 @@ namespace Folie
 		delegate void eBubbleUpEvent(GB::eEvent e);
 		event eBubbleUpEvent ^event_bubbleUp;
 
-		void propagateEvent(GB::eEvent e);
-		virtual void propagateEvent(GB::eEvent e, Object ^p1) abstract;
+	public:
+		virtual void propagateEvent(GB::eEvent e) abstract;
 
 	};
 }
