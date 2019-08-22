@@ -28,7 +28,9 @@ namespace Folie
 
 		void attachToHand();
 		void moveTo(Random ^rnd, GB::eCampo campo, GB::ePosition position);
-		
+
+
+	internal:
 		void propagateEvent(GB::eEvent e, Object ^p1) override;
 
 	};

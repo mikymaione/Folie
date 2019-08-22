@@ -30,6 +30,9 @@ namespace Folie
 		float pos_x, pos_y, pos_z;
 		float rot_x, rot_y, rot_z;
 
+		delegate void eLookAt(float pos_x, float pos_z);
+		event eLookAt ^event_LookAt;
+
 		delegate void eMoveAt(float pos_x, float pos_z);
 		event eMoveAt ^event_moveAt;
 
@@ -50,11 +53,12 @@ namespace Folie
 		void pass(Random ^rnd, Ball ^ball);
 		void serve(Random ^rnd, Ball ^ball);
 		void hit(Random ^rnd, Ball ^ball);
-		void lookAtTheBall(Ball ^ball);
 
 		void moveToPosition(GB::ePosition position);
 		void moveToNextPosition();
-		
+
+
+	internal:
 		void propagateEvent(GB::eEvent e, Object ^p1) override;
 
 

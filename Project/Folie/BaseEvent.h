@@ -14,7 +14,7 @@ namespace Folie
 {
 	public ref class BaseEvent abstract
 	{
-	public:
+	internal:
 		delegate void eBubbleUpEvent(GB::eEvent e);
 		event eBubbleUpEvent ^event_bubbleUp;
 

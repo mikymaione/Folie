@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
     {
         if (moving && agent.transform.position.Equals(agent.destination))
         {
-            moving = false;            
+            moving = false;
             player.destinationReached();
         }
     }
@@ -46,6 +46,12 @@ public class Player : MonoBehaviour
 
         this.player.event_moveAt += player_event_moveAt;
         this.player.event_rotate += player_event_rotate;
+        this.player.event_LookAt += player_event_LookAt;
+    }
+
+    private void player_event_LookAt(float pos_x, float pos_z)
+    {
+        transform.LookAt(new Vector3(pos_x, transform.position.y, pos_z));
     }
 
     private void player_event_rotate(float rot_y)

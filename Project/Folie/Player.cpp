@@ -74,12 +74,6 @@ void Folie::Player::hit(Random ^rnd, Ball ^ball)
 	}
 }
 
-void Folie::Player::lookAtTheBall(Ball ^ball)
-{
-	rot_y = GB::angleBetweenTwoPoints2D(ball->pos_x, ball->pos_z, pos_x, pos_z);
-	event_rotate(rot_y);
-}
-
 void Folie::Player::propagateEvent(GB::eEvent e, Object ^p1)
 {
 	switch (e)
@@ -88,7 +82,7 @@ void Folie::Player::propagateEvent(GB::eEvent e, Object ^p1)
 		moveToPosition(startingPosition);
 		break;
 	case Folie::GB::eEvent::lookAtTheBall:
-		lookAtTheBall((Ball ^)p1);
+		event_LookAt(((Ball ^)p1)->pos_x, ((Ball ^)p1)->pos_z);
 		break;
 	case Folie::GB::eEvent::serving:
 		break;
