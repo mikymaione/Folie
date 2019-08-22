@@ -21,12 +21,7 @@ void Folie::Ball::moveTo(Random ^rnd, GB::eCampo campo, GB::ePosition position)
 	event_shootAt(c.X, c.Y);
 }
 
-void Folie::Ball::propagateEvent(GB::eEvent e)
-{
-	throw gcnew System::NotImplementedException();
-}
-
-generic <typename T> void Folie::Ball::propagateEvent(GB::eEvent e, T p1)
+void Folie::Ball::propagateEvent(GB::eEvent e, Object ^p1)
 {
 	throw gcnew System::NotImplementedException();
 }

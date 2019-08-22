@@ -28,9 +28,8 @@ namespace Folie
 
 		void attachToHand();
 		void moveTo(Random ^rnd, GB::eCampo campo, GB::ePosition position);
-
-		void propagateEvent(GB::eEvent e) override;
-		generic <typename T> void propagateEvent(GB::eEvent e, T p1) override;
+		
+		void propagateEvent(GB::eEvent e, Object ^p1) override;
 
 	};
 }

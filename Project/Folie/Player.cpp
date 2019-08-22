@@ -17,11 +17,6 @@ Folie::Player::Player(String ^name_, GB::eCampo campo_, GB::ePosition startingPo
 	startingPosition = startingPosition_;
 }
 
-void Folie::Player::destinationReached()
-{
-	event_bubbleUp(GB::eEvent::destinationReached);
-}
-
 void Folie::Player::moveTo(float pos_x, float pos_z)
 {
 	event_moveAt(pos_x, pos_z);
@@ -85,19 +80,22 @@ void Folie::Player::lookAtTheBall(Ball ^ball)
 	event_rotate(rot_y);
 }
 
-generic <typename T> void Folie::Player::propagateEvent(GB::eEvent e, T p1)
+void Folie::Player::propagateEvent(GB::eEvent e, Object ^p1)
 {
 	switch (e)
 	{
 	case Folie::GB::eEvent::giocatoriPrenderePosizioniInCampo:
 		moveToPosition(startingPosition);
 		break;
+	case Folie::GB::eEvent::lookAtTheBall:
+		lookAtTheBall((Ball ^)p1);
+		break;
 	case Folie::GB::eEvent::serving:
 		break;
 	}
 }
 
-void Folie::Player::propagateEvent(GB::eEvent e)
+void Folie::Player::destinationReached()
 {
-	propagateEvent<int>(e, 0);
+	event_bubbleUp(GB::eEvent::destinationReached);
 }

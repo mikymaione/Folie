@@ -54,9 +54,8 @@ namespace Folie
 
 		void moveToPosition(GB::ePosition position);
 		void moveToNextPosition();
-	
-		void propagateEvent(GB::eEvent e) override;
-		generic <typename T> void propagateEvent(GB::eEvent e, T p1) override;
+		
+		void propagateEvent(GB::eEvent e, Object ^p1) override;
 
 
 	};

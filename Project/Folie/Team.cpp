@@ -13,7 +13,7 @@ Folie::Team::Team(String ^name_, GB::eCampo campo_, array<Player ^> ^players_)
 {
 	name = name_;
 	campo = campo_;
-	players = players_;	
+	players = players_;
 }
 
 Folie::Player ^Folie::Team::getPlayerAtPosition(GB::ePosition position)
@@ -30,22 +30,29 @@ Folie::Player ^Folie::Team::getPlayerWithRole(GB::eRole role)
 			return players[i];
 }
 
-void Folie::Team::propagateEvent(GB::eEvent e)
+void Folie::Team::propagateEvent(GB::eEvent e, Object ^p1)
 {
 	for (UInt16 i = 0; i < 6; i++)
-		players[i]->propagateEvent(e);
-}
-
-generic <typename T> void Folie::Team::propagateEvent(GB::eEvent e, T p1)
-{
-	for (UInt16 i = 0; i < 6; i++)
-		players[i]->propagateEvent(e);
+		players[i]->propagateEvent(e, p1);
 }
 
 void Folie::Team::player_bubbleUp(GB::eEvent e)
 {
-	destinationReached++;
+	switch (e)
+	{
+	case Folie::GB::eEvent::giocatoriPrenderePosizioniInCampo:
+		break;
+	case Folie::GB::eEvent::serving:
+		break;
+	case Folie::GB::eEvent::destinationReached:
+		destinationReached++;
 
-	if (destinationReached == 6)
+		if (destinationReached == 6)
+			event_bubbleUp(e);
+
+		break;
+	default:
 		event_bubbleUp(e);
+		break;
+	}
 }

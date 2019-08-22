@@ -21,6 +21,7 @@ namespace Folie
 			giocatoriPrenderePosizioniInCampo,
 			serving,
 			destinationReached,
+			lookAtTheBall,
 		};
 
 		enum class eCampo

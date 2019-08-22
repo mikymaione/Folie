@@ -8,3 +8,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #include "stdafx.h"
 #include "BaseEvent.h"
+
+void Folie::BaseEvent::propagateEvent(GB::eEvent e)
+{
+	propagateEvent(e, nullptr);
+}

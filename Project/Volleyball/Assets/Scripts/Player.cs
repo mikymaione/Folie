@@ -32,8 +32,11 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (moving && agent.remainingDistance == 0)
+        if (moving && agent.transform.position.Equals(agent.destination))
+        {
+            moving = false;            
             player.destinationReached();
+        }
     }
 
     internal void init(GameObject ball, Folie.Player player)
