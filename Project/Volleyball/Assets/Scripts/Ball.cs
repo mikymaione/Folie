@@ -11,11 +11,10 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
 
-    private SphereCollider sphereCollider;
     private Rigidbody rigidBody;
     private Folie.Ball ball;
 
-    private GameObject attaccatoAllaMano;
+    private Transform inMano;
 
 
     public void init(Folie.Ball ball)
@@ -25,29 +24,29 @@ public class Ball : MonoBehaviour
         this.ball.event_attachToHand += ball_event_attachToHand;
     }
 
-    private void ball_event_attachToHand(object player)
+    private void ball_event_attachToHand(string player_name)
     {
-        var p = (Folie.Player)player;
-
-        if (GB.playersTeamA.ContainsKey(p))
-            attaccatoAllaMano = GB.playersTeamA[p];
-        else if (GB.playersTeamB.ContainsKey(p))
-            attaccatoAllaMano = GB.playersTeamB[p];
+        foreach (var p in GB.players)
+            if (p.Key.name.Equals(player_name))
+            {
+                var player = p.Value.GetComponent<Player>();
+                inMano = player.mano;
+                break;
+            }
     }
 
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
-        sphereCollider = GetComponent<SphereCollider>();
     }
 
     private void Update()
     {
+        if (inMano != null)
+            transform.SetPositionAndRotation(inMano.position, inMano.rotation);
+
         if (ball != null)
         {
-            if (attaccatoAllaMano != null)
-                transform.position = new Vector3(attaccatoAllaMano.transform.position.x, 0.6f, attaccatoAllaMano.transform.position.z);
-
             ball.pos_x = transform.position.x;
             ball.pos_y = transform.position.y;
             ball.pos_z = transform.position.z;
@@ -57,7 +56,7 @@ public class Ball : MonoBehaviour
 
     private void ball_event_shootAt(float pos_x, float pos_z)
     {
-        attaccatoAllaMano = null;
+        inMano = null;
         shootAt(new Vector3(pos_x, 0, pos_z));
     }
 

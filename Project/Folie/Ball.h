@@ -18,14 +18,14 @@ namespace Folie
 	public:
 		float pos_x, pos_y, pos_z;
 
-		delegate void attachToHandHandler(Object ^player);
+		delegate void attachToHandHandler(String ^player_name);
 		event attachToHandHandler ^event_attachToHand;
 
 		delegate void shootHandler(float pos_x, float pos_z);
 		event shootHandler ^event_shootAt;
 
 	internal:
-		void attachToHand(Object ^player);
+		void attachToHand(String ^player_name);
 
 	public:
 

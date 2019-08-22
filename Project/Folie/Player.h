@@ -25,18 +25,17 @@ namespace Folie
 		GB::eArea currentArea;
 		GB::eRole role;
 		GB::eCampo campo;
-
-		float hand_pos_x, hand_pos_y, hand_pos_z;
+		
 		float pos_x, pos_y, pos_z;
 		float rot_x, rot_y, rot_z;
 
-		delegate void eLookAt(float pos_x, float pos_z);
+		delegate void eLookAt(GB::eEvent e, float pos_x, float pos_z);
 		event eLookAt ^event_LookAt;
 
 		delegate void eMoveAt(GB::eEvent e, float pos_x, float pos_z);
 		event eMoveAt ^event_moveAt;
 
-		delegate void eRotate(float rot_y);
+		delegate void eRotate(GB::eEvent e, float rot_y);
 		event eRotate ^event_rotate;
 
 
@@ -53,7 +52,8 @@ namespace Folie
 
 		void pass(Ball ^ball);
 		void serve(Ball ^ball);			
-		void hit(Ball ^ball);		
+		void hit(Ball ^ball, GB::ePosition target);
+		void hit(Ball ^ball);
 
 		void propagateEvent(GB::eEvent e) override;
 

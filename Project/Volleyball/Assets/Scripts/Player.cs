@@ -13,10 +13,10 @@ public class Player : MonoBehaviour
 {
 
     private NavMeshAgent agent;
-    private GameObject mano;
     private GameObject ball;
     private Folie.Player player;
 
+    internal Transform mano;
     internal bool initComplete = false;
 
     private Folie.GB.eEvent? moving;
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        mano = GameObject.FindGameObjectWithTag("Mano");
+        mano = transform.Find("mano");
 
         initComplete = true;
     }
@@ -36,7 +36,6 @@ public class Player : MonoBehaviour
         {
             var e = moving.Value;
             moving = null;
-
             player.propagateEvent(e);
         }
     }
@@ -57,12 +56,23 @@ public class Player : MonoBehaviour
         moving = e;
     }
 
-    private void player_event_LookAt(float pos_x, float pos_z)
+    private void player_event_LookAt(Folie.GB.eEvent e, float pos_x, float pos_z)
     {
-        transform.LookAt(new Vector3(pos_x, transform.position.y, pos_z));        
+        transform.LookAt(new Vector3(pos_x, transform.position.y, pos_z));
+
+        switch (e)
+        {
+            case Folie.GB.eEvent.serve:
+                GB.waiter(this, 4, () => player.propagateEvent(e));
+                break;
+
+            default:
+                player.propagateEvent(e);
+                break;
+        }
     }
 
-    private void player_event_rotate(float rot_y)
+    private void player_event_rotate(Folie.GB.eEvent e, float rot_y)
     {
         transform.Rotate(Vector3.up, rot_y, Space.Self);
     }

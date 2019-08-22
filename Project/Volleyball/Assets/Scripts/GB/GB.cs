@@ -15,7 +15,14 @@ public static class GB
 {
 
     public static Dictionary<Folie.Player, GameObject> playersTeamA, playersTeamB;
+    public static Dictionary<Folie.Player, GameObject> players;
 
+    public static void cpuWait(int seconds)
+    {
+        var ts = DateTime.Now + TimeSpan.FromSeconds(seconds);
+
+        while (DateTime.Now < ts) ;
+    }
 
     public static void waiter(MonoBehaviour this_, float seconds, Action ok)
     {

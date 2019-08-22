@@ -49,6 +49,14 @@ public class Match : MonoBehaviour
             { teamB.getPlayerWithRole(Folie.GB.eRole.c2), TeamB_C2}
         };
 
+        GB.players = new Dictionary<Folie.Player, GameObject>(12);
+
+        foreach (var p in GB.playersTeamA)
+            GB.players.Add(p.Key, p.Value);
+        foreach (var p in GB.playersTeamB)
+            GB.players.Add(p.Key, p.Value);
+
+
         game.event_gameFinished += game_event_gameFinished;
 
         var ballClass = ball.GetComponent<Ball>();

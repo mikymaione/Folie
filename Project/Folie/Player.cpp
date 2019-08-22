@@ -51,19 +51,25 @@ void Folie::Player::pass(Ball ^ball)
 
 void Folie::Player::serve(Ball ^ ball)
 {
-	hit(ball);
-	moveToPosition(GB::eEvent::currentPosition, currentPosition);
+	auto target = GB::selectRandomPosition();
+	auto c = GB::getCoordinatesFromPosition(campo, target);
+
+	event_LookAt(GB::eEvent::serve, c.X, c.Y);
+}
+
+void Folie::Player::hit(Ball ^ball, GB::ePosition target)
+{
+	auto distanceToTheBall = GB::distanceBetweenTwoPoints3D(ball->pos_x, ball->pos_y, ball->pos_z, pos_x, pos_y, pos_z);
+
+	//if (distanceToTheBall < 0.5)
+	ball->moveTo(campo, target);
 }
 
 void Folie::Player::hit(Ball ^ball)
 {
-	auto distanceToTheBall = GB::distanceBetweenTwoPoints3D(ball->pos_x, ball->pos_y, ball->pos_z, pos_x, pos_y, pos_z);
+	auto target = GB::selectRandomPosition();
 
-	if (distanceToTheBall < 0.5)
-	{
-		auto target = GB::selectRandomPosition();
-		ball->moveTo(campo, target);
-	}
+	hit(ball, target);
 }
 
 void Folie::Player::propagateEvent(GB::eEvent e)
@@ -81,7 +87,7 @@ void Folie::Player::propagateEvent(GB::eEvent e)
 		break;
 
 	case Folie::GB::eEvent::lookAtTheBall:
-		event_LookAt(_ball->pos_x, _ball->pos_z);
+		event_LookAt(GB::eEvent::lookAtTheBall_end, _ball->pos_x, _ball->pos_z);
 		break;
 
 	case Folie::GB::eEvent::takeTheBall:
@@ -90,7 +96,7 @@ void Folie::Player::propagateEvent(GB::eEvent e)
 		break;
 
 	case Folie::GB::eEvent::takeTheBall_end:
-		_ball->attachToHand(this);
+		_ball->attachToHand(name);
 		currentArea = GB::eArea::a1S;
 		move(GB::eEvent::gotoServingPosition_end);
 		break;
@@ -98,5 +104,11 @@ void Folie::Player::propagateEvent(GB::eEvent e)
 	case Folie::GB::eEvent::gotoServingPosition_end:
 		serve(_ball);
 		break;
+
+	case Folie::GB::eEvent::serve:
+		hit(_ball);
+		moveToPosition(GB::eEvent::serve_end, currentPosition);
+		break;
+
 	}
 }

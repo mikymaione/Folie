@@ -25,8 +25,13 @@ namespace Folie
 			takeTheBall_end,
 
 			lookAtTheBall,
+			lookAtTheBall_end,
 
 			currentPosition,
+			currentPosition_end,
+
+			serve,
+			serve_end,
 
 			gotoServingPosition,
 			gotoServingPosition_end,
@@ -57,11 +62,11 @@ namespace Folie
 		};
 
 	internal:
-		static Object ^ball;
-
-	internal:
+		static Object ^ball;	
 		static Random ^rnd;
 
+
+	internal:
 		static eCampo oppositeField(eCampo campo);
 
 		static Point getCoordinatesFromPosition(eCampo campo, ePosition position);
@@ -71,7 +76,7 @@ namespace Folie
 		static ePosition getNextRotationPosition(ePosition current);
 		static ePosition selectRandomPosition();
 
-		static double distanceBetweenTwoPoints3D(double x1, double y1, double z1, double x2, double y2, double z2);
+		static double distanceBetweenTwoPoints3D(double x1, double y1, double z1, double x2, double y2, double z2);		
 
 	};
 }
