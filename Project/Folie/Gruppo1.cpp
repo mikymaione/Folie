@@ -20,4 +20,7 @@ Folie::Teams::Gruppo1::Gruppo1(GB::eCampo campo_) :Team("Gruppo 1", campo_, gcne
 	players[x += 1] = gcnew Player("Alessandro", campo_, GB::ePosition::p5, GB::eRole::c2);
 	players[x += 1] = gcnew Player("Carla", campo_, GB::ePosition::p6, GB::eRole::p2);
 	players[x += 1] = gcnew Player("Davide", campo_, GB::ePosition::p1, GB::eRole::b2);
+
+	for (UInt16 i = 0; i < 6; i++)
+		players[i]->event_bubbleUp += gcnew eBubbleUpEvent(this, &Gruppo1::player_bubbleUp);
 }

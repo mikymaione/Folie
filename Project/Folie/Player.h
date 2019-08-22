@@ -10,21 +10,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #include "GB.h"
 #include "Ball.h"
+#include "BaseEvent.h"
 
 using namespace System;
 
 namespace Folie
 {
-	public ref class Player
+	public ref class Player :BaseEvent
 	{
 	public:
-		delegate void rotateHandler(float rot_y);
-		event rotateHandler ^event_rotate;
-
-		delegate void moveHandler(float pos_x, float pos_z);
-		event moveHandler ^event_moveAt;
-
-
 		String ^name;
 
 		GB::ePosition startingPosition, currentPosition;
@@ -36,9 +30,21 @@ namespace Folie
 		float pos_x, pos_y, pos_z;
 		float rot_x, rot_y, rot_z;
 
+		delegate void eMoveAt(float pos_x, float pos_z);
+		event eMoveAt ^event_moveAt;
+
+		delegate void eRotate(float rot_y);
+		event eRotate ^event_rotate;
+
+
+	private:
+		void moveTo(float pos_x, float pos_z);
+
 
 	public:
 		Player(String ^name_, GB::eCampo campo_, GB::ePosition startingPosition_, GB::eRole role_);
+
+		void destinationReached();
 
 		void move();
 		void pass(Random ^rnd, Ball ^ball);
@@ -48,7 +54,9 @@ namespace Folie
 
 		void moveToPosition(GB::ePosition position);
 		void moveToNextPosition();
-		void resetPosition();
+	
+		void propagateEvent(GB::eEvent e) override;
+		generic <typename T> void propagateEvent(GB::eEvent e, T p1) override;
 
 
 	};

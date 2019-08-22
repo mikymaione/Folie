@@ -33,5 +33,11 @@ public static class GB
             this_.StartCoroutine(coroutine_waiterFor(this_, seconds, evalutation, ok));
     }
 
+    public static long now()
+    {
+        var n = new DateTime();
+        return n.ToBinary();
+    }
+
 
 }

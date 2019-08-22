@@ -130,6 +130,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="BaseEvent.h" />
     <ClInclude Include="BawiTim.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GB.h" />
@@ -142,6 +143,7 @@
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="BaseEvent.cpp" />
     <ClCompile Include="BawiTim.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GB.cpp" />

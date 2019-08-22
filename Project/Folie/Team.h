@@ -14,20 +14,29 @@ using namespace System;
 
 namespace Folie
 {
-	public ref class Team
-	{
+	public ref class Team :BaseEvent
+	{			
 	public:
 		String ^name;
-		array<Player ^> ^players;
 		GB::eCampo campo;
+		array<Player ^> ^players;	
+
+		int destinationReached;
+
+
+	protected:
+		void player_bubbleUp(GB::eEvent e);
+
 
 	public:
 		Team(String ^name_, GB::eCampo campo_, array<Player ^> ^players_);
 
 		Player ^getPlayerAtPosition(GB::ePosition position);
 		Player ^getPlayerWithRole(GB::eRole role);
+	
+		void propagateEvent(GB::eEvent e) override;
+		generic <typename T> void propagateEvent(GB::eEvent e, T p1) override;
 
-		void resetPositionsOfPlayers();
 
 	};
 }

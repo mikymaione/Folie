@@ -16,6 +16,13 @@ namespace Folie
 	public ref class GB abstract sealed
 	{
 	public:
+		enum class eEvent
+		{
+			giocatoriPrenderePosizioniInCampo,
+			serving,
+			destinationReached,
+		};
+
 		enum class eCampo
 		{
 			up, down

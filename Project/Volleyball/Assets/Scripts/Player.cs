@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
 
     internal bool initComplete = false;
 
+    private bool moving = false;
+
 
     private void Start()
     {
@@ -30,13 +32,15 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        //
+        if (moving && agent.remainingDistance == 0)
+            player.destinationReached();
     }
 
     internal void init(GameObject ball, Folie.Player player)
     {
         this.ball = ball;
         this.player = player;
+
         this.player.event_moveAt += player_event_moveAt;
         this.player.event_rotate += player_event_rotate;
     }
@@ -48,7 +52,8 @@ public class Player : MonoBehaviour
 
     private void player_event_moveAt(float pos_x, float pos_z)
     {
-        agent.destination = new Vector3(pos_x, 0, pos_z);        
+        agent.destination = new Vector3(pos_x, 0, pos_z);
+        moving = true;
     }
 
 

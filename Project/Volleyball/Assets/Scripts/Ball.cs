@@ -26,6 +26,16 @@ public class Ball : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
     }
 
+    private void Update()
+    {
+        if (ball != null)
+        {
+            ball.pos_x = transform.position.x;
+            ball.pos_y = transform.position.y;
+            ball.pos_z = transform.position.z;
+        }
+    }
+
     private void ball_event_shootAt(float pos_x, float pos_z)
     {
         //shootAt(new Vector3(pos_x, 0, pos_z));

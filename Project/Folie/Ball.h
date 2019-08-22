@@ -9,21 +9,28 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #pragma once
 
 #include "GB.h"
+#include "BaseEvent.h"
 
 namespace Folie
 {
-	public ref class Ball
+	public ref class Ball :BaseEvent
 	{
 	public:
 		float pos_x, pos_y, pos_z;
+
+		delegate void attachToHandHandler();
+		event attachToHandHandler ^event_attachToHand;
 
 		delegate void shootHandler(float pos_x, float pos_z);
 		event shootHandler ^event_shootAt;
 
 	public:
 
-		void attachToHand(float pos_x_, float pos_y_, float pos_z_);
+		void attachToHand();
 		void moveTo(Random ^rnd, GB::eCampo campo, GB::ePosition position);
+
+		void propagateEvent(GB::eEvent e) override;
+		generic <typename T> void propagateEvent(GB::eEvent e, T p1) override;
 
 	};
 }

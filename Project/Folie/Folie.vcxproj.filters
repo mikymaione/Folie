@@ -42,6 +42,9 @@
     <ClInclude Include="Game.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="BaseEvent.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -69,6 +72,9 @@
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseEvent.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>

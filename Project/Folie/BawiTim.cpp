@@ -20,4 +20,7 @@ Folie::Teams::BawiTim::BawiTim(GB::eCampo campo_) : Team("BawiTim", campo_, gcne
 	players[x += 1] = gcnew Player("Federico", campo_, GB::ePosition::p5, GB::eRole::b2);
 	players[x += 1] = gcnew Player("Lara", campo_, GB::ePosition::p6, GB::eRole::p2);
 	players[x += 1] = gcnew Player("Lorenzo", campo_, GB::ePosition::p1, GB::eRole::c2);
+
+	for (UInt16 i = 0; i < 6; i++)
+		players[i]->event_bubbleUp += gcnew eBubbleUpEvent(this, &BawiTim::player_bubbleUp);
 }
