@@ -46,7 +46,7 @@ public class Ball : MonoBehaviour
         if (ball != null)
         {
             if (attaccatoAllaMano != null)
-                transform.position = attaccatoAllaMano.transform.position;
+                transform.position = new Vector3(attaccatoAllaMano.transform.position.x, 0.6f, attaccatoAllaMano.transform.position.z);
 
             ball.pos_x = transform.position.x;
             ball.pos_y = transform.position.y;
@@ -57,6 +57,7 @@ public class Ball : MonoBehaviour
 
     private void ball_event_shootAt(float pos_x, float pos_z)
     {
+        attaccatoAllaMano = null;
         shootAt(new Vector3(pos_x, 0, pos_z));
     }
 

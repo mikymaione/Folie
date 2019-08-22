@@ -59,7 +59,7 @@ void Folie::Player::hit(Ball ^ball)
 {
 	auto distanceToTheBall = GB::distanceBetweenTwoPoints3D(ball->pos_x, ball->pos_y, ball->pos_z, pos_x, pos_y, pos_z);
 
-	if (distanceToTheBall < 0.01)
+	if (distanceToTheBall < 0.5)
 	{
 		auto target = GB::selectRandomPosition();
 		ball->moveTo(campo, target);
