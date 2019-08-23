@@ -67,7 +67,6 @@ namespace Folie
 		};
 
 	internal:
-		static Object ^ball;	
 		static Random ^rnd;
 
 
@@ -81,7 +80,7 @@ namespace Folie
 		static ePosition getNextRotationPosition(ePosition current);
 		static ePosition selectRandomPosition();
 
-		static double distanceBetweenTwoPoints3D(double x1, double y1, double z1, double x2, double y2, double z2);		
+		static double distanceBetweenTwoPoints3D(double x1, double y1, double z1, double x2, double y2, double z2);
 
 	};
 }

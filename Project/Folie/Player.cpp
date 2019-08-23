@@ -8,6 +8,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #include "stdafx.h"
 #include "Player.h"
+#include "REF.h"
 
 Folie::Player::Player(String ^name_, GB::eCampo campo_, GB::ePosition startingPosition_, GB::eRole role_)
 {
@@ -82,8 +83,6 @@ void Folie::Player::lookAtAnOpponent()
 
 void Folie::Player::propagateEvent(GB::eEvent e)
 {
-	auto _ball = (Ball ^)GB::ball;
-
 	switch (e)
 	{
 	case GB::eEvent::giocatoriPrenderePosizioniInCampo:
@@ -108,22 +107,22 @@ void Folie::Player::propagateEvent(GB::eEvent e)
 
 	case GB::eEvent::takeTheBall:
 		if (currentPosition == GB::ePosition::p1)
-			moveTo(GB::eEvent::takeTheBall_end, _ball->pos_x, _ball->pos_z);
+			moveTo(GB::eEvent::takeTheBall_end, REF::ball->pos_x, REF::ball->pos_z);
 		break;
 
 	case GB::eEvent::takeTheBall_end:
-		_ball->attachToHand(name);
+		REF::ball->attachToHand(name);
 		currentArea = GB::eArea::a1S;
 		move(GB::eEvent::gotoServingPosition_end);
 		break;
 
 	case GB::eEvent::gotoServingPosition_end:
-		serve(_ball);
+		serve(REF::ball);
 		event_bubbleUp(GB::eEvent::gotoServingPosition_end);
 		break;
 
 	case GB::eEvent::serve:
-		hit(_ball, targetChoosen);		
+		hit(REF::ball, targetChoosen);
 		moveToPosition(GB::eEvent::serve_end, currentPosition);
 		break;
 
