@@ -32,6 +32,9 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (ball != null && player != null && player.lookingAtTheBall)
+            lookAt(ball.transform.position.x, ball.transform.position.z);
+
         if (moving.HasValue && agent.transform.position.Equals(agent.destination))
         {
             var e = moving.Value;
@@ -46,7 +49,6 @@ public class Player : MonoBehaviour
         this.player = player;
 
         this.player.event_moveAt += player_event_moveAt;
-        this.player.event_rotate += player_event_rotate;
         this.player.event_LookAt += player_event_LookAt;
     }
 
@@ -56,9 +58,14 @@ public class Player : MonoBehaviour
         moving = e;
     }
 
-    private void player_event_LookAt(Folie.GB.eEvent e, float pos_x, float pos_z)
+    private void lookAt(float pos_x, float pos_z)
     {
         transform.LookAt(new Vector3(pos_x, transform.position.y, pos_z));
+    }
+
+    private void player_event_LookAt(Folie.GB.eEvent e, float pos_x, float pos_z)
+    {
+        lookAt(pos_x, pos_z);
 
         switch (e)
         {
@@ -70,11 +77,6 @@ public class Player : MonoBehaviour
                 player.propagateEvent(e);
                 break;
         }
-    }
-
-    private void player_event_rotate(Folie.GB.eEvent e, float rot_y)
-    {
-        transform.Rotate(Vector3.up, rot_y, Space.Self);
     }
 
 

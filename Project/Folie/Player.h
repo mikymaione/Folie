@@ -29,6 +29,8 @@ namespace Folie
 		GB::eRole role;
 		GB::eCampo campo;
 
+		bool lookingAtTheBall;
+
 		float pos_x, pos_y, pos_z;
 		float rot_x, rot_y, rot_z;
 
@@ -37,9 +39,6 @@ namespace Folie
 
 		delegate void eMoveAt(GB::eEvent e, float pos_x, float pos_z);
 		event eMoveAt ^event_moveAt;
-
-		delegate void eRotate(GB::eEvent e, float rot_y);
-		event eRotate ^event_rotate;
 
 
 	private:

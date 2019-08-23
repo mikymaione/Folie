@@ -99,7 +99,11 @@ void Folie::Player::propagateEvent(GB::eEvent e)
 		break;
 
 	case GB::eEvent::lookAtTheBall:
-		event_LookAt(GB::eEvent::lookAtTheBall_end, _ball->pos_x, _ball->pos_z);
+		lookingAtTheBall = true;
+		break;
+
+	case GB::eEvent::lookAtTheBall_end:
+		lookingAtTheBall = false;
 		break;
 
 	case GB::eEvent::takeTheBall:
@@ -119,11 +123,8 @@ void Folie::Player::propagateEvent(GB::eEvent e)
 
 	case GB::eEvent::serve:
 		hit(_ball, targetChoosen);
+		event_bubbleUp(GB::eEvent::serve_end);
 		moveToPosition(GB::eEvent::serve_end, currentPosition);
-		break;
-
-	case GB::eEvent::serve_end:
-		event_bubbleUp(e);
 		break;
 
 	}

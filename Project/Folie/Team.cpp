@@ -47,7 +47,7 @@ void Folie::Team::player_bubbleUp(GB::eEvent e)
 			event_bubbleUp(e);
 
 		break;
-	
+
 	default:
 		event_bubbleUp(e);
 		break;
