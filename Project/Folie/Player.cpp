@@ -42,15 +42,13 @@ void Folie::Player::moveToNextPosition(GB::eEvent e)
 	moveToPosition(e, GB::getNextRotationPosition(currentPosition));
 }
 
-void Folie::Player::pass(Ball ^ball)
+void Folie::Player::pass_mode()
 {
-	auto distanceToTheBall = GB::distanceBetweenTwoPoints3D(ball->pos_x, ball->pos_y, ball->pos_z, pos_x, pos_y, pos_z);
-
-	if (distanceToTheBall < 1)
-		ball->moveTo(campo, GB::ePosition::p3);
+	if (distance_from_ball < 1)
+		hit();
 }
 
-void Folie::Player::serve(Ball ^ ball)
+void Folie::Player::serve()
 {
 	targetChoosen = GB::selectRandomPosition();
 	auto c = GB::getCoordinatesFromPosition(campo, targetChoosen);
@@ -58,19 +56,17 @@ void Folie::Player::serve(Ball ^ ball)
 	event_LookAt(GB::eEvent::serve, c.X, c.Y);
 }
 
-void Folie::Player::hit(Ball ^ball, GB::ePosition target)
+void Folie::Player::hit(GB::ePosition target)
 {
-	auto distanceToTheBall = GB::distanceBetweenTwoPoints3D(ball->pos_x, ball->pos_y, ball->pos_z, pos_x, pos_y, pos_z);
-
-	//if (distanceToTheBall < 0.5)	
-	ball->moveTo(GB::oppositeField(campo), target);
+	//if (distance_from_ball < 0.5)	
+	REF::ball->moveTo(GB::oppositeField(campo), target);
 }
 
-void Folie::Player::hit(Ball ^ball)
+void Folie::Player::hit()
 {
 	auto target = GB::selectRandomPosition();
 
-	hit(ball, target);
+	hit(target);
 }
 
 void Folie::Player::lookAtAnOpponent()
@@ -117,12 +113,12 @@ void Folie::Player::propagateEvent(GB::eEvent e)
 		break;
 
 	case GB::eEvent::gotoServingPosition_end:
-		serve(REF::ball);
+		serve();
 		event_bubbleUp(GB::eEvent::gotoServingPosition_end);
 		break;
 
 	case GB::eEvent::serve:
-		hit(REF::ball, targetChoosen);
+		hit(targetChoosen);
 		event_bubbleUp(GB::eEvent::serve_do);
 		moveToPosition(GB::eEvent::serve_end, currentPosition);
 		break;

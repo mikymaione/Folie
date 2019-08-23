@@ -31,6 +31,8 @@ namespace Folie
 
 		bool lookingAtTheBall;
 
+		float distance_from_ball;
+
 		float pos_x, pos_y, pos_z;
 		float rot_x, rot_y, rot_z;
 
@@ -52,10 +54,10 @@ namespace Folie
 		void moveToPosition(GB::eEvent e, GB::ePosition position);
 		void moveToNextPosition(GB::eEvent e);
 
-		void pass(Ball ^ball);
-		void serve(Ball ^ball);
-		void hit(Ball ^ball, GB::ePosition target);
-		void hit(Ball ^ball);
+		void pass_mode();
+		void serve();
+		void hit(GB::ePosition target);
+		void hit();
 
 		void lookAtAnOpponent();
 

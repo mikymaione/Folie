@@ -17,7 +17,6 @@ void Folie::Ball::attachToHand(String ^player_name)
 void Folie::Ball::moveTo(GB::eCampo campo, GB::ePosition position)
 {
 	auto c = GB::getCoordinatesFromPosition(campo, position);
-
 	event_shootAt(c.X, c.Y);
 }
 

@@ -32,8 +32,13 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (ball != null && player != null && player.lookingAtTheBall)
-            lookAt(ball.transform.position.x, ball.transform.position.z);
+        if (ball != null && player != null)
+        {
+            player.distance_from_ball = Vector3.Distance(transform.position, ball.transform.position);
+
+            if (player.lookingAtTheBall)
+                lookAt(ball.transform.position.x, ball.transform.position.z);
+        }
 
         if (moving.HasValue && agent.transform.position.Equals(agent.destination))
         {
