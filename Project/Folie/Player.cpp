@@ -86,43 +86,43 @@ void Folie::Player::propagateEvent(GB::eEvent e)
 
 	switch (e)
 	{
-	case Folie::GB::eEvent::giocatoriPrenderePosizioniInCampo:
+	case GB::eEvent::giocatoriPrenderePosizioniInCampo:
 		moveToPosition(GB::eEvent::giocatoriPrenderePosizioniInCampo_end, startingPosition);
 		break;
 
-	case Folie::GB::eEvent::giocatoriPrenderePosizioniInCampo_end:
+	case GB::eEvent::giocatoriPrenderePosizioniInCampo_end:
 		event_bubbleUp(e);
 		break;
 
-	case Folie::GB::eEvent::lookAtOpponent:
+	case GB::eEvent::lookAtOpponent:
 		lookAtAnOpponent();
 		break;
 
-	case Folie::GB::eEvent::lookAtTheBall:
+	case GB::eEvent::lookAtTheBall:
 		event_LookAt(GB::eEvent::lookAtTheBall_end, _ball->pos_x, _ball->pos_z);
 		break;
 
-	case Folie::GB::eEvent::takeTheBall:
+	case GB::eEvent::takeTheBall:
 		if (currentPosition == GB::ePosition::p1)
 			moveTo(GB::eEvent::takeTheBall_end, _ball->pos_x, _ball->pos_z);
 		break;
 
-	case Folie::GB::eEvent::takeTheBall_end:
+	case GB::eEvent::takeTheBall_end:
 		_ball->attachToHand(name);
 		currentArea = GB::eArea::a1S;
 		move(GB::eEvent::gotoServingPosition_end);
 		break;
 
-	case Folie::GB::eEvent::gotoServingPosition_end:
+	case GB::eEvent::gotoServingPosition_end:
 		serve(_ball);
 		break;
 
-	case Folie::GB::eEvent::serve:
+	case GB::eEvent::serve:
 		hit(_ball, targetChoosen);
 		moveToPosition(GB::eEvent::serve_end, currentPosition);
 		break;
 
-	case Folie::GB::eEvent::serve_end:
+	case GB::eEvent::serve_end:
 		event_bubbleUp(e);
 		break;
 

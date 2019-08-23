@@ -14,10 +14,10 @@ Folie::GB::eCampo Folie::GB::oppositeField(eCampo campo)
 {
 	switch (campo)
 	{
-	case Folie::GB::eCampo::up:
-		return GB::eCampo::down;
-	case Folie::GB::eCampo::down:
-		return GB::eCampo::up;
+	case eCampo::up:
+		return eCampo::down;
+	case eCampo::down:
+		return eCampo::up;
 	}
 }
 
@@ -32,73 +32,73 @@ Point Folie::GB::getCoordinatesFromArea(eCampo campo, eArea area)
 {
 	switch (campo)
 	{
-	case Folie::GB::eCampo::up:
+	case eCampo::up:
 		switch (area)
 		{
-		case Folie::GB::eArea::a4O:
+		case eArea::a4O:
 			return Point(0, 0);
-		case Folie::GB::eArea::a4:
+		case eArea::a4:
 			return Point(2, 8);
-		case Folie::GB::eArea::a3:
+		case eArea::a3:
 			return Point(5, 8);
-		case Folie::GB::eArea::a2:
+		case eArea::a2:
 			return Point(8, 8);
-		case Folie::GB::eArea::a2E:
+		case eArea::a2E:
 			return Point(0, 0);
-		case Folie::GB::eArea::a5O:
+		case eArea::a5O:
 			return Point(0, 0);
-		case Folie::GB::eArea::a5:
+		case eArea::a5:
 			return Point(2, 3);
-		case Folie::GB::eArea::a6:
+		case eArea::a6:
 			return Point(5, 3);
-		case Folie::GB::eArea::a1:
+		case eArea::a1:
 			return Point(8, 3);
-		case Folie::GB::eArea::a1E:
+		case eArea::a1E:
 			return Point(0, 0);
-		case Folie::GB::eArea::a5OS:
+		case eArea::a5OS:
 			return Point(0, 0);
-		case Folie::GB::eArea::a5S:
+		case eArea::a5S:
 			return Point(0, 0);
-		case Folie::GB::eArea::a6S:
+		case eArea::a6S:
 			return Point(0, 0);
-		case Folie::GB::eArea::a1S:
+		case eArea::a1S:
 			return Point(8, -1);
-		case Folie::GB::eArea::a1ES:
+		case eArea::a1ES:
 			return Point(0, 0);
 		}
 		break;
-	case Folie::GB::eCampo::down:
+	case eCampo::down:
 		switch (area)
 		{
-		case Folie::GB::eArea::a4O:
+		case eArea::a4O:
 			return Point(0, 0);
-		case Folie::GB::eArea::a4:
+		case eArea::a4:
 			return Point(8, 11);
-		case Folie::GB::eArea::a3:
+		case eArea::a3:
 			return Point(5, 11);
-		case Folie::GB::eArea::a2:
+		case eArea::a2:
 			return Point(2, 11);
-		case Folie::GB::eArea::a2E:
+		case eArea::a2E:
 			return Point(0, 0);
-		case Folie::GB::eArea::a5O:
+		case eArea::a5O:
 			return Point(0, 0);
-		case Folie::GB::eArea::a5:
+		case eArea::a5:
 			return Point(8, 16);
-		case Folie::GB::eArea::a6:
+		case eArea::a6:
 			return Point(5, 16);
-		case Folie::GB::eArea::a1:
+		case eArea::a1:
 			return Point(2, 16);
-		case Folie::GB::eArea::a1E:
+		case eArea::a1E:
 			return Point(0, 0);
-		case Folie::GB::eArea::a5OS:
+		case eArea::a5OS:
 			return Point(0, 0);
-		case Folie::GB::eArea::a5S:
+		case eArea::a5S:
 			return Point(0, 0);
-		case Folie::GB::eArea::a6S:
+		case eArea::a6S:
 			return Point(0, 0);
-		case Folie::GB::eArea::a1S:
+		case eArea::a1S:
 			return Point(2, 20);
-		case Folie::GB::eArea::a1ES:
+		case eArea::a1ES:
 			return Point(0, 0);
 		}
 		break;
