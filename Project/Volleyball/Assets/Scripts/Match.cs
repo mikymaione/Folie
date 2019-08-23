@@ -26,8 +26,8 @@ public class Match : MonoBehaviour
 
     private void Start()
     {
-        var teamA = game.teamA;
-        var teamB = game.teamB;
+        var teamA = Folie.REF.teamA;
+        var teamB = Folie.REF.teamB;
 
         GB.playersTeamA = new Dictionary<Folie.Player, GameObject>
         {
@@ -60,7 +60,7 @@ public class Match : MonoBehaviour
         game.event_gameFinished += game_event_gameFinished;
 
         var ballClass = ball.GetComponent<Ball>();
-        ballClass.init(game.ball);
+        ballClass.init(Folie.REF.ball);
 
         forEachTeam((pair) =>
         {

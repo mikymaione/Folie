@@ -36,6 +36,7 @@ namespace Folie
 			currentPosition_end,
 
 			serve,
+			serve_do,
 			serve_end,
 
 			gotoServingPosition,

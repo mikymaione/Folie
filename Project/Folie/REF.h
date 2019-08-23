@@ -14,9 +14,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 namespace Folie
 {
-	ref class REF
+	public ref class REF
 	{
-	internal:
+	public:
 		static Ball ^ball;
 		static Team ^teamA, ^teamB;
 		static Game ^game;

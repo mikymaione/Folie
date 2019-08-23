@@ -123,6 +123,7 @@ void Folie::Player::propagateEvent(GB::eEvent e)
 
 	case GB::eEvent::serve:
 		hit(REF::ball, targetChoosen);
+		event_bubbleUp(GB::eEvent::serve_do);
 		moveToPosition(GB::eEvent::serve_end, currentPosition);
 		break;
 
