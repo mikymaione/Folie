@@ -122,5 +122,9 @@ void Folie::Player::propagateEvent(GB::eEvent e)
 		moveToPosition(GB::eEvent::serve_end, currentPosition);
 		break;
 
+	case Folie::GB::eEvent::serve_end:
+		event_bubbleUp(e);
+		break;
+
 	}
 }

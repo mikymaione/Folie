@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 679, y: 324}
   m_MaxSize: {x: 12004, y: 8024}
   vertical: 0
-  controlID: 2101
+  controlID: 2324
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_MinSize: {x: 404, y: 324}
   m_MaxSize: {x: 8004, y: 8024}
   vertical: 1
-  controlID: 2069
+  controlID: 2325
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_MinSize: {x: 404, y: 224}
   m_MaxSize: {x: 8004, y: 4024}
   vertical: 0
-  controlID: 2048
+  controlID: 2326
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52

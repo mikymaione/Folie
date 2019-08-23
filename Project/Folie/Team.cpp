@@ -40,13 +40,14 @@ void Folie::Team::player_bubbleUp(GB::eEvent e)
 {
 	switch (e)
 	{
-	case Folie::GB::eEvent::giocatoriPrenderePosizioniInCampo_end:
+	case GB::eEvent::giocatoriPrenderePosizioniInCampo_end:
 		destinationReached++;
 
 		if (destinationReached == 6)
 			event_bubbleUp(e);
 
 		break;
+	
 	default:
 		event_bubbleUp(e);
 		break;
