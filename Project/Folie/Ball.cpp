@@ -10,7 +10,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "Ball.h"
 
 void Folie::Ball::attachToHand(String ^player_name)
-{	
+{
 	event_attachToHand(player_name);
 }
 
@@ -23,5 +23,5 @@ void Folie::Ball::moveTo(GB::eCampo campo, GB::ePosition position)
 
 void Folie::Ball::propagateEvent(GB::eEvent e)
 {
-	throw gcnew System::NotImplementedException();
+	event_bubbleUp(e);
 }

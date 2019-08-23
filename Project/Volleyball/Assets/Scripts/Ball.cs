@@ -56,12 +56,13 @@ public class Ball : MonoBehaviour
 
     private void ball_event_shootAt(float pos_x, float pos_z)
     {
-        inMano = null;
         shootAt(new Vector3(pos_x, 0, pos_z));
     }
 
     private void shootAt(Vector3 p)
     {
+        inMano = null;
+
         var dir = p - transform.position;
         var h = dir.y;
         dir.y = 0;
@@ -73,6 +74,8 @@ public class Ball : MonoBehaviour
         var vel = Mathf.Sqrt(dist * Physics.gravity.magnitude);
 
         rigidBody.velocity = vel * dir.normalized;
+
+        ball.propagateEvent(Folie.GB.eEvent.ballHitted);
     }
 
 

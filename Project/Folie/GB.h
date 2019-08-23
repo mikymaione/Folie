@@ -21,6 +21,8 @@ namespace Folie
 			giocatoriPrenderePosizioniInCampo,
 			giocatoriPrenderePosizioniInCampo_end,
 
+			ballHitted,
+
 			takeTheBall,
 			takeTheBall_end,
 
