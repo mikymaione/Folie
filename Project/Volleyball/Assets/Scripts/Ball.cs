@@ -62,13 +62,17 @@ public class Ball : MonoBehaviour
 
     private void shootAt(Vector3 p)
     {
-        var angle = 45;
-        var x = Vector3.Distance(p, transform.position);
-        var v2 = x * Physics.gravity.magnitude / Mathf.Sin(2 * angle);
-        var v = Mathf.Sqrt(v2);
+        var dir = p - transform.position;
+        var h = dir.y;
+        dir.y = 0;
 
-        var velocity = new Vector3(0, v * Mathf.Sin(angle), v * Mathf.Cos(angle));
-        rigidBody.velocity = velocity;
+        var dist = dir.magnitude;
+        dir.y = dist;
+        dist += h;
+
+        var vel = Mathf.Sqrt(dist * Physics.gravity.magnitude);
+
+        rigidBody.velocity = vel * dir.normalized;
     }
 
 

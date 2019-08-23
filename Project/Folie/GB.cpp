@@ -145,22 +145,16 @@ Folie::GB::ePosition Folie::GB::getNextRotationPosition(ePosition current)
 
 Folie::GB::ePosition Folie::GB::selectRandomPosition()
 {
-	auto i = rnd->Next(1, 7);
+	auto i = rnd->Next(1, 4);
 
 	switch (i)
 	{
 	case 1:
-		return ePosition::p1;
-	case 2:
-		return ePosition::p2;
-	case 3:
-		return ePosition::p3;
-	case 4:
-		return ePosition::p4;
-	case 5:
 		return ePosition::p5;
-	case 6:
+	case 2:
 		return ePosition::p6;
+	case 3:
+		return ePosition::p1;
 	}
 }
 
