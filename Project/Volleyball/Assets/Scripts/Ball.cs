@@ -53,35 +53,28 @@ public class Ball : MonoBehaviour
         }
     }
 
-
     private void ball_event_shootAt(float pos_x, float pos_z)
     {
         inMano = null;
         shootAt(new Vector3(pos_x, 0, pos_z));
     }
 
-    private void shootAt(Vector3 point)
+    private void shootAt(Vector3 p)
     {
-        var velocity = ballisticVelocity(point, 45);
-        rigidBody.velocity = velocity;
-    }
+        var angle = 45 * Mathf.Deg2Rad;
 
-    private Vector3 ballisticVelocity(Vector3 destination, float angle)
-    {
-        var dir = destination - transform.position;
-        var height = dir.y;
-        dir.y = 0;
+        var distance = Vector3.Distance(p, transform.position);
 
-        var dist = dir.magnitude;
+        var yOffset = transform.position.y - p.y;
 
-        var a = angle * Mathf.Deg2Rad;
+        var initialVelocity = (1 / Mathf.Cos(angle)) * Mathf.Sqrt((0.5f * Physics.gravity.magnitude * Mathf.Pow(distance, 2)) / (distance * Mathf.Tan(angle) + yOffset));
 
-        dir.y = dist * Mathf.Tan(a);
-        dist += height / Mathf.Tan(a);
+        var velocity = new Vector3(0, initialVelocity * Mathf.Sin(angle), initialVelocity * Mathf.Cos(angle));
 
-        var velocity = Mathf.Sqrt(dist * Physics.gravity.magnitude / Mathf.Sin(2 * a));
+        var angleBetweenObjects = Vector3.Angle(Vector3.forward, p - transform.position);
+        var finalVelocity = Quaternion.AngleAxis(angleBetweenObjects, Vector3.up) * velocity;
 
-        return velocity * dir.normalized;
+        rigidBody.AddForce(finalVelocity * rigidBody.mass, ForceMode.Impulse);
     }
 
 
