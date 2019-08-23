@@ -51,8 +51,8 @@ void Folie::Player::pass(Ball ^ball)
 
 void Folie::Player::serve(Ball ^ ball)
 {
-	auto target = GB::selectRandomPosition();
-	auto c = GB::getCoordinatesFromPosition(campo, target);
+	targetChoosen = GB::selectRandomPosition();
+	auto c = GB::getCoordinatesFromPosition(campo, targetChoosen);
 
 	event_LookAt(GB::eEvent::serve, c.X, c.Y);
 }
@@ -72,6 +72,14 @@ void Folie::Player::hit(Ball ^ball)
 	hit(ball, target);
 }
 
+void Folie::Player::lookAtAnOpponent()
+{
+	auto target = GB::selectRandomPosition();
+	auto p = GB::getCoordinatesFromPosition(GB::oppositeField(campo), target);
+
+	event_LookAt(GB::eEvent::lookAtOpponent_end, p.X, p.Y);
+}
+
 void Folie::Player::propagateEvent(GB::eEvent e)
 {
 	auto _ball = (Ball ^)GB::ball;
@@ -84,6 +92,10 @@ void Folie::Player::propagateEvent(GB::eEvent e)
 
 	case Folie::GB::eEvent::giocatoriPrenderePosizioniInCampo_end:
 		event_bubbleUp(e);
+		break;
+
+	case Folie::GB::eEvent::lookAtOpponent:
+		lookAtAnOpponent();
 		break;
 
 	case Folie::GB::eEvent::lookAtTheBall:
@@ -106,7 +118,7 @@ void Folie::Player::propagateEvent(GB::eEvent e)
 		break;
 
 	case Folie::GB::eEvent::serve:
-		hit(_ball);
+		hit(_ball, targetChoosen);
 		moveToPosition(GB::eEvent::serve_end, currentPosition);
 		break;
 

@@ -18,14 +18,17 @@ namespace Folie
 {
 	public ref class Player :BaseEvent
 	{
-	public:		
+	private:
+		GB::ePosition targetChoosen;
+
+	public:
 		String ^name;
 
 		GB::ePosition startingPosition, currentPosition;
 		GB::eArea currentArea;
 		GB::eRole role;
 		GB::eCampo campo;
-		
+
 		float pos_x, pos_y, pos_z;
 		float rot_x, rot_y, rot_z;
 
@@ -44,16 +47,18 @@ namespace Folie
 
 
 	public:
-		Player(String ^name_, GB::eCampo campo_, GB::ePosition startingPosition_, GB::eRole role_);		
+		Player(String ^name_, GB::eCampo campo_, GB::ePosition startingPosition_, GB::eRole role_);
 
 		void move(GB::eEvent e);
 		void moveToPosition(GB::eEvent e, GB::ePosition position);
 		void moveToNextPosition(GB::eEvent e);
 
 		void pass(Ball ^ball);
-		void serve(Ball ^ball);			
+		void serve(Ball ^ball);
 		void hit(Ball ^ball, GB::ePosition target);
 		void hit(Ball ^ball);
+
+		void lookAtAnOpponent();
 
 		void propagateEvent(GB::eEvent e) override;
 

@@ -27,6 +27,9 @@ namespace Folie
 			lookAtTheBall,
 			lookAtTheBall_end,
 
+			lookAtOpponent,
+			lookAtOpponent_end,
+
 			currentPosition,
 			currentPosition_end,
 
