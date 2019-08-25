@@ -8,48 +8,55 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #include "stdafx.h"
 #include "Team.h"
+#include "REF.h"
 
-Folie::Team::Team(String ^name_, GB::eCampo campo_, array<Player ^> ^players_)
+void Folie::Team::Start()
 {
-	name = name_;
-	campo = campo_;
-	players = players_;
+	auto x = -1;
+
+	players = gcnew array<Player ^>(6);
+	players[x += 1] = C1;
+	players[x += 1] = C2;
+	players[x += 1] = P1;
+	players[x += 1] = P2;
+	players[x += 1] = B1;
+	players[x += 1] = B2;
 }
 
 Folie::Player ^Folie::Team::getPlayerAtPosition(GB::ePosition position)
 {
-	for (UInt16 i = 0; i < 6; i++)
-		if (players[i]->currentPosition == position)
-			return players[i];
+	for each (auto p in players)
+		if (p->currentPosition == position)
+			return p;
 }
 
 Folie::Player ^Folie::Team::getPlayerWithRole(GB::eRole role)
 {
-	for (UInt16 i = 0; i < 6; i++)
-		if (players[i]->role == role)
-			return players[i];
+	for each (auto p in players)
+		if (p->role == role)
+			return p;
 }
 
-void Folie::Team::propagateEvent(GB::eEvent e)
+void Folie::Team::giocatoriPrenderePosizioniInCampo()
 {
-	for (UInt16 i = 0; i < 6; i++)
-		players[i]->propagateEvent(e);
-}
+	destinationReached = 0;
 
-void Folie::Team::player_bubbleUp(GB::eEvent e)
-{
-	switch (e)
+	for each (auto p in players)
 	{
-	case GB::eEvent::giocatoriPrenderePosizioniInCampo_end:
-		destinationReached++;
-
-		if (destinationReached == 6)
-			event_bubbleUp(e);
-
-		break;
-
-	default:
-		event_bubbleUp(e);
-		break;
+		p->campo = campo;
+		p->moveToPosition(p->startingPosition);
 	}
+}
+
+void Folie::Team::lookAtOpponent()
+{
+	for each (auto p in players)
+		p->lookAtAnOpponent();
+}
+
+void Folie::Team::takeTheBall()
+{
+	for each (auto p in players)
+		if (p->currentPosition == GB::ePosition::p1)
+			p->moveTo(REF::ball->transform->position);
 }

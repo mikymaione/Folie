@@ -10,49 +10,42 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #include "GB.h"
 #include "Ball.h"
-#include "BaseEvent.h"
 
-using namespace System;
+#using <UnityEngine.AIModule.dll> as_friend
 
 namespace Folie
 {
-	public ref class Player :BaseEvent
+	public ref class Player abstract :UnityEngine::MonoBehaviour
 	{
 	private:
 		GB::ePosition targetChoosen;
+		UnityEngine::AI::NavMeshAgent ^agent;
 
-	public:
-		String ^name;
+	internal:
+		UnityEngine::Transform ^mano;
 
-		GB::ePosition startingPosition, currentPosition;
+		GB::ePosition currentPosition;
 		GB::eArea currentArea;
-		GB::eRole role;
 		GB::eCampo campo;
 
 		bool lookingAtTheBall;
 
-		float distance_from_ball;
+	public:
+		String ^name;
 
-		float pos_x, pos_y, pos_z;
-		float rot_x, rot_y, rot_z;
-
-		delegate void eLookAt(GB::eEvent e, float pos_x, float pos_z);
-		event eLookAt ^event_LookAt;
-
-		delegate void eMoveAt(GB::eEvent e, float pos_x, float pos_z);
-		event eMoveAt ^event_moveAt;
-
+		GB::ePosition startingPosition;
+		GB::eRole role;
 
 	private:
-		void moveTo(GB::eEvent e, float pos_x, float pos_z);
-
+		void Start();
+		void Update();
 
 	public:
-		Player(String ^name_, GB::eCampo campo_, GB::ePosition startingPosition_, GB::eRole role_);
-
-		void move(GB::eEvent e);
-		void moveToPosition(GB::eEvent e, GB::ePosition position);
-		void moveToNextPosition(GB::eEvent e);
+		void move();
+		void moveToPosition(GB::ePosition position);
+		void moveToNextPosition();
+		void moveTo(float pos_x, float pos_z);
+		void moveTo(UnityEngine::Vector3 ^position);
 
 		void pass_mode();
 		void serve();
@@ -60,9 +53,8 @@ namespace Folie
 		void hit();
 
 		void lookAtAnOpponent();
-
-		void propagateEvent(GB::eEvent e) override;
-
+		void lookAt(float x, float y);
+		void lookAt(UnityEngine::Vector2 ^dest);
 
 	};
 }

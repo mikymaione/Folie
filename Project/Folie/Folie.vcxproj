@@ -76,6 +76,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <EnableManagedIncrementalBuild>false</EnableManagedIncrementalBuild>
+    <LibraryPath>C:\Program Files\Unity\Editor\Data\Managed\UnityEngine\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -92,6 +93,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalUsingDirectories>C:\Program Files\Unity\Editor\Data\Managed\UnityEngine;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -130,11 +132,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
-    <ClInclude Include="BaseEvent.h" />
-    <ClInclude Include="BawiTim.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GB.h" />
-    <ClInclude Include="Gruppo1.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="REF.h" />
     <ClInclude Include="Resource.h" />
@@ -144,11 +143,8 @@
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="Ball.cpp" />
-    <ClCompile Include="BaseEvent.cpp" />
-    <ClCompile Include="BawiTim.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GB.cpp" />
-    <ClCompile Include="Gruppo1.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="REF.cpp" />
     <ClCompile Include="stdafx.cpp">

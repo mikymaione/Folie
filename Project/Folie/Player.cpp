@@ -10,41 +10,51 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "Player.h"
 #include "REF.h"
 
-Folie::Player::Player(String ^name_, GB::eCampo campo_, GB::ePosition startingPosition_, GB::eRole role_)
+void Folie::Player::Start()
 {
-	name = name_;
-	role = role_;
-	campo = campo_;
-	startingPosition = startingPosition_;
+	agent = GetComponent<UnityEngine::AI::NavMeshAgent ^>();
+	mano = GB::GetComponentsInChildren<UnityEngine::Transform ^>(this, "Mano");
 }
 
-void Folie::Player::moveTo(GB::eEvent e, float pos_x, float pos_z)
+void Folie::Player::Update()
 {
-	event_moveAt(e, pos_x, pos_z);
+
 }
 
-void Folie::Player::move(GB::eEvent e)
+void Folie::Player::moveTo(float pos_x, float pos_z)
 {
-	auto xy = GB::getCoordinatesFromArea(campo, currentArea);
-	moveTo(e, xy.X, xy.Y);
+	auto d = UnityEngine::Vector3(pos_x, 0, pos_z);
+
+	agent->destination = d;
 }
 
-void Folie::Player::moveToPosition(GB::eEvent e, GB::ePosition position)
+void Folie::Player::moveTo(UnityEngine::Vector3 ^position)
+{
+	moveTo(position->x, position->z);
+}
+
+void Folie::Player::move()
+{
+	auto c = GB::getCoordinatesFromArea(campo, currentArea);
+	moveTo(c->x, c->y);
+}
+
+void Folie::Player::moveToPosition(GB::ePosition position)
 {
 	currentPosition = position;
 	currentArea = GB::getAreaFromPosition(position);
 
-	move(e);
+	move();
 }
 
-void Folie::Player::moveToNextPosition(GB::eEvent e)
+void Folie::Player::moveToNextPosition()
 {
-	moveToPosition(e, GB::getNextRotationPosition(currentPosition));
+	moveToPosition(GB::getNextRotationPosition(currentPosition));
 }
 
 void Folie::Player::pass_mode()
 {
-	if (distance_from_ball < 1)
+	if (UnityEngine::Vector3::Distance(transform->position, REF::ball->transform->position) < 1)
 		hit();
 }
 
@@ -53,7 +63,7 @@ void Folie::Player::serve()
 	targetChoosen = GB::selectRandomPosition();
 	auto c = GB::getCoordinatesFromPosition(campo, targetChoosen);
 
-	event_LookAt(GB::eEvent::serve, c.X, c.Y);
+	transform->LookAt(UnityEngine::Vector3(c->x, transform->position.y, c->y));
 }
 
 void Folie::Player::hit(GB::ePosition target)
@@ -72,11 +82,21 @@ void Folie::Player::hit()
 void Folie::Player::lookAtAnOpponent()
 {
 	auto target = GB::selectRandomPosition();
-	auto p = GB::getCoordinatesFromPosition(GB::oppositeField(campo), target);
+	auto c = GB::getCoordinatesFromPosition(GB::oppositeField(campo), target);
 
-	event_LookAt(GB::eEvent::lookAtOpponent_end, p.X, p.Y);
+	lookAt(c);
 }
 
+void Folie::Player::lookAt(UnityEngine::Vector2 ^dest)
+{
+	lookAt(dest->x, dest->y);
+}
+
+void Folie::Player::lookAt(float x, float y)
+{
+	transform->LookAt(UnityEngine::Vector3(x, transform->position.y, y));
+}
+/*
 void Folie::Player::propagateEvent(GB::eEvent e)
 {
 	switch (e)
@@ -125,3 +145,4 @@ void Folie::Player::propagateEvent(GB::eEvent e)
 
 	}
 }
+*/

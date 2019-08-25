@@ -9,6 +9,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "stdafx.h"
 #include "GB.h"
 
+generic <class T> where T : UnityEngine::Component T Folie::GB::GetComponentsInChildren(UnityEngine::MonoBehaviour ^mb, String ^tag)
+{
+	auto elements = mb->GetComponentsInChildren<T>();
+
+	for each (auto c in elements)
+		if (c->tag->Equals(tag))
+			return c;
+}
 
 Folie::GB::eCampo Folie::GB::oppositeField(eCampo campo)
 {
@@ -21,14 +29,14 @@ Folie::GB::eCampo Folie::GB::oppositeField(eCampo campo)
 	}
 }
 
-Point Folie::GB::getCoordinatesFromPosition(eCampo campo, ePosition position)
+UnityEngine::Vector2 ^Folie::GB::getCoordinatesFromPosition(eCampo campo, ePosition position)
 {
 	auto area = getAreaFromPosition(position);
 
 	return getCoordinatesFromArea(campo, area);
 }
 
-Point Folie::GB::getCoordinatesFromArea(eCampo campo, eArea area)
+UnityEngine::Vector2 ^Folie::GB::getCoordinatesFromArea(eCampo campo, eArea area)
 {
 	switch (campo)
 	{
@@ -36,70 +44,70 @@ Point Folie::GB::getCoordinatesFromArea(eCampo campo, eArea area)
 		switch (area)
 		{
 		case eArea::a4O:
-			return Point(0, 0);
+			return gcnew UnityEngine::Vector2(0, 0);
 		case eArea::a4:
-			return Point(2, 8);
+			return gcnew UnityEngine::Vector2(2, 8);
 		case eArea::a3:
-			return Point(5, 8);
+			return gcnew UnityEngine::Vector2(5, 8);
 		case eArea::a2:
-			return Point(8, 8);
+			return gcnew UnityEngine::Vector2(8, 8);
 		case eArea::a2E:
-			return Point(0, 0);
+			return gcnew UnityEngine::Vector2(0, 0);
 		case eArea::a5O:
-			return Point(0, 0);
+			return gcnew UnityEngine::Vector2(0, 0);
 		case eArea::a5:
-			return Point(2, 3);
+			return gcnew UnityEngine::Vector2(2, 3);
 		case eArea::a6:
-			return Point(5, 3);
+			return gcnew UnityEngine::Vector2(5, 3);
 		case eArea::a1:
-			return Point(8, 3);
+			return gcnew UnityEngine::Vector2(8, 3);
 		case eArea::a1E:
-			return Point(0, 0);
+			return gcnew UnityEngine::Vector2(0, 0);
 		case eArea::a5OS:
-			return Point(0, 0);
+			return gcnew UnityEngine::Vector2(0, 0);
 		case eArea::a5S:
-			return Point(0, 0);
+			return gcnew UnityEngine::Vector2(0, 0);
 		case eArea::a6S:
-			return Point(0, 0);
+			return gcnew UnityEngine::Vector2(0, 0);
 		case eArea::a1S:
-			return Point(8, -1);
+			return gcnew UnityEngine::Vector2(8, -1);
 		case eArea::a1ES:
-			return Point(0, 0);
+			return gcnew UnityEngine::Vector2(0, 0);
 		}
 		break;
 	case eCampo::down:
 		switch (area)
 		{
 		case eArea::a4O:
-			return Point(0, 0);
+			return gcnew UnityEngine::Vector2(0, 0);
 		case eArea::a4:
-			return Point(8, 11);
+			return gcnew UnityEngine::Vector2(8, 11);
 		case eArea::a3:
-			return Point(5, 11);
+			return gcnew UnityEngine::Vector2(5, 11);
 		case eArea::a2:
-			return Point(2, 11);
+			return gcnew UnityEngine::Vector2(2, 11);
 		case eArea::a2E:
-			return Point(0, 0);
+			return gcnew UnityEngine::Vector2(0, 0);
 		case eArea::a5O:
-			return Point(0, 0);
+			return gcnew UnityEngine::Vector2(0, 0);
 		case eArea::a5:
-			return Point(8, 16);
+			return gcnew UnityEngine::Vector2(8, 16);
 		case eArea::a6:
-			return Point(5, 16);
+			return gcnew UnityEngine::Vector2(5, 16);
 		case eArea::a1:
-			return Point(2, 16);
+			return gcnew UnityEngine::Vector2(2, 16);
 		case eArea::a1E:
-			return Point(0, 0);
+			return gcnew UnityEngine::Vector2(0, 0);
 		case eArea::a5OS:
-			return Point(0, 0);
+			return gcnew UnityEngine::Vector2(0, 0);
 		case eArea::a5S:
-			return Point(0, 0);
+			return gcnew UnityEngine::Vector2(0, 0);
 		case eArea::a6S:
-			return Point(0, 0);
+			return gcnew UnityEngine::Vector2(0, 0);
 		case eArea::a1S:
-			return Point(2, 20);
+			return gcnew UnityEngine::Vector2(2, 20);
 		case eArea::a1ES:
-			return Point(0, 0);
+			return gcnew UnityEngine::Vector2(0, 0);
 		}
 		break;
 	}

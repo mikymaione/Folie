@@ -14,28 +14,30 @@ using namespace System;
 
 namespace Folie
 {
-	public ref class Team :BaseEvent
-	{			
+	public ref class Team abstract :UnityEngine::MonoBehaviour
+	{
+	internal:
+		UInt16 destinationReached;
+		array<Player ^> ^players;
+
 	public:
 		String ^name;
 		GB::eCampo campo;
-		array<Player ^> ^players;	
 
-		int destinationReached;
+		Player ^P1, ^P2;
+		Player ^C1, ^C2;
+		Player ^B1, ^B2;
 
-
-	protected:
-		void player_bubbleUp(GB::eEvent e);
-
+	private:
+		void Start();
 
 	public:
-		Team(String ^name_, GB::eCampo campo_, array<Player ^> ^players_);
-
 		Player ^getPlayerAtPosition(GB::ePosition position);
 		Player ^getPlayerWithRole(GB::eRole role);
-				
-		void propagateEvent(GB::eEvent e) override;
 
+		void giocatoriPrenderePosizioniInCampo();
+		void lookAtOpponent();
+		void takeTheBall();
 
 	};
 }

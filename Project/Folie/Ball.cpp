@@ -8,19 +8,45 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #include "stdafx.h"
 #include "Ball.h"
+#include "REF.h"
 
 void Folie::Ball::attachToHand(String ^player_name)
 {
-	event_attachToHand(player_name);
+	for each (auto p in REF::teamA->players)
+		if (p->name->Equals(player_name))
+		{
+			inMano = p->mano;
+			break;
+		}
+}
+
+void Folie::Ball::Start()
+{
+	rigidBody = GetComponent<UnityEngine::Rigidbody^>();
+}
+
+void Folie::Ball::Update()
+{
+	if (inMano != nullptr)
+		transform->SetPositionAndRotation(inMano->position, inMano->rotation);
 }
 
 void Folie::Ball::moveTo(GB::eCampo campo, GB::ePosition position)
 {
-	auto c = GB::getCoordinatesFromPosition(campo, position);
-	event_shootAt(c.X, c.Y);
-}
+	inMano = nullptr;
 
-void Folie::Ball::propagateEvent(GB::eEvent e)
-{
-	event_bubbleUp(e);
+	auto c = GB::getCoordinatesFromPosition(campo, position);
+	auto p = UnityEngine::Vector3(c->x, 0, c->y);
+
+	auto dir = p - transform->position;
+	auto h = dir.y;
+	dir.y = 0;
+
+	auto dist = dir.magnitude;
+	dir.y = dist;
+	dist += h;
+
+	auto vel = UnityEngine::Mathf::Sqrt(dist * UnityEngine::Physics::gravity.magnitude);
+
+	rigidBody->velocity = vel * dir.normalized;
 }

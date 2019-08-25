@@ -9,29 +9,26 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #pragma once
 
 #include "GB.h"
-#include "BaseEvent.h"
+
+#using <UnityEngine.PhysicsModule.dll> as_friend
 
 namespace Folie
 {
-	public ref class Ball :BaseEvent
+	public ref class Ball abstract :UnityEngine::MonoBehaviour
 	{
-	public:
-		float pos_x, pos_y, pos_z;
-
-		delegate void attachToHandHandler(String ^player_name);
-		event attachToHandHandler ^event_attachToHand;
-
-		delegate void shootHandler(float pos_x, float pos_z);
-		event shootHandler ^event_shootAt;
+	private:
+		UnityEngine::Rigidbody ^rigidBody;
+		UnityEngine::Transform ^inMano;
 
 	internal:
 		void attachToHand(String ^player_name);
 
+	private:
+		void Start();
+		void Update();
+
 	public:
-
 		void moveTo(GB::eCampo campo, GB::ePosition position);
-
-		void propagateEvent(GB::eEvent e) override;
 
 	};
 }

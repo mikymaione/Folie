@@ -8,6 +8,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #pragma once
 
+#using <UnityEngine.CoreModule.dll> as_friend
+
 using namespace System;
 using namespace System::Drawing;
 
@@ -16,33 +18,6 @@ namespace Folie
 	public ref class GB abstract sealed
 	{
 	public:
-		enum class eEvent
-		{
-			giocatoriPrenderePosizioniInCampo,
-			giocatoriPrenderePosizioniInCampo_end,
-
-			ballHitted,
-
-			takeTheBall,
-			takeTheBall_end,
-
-			lookAtTheBall,
-			lookAtTheBall_end,
-
-			lookAtOpponent,
-			lookAtOpponent_end,
-
-			currentPosition,
-			currentPosition_end,
-
-			serve,
-			serve_do,
-			serve_end,
-
-			gotoServingPosition,
-			gotoServingPosition_end,
-		};
-
 		enum class eCampo
 		{
 			up, down
@@ -70,17 +45,17 @@ namespace Folie
 	internal:
 		static Random ^rnd;
 
-
 	internal:
 		static eCampo oppositeField(eCampo campo);
 
-		static Point getCoordinatesFromPosition(eCampo campo, ePosition position);
-		static Point getCoordinatesFromArea(eCampo campo, eArea area);
+		static UnityEngine::Vector2 ^getCoordinatesFromPosition(eCampo campo, ePosition position);
+		static UnityEngine::Vector2 ^getCoordinatesFromArea(eCampo campo, eArea area);
 
 		static eArea getAreaFromPosition(ePosition current);
 		static ePosition getNextRotationPosition(ePosition current);
 		static ePosition selectRandomPosition();
 
+		generic <class T> where T : UnityEngine::Component static T GetComponentsInChildren(UnityEngine::MonoBehaviour ^mb, String ^tag);
 
 	};
 }

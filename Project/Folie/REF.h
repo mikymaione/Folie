@@ -12,6 +12,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "Team.h"
 #include "Game.h"
 
+#using <UnityEngine.AIModule.dll> as_friend
+#using <UnityEngine.CoreModule.dll> as_friend
+#using <UnityEngine.PhysicsModule.dll> as_friend
+
 namespace Folie
 {
 	public ref class REF

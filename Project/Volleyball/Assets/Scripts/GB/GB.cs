@@ -8,21 +8,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public static class GB
 {
-
-    public static Dictionary<Folie.Player, GameObject> playersTeamA, playersTeamB;
-    public static Dictionary<Folie.Player, GameObject> players;
-
-    public static void cpuWait(int seconds)
-    {
-        var ts = DateTime.Now + TimeSpan.FromSeconds(seconds);
-
-        while (DateTime.Now < ts) ;
-    }
 
     public static void waiter(MonoBehaviour this_, float seconds, Action ok)
     {
@@ -47,6 +36,7 @@ public static class GB
     public static long now()
     {
         var n = new DateTime();
+
         return n.ToBinary();
     }
 
