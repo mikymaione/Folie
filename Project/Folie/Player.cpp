@@ -12,6 +12,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 void Folie::Player::Start()
 {
+	startingArea = GB::getAreaFromPosition(startingPosition);
+
 	agent = GetComponent<UnityEngine::AI::NavMeshAgent ^>();
 	mano = GB::GetComponentsInChildren<UnityEngine::Transform ^>(this, "Mano");
 }
@@ -24,7 +26,6 @@ void Folie::Player::Update()
 void Folie::Player::moveTo(float pos_x, float pos_z)
 {
 	auto d = UnityEngine::Vector3(pos_x, 0, pos_z);
-
 	agent->destination = d;
 }
 

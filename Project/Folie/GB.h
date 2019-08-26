@@ -11,13 +11,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #using <UnityEngine.CoreModule.dll> as_friend
 
 using namespace System;
-using namespace System::Drawing;
 
 namespace Folie
 {
 	public ref class GB abstract sealed
 	{
 	public:
+		enum class eTeam
+		{
+			A, B
+		};
+
 		enum class eCampo
 		{
 			up, down
@@ -51,9 +55,13 @@ namespace Folie
 		static UnityEngine::Vector2 ^getCoordinatesFromPosition(eCampo campo, ePosition position);
 		static UnityEngine::Vector2 ^getCoordinatesFromArea(eCampo campo, eArea area);
 
+		static eArea getAreaFromCoordinates(float x, float z);
+
 		static eArea getAreaFromPosition(ePosition current);
 		static ePosition getNextRotationPosition(ePosition current);
 		static ePosition selectRandomPosition();
+
+		static UnityEngine::WaitForEndOfFrame ^WaitUntil(Func<bool> ^testAction);
 
 		generic <class T> where T : UnityEngine::Component static T GetComponentsInChildren(UnityEngine::MonoBehaviour ^mb, String ^tag);
 

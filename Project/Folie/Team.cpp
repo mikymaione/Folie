@@ -23,6 +23,20 @@ void Folie::Team::Start()
 	players[x += 1] = B2;
 }
 
+void Folie::Team::Update()
+{
+	if (destinationReached < 6)
+	{
+		auto d = 0;
+
+		for each (auto p in players)
+			if (GB::getAreaFromCoordinates(p->transform->position.x, p->transform->position.z) == p->startingArea)
+				d++;
+
+		destinationReached = d;
+	}
+}
+
 Folie::Player ^Folie::Team::getPlayerAtPosition(GB::ePosition position)
 {
 	for each (auto p in players)

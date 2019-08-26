@@ -30,6 +30,7 @@ namespace Folie
 
 	private:
 		void Start();
+		void Update();
 
 	public:
 		Player ^getPlayerAtPosition(GB::ePosition position);

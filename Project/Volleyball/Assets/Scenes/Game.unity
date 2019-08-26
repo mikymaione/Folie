@@ -491,6 +491,7 @@ MonoBehaviour:
   name: Alessandro
   startingPosition: 3
   role: 3
+  team: 1
 --- !u!195 &143199512
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -682,6 +683,7 @@ MonoBehaviour:
   name: Margherita
   startingPosition: 1
   role: 1
+  team: 1
 --- !u!195 &222444342
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -917,6 +919,7 @@ MonoBehaviour:
   name: Davide
   startingPosition: 5
   role: 5
+  team: 1
 --- !u!195 &401835980
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1200,6 +1203,7 @@ MonoBehaviour:
   name: Laura
   startingPosition: 1
   role: 1
+  team: 0
 --- !u!195 &467354013
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1672,6 +1676,7 @@ MonoBehaviour:
   name: Lara
   startingPosition: 4
   role: 4
+  team: 0
 --- !u!195 &837810537
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2076,6 +2081,7 @@ MonoBehaviour:
   name: Carla
   startingPosition: 4
   role: 4
+  team: 1
 --- !u!195 &1169157103
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2446,6 +2452,7 @@ MonoBehaviour:
   name: Filippo
   startingPosition: 2
   role: 0
+  team: 1
 --- !u!195 &1469049054
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2508,6 +2515,7 @@ MonoBehaviour:
   name: Federico
   startingPosition: 3
   role: 5
+  team: 0
 --- !u!195 &1509818956
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2570,6 +2578,7 @@ MonoBehaviour:
   name: Squilla
   startingPosition: 0
   role: 2
+  team: 1
 --- !u!195 &1571497253
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2632,6 +2641,7 @@ MonoBehaviour:
   name: Michele
   startingPosition: 0
   role: 0
+  team: 0
 --- !u!195 &1604036738
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2694,6 +2704,7 @@ MonoBehaviour:
   name: Lorenzo
   startingPosition: 5
   role: 3
+  team: 0
 --- !u!195 &1625788191
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2786,6 +2797,7 @@ MonoBehaviour:
   name: Piero
   startingPosition: 2
   role: 2
+  team: 0
 --- !u!195 &1827138189
 NavMeshAgent:
   m_ObjectHideFlags: 0

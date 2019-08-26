@@ -113,6 +113,85 @@ UnityEngine::Vector2 ^Folie::GB::getCoordinatesFromArea(eCampo campo, eArea area
 	}
 }
 
+Folie::GB::eArea Folie::GB::getAreaFromCoordinates(float x, float z)
+{
+	if (x < 1)
+	{
+		if (z < 1)
+			return eArea::a5OS;
+		else if (z >= 1 && z <= 6)
+			return eArea::a5O;
+		else if (z >= 7 && z <= 9)
+			return eArea::a4O;
+		else if (z >= 10 && z <= 12)
+			return eArea::a2E;
+		else if (z >= 13 && z <= 18)
+			return eArea::a1E;
+		else if (z > 18)
+			return eArea::a1ES;
+	}
+	else if (x >= 1 && x <= 3)
+	{
+		if (z < 1)
+			return eArea::a5S;
+		else if (z >= 1 && z <= 6)
+			return eArea::a5;
+		else if (z >= 7 && z <= 9)
+			return eArea::a4;
+		else if (z >= 10 && z <= 12)
+			return eArea::a2;
+		else if (z >= 13 && z <= 18)
+			return eArea::a1;
+		else if (z > 18)
+			return eArea::a1S;
+	}
+	else if (x >= 4 && x <= 6)
+	{
+		if (z < 1)
+			return eArea::a6S;
+		else if (z >= 1 && z <= 6)
+			return eArea::a6;
+		else if (z >= 7 && z <= 9)
+			return eArea::a3;
+		else if (z >= 10 && z <= 12)
+			return eArea::a3;
+		else if (z >= 13 && z <= 18)
+			return eArea::a6;
+		else if (z > 18)
+			return eArea::a6S;
+	}
+	else if (x >= 7 && x <= 9)
+	{
+		if (z < 1)
+			return eArea::a1S;
+		else if (z >= 1 && z <= 6)
+			return eArea::a1;
+		else if (z >= 7 && z <= 9)
+			return eArea::a2;
+		else if (z >= 10 && z <= 12)
+			return eArea::a4;
+		else if (z >= 13 && z <= 18)
+			return eArea::a5;
+		else if (z > 18)
+			return eArea::a5S;
+	}
+	else if (x > 9)
+	{
+		if (z < 1)
+			return eArea::a1ES;
+		else if (z >= 1 && z <= 6)
+			return eArea::a1E;
+		else if (z >= 7 && z <= 9)
+			return eArea::a2E;
+		else if (z >= 10 && z <= 12)
+			return eArea::a4O;
+		else if (z >= 13 && z <= 18)
+			return eArea::a5O;
+		else if (z > 18)
+			return eArea::a5OS;
+	}
+}
+
 Folie::GB::eArea Folie::GB::getAreaFromPosition(ePosition current)
 {
 	switch (current)
@@ -163,5 +242,15 @@ Folie::GB::ePosition Folie::GB::selectRandomPosition()
 		return ePosition::p6;
 	case 3:
 		return ePosition::p1;
+	}
+}
+
+UnityEngine::WaitForEndOfFrame ^Folie::GB::WaitUntil(Func<bool> ^testAction)
+{
+	while (!testAction->Invoke())
+	{
+		auto r = gcnew UnityEngine::WaitForEndOfFrame();
+
+		return r;
 	}
 }

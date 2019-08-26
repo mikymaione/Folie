@@ -13,6 +13,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #using <UnityEngine.AIModule.dll> as_friend
 
+using namespace System::Collections::Generic;
+
 namespace Folie
 {
 	public ref class Player abstract :UnityEngine::MonoBehaviour
@@ -21,11 +23,13 @@ namespace Folie
 		GB::ePosition targetChoosen;
 		UnityEngine::AI::NavMeshAgent ^agent;
 
+		bool moving;
+
 	internal:
 		UnityEngine::Transform ^mano;
 
 		GB::ePosition currentPosition;
-		GB::eArea currentArea;
+		GB::eArea currentArea, startingArea;
 		GB::eCampo campo;
 
 		bool lookingAtTheBall;
@@ -35,6 +39,8 @@ namespace Folie
 
 		GB::ePosition startingPosition;
 		GB::eRole role;
+
+		GB::eTeam team;
 
 	private:
 		void Start();
