@@ -23,10 +23,16 @@ void Folie::Player::Update()
 
 }
 
+bool Folie::Player::inPosizione()
+{
+	return (transform->position.x == destinazione.x && transform->position.z == destinazione.z);
+}
+
 void Folie::Player::moveTo(float pos_x, float pos_z)
 {
 	auto d = UnityEngine::Vector3(pos_x, 0, pos_z);
 	agent->destination = d;
+	destinazione = d;
 }
 
 void Folie::Player::moveTo(UnityEngine::Vector3 ^position)
@@ -59,12 +65,29 @@ void Folie::Player::pass_mode()
 		hit();
 }
 
-void Folie::Player::serve()
+void Folie::Player::doServe()
 {
 	targetChoosen = GB::selectRandomPosition();
 	auto c = GB::getCoordinatesFromPosition(campo, targetChoosen);
 
 	transform->LookAt(UnityEngine::Vector3(c->x, transform->position.y, c->y));
+	
+	Yielder::Yielder::waiter(
+		this,
+		2,
+		gcnew Action(this, &Player::hit)
+	);
+}
+
+void Folie::Player::serve()
+{
+	moveTo(REF::ball->transform->position);
+
+	Yielder::Yielder::waiterFor(
+		this,
+		gcnew Func<bool>(this, &Player::inPosizione),
+		gcnew Action(this, &Player::doServe)
+	);
 }
 
 void Folie::Player::hit(GB::ePosition target)

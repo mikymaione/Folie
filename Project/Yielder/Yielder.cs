@@ -15,6 +15,17 @@ namespace Yielder
     public static class Yielder
     {
 
+        public static void waiter<T>(MonoBehaviour this_, ushort seconds, Action<T> ok, T p1)
+        {
+            this_.StartCoroutine(coroutine_waiter(seconds, ok, p1));
+        }
+
+        private static IEnumerator coroutine_waiter<T>(ushort seconds, Action<T> ok, T p1)
+        {
+            yield return new WaitForSeconds(seconds);
+            ok(p1);
+        }
+
         public static void waiter(MonoBehaviour this_, ushort seconds, Action ok)
         {
             this_.StartCoroutine(coroutine_waiter(seconds, ok));

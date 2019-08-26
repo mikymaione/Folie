@@ -488,6 +488,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mano: {fileID: 0}
+  currentPosition: 0
+  currentArea: 0
+  startingArea: 0
+  campo: 1
+  lookingAtTheBall: 0
+  agent: {fileID: 0}
   name: Alessandro
   startingPosition: 3
   role: 3
@@ -680,6 +687,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mano: {fileID: 0}
+  currentPosition: 0
+  currentArea: 0
+  startingArea: 0
+  campo: 1
+  lookingAtTheBall: 0
+  agent: {fileID: 0}
   name: Margherita
   startingPosition: 1
   role: 1
@@ -916,6 +930,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mano: {fileID: 0}
+  currentPosition: 0
+  currentArea: 0
+  startingArea: 0
+  campo: 1
+  lookingAtTheBall: 0
+  agent: {fileID: 0}
   name: Davide
   startingPosition: 5
   role: 5
@@ -1200,6 +1221,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mano: {fileID: 0}
+  currentPosition: 0
+  currentArea: 0
+  startingArea: 0
+  campo: 0
+  lookingAtTheBall: 0
+  agent: {fileID: 0}
   name: Laura
   startingPosition: 1
   role: 1
@@ -1673,6 +1701,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mano: {fileID: 0}
+  currentPosition: 0
+  currentArea: 0
+  startingArea: 0
+  campo: 0
+  lookingAtTheBall: 0
+  agent: {fileID: 0}
   name: Lara
   startingPosition: 4
   role: 4
@@ -2078,6 +2113,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mano: {fileID: 0}
+  currentPosition: 0
+  currentArea: 0
+  startingArea: 0
+  campo: 1
+  lookingAtTheBall: 0
+  agent: {fileID: 0}
   name: Carla
   startingPosition: 4
   role: 4
@@ -2449,6 +2491,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mano: {fileID: 0}
+  currentPosition: 0
+  currentArea: 0
+  startingArea: 0
+  campo: 1
+  lookingAtTheBall: 0
+  agent: {fileID: 0}
   name: Filippo
   startingPosition: 2
   role: 0
@@ -2512,6 +2561,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mano: {fileID: 0}
+  currentPosition: 0
+  currentArea: 0
+  startingArea: 0
+  campo: 0
+  lookingAtTheBall: 0
+  agent: {fileID: 0}
   name: Federico
   startingPosition: 3
   role: 5
@@ -2575,6 +2631,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mano: {fileID: 0}
+  currentPosition: 0
+  currentArea: 0
+  startingArea: 0
+  campo: 1
+  lookingAtTheBall: 0
+  agent: {fileID: 0}
   name: Squilla
   startingPosition: 0
   role: 2
@@ -2638,6 +2701,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mano: {fileID: 0}
+  currentPosition: 0
+  currentArea: 0
+  startingArea: 0
+  campo: 0
+  lookingAtTheBall: 0
+  agent: {fileID: 0}
   name: Michele
   startingPosition: 0
   role: 0
@@ -2701,6 +2771,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mano: {fileID: 0}
+  currentPosition: 0
+  currentArea: 0
+  startingArea: 0
+  campo: 0
+  lookingAtTheBall: 0
+  agent: {fileID: 0}
   name: Lorenzo
   startingPosition: 5
   role: 3
@@ -2794,6 +2871,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mano: {fileID: 0}
+  currentPosition: 0
+  currentArea: 0
+  startingArea: 0
+  campo: 0
+  lookingAtTheBall: 0
+  agent: {fileID: 0}
   name: Piero
   startingPosition: 2
   role: 2

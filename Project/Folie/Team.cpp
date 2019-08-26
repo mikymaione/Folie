@@ -66,9 +66,12 @@ void Folie::Team::lookAtOpponent()
 		p->lookAtAnOpponent();
 }
 
-void Folie::Team::takeTheBall()
+void Folie::Team::serve()
 {
 	for each (auto p in players)
 		if (p->currentPosition == GB::ePosition::p1)
-			p->moveTo(REF::ball->transform->position);
+		{
+			p->serve();
+			break;
+		}
 }

@@ -39,6 +39,15 @@
     <ClInclude Include="REF.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="CoRunner.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="GenericEnumerable.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="GenericEnumerator.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -63,6 +72,15 @@
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="REF.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="CoRunner.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="GenericEnumerable.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="GenericEnumerator.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>

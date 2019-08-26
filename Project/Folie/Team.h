@@ -38,7 +38,7 @@ namespace Folie
 		bool giocatoriPresePosizioniInCampo();
 		void giocatoriPrenderePosizioniInCampo();
 		void lookAtOpponent();
-		void takeTheBall();
+		void serve();
 
 	};
 }

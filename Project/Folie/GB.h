@@ -49,7 +49,7 @@ namespace Folie
 	internal:
 		static Random ^rnd;
 
-	internal:
+	public:
 		static eCampo oppositeField(eCampo campo);
 
 		static UnityEngine::Vector2 ^getCoordinatesFromPosition(eCampo campo, ePosition position);

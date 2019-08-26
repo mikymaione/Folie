@@ -8,64 +8,20 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #pragma once
 
-#include "GB.h"
-#include "Ball.h"
-
-#using <UnityEngine.AIModule.dll> as_friend
-#using <Yielder.dll> as_friend
-
-using namespace System::Collections::Generic;
+using namespace System::Collections;
 
 namespace Folie
 {
-	public ref class Player abstract :UnityEngine::MonoBehaviour
-	{
+	ref class GenericEnumerable :IEnumerable
+	{	
 	private:
-		GB::ePosition targetChoosen;
-
-		UnityEngine::Vector3 destinazione;
-
-	public:
-		UnityEngine::Transform ^mano;
-
-		GB::ePosition currentPosition;
-		GB::eArea currentArea, startingArea;
-		GB::eCampo campo;
-
-		bool lookingAtTheBall;	
-		UnityEngine::AI::NavMeshAgent ^agent; //spostare
+		IEnumerator ^f;
+		System::Action ^runMethod;
 
 	public:
+		GenericEnumerable(System::Action ^runMethod, IEnumerator ^f);
 
-		String ^name;
-
-		GB::ePosition startingPosition;
-		GB::eRole role;
-
-		GB::eTeam team;
-
-	protected:
-		virtual void Start();
-		void Update();
-
-		bool inPosizione();
-		void doServe();
-
-	public:
-		void move();
-		void moveToPosition(GB::ePosition position);
-		void moveToNextPosition();
-		void moveTo(UnityEngine::Vector3 ^position);
-		void moveTo(float pos_x, float pos_z);
-
-		void pass_mode();
-		void serve();
-		void hit(GB::ePosition target);
-		void hit();
-
-		void lookAtAnOpponent();
-		void lookAt(float x, float y);
-		void lookAt(UnityEngine::Vector2 ^dest);
+		virtual System::Collections::IEnumerator ^ GetEnumerator();
 
 	};
 }

@@ -98,6 +98,10 @@
     <Link>
       <AdditionalDependencies />
     </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -132,8 +136,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="CoRunner.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GB.h" />
+    <ClInclude Include="GenericEnumerable.h" />
+    <ClInclude Include="GenericEnumerator.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="REF.h" />
     <ClInclude Include="Resource.h" />
@@ -143,8 +150,11 @@
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="CoRunner.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GB.cpp" />
+    <ClCompile Include="GenericEnumerable.cpp" />
+    <ClCompile Include="GenericEnumerator.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="REF.cpp" />
     <ClCompile Include="stdafx.cpp">
