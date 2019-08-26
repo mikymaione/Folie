@@ -11,7 +11,7 @@ public class Match : Folie.Game
 
     void Start()
     {
-        GB.waiter(this, 2, () =>
+        Yielder.Yielder.waiter(this, 2, () =>
         {
             startTheMatch(25);
         });

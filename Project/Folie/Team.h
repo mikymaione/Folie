@@ -17,7 +17,6 @@ namespace Folie
 	public ref class Team abstract :UnityEngine::MonoBehaviour
 	{
 	internal:
-		UInt16 destinationReached;
 		array<Player ^> ^players;
 
 	public:
@@ -36,6 +35,7 @@ namespace Folie
 		Player ^getPlayerAtPosition(GB::ePosition position);
 		Player ^getPlayerWithRole(GB::eRole role);
 
+		bool giocatoriPresePosizioniInCampo();
 		void giocatoriPrenderePosizioniInCampo();
 		void lookAtOpponent();
 		void takeTheBall();

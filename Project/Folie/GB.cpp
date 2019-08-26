@@ -244,13 +244,3 @@ Folie::GB::ePosition Folie::GB::selectRandomPosition()
 		return ePosition::p1;
 	}
 }
-
-UnityEngine::WaitForEndOfFrame ^Folie::GB::WaitUntil(Func<bool> ^testAction)
-{
-	while (!testAction->Invoke())
-	{
-		auto r = gcnew UnityEngine::WaitForEndOfFrame();
-
-		return r;
-	}
-}

@@ -61,8 +61,6 @@ namespace Folie
 		static ePosition getNextRotationPosition(ePosition current);
 		static ePosition selectRandomPosition();
 
-		static UnityEngine::WaitForEndOfFrame ^WaitUntil(Func<bool> ^testAction);
-
 		generic <class T> where T : UnityEngine::Component static T GetComponentsInChildren(UnityEngine::MonoBehaviour ^mb, String ^tag);
 
 	};

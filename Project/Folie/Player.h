@@ -12,6 +12,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "Ball.h"
 
 #using <UnityEngine.AIModule.dll> as_friend
+#using <Yielder.dll> as_friend
 
 using namespace System::Collections::Generic;
 
@@ -22,8 +23,6 @@ namespace Folie
 	private:
 		GB::ePosition targetChoosen;
 		UnityEngine::AI::NavMeshAgent ^agent;
-
-		bool moving;
 
 	internal:
 		UnityEngine::Transform ^mano;
@@ -50,8 +49,8 @@ namespace Folie
 		void move();
 		void moveToPosition(GB::ePosition position);
 		void moveToNextPosition();
-		void moveTo(float pos_x, float pos_z);
 		void moveTo(UnityEngine::Vector3 ^position);
+		void moveTo(float pos_x, float pos_z);
 
 		void pass_mode();
 		void serve();

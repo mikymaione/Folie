@@ -25,16 +25,7 @@ void Folie::Team::Start()
 
 void Folie::Team::Update()
 {
-	if (destinationReached < 6)
-	{
-		auto d = 0;
 
-		for each (auto p in players)
-			if (GB::getAreaFromCoordinates(p->transform->position.x, p->transform->position.z) == p->startingArea)
-				d++;
-
-		destinationReached = d;
-	}
 }
 
 Folie::Player ^Folie::Team::getPlayerAtPosition(GB::ePosition position)
@@ -51,10 +42,17 @@ Folie::Player ^Folie::Team::getPlayerWithRole(GB::eRole role)
 			return p;
 }
 
+bool Folie::Team::giocatoriPresePosizioniInCampo()
+{
+	for each (auto p in players)
+		if (GB::getAreaFromCoordinates(p->transform->position.x, p->transform->position.z) != p->startingArea)
+			return false;
+
+	return true;
+}
+
 void Folie::Team::giocatoriPrenderePosizioniInCampo()
 {
-	destinationReached = 0;
-
 	for each (auto p in players)
 	{
 		p->campo = campo;
