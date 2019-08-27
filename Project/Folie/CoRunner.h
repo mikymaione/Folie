@@ -38,5 +38,8 @@ namespace Folie
 		void Enqueue(eJob job, System::Collections::IEnumerator ^cosa);
 		void Run();
 
+		void Start(System::Action ^runMethod, System::Collections::IEnumerator ^f_last);
+		void Start(System::Collections::IEnumerator ^f_pre, System::Action ^runMethod);
+
 	};
 }

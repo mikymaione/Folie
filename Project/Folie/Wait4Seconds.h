@@ -19,7 +19,11 @@ namespace Folie
 		float _duration;
 
 	public:
-		Wait4Seconds(System::UInt16 milliseconds);
+		Wait4Seconds(float seconds)
+		{
+			this->_duration = seconds;
+			Reset();
+		};
 
 		property bool keepWaiting
 		{

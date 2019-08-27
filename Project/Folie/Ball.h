@@ -14,7 +14,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 namespace Folie
 {
-	public ref class Ball abstract :UnityEngine::MonoBehaviour
+	public ref class Ball :UnityEngine::MonoBehaviour
 	{
 	private:
 		UnityEngine::Rigidbody ^rigidBody;

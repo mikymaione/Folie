@@ -8,6 +8,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #pragma once
 
+#include "Wait4Seconds.h"
 #include "CoRunner.h"
 #include "Ball.h"
 #include "Team.h"
@@ -28,9 +29,16 @@ namespace Folie
 		static Team ^teamA, ^teamB;
 		static Game ^game;
 
-	internal:		
-		static System::Collections::IEnumerator ^w4ms(UInt16 milli_seconds);
-		static System::Collections::IEnumerator ^wUtil(System::Func<bool> ^fn);
+	internal:
+		static System::Collections::IEnumerator ^w4ms(float seconds)
+		{
+			return gcnew Wait4Seconds(seconds);
+		};
+
+		static System::Collections::IEnumerator ^wUtil(System::Func<bool> ^fn)
+		{
+			return gcnew UnityEngine::WaitUntil(fn);
+		};
 
 	};
 }

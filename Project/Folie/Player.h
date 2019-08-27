@@ -17,7 +17,7 @@ using namespace System::Collections::Generic;
 
 namespace Folie
 {
-	public ref class Player abstract :UnityEngine::MonoBehaviour
+	public ref class Player :UnityEngine::MonoBehaviour
 	{
 	private:
 		GB::ePosition targetChoosen;

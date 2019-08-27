@@ -8,20 +8,86 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #pragma once
 
-using namespace System::Collections;
-
 namespace Folie
 {
-	ref class GenericEnumerable :IEnumerable
+	ref class GenericEnumerable :System::Collections::IEnumerable
 	{
+	public:
+		enum class eMode
+		{
+			First, Last
+		};
+
 	private:
-		IEnumerator ^f;
+		System::Collections::IEnumerator ^iter;
 		System::Action ^runMethod;
+		eMode mode;
+
+		ref class GenericEnumerator :System::Collections::IEnumerator
+		{
+		private:
+			System::Collections::IEnumerator ^iter;
+			System::Action ^runMethod;
+			eMode mode;
+
+		public:
+			GenericEnumerator(eMode mode, System::Action ^runMethod, System::Collections::IEnumerator ^iter)
+			{
+				this->mode = mode;
+				this->runMethod = runMethod;
+				this->iter = iter;
+			};
+
+			virtual bool MoveNext()
+			{
+				auto more_elements_available = iter->MoveNext();
+
+				switch (mode)
+				{
+				case eMode::Last:
+					if (!more_elements_available)
+						runMethod();
+
+					break;
+				}
+
+				return more_elements_available;
+			};
+
+			virtual void Reset()
+			{
+				switch (mode)
+				{
+				case eMode::First:
+					runMethod();
+					break;
+				}
+
+				iter->Reset();
+			};
+
+			virtual property Object ^Current
+			{
+				Object ^get()
+				{
+					return iter->Current;
+				}
+			};
+
+		};
 
 	public:
-		GenericEnumerable(System::Action ^runMethod, IEnumerator ^f);
+		GenericEnumerable(eMode mode, System::Action ^runMethod, System::Collections::IEnumerator ^iter)
+		{
+			this->mode = mode;
+			this->runMethod = runMethod;
+			this->iter = iter;
+		}
 
-		virtual System::Collections::IEnumerator ^GetEnumerator();
+		virtual System::Collections::IEnumerator ^GetEnumerator()
+		{
+			return gcnew GenericEnumerator(mode, runMethod, iter);
+		};
 
 	};
 }

@@ -14,7 +14,7 @@ using namespace System;
 
 namespace Folie
 {
-	public ref class Team abstract :UnityEngine::MonoBehaviour
+	public ref class Team :UnityEngine::MonoBehaviour
 	{
 	internal:
 		array<Player ^> ^players;

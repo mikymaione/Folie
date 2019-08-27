@@ -476,29 +476,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
---- !u!114 &143199511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 143199509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mano: {fileID: 0}
-  currentPosition: 0
-  currentArea: 0
-  startingArea: 0
-  campo: 1
-  lookingAtTheBall: 0
-  agent: {fileID: 0}
-  name: Alessandro
-  startingPosition: 3
-  role: 3
-  team: 1
 --- !u!195 &143199512
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -521,6 +498,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &143199513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 143199509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1110504934, guid: a87aca056b697d941ac5aa1ef36b5cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Alessandro
+  startingPosition: 3
+  role: 3
+  team: 1
 --- !u!4 &143199514 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -675,29 +668,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
---- !u!114 &222444341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 222444339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mano: {fileID: 0}
-  currentPosition: 0
-  currentArea: 0
-  startingArea: 0
-  campo: 1
-  lookingAtTheBall: 0
-  agent: {fileID: 0}
-  name: Margherita
-  startingPosition: 1
-  role: 1
-  team: 1
 --- !u!195 &222444342
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -720,6 +690,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &222444343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222444339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1110504934, guid: a87aca056b697d941ac5aa1ef36b5cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Margherita
+  startingPosition: 1
+  role: 1
+  team: 1
 --- !u!4 &222444344 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -863,12 +849,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 302849802}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c532411516ce71046bf1876257ec1a7a, type: 3}
+  m_Script: {fileID: -1316959609, guid: a87aca056b697d941ac5aa1ef36b5cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 440725338}
-  teamA: {fileID: 1116824671}
-  teamB: {fileID: 1287462438}
+  teamA: {fileID: 1116824673}
+  teamB: {fileID: 1287462440}
 --- !u!1 &356052460
 GameObject:
   m_ObjectHideFlags: 0
@@ -918,29 +904,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
---- !u!114 &401835979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 401835977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mano: {fileID: 0}
-  currentPosition: 0
-  currentArea: 0
-  startingArea: 0
-  campo: 1
-  lookingAtTheBall: 0
-  agent: {fileID: 0}
-  name: Davide
-  startingPosition: 5
-  role: 5
-  team: 1
 --- !u!195 &401835980
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -963,6 +926,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &401835981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401835977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1110504934, guid: a87aca056b697d941ac5aa1ef36b5cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Davide
+  startingPosition: 5
+  role: 5
+  team: 1
 --- !u!4 &401835982 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -1139,7 +1118,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 440725335}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 888c5dfe215465c41a4d36e872976e9f, type: 3}
+  m_Script: {fileID: 1680802555, guid: a87aca056b697d941ac5aa1ef36b5cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!23 &442921367
@@ -1209,29 +1188,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
---- !u!114 &467354012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 467354010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mano: {fileID: 0}
-  currentPosition: 0
-  currentArea: 0
-  startingArea: 0
-  campo: 0
-  lookingAtTheBall: 0
-  agent: {fileID: 0}
-  name: Laura
-  startingPosition: 1
-  role: 1
-  team: 0
 --- !u!195 &467354013
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1254,6 +1210,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &467354014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467354010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1110504934, guid: a87aca056b697d941ac5aa1ef36b5cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Laura
+  startingPosition: 1
+  role: 1
+  team: 0
 --- !u!4 &467354015 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -1689,29 +1661,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
---- !u!114 &837810536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 837810534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mano: {fileID: 0}
-  currentPosition: 0
-  currentArea: 0
-  startingArea: 0
-  campo: 0
-  lookingAtTheBall: 0
-  agent: {fileID: 0}
-  name: Lara
-  startingPosition: 4
-  role: 4
-  team: 0
 --- !u!195 &837810537
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1734,6 +1683,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &837810538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837810534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1110504934, guid: a87aca056b697d941ac5aa1ef36b5cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Lara
+  startingPosition: 4
+  role: 4
+  team: 0
 --- !u!4 &837810539 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -2040,7 +2005,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1116824672}
-  - component: {fileID: 1116824671}
+  - component: {fileID: 1116824673}
   m_Layer: 0
   m_Name: TeamA
   m_TagString: Untagged
@@ -2048,26 +2013,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1116824671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1116824670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ace840de26977cc4a83df96ca3b48fad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: BawiTim
-  campo: 0
-  P1: {fileID: 467354012}
-  P2: {fileID: 837810536}
-  C1: {fileID: 1604036737}
-  C2: {fileID: 1625788190}
-  B1: {fileID: 1827138188}
-  B2: {fileID: 1509818955}
 --- !u!4 &1116824672
 Transform:
   m_ObjectHideFlags: 0
@@ -2082,6 +2027,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1116824673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116824670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1318043614, guid: a87aca056b697d941ac5aa1ef36b5cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: BawiTim
+  campo: 0
+  P1: {fileID: 0}
+  P2: {fileID: 0}
+  C1: {fileID: 0}
+  C2: {fileID: 0}
+  B1: {fileID: 0}
+  B2: {fileID: 0}
 --- !u!1 &1169157100 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -2101,29 +2066,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
---- !u!114 &1169157102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1169157100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mano: {fileID: 0}
-  currentPosition: 0
-  currentArea: 0
-  startingArea: 0
-  campo: 1
-  lookingAtTheBall: 0
-  agent: {fileID: 0}
-  name: Carla
-  startingPosition: 4
-  role: 4
-  team: 1
 --- !u!195 &1169157103
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2146,6 +2088,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1169157104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169157100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1110504934, guid: a87aca056b697d941ac5aa1ef36b5cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Carla
+  startingPosition: 4
+  role: 4
+  team: 1
 --- !u!4 &1169157105 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -2258,7 +2216,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1287462439}
-  - component: {fileID: 1287462438}
+  - component: {fileID: 1287462440}
   m_Layer: 0
   m_Name: TeamB
   m_TagString: Untagged
@@ -2266,26 +2224,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1287462438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1287462437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a40014969202b2b438c1787f53951df3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Gruppo1
-  campo: 1
-  P1: {fileID: 222444341}
-  P2: {fileID: 1169157102}
-  C1: {fileID: 1469049053}
-  C2: {fileID: 143199511}
-  B1: {fileID: 1571497252}
-  B2: {fileID: 401835979}
 --- !u!4 &1287462439
 Transform:
   m_ObjectHideFlags: 0
@@ -2300,6 +2238,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1287462440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287462437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1318043614, guid: a87aca056b697d941ac5aa1ef36b5cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Gruppo1
+  campo: 1
+  P1: {fileID: 0}
+  P2: {fileID: 0}
+  C1: {fileID: 0}
+  C2: {fileID: 0}
+  B1: {fileID: 0}
+  B2: {fileID: 0}
 --- !u!1 &1325506166
 GameObject:
   m_ObjectHideFlags: 0
@@ -2479,29 +2437,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
---- !u!114 &1469049053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1469049051}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mano: {fileID: 0}
-  currentPosition: 0
-  currentArea: 0
-  startingArea: 0
-  campo: 1
-  lookingAtTheBall: 0
-  agent: {fileID: 0}
-  name: Filippo
-  startingPosition: 2
-  role: 0
-  team: 1
 --- !u!195 &1469049054
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2524,6 +2459,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1469049055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469049051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1110504934, guid: a87aca056b697d941ac5aa1ef36b5cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Filippo
+  startingPosition: 2
+  role: 0
+  team: 1
 --- !u!4 &1469049056 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -2549,29 +2500,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
---- !u!114 &1509818955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1509818953}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mano: {fileID: 0}
-  currentPosition: 0
-  currentArea: 0
-  startingArea: 0
-  campo: 0
-  lookingAtTheBall: 0
-  agent: {fileID: 0}
-  name: Federico
-  startingPosition: 3
-  role: 5
-  team: 0
 --- !u!195 &1509818956
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2594,6 +2522,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1509818957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509818953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1110504934, guid: a87aca056b697d941ac5aa1ef36b5cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Federico
+  startingPosition: 3
+  role: 5
+  team: 0
 --- !u!4 &1509818958 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -2619,29 +2563,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
---- !u!114 &1571497252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1571497250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mano: {fileID: 0}
-  currentPosition: 0
-  currentArea: 0
-  startingArea: 0
-  campo: 1
-  lookingAtTheBall: 0
-  agent: {fileID: 0}
-  name: Squilla
-  startingPosition: 0
-  role: 2
-  team: 1
 --- !u!195 &1571497253
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2664,6 +2585,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1571497254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571497250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1110504934, guid: a87aca056b697d941ac5aa1ef36b5cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Squilla
+  startingPosition: 0
+  role: 2
+  team: 1
 --- !u!4 &1571497255 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -2689,29 +2626,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
---- !u!114 &1604036737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1604036735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mano: {fileID: 0}
-  currentPosition: 0
-  currentArea: 0
-  startingArea: 0
-  campo: 0
-  lookingAtTheBall: 0
-  agent: {fileID: 0}
-  name: Michele
-  startingPosition: 0
-  role: 0
-  team: 0
 --- !u!195 &1604036738
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2734,6 +2648,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1604036739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604036735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1110504934, guid: a87aca056b697d941ac5aa1ef36b5cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Michele
+  startingPosition: 0
+  role: 0
+  team: 0
 --- !u!4 &1604036740 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -2759,29 +2689,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
---- !u!114 &1625788190
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1625788188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mano: {fileID: 0}
-  currentPosition: 0
-  currentArea: 0
-  startingArea: 0
-  campo: 0
-  lookingAtTheBall: 0
-  agent: {fileID: 0}
-  name: Lorenzo
-  startingPosition: 5
-  role: 3
-  team: 0
 --- !u!195 &1625788191
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2804,6 +2711,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1625788192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625788188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1110504934, guid: a87aca056b697d941ac5aa1ef36b5cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Lorenzo
+  startingPosition: 5
+  role: 3
+  team: 0
 --- !u!4 &1625788193 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -2859,29 +2782,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
---- !u!114 &1827138188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1827138186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9142d2ec450be5d459972487d2969bde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mano: {fileID: 0}
-  currentPosition: 0
-  currentArea: 0
-  startingArea: 0
-  campo: 0
-  lookingAtTheBall: 0
-  agent: {fileID: 0}
-  name: Piero
-  startingPosition: 2
-  role: 2
-  team: 0
 --- !u!195 &1827138189
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2904,6 +2804,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1827138190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827138186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1110504934, guid: a87aca056b697d941ac5aa1ef36b5cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Piero
+  startingPosition: 2
+  role: 2
+  team: 0
 --- !u!4 &1827138191 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,

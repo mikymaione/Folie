@@ -91,7 +91,7 @@ System::Collections::IEnumerator ^Folie::Player::hit(GB::ePosition target)
 	//if (distance_from_ball < 0.5)	
 	REF::ball->moveTo(GB::oppositeField(campo), target);
 
-	return REF::w4ms(100);
+	return REF::w4ms(0.1);
 }
 
 void Folie::Player::hit()
@@ -118,7 +118,7 @@ System::Collections::IEnumerator ^Folie::Player::lookAt(float x, float y)
 {
 	transform->LookAt(UnityEngine::Vector3(x, transform->position.y, y));
 
-	return REF::w4ms(300);
+	return REF::w4ms(0.3);
 }
 /*
 void Folie::Player::propagateEvent(GB::eEvent e)

@@ -9,7 +9,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "stdafx.h"
 #include "CoRunner.h"
 #include "GenericEnumerable.h"
-#include "GenericEnumerator.h"
 
 Folie::CoRunner::CoRunner(UnityEngine::MonoBehaviour ^mb)
 {
@@ -53,9 +52,24 @@ void Folie::CoRunner::asyncRun()
 System::Collections::IEnumerator ^Folie::CoRunner::syncCoRun(System::Collections::IEnumerator ^fun)
 {
 	auto enumerable = gcnew GenericEnumerable(
+		GenericEnumerable::eMode::Last,
 		gcnew System::Action(this, &CoRunner::Run),
 		fun
 	);
 
 	return enumerable->GetEnumerator();
+}
+
+void Folie::CoRunner::Start(System::Action ^runMethod, System::Collections::IEnumerator ^f_last)
+{
+	auto co = gcnew GenericEnumerable(GenericEnumerable::eMode::First, runMethod, f_last);
+
+	mb->StartCoroutine(co->GetEnumerator());
+}
+
+void Folie::CoRunner::Start(System::Collections::IEnumerator ^f_pre, System::Action ^runMethod)
+{
+	auto co = gcnew GenericEnumerable(GenericEnumerable::eMode::Last, runMethod, f_pre);
+
+	mb->StartCoroutine(co->GetEnumerator());
 }
