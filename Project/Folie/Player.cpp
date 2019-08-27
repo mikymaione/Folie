@@ -73,23 +73,25 @@ void Folie::Player::pass_mode()
 		hit();
 }
 
-void Folie::Player::doServe()
-{
-	targetChoosen = GB::selectRandomPosition();
-	auto c = GB::getCoordinatesFromPosition(campo, targetChoosen);
-
-	transform->LookAt(UnityEngine::Vector3(c->x, transform->position.y, c->y));
-}
-
 void Folie::Player::serve()
 {
 	moveTo(REF::ball->transform->position);
+
+	targetChoosen = GB::selectRandomPosition();
+	auto c = GB::getCoordinatesFromPosition(campo, targetChoosen);
+
+	REF::coRunner->Enqueue(CoRunner::eJob::Sync, lookAt(c->x, c->y));
+	REF::coRunner->Enqueue(CoRunner::eJob::Sync, hit(targetChoosen));
+
+	moveToPosition(startingPosition);
 }
 
-void Folie::Player::hit(GB::ePosition target)
+System::Collections::IEnumerator ^Folie::Player::hit(GB::ePosition target)
 {
 	//if (distance_from_ball < 0.5)	
 	REF::ball->moveTo(GB::oppositeField(campo), target);
+
+	return REF::w4ms(100);
 }
 
 void Folie::Player::hit()
@@ -112,9 +114,11 @@ void Folie::Player::lookAt(UnityEngine::Vector2 ^dest)
 	lookAt(dest->x, dest->y);
 }
 
-void Folie::Player::lookAt(float x, float y)
+System::Collections::IEnumerator ^Folie::Player::lookAt(float x, float y)
 {
 	transform->LookAt(UnityEngine::Vector3(x, transform->position.y, y));
+
+	return REF::w4ms(300);
 }
 /*
 void Folie::Player::propagateEvent(GB::eEvent e)

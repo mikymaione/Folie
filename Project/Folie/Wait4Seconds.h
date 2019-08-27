@@ -10,58 +10,27 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #using <UnityEngine.CoreModule.dll> as_friend
 
-using namespace System;
-
 namespace Folie
 {
-	public ref class GB abstract sealed
+	ref class Wait4Seconds : UnityEngine::CustomYieldInstruction
 	{
+	private:
+		float _timer;
+		float _duration;
+
 	public:
-		enum class eTeam
+		Wait4Seconds(System::UInt16 milliseconds);
+
+		property bool keepWaiting
 		{
-			A, B
+			bool get() override
+			{
+				auto timer = _timer;
+				_timer += UnityEngine::Time::deltaTime;
+
+				return timer < _duration;
+			}
 		};
-
-		enum class eCampo
-		{
-			up, down
-		};
-
-		enum class eArea
-		{
-			a4O, a4, a3, a2, a2E,
-			a5O, a5, a6, a1, a1E,
-			a5OS, a5S, a6S, a1S, a1ES
-		};
-
-		enum class ePosition
-		{
-			p4, p3, p2,
-			p5, p6, p1
-		};
-
-		enum class eRole
-		{
-			c1, p1, b1,
-			c2, p2, b2
-		};
-
-	internal:
-		static Random ^rnd;
-
-	public:		
-		static eCampo oppositeField(eCampo campo);
-
-		static UnityEngine::Vector2 ^getCoordinatesFromPosition(eCampo campo, ePosition position);
-		static UnityEngine::Vector2 ^getCoordinatesFromArea(eCampo campo, eArea area);
-
-		static eArea getAreaFromCoordinates(float x, float z);
-
-		static eArea getAreaFromPosition(ePosition current);
-		static ePosition getNextRotationPosition(ePosition current);
-		static ePosition selectRandomPosition();
-
-		generic <class T> where T : UnityEngine::Component static T GetComponentsInChildren(UnityEngine::MonoBehaviour ^mb, String ^tag);
 
 	};
 }

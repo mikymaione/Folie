@@ -8,3 +8,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #include "stdafx.h"
 #include "REF.h"
+#include "Wait4Seconds.h"
+
+System::Collections::IEnumerator ^Folie::REF::w4ms(UInt16 milli_seconds)
+{
+	return gcnew Wait4Seconds(milli_seconds / 1000);
+}
+
+System::Collections::IEnumerator ^Folie::REF::wUtil(System::Func<bool>^ fn)
+{
+	return gcnew UnityEngine::WaitUntil(fn);
+}

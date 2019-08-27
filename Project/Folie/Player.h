@@ -21,19 +21,17 @@ namespace Folie
 	{
 	private:
 		GB::ePosition targetChoosen;
+		UnityEngine::AI::NavMeshAgent ^agent;
 
-	public:
+	internal:
 		UnityEngine::Transform ^mano;
 
 		GB::ePosition currentPosition;
 		GB::eArea currentArea, startingArea;
 		GB::eCampo campo;
-
-		bool lookingAtTheBall;
-		UnityEngine::AI::NavMeshAgent ^agent; //spostare
+		//bool lookingAtTheBall;		
 
 	public:
-
 		String ^name;
 
 		GB::ePosition startingPosition;
@@ -41,11 +39,9 @@ namespace Folie
 
 		GB::eTeam team;
 
-	protected:
-		virtual void Start();
+	private:
+		void Start();
 		void Update();
-
-		void doServe();
 
 	public:
 		bool inPosizione();
@@ -59,12 +55,13 @@ namespace Folie
 
 		void pass_mode();
 		void serve();
-		void hit(GB::ePosition target);
+
 		void hit();
+		System::Collections::IEnumerator ^hit(GB::ePosition target);
 
 		void lookAtAnOpponent();
-		void lookAt(float x, float y);
 		void lookAt(UnityEngine::Vector2 ^dest);
+		System::Collections::IEnumerator ^lookAt(float x, float y);
 
 	};
 }

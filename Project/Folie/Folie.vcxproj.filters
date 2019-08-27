@@ -48,6 +48,9 @@
     <ClInclude Include="GenericEnumerator.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="Wait4Seconds.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -81,6 +84,9 @@
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="GenericEnumerator.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="Wait4Seconds.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>
