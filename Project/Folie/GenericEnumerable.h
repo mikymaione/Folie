@@ -21,19 +21,19 @@ namespace Folie
 	private:
 		System::Collections::IEnumerator ^iter;
 		System::Action ^runMethod;
-		eMode mode;
+		eMode when_runMethod;
 
 		ref class GenericEnumerator :System::Collections::IEnumerator
 		{
 		private:
 			System::Collections::IEnumerator ^iter;
 			System::Action ^runMethod;
-			eMode mode;
+			eMode when_runMethod;
 
 		public:
-			GenericEnumerator(eMode mode, System::Action ^runMethod, System::Collections::IEnumerator ^iter)
+			GenericEnumerator(eMode when_runMethod, System::Action ^runMethod, System::Collections::IEnumerator ^iter)
 			{
-				this->mode = mode;
+				this->when_runMethod = when_runMethod;
 				this->runMethod = runMethod;
 				this->iter = iter;
 			};
@@ -42,7 +42,7 @@ namespace Folie
 			{
 				auto more_elements_available = iter->MoveNext();
 
-				switch (mode)
+				switch (when_runMethod)
 				{
 				case eMode::Last:
 					if (!more_elements_available)
@@ -56,7 +56,7 @@ namespace Folie
 
 			virtual void Reset()
 			{
-				switch (mode)
+				switch (when_runMethod)
 				{
 				case eMode::First:
 					runMethod();
@@ -77,16 +77,16 @@ namespace Folie
 		};
 
 	public:
-		GenericEnumerable(eMode mode, System::Action ^runMethod, System::Collections::IEnumerator ^iter)
+		GenericEnumerable(eMode when_runMethod, System::Action ^runMethod, System::Collections::IEnumerator ^iter)
 		{
-			this->mode = mode;
+			this->when_runMethod = when_runMethod;
 			this->runMethod = runMethod;
 			this->iter = iter;
 		}
 
 		virtual System::Collections::IEnumerator ^GetEnumerator()
 		{
-			return gcnew GenericEnumerator(mode, runMethod, iter);
+			return gcnew GenericEnumerator(when_runMethod, runMethod, iter);
 		};
 
 	};

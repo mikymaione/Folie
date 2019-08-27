@@ -53,7 +53,7 @@ System::Collections::IEnumerator ^Folie::CoRunner::syncCoRun(System::Collections
 {
 	auto enumerable = gcnew GenericEnumerable(
 		GenericEnumerable::eMode::Last,
-		gcnew System::Action(this, &CoRunner::Run),
+		gcnew System::Action(this, &CoRunner::asyncRun),
 		fun
 	);
 
