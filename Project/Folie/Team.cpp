@@ -42,13 +42,20 @@ Folie::Player ^Folie::Team::getPlayerWithRole(GB::eRole role)
 			return p;
 }
 
-System::Collections::IEnumerator ^Folie::Team::giocatoriPrenderePosizioniInCampo()
+void Folie::Team::giocatoriPrenderePosizioniInCampo()
 {
 	for each (auto p in players)
 	{
 		p->campo = campo;
 		p->moveToPosition(p->startingPosition);
 	}
+}
+
+bool Folie::Team::giocatoriInPosizione()
+{
+	for each (auto p in players)
+		if (!p->inPosizione())
+			return false;
 }
 
 void Folie::Team::lookAtOpponent()

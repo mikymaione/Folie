@@ -40,7 +40,7 @@ System::Collections::IEnumerator ^Folie::Player::moveTo_i(float pos_x, float pos
 
 void Folie::Player::moveTo(float pos_x, float pos_z)
 {
-	REF::coRunner->Enqueue(moveTo_i(pos_x, pos_z));
+	REF::coRunner->Enqueue(CoRunner::eJob::Sync, moveTo_i(pos_x, pos_z));
 }
 
 void Folie::Player::moveTo(UnityEngine::Vector3 ^position)
@@ -78,12 +78,12 @@ void Folie::Player::doServe()
 	targetChoosen = GB::selectRandomPosition();
 	auto c = GB::getCoordinatesFromPosition(campo, targetChoosen);
 
-	transform->LookAt(UnityEngine::Vector3(c->x, transform->position.y, c->y));	
+	transform->LookAt(UnityEngine::Vector3(c->x, transform->position.y, c->y));
 }
 
 void Folie::Player::serve()
 {
-	moveTo(REF::ball->transform->position);	
+	moveTo(REF::ball->transform->position);
 }
 
 void Folie::Player::hit(GB::ePosition target)

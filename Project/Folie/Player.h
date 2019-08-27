@@ -45,10 +45,11 @@ namespace Folie
 		virtual void Start();
 		void Update();
 
-		bool inPosizione();
 		void doServe();
 
 	public:
+		bool inPosizione();
+
 		void move();
 		void moveToPosition(GB::ePosition position);
 		void moveToNextPosition();

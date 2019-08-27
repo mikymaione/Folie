@@ -35,7 +35,8 @@ namespace Folie
 		Player ^getPlayerAtPosition(GB::ePosition position);
 		Player ^getPlayerWithRole(GB::eRole role);
 
-		System::Collections::IEnumerator ^giocatoriPrenderePosizioniInCampo();
+		void giocatoriPrenderePosizioniInCampo();
+		bool giocatoriInPosizione();
 
 		void lookAtOpponent();
 		void serve();
