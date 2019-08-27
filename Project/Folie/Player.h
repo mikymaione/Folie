@@ -29,7 +29,6 @@ namespace Folie
 		GB::ePosition currentPosition;
 		GB::eArea currentArea, startingArea;
 		GB::eCampo campo;
-		//bool lookingAtTheBall;		
 
 	public:
 		String ^name;
