@@ -2041,12 +2041,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: BawiTim
   campo: 0
-  P1: {fileID: 0}
-  P2: {fileID: 0}
-  C1: {fileID: 0}
-  C2: {fileID: 0}
-  B1: {fileID: 0}
-  B2: {fileID: 0}
+  P1: {fileID: 467354014}
+  P2: {fileID: 837810538}
+  C1: {fileID: 1604036739}
+  C2: {fileID: 1625788192}
+  B1: {fileID: 1509818957}
+  B2: {fileID: 1827138190}
 --- !u!1 &1169157100 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -2252,12 +2252,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Gruppo1
   campo: 1
-  P1: {fileID: 0}
-  P2: {fileID: 0}
-  C1: {fileID: 0}
-  C2: {fileID: 0}
-  B1: {fileID: 0}
-  B2: {fileID: 0}
+  P1: {fileID: 222444343}
+  P2: {fileID: 1169157104}
+  C1: {fileID: 143199513}
+  C2: {fileID: 1469049055}
+  B1: {fileID: 1571497254}
+  B2: {fileID: 401835981}
 --- !u!1 &1325506166
 GameObject:
   m_ObjectHideFlags: 0
