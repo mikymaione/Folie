@@ -14,18 +14,29 @@ namespace Folie
 {
 	public ref class CoRunner
 	{
+	public:
+		enum class eJob
+		{
+			Async, Sync
+		};
+
 	private:
-		System::Collections::Generic::Queue<System::Collections::IEnumerator ^> ^daFare;
+		System::Collections::Generic::Queue<System::Collections::IEnumerator ^> ^asyncQueue;
+		System::Collections::Generic::Queue<System::Collections::IEnumerator ^> ^syncQueue;
+
 		UnityEngine::MonoBehaviour ^mb;
+
+	private:
+		System::Collections::IEnumerator ^syncCoRun(System::Collections::IEnumerator ^fun);
+
+		void syncRun();
+		void asyncRun();
 
 	public:
 		CoRunner(UnityEngine::MonoBehaviour ^mb);
 
-		void Enqueue(System::Collections::IEnumerator ^cosa);
+		void Enqueue(eJob job, System::Collections::IEnumerator ^cosa);
 		void Run();
-
-	private:
-		System::Collections::IEnumerator ^corun(System::Collections::IEnumerator ^fun);
 
 	};
 }

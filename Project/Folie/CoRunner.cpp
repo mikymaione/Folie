@@ -13,24 +13,49 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 Folie::CoRunner::CoRunner(UnityEngine::MonoBehaviour ^mb)
 {
-	daFare = gcnew System::Collections::Generic::Queue<System::Collections::IEnumerator ^>();
 	this->mb = mb;
+
+	asyncQueue = gcnew System::Collections::Generic::Queue<System::Collections::IEnumerator ^>();
+	syncQueue = gcnew System::Collections::Generic::Queue<System::Collections::IEnumerator ^>();
 }
 
-void Folie::CoRunner::Enqueue(System::Collections::IEnumerator ^cosa)
+void Folie::CoRunner::Enqueue(eJob job, System::Collections::IEnumerator ^cosa)
 {
-	daFare->Enqueue(corun(cosa));
+	switch (job)
+	{
+	case eJob::Async:
+		asyncQueue->Enqueue(cosa);
+		break;
+	case eJob::Sync:
+		syncQueue->Enqueue(syncCoRun(cosa));
+		break;
+	}
 }
 
 void Folie::CoRunner::Run()
 {
-	if (daFare->Count > 0)
-		mb->StartCoroutine(daFare->Dequeue());
+	asyncRun();
+	syncRun();
 }
 
-System::Collections::IEnumerator ^Folie::CoRunner::corun(System::Collections::IEnumerator ^ fun)
+void Folie::CoRunner::syncRun()
 {
-	auto enumerable = gcnew GenericEnumerable(gcnew System::Action(this, &CoRunner::Run), fun);
+	if (syncQueue->Count > 0)
+		mb->StartCoroutine(syncQueue->Dequeue());
+}
+
+void Folie::CoRunner::asyncRun()
+{
+	while (asyncQueue->Count > 0)
+		mb->StartCoroutine(asyncQueue->Dequeue());
+}
+
+System::Collections::IEnumerator ^Folie::CoRunner::syncCoRun(System::Collections::IEnumerator ^fun)
+{
+	auto enumerable = gcnew GenericEnumerable(
+		gcnew System::Action(this, &CoRunner::Run),
+		fun
+	);
 
 	return enumerable->GetEnumerator();
 }

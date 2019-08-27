@@ -42,16 +42,7 @@ Folie::Player ^Folie::Team::getPlayerWithRole(GB::eRole role)
 			return p;
 }
 
-bool Folie::Team::giocatoriPresePosizioniInCampo()
-{
-	for each (auto p in players)
-		if (GB::getAreaFromCoordinates(p->transform->position.x, p->transform->position.z) != p->startingArea)
-			return false;
-
-	return true;
-}
-
-void Folie::Team::giocatoriPrenderePosizioniInCampo()
+System::Collections::IEnumerator ^Folie::Team::giocatoriPrenderePosizioniInCampo()
 {
 	for each (auto p in players)
 	{

@@ -12,7 +12,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "Ball.h"
 
 #using <UnityEngine.AIModule.dll> as_friend
-#using <Yielder.dll> as_friend
 
 using namespace System::Collections::Generic;
 
@@ -23,8 +22,6 @@ namespace Folie
 	private:
 		GB::ePosition targetChoosen;
 
-		UnityEngine::Vector3 destinazione;
-
 	public:
 		UnityEngine::Transform ^mano;
 
@@ -32,7 +29,7 @@ namespace Folie
 		GB::eArea currentArea, startingArea;
 		GB::eCampo campo;
 
-		bool lookingAtTheBall;	
+		bool lookingAtTheBall;
 		UnityEngine::AI::NavMeshAgent ^agent; //spostare
 
 	public:
@@ -57,6 +54,7 @@ namespace Folie
 		void moveToNextPosition();
 		void moveTo(UnityEngine::Vector3 ^position);
 		void moveTo(float pos_x, float pos_z);
+		System::Collections::IEnumerator ^moveTo_i(float pos_x, float pos_z);
 
 		void pass_mode();
 		void serve();

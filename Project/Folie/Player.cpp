@@ -25,14 +25,22 @@ void Folie::Player::Update()
 
 bool Folie::Player::inPosizione()
 {
-	return (transform->position.x == destinazione.x && transform->position.z == destinazione.z);
+	return agent->destination.Equals(transform->position);
+}
+
+System::Collections::IEnumerator ^Folie::Player::moveTo_i(float pos_x, float pos_z)
+{
+	auto d = UnityEngine::Vector3(pos_x, 0, pos_z);
+	agent->destination = d;
+
+	return gcnew UnityEngine::WaitUntil(
+		gcnew System::Func<bool>(this, &Player::inPosizione)
+	);
 }
 
 void Folie::Player::moveTo(float pos_x, float pos_z)
 {
-	auto d = UnityEngine::Vector3(pos_x, 0, pos_z);
-	agent->destination = d;
-	destinazione = d;
+	REF::coRunner->Enqueue(moveTo_i(pos_x, pos_z));
 }
 
 void Folie::Player::moveTo(UnityEngine::Vector3 ^position)
@@ -70,24 +78,12 @@ void Folie::Player::doServe()
 	targetChoosen = GB::selectRandomPosition();
 	auto c = GB::getCoordinatesFromPosition(campo, targetChoosen);
 
-	transform->LookAt(UnityEngine::Vector3(c->x, transform->position.y, c->y));
-	
-	Yielder::Yielder::waiter(
-		this,
-		2,
-		gcnew Action(this, &Player::hit)
-	);
+	transform->LookAt(UnityEngine::Vector3(c->x, transform->position.y, c->y));	
 }
 
 void Folie::Player::serve()
 {
-	moveTo(REF::ball->transform->position);
-
-	Yielder::Yielder::waiterFor(
-		this,
-		gcnew Func<bool>(this, &Player::inPosizione),
-		gcnew Action(this, &Player::doServe)
-	);
+	moveTo(REF::ball->transform->position);	
 }
 
 void Folie::Player::hit(GB::ePosition target)

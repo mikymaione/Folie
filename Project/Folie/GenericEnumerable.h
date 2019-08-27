@@ -13,7 +13,7 @@ using namespace System::Collections;
 namespace Folie
 {
 	ref class GenericEnumerable :IEnumerable
-	{	
+	{
 	private:
 		IEnumerator ^f;
 		System::Action ^runMethod;
@@ -21,7 +21,7 @@ namespace Folie
 	public:
 		GenericEnumerable(System::Action ^runMethod, IEnumerator ^f);
 
-		virtual System::Collections::IEnumerator ^ GetEnumerator();
+		virtual System::Collections::IEnumerator ^GetEnumerator();
 
 	};
 }

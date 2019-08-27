@@ -8,6 +8,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #pragma once
 
+#include "CoRunner.h"
 #include "Ball.h"
 #include "Team.h"
 #include "Game.h"
@@ -21,6 +22,8 @@ namespace Folie
 	public ref class REF
 	{
 	public:
+		static CoRunner ^coRunner;
+
 		static Ball ^ball;
 		static Team ^teamA, ^teamB;
 		static Game ^game;
