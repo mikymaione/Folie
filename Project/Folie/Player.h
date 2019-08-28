@@ -21,8 +21,7 @@ namespace Folie
 	{
 	private:
 		Enums::ePosition targetChoosen;
-		UnityEngine::AI::NavMeshAgent ^agent;
-		UnityEngine::Vector3 lookingAt;
+		UnityEngine::AI::NavMeshAgent ^agent;		
 
 	internal:
 		UnityEngine::Transform ^mano;

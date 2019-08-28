@@ -83,7 +83,7 @@ void Folie::Player::pass_mode()
 
 void Folie::Player::serveRitual()
 {
-	lookAt(1, REF::ball->transform->position);
+	lookAt(0.3, REF::ball->transform->position);
 	moveTo(REF::ball->transform->position);
 
 	REF::waiter->callAndWait(
@@ -103,7 +103,7 @@ void Folie::Player::serve()
 {
 	targetChoosen = GB::selectRandomPosition();
 	auto c = GB::getCoordinatesFromPosition(campo, targetChoosen);
-
+	
 	lookAt(2, c->x, c->y);
 	hit(targetChoosen);
 
@@ -162,12 +162,10 @@ void Folie::Player::lookAt(float seconds, float x, float y)
 
 void Folie::Player::lookAt(float seconds, UnityEngine::Vector3 to_)
 {
-	lookingAt = to_;
-
 	REF::waiter->callAndWait(
 		this,
 		"lookAt_",
-		gcnew array<UnityEngine::Vector3 ^> {lookingAt},
+		gcnew array<UnityEngine::Vector3 ^> {to_},
 		REF::w4s(seconds)
 	);
 }

@@ -57,7 +57,7 @@ bool Folie::Team::giocatoriInPosizione()
 void Folie::Team::lookAtOpponent()
 {
 	for each (auto p in players)
-		p->lookAtAnOpponent(0.1);
+		p->lookAtAnOpponent(0);
 }
 
 void Folie::Team::serve()
