@@ -23,6 +23,8 @@ namespace Folie
 	internal:
 		void attachToHand(String ^player_name);
 
+		bool ballInHand();
+
 	private:
 		void Start();
 		void Update();

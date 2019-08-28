@@ -43,7 +43,12 @@ namespace Folie
 		void Start();
 		void Update();
 		void moveTo_(float pos_x, float pos_z);
+
 		void hit_(Enums::ePosition target);
+		void lookAt_(UnityEngine::Vector3 to_);
+
+		void serve();
+		void takeTheBall();
 
 	public:
 		bool inPosizione();
@@ -56,15 +61,16 @@ namespace Folie
 		void moveTo_Async(float pos_x, float pos_z);
 
 		void pass_mode();
-		void serve();
+
+		void serveRitual();
 
 		void hit();
 		void hit(Enums::ePosition target);
 
-		void lookAtAnOpponent();
-		void lookAt(UnityEngine::Vector2 ^dest);
-		void lookAt(float x, float y);
-		void lookAt();
+		void lookAtAnOpponent(float seconds);
+		void lookAt(float seconds, UnityEngine::Vector2 ^dest);
+		void lookAt(float seconds, float x, float y);
+		void lookAt(float seconds, UnityEngine::Vector3 to_);
 
 	};
 }

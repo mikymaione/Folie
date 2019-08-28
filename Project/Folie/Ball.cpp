@@ -20,6 +20,11 @@ void Folie::Ball::attachToHand(String ^player_name)
 		}
 }
 
+bool Folie::Ball::ballInHand()
+{
+	return inMano != nullptr;
+}
+
 void Folie::Ball::Start()
 {
 	rigidBody = GetComponent<UnityEngine::Rigidbody^>();

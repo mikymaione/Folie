@@ -57,7 +57,7 @@ bool Folie::Team::giocatoriInPosizione()
 void Folie::Team::lookAtOpponent()
 {
 	for each (auto p in players)
-		p->lookAtAnOpponent();
+		p->lookAtAnOpponent(0.1);
 }
 
 void Folie::Team::serve()
@@ -65,7 +65,7 @@ void Folie::Team::serve()
 	for each (auto p in players)
 		if (p->currentArea == Enums::eArea::a1)
 		{
-			p->serve();
+			p->serveRitual();
 			break;
 		}
 }

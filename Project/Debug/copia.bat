@@ -1,0 +1,1 @@
+copy Folie.* "C:\Users\mikym\Documents\UniMi\2S\AI\Folie\Project\Volleyball\Assets\Plugins"

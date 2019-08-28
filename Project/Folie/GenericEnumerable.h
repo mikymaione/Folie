@@ -38,7 +38,7 @@ namespace Folie
 				}
 				catch (System::Exception ^e)
 				{
-					UnityEngine::Debug::LogError(e->Message);
+					UnityEngine::Debug::LogError(work->nome_funzione + " (" + work->parametri + "): " + e->Message);
 				}
 			};
 

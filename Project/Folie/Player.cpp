@@ -81,17 +81,40 @@ void Folie::Player::pass_mode()
 		hit();
 }
 
-void Folie::Player::serve()
+void Folie::Player::serveRitual()
 {
+	lookAt(1, REF::ball->transform->position);
 	moveTo(REF::ball->transform->position);
 
+	REF::waiter->callAndWait(
+		this,
+		"takeTheBall",
+		REF::wUntil(gcnew Func<bool>(REF::ball, &Ball::ballInHand))
+	);
+
+	REF::waiter->callAndWait(
+		this,
+		"serve",
+		REF::w4s(0.1)
+	);
+}
+
+void Folie::Player::serve()
+{
 	targetChoosen = GB::selectRandomPosition();
 	auto c = GB::getCoordinatesFromPosition(campo, targetChoosen);
 
-	lookAt(c->x, c->y);
+	lookAt(2, c->x, c->y);
 	hit(targetChoosen);
 
 	moveToPosition(startingPosition);
+}
+
+void Folie::Player::takeTheBall()
+{
+	REF::ball->attachToHand(name);
+	currentArea = Enums::eArea::a1S;
+	move();
 }
 
 void Folie::Player::hit(Enums::ePosition target)
@@ -117,29 +140,41 @@ void Folie::Player::hit()
 	hit(target);
 }
 
-void Folie::Player::lookAtAnOpponent()
+void Folie::Player::lookAtAnOpponent(float seconds)
 {
 	auto target = GB::selectRandomPosition();
 	auto c = GB::getCoordinatesFromPosition(GB::oppositeField(campo), target);
 
-	lookAt(c);
+	lookAt(seconds, c);
 }
 
-void Folie::Player::lookAt(UnityEngine::Vector2 ^dest)
+void Folie::Player::lookAt(float seconds, UnityEngine::Vector2 ^dest)
 {
-	lookAt(dest->x, dest->y);
+	lookAt(seconds, dest->x, dest->y);
 }
 
-void Folie::Player::lookAt(float x, float y)
+void Folie::Player::lookAt(float seconds, float x, float y)
 {
-	lookingAt = UnityEngine::Vector3(x, transform->position.y, y);
+	auto to_ = UnityEngine::Vector3(x, transform->position.y, y);
 
-	lookAt();
+	lookAt(seconds, to_);
 }
 
-void Folie::Player::lookAt()
+void Folie::Player::lookAt(float seconds, UnityEngine::Vector3 to_)
 {
-	transform->LookAt(lookingAt);
+	lookingAt = to_;
+
+	REF::waiter->callAndWait(
+		this,
+		"lookAt_",
+		gcnew array<UnityEngine::Vector3 ^> {lookingAt},
+		REF::w4s(seconds)
+	);
+}
+
+void Folie::Player::lookAt_(UnityEngine::Vector3 to_)
+{
+	transform->LookAt(to_);
 }
 
 /*
