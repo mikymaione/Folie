@@ -31,7 +31,7 @@ void Folie::Ball::Update()
 		transform->SetPositionAndRotation(inMano->position, inMano->rotation);
 }
 
-void Folie::Ball::moveTo(GB::eCampo campo, GB::ePosition position)
+void Folie::Ball::moveTo(Enums::eCampo campo, Enums::ePosition position)
 {
 	inMano = nullptr;
 

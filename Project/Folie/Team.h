@@ -21,7 +21,7 @@ namespace Folie
 
 	public:
 		String ^name;
-		GB::eCampo campo;
+		Enums::eCampo campo;
 
 		Player ^P1, ^P2;
 		Player ^C1, ^C2;
@@ -32,8 +32,8 @@ namespace Folie
 		void Update();
 
 	public:
-		Player ^getPlayerAtPosition(GB::ePosition position);
-		Player ^getPlayerWithRole(GB::eRole role);
+		Player ^getPlayerAtPosition(Enums::ePosition position);
+		Player ^getPlayerWithRole(Enums::eRole role);
 
 		void giocatoriPrenderePosizioniInCampo();
 		bool giocatoriInPosizione();

@@ -48,6 +48,9 @@
     <ClInclude Include="Wait4Seconds.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="Enums.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">

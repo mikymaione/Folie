@@ -28,14 +28,14 @@ void Folie::Team::Update()
 
 }
 
-Folie::Player ^Folie::Team::getPlayerAtPosition(GB::ePosition position)
+Folie::Player ^Folie::Team::getPlayerAtPosition(Enums::ePosition position)
 {
 	for each (auto p in players)
 		if (p->currentPosition == position)
 			return p;
 }
 
-Folie::Player ^Folie::Team::getPlayerWithRole(GB::eRole role)
+Folie::Player ^Folie::Team::getPlayerWithRole(Enums::eRole role)
 {
 	for each (auto p in players)
 		if (p->role == role)
@@ -46,8 +46,10 @@ void Folie::Team::giocatoriPrenderePosizioniInCampo()
 {
 	for each (auto p in players)
 	{
+		auto d = GB::getCoordinatesFromPosition(campo, p->startingPosition);
+
 		p->campo = campo;
-		p->moveToPosition(p->startingPosition);
+		p->moveTo(Enums::eJob::Async, d->x, d->y);
 	}
 }
 
@@ -56,6 +58,8 @@ bool Folie::Team::giocatoriInPosizione()
 	for each (auto p in players)
 		if (!p->inPosizione())
 			return false;
+
+	return true;
 }
 
 void Folie::Team::lookAtOpponent()
@@ -67,7 +71,7 @@ void Folie::Team::lookAtOpponent()
 void Folie::Team::serve()
 {
 	for each (auto p in players)
-		if (p->currentPosition == GB::ePosition::p1)
+		if (p->currentArea == Enums::eArea::a1)
 		{
 			p->serve();
 			break;

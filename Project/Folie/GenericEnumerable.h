@@ -8,47 +8,68 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #pragma once
 
+#include "Enums.h"
+
 namespace Folie
 {
 	ref class GenericEnumerable :System::Collections::IEnumerable
 	{
-	public:
-		enum class eMode
-		{
-			First, Last
-		};
-
 	private:
 		System::Collections::IEnumerator ^iter;
-		System::Action ^runMethod;
-		eMode when_runMethod;
+		System::Action ^runMethod, ^recursive;
+		Enums::eMode when_runMethod;
 
 		ref class GenericEnumerator :System::Collections::IEnumerator
 		{
 		private:
 			System::Collections::IEnumerator ^iter;
-			System::Action ^runMethod;
-			eMode when_runMethod;
+			System::Action ^runMethod, ^recursive;
+			Enums::eMode when_runMethod;
 
 		public:
-			GenericEnumerator(eMode when_runMethod, System::Action ^runMethod, System::Collections::IEnumerator ^iter)
+			GenericEnumerator(Enums::eMode when_runMethod, System::Action ^runMethod, System::Collections::IEnumerator ^iter, System::Action ^recursive)
 			{
 				this->when_runMethod = when_runMethod;
 				this->runMethod = runMethod;
+				this->recursive = recursive;
 				this->iter = iter;
 			};
 
 			virtual bool MoveNext()
 			{
-				auto more_elements_available = iter->MoveNext();
-
 				switch (when_runMethod)
 				{
-				case eMode::Last:
-					if (!more_elements_available)
+				case Enums::eMode::First:
+					if (runMethod != nullptr)
+					{
 						runMethod();
+						runMethod = nullptr;
+					}
 
 					break;
+				}
+
+				auto more_elements_available = iter->MoveNext();
+
+				if (!more_elements_available)
+				{
+					switch (when_runMethod)
+					{
+					case Enums::eMode::Last:
+						if (runMethod != nullptr)
+						{
+							runMethod();
+							runMethod = nullptr;
+						}
+
+						break;
+					}
+
+					if (recursive != nullptr)
+					{
+						recursive();
+						recursive = nullptr;
+					}
 				}
 
 				return more_elements_available;
@@ -56,13 +77,6 @@ namespace Folie
 
 			virtual void Reset()
 			{
-				switch (when_runMethod)
-				{
-				case eMode::First:
-					runMethod();
-					break;
-				}
-
 				iter->Reset();
 			};
 
@@ -77,16 +91,17 @@ namespace Folie
 		};
 
 	public:
-		GenericEnumerable(eMode when_runMethod, System::Action ^runMethod, System::Collections::IEnumerator ^iter)
+		GenericEnumerable(Enums::eMode when_runMethod, System::Action ^runMethod, System::Collections::IEnumerator ^iter, System::Action ^recursive)
 		{
 			this->when_runMethod = when_runMethod;
 			this->runMethod = runMethod;
+			this->recursive = recursive;
 			this->iter = iter;
 		}
 
 		virtual System::Collections::IEnumerator ^GetEnumerator()
 		{
-			return gcnew GenericEnumerator(when_runMethod, runMethod, iter);
+			return gcnew GenericEnumerator(when_runMethod, runMethod, iter, recursive);
 		};
 
 	};

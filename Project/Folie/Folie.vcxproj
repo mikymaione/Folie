@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClInclude Include="Ball.h" />
     <ClInclude Include="CoRunner.h" />
+    <ClInclude Include="Enums.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GB.h" />
     <ClInclude Include="GenericEnumerable.h" />

@@ -10,36 +10,44 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #using <UnityEngine.CoreModule.dll> as_friend
 
+#include "Enums.h"
+
+using namespace System;
+using namespace System::Collections::Generic;
+
 namespace Folie
 {
-	public ref class CoRunner
+	ref class CoRunnerItem
 	{
 	public:
-		enum class eJob
-		{
-			Async, Sync
-		};
+		Enums::eJob job;
+		Action ^action, ^recursive;
+		Enums::eMode mode;
+		System::Collections::IEnumerator ^enu;
 
+	public:
+		CoRunnerItem(Enums::eJob job, Enums::eMode mode, Action ^action, System::Collections::IEnumerator ^enu);
+
+	};
+
+	public ref class CoRunner
+	{
 	private:
-		System::Collections::Generic::Queue<System::Collections::IEnumerator ^> ^asyncQueue;
-		System::Collections::Generic::Queue<System::Collections::IEnumerator ^> ^syncQueue;
-
+		Queue<CoRunnerItem ^> ^syncQueue;
 		UnityEngine::MonoBehaviour ^mb;
 
 	private:
-		System::Collections::IEnumerator ^syncCoRun(System::Collections::IEnumerator ^fun);
-
-		void syncRun();
-		void asyncRun();
+		void Start(Action ^runMethod, System::Collections::IEnumerator ^f_last, Action ^recursive);
+		void Start(System::Collections::IEnumerator ^f_pre, Action ^runMethod, Action ^recursive);
 
 	public:
 		CoRunner(UnityEngine::MonoBehaviour ^mb);
 
-		void Enqueue(eJob job, System::Collections::IEnumerator ^cosa);
+		void Enqueue(CoRunnerItem ^i);
 		void Run();
 
-		void Start(System::Action ^runMethod, System::Collections::IEnumerator ^f_last);
-		void Start(System::Collections::IEnumerator ^f_pre, System::Action ^runMethod);
+		void Start(Action ^runMethod, System::Collections::IEnumerator ^f_last);
+		void Start(System::Collections::IEnumerator ^f_pre, Action ^runMethod);
 
 	};
 }

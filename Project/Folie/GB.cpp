@@ -18,229 +18,234 @@ generic <class T> where T : UnityEngine::Component T Folie::GB::GetComponentsInC
 			return c;
 }
 
-Folie::GB::eCampo Folie::GB::oppositeField(eCampo campo)
+bool Folie::GB::samePosition(UnityEngine::Vector3 a, UnityEngine::Vector3 b)
+{
+	return a.x == b.x && a.z == b.z;
+}
+
+Folie::Enums::eCampo Folie::GB::oppositeField(Enums::eCampo campo)
 {
 	switch (campo)
 	{
-	case eCampo::up:
-		return eCampo::down;
-	case eCampo::down:
-		return eCampo::up;
+	case Enums::eCampo::up:
+		return Enums::eCampo::down;
+	case Enums::eCampo::down:
+		return Enums::eCampo::up;
 	}
 }
 
-UnityEngine::Vector2 ^Folie::GB::getCoordinatesFromPosition(eCampo campo, ePosition position)
+UnityEngine::Vector2 ^Folie::GB::getCoordinatesFromPosition(Enums::eCampo campo, Enums::ePosition position)
 {
 	auto area = getAreaFromPosition(position);
 
 	return getCoordinatesFromArea(campo, area);
 }
 
-UnityEngine::Vector2 ^Folie::GB::getCoordinatesFromArea(eCampo campo, eArea area)
+UnityEngine::Vector2 ^Folie::GB::getCoordinatesFromArea(Enums::eCampo campo, Enums::eArea area)
 {
 	switch (campo)
 	{
-	case eCampo::up:
+	case Enums::eCampo::up:
 		switch (area)
 		{
-		case eArea::a4O:
+		case Enums::eArea::a4O:
 			return gcnew UnityEngine::Vector2(0, 0);
-		case eArea::a4:
+		case Enums::eArea::a4:
 			return gcnew UnityEngine::Vector2(2, 8);
-		case eArea::a3:
+		case Enums::eArea::a3:
 			return gcnew UnityEngine::Vector2(5, 8);
-		case eArea::a2:
+		case Enums::eArea::a2:
 			return gcnew UnityEngine::Vector2(8, 8);
-		case eArea::a2E:
+		case Enums::eArea::a2E:
 			return gcnew UnityEngine::Vector2(0, 0);
-		case eArea::a5O:
+		case Enums::eArea::a5O:
 			return gcnew UnityEngine::Vector2(0, 0);
-		case eArea::a5:
+		case Enums::eArea::a5:
 			return gcnew UnityEngine::Vector2(2, 3);
-		case eArea::a6:
+		case Enums::eArea::a6:
 			return gcnew UnityEngine::Vector2(5, 3);
-		case eArea::a1:
+		case Enums::eArea::a1:
 			return gcnew UnityEngine::Vector2(8, 3);
-		case eArea::a1E:
+		case Enums::eArea::a1E:
 			return gcnew UnityEngine::Vector2(0, 0);
-		case eArea::a5OS:
+		case Enums::eArea::a5OS:
 			return gcnew UnityEngine::Vector2(0, 0);
-		case eArea::a5S:
+		case Enums::eArea::a5S:
 			return gcnew UnityEngine::Vector2(0, 0);
-		case eArea::a6S:
+		case Enums::eArea::a6S:
 			return gcnew UnityEngine::Vector2(0, 0);
-		case eArea::a1S:
+		case Enums::eArea::a1S:
 			return gcnew UnityEngine::Vector2(8, -1);
-		case eArea::a1ES:
+		case Enums::eArea::a1ES:
 			return gcnew UnityEngine::Vector2(0, 0);
 		}
 		break;
-	case eCampo::down:
+	case Enums::eCampo::down:
 		switch (area)
 		{
-		case eArea::a4O:
+		case Enums::eArea::a4O:
 			return gcnew UnityEngine::Vector2(0, 0);
-		case eArea::a4:
+		case Enums::eArea::a4:
 			return gcnew UnityEngine::Vector2(8, 11);
-		case eArea::a3:
+		case Enums::eArea::a3:
 			return gcnew UnityEngine::Vector2(5, 11);
-		case eArea::a2:
+		case Enums::eArea::a2:
 			return gcnew UnityEngine::Vector2(2, 11);
-		case eArea::a2E:
+		case Enums::eArea::a2E:
 			return gcnew UnityEngine::Vector2(0, 0);
-		case eArea::a5O:
+		case Enums::eArea::a5O:
 			return gcnew UnityEngine::Vector2(0, 0);
-		case eArea::a5:
+		case Enums::eArea::a5:
 			return gcnew UnityEngine::Vector2(8, 16);
-		case eArea::a6:
+		case Enums::eArea::a6:
 			return gcnew UnityEngine::Vector2(5, 16);
-		case eArea::a1:
+		case Enums::eArea::a1:
 			return gcnew UnityEngine::Vector2(2, 16);
-		case eArea::a1E:
+		case Enums::eArea::a1E:
 			return gcnew UnityEngine::Vector2(0, 0);
-		case eArea::a5OS:
+		case Enums::eArea::a5OS:
 			return gcnew UnityEngine::Vector2(0, 0);
-		case eArea::a5S:
+		case Enums::eArea::a5S:
 			return gcnew UnityEngine::Vector2(0, 0);
-		case eArea::a6S:
+		case Enums::eArea::a6S:
 			return gcnew UnityEngine::Vector2(0, 0);
-		case eArea::a1S:
+		case Enums::eArea::a1S:
 			return gcnew UnityEngine::Vector2(2, 20);
-		case eArea::a1ES:
+		case Enums::eArea::a1ES:
 			return gcnew UnityEngine::Vector2(0, 0);
 		}
 		break;
 	}
 }
 
-Folie::GB::eArea Folie::GB::getAreaFromCoordinates(float x, float z)
+Folie::Enums::eArea Folie::GB::getAreaFromCoordinates(float x, float z)
 {
 	if (x < 1)
 	{
 		if (z < 1)
-			return eArea::a5OS;
+			return Enums::eArea::a5OS;
 		else if (z >= 1 && z <= 6)
-			return eArea::a5O;
+			return Enums::eArea::a5O;
 		else if (z >= 7 && z <= 9)
-			return eArea::a4O;
+			return Enums::eArea::a4O;
 		else if (z >= 10 && z <= 12)
-			return eArea::a2E;
+			return Enums::eArea::a2E;
 		else if (z >= 13 && z <= 18)
-			return eArea::a1E;
+			return Enums::eArea::a1E;
 		else if (z > 18)
-			return eArea::a1ES;
+			return Enums::eArea::a1ES;
 	}
 	else if (x >= 1 && x <= 3)
 	{
 		if (z < 1)
-			return eArea::a5S;
+			return Enums::eArea::a5S;
 		else if (z >= 1 && z <= 6)
-			return eArea::a5;
+			return Enums::eArea::a5;
 		else if (z >= 7 && z <= 9)
-			return eArea::a4;
+			return Enums::eArea::a4;
 		else if (z >= 10 && z <= 12)
-			return eArea::a2;
+			return Enums::eArea::a2;
 		else if (z >= 13 && z <= 18)
-			return eArea::a1;
+			return Enums::eArea::a1;
 		else if (z > 18)
-			return eArea::a1S;
+			return Enums::eArea::a1S;
 	}
 	else if (x >= 4 && x <= 6)
 	{
 		if (z < 1)
-			return eArea::a6S;
+			return Enums::eArea::a6S;
 		else if (z >= 1 && z <= 6)
-			return eArea::a6;
+			return Enums::eArea::a6;
 		else if (z >= 7 && z <= 9)
-			return eArea::a3;
+			return Enums::eArea::a3;
 		else if (z >= 10 && z <= 12)
-			return eArea::a3;
+			return Enums::eArea::a3;
 		else if (z >= 13 && z <= 18)
-			return eArea::a6;
+			return Enums::eArea::a6;
 		else if (z > 18)
-			return eArea::a6S;
+			return Enums::eArea::a6S;
 	}
 	else if (x >= 7 && x <= 9)
 	{
 		if (z < 1)
-			return eArea::a1S;
+			return Enums::eArea::a1S;
 		else if (z >= 1 && z <= 6)
-			return eArea::a1;
+			return Enums::eArea::a1;
 		else if (z >= 7 && z <= 9)
-			return eArea::a2;
+			return Enums::eArea::a2;
 		else if (z >= 10 && z <= 12)
-			return eArea::a4;
+			return Enums::eArea::a4;
 		else if (z >= 13 && z <= 18)
-			return eArea::a5;
+			return Enums::eArea::a5;
 		else if (z > 18)
-			return eArea::a5S;
+			return Enums::eArea::a5S;
 	}
 	else if (x > 9)
 	{
 		if (z < 1)
-			return eArea::a1ES;
+			return Enums::eArea::a1ES;
 		else if (z >= 1 && z <= 6)
-			return eArea::a1E;
+			return Enums::eArea::a1E;
 		else if (z >= 7 && z <= 9)
-			return eArea::a2E;
+			return Enums::eArea::a2E;
 		else if (z >= 10 && z <= 12)
-			return eArea::a4O;
+			return Enums::eArea::a4O;
 		else if (z >= 13 && z <= 18)
-			return eArea::a5O;
+			return Enums::eArea::a5O;
 		else if (z > 18)
-			return eArea::a5OS;
+			return Enums::eArea::a5OS;
 	}
 }
 
-Folie::GB::eArea Folie::GB::getAreaFromPosition(ePosition current)
+Folie::Enums::eArea Folie::GB::getAreaFromPosition(Enums::ePosition current)
 {
 	switch (current)
 	{
-	case ePosition::p4:
-		return eArea::a4;
-	case ePosition::p3:
-		return eArea::a3;
-	case ePosition::p2:
-		return eArea::a2;
-	case ePosition::p5:
-		return eArea::a5;
-	case ePosition::p6:
-		return eArea::a6;
-	case ePosition::p1:
-		return eArea::a1;
+	case Enums::ePosition::p4:
+		return Enums::eArea::a4;
+	case Enums::ePosition::p3:
+		return Enums::eArea::a3;
+	case Enums::ePosition::p2:
+		return Enums::eArea::a2;
+	case Enums::ePosition::p5:
+		return Enums::eArea::a5;
+	case Enums::ePosition::p6:
+		return Enums::eArea::a6;
+	case Enums::ePosition::p1:
+		return Enums::eArea::a1;
 	}
 }
 
-Folie::GB::ePosition Folie::GB::getNextRotationPosition(ePosition current)
+Folie::Enums::ePosition Folie::GB::getNextRotationPosition(Enums::ePosition current)
 {
 	switch (current)
 	{
-	case ePosition::p1:
-		return ePosition::p6;
-	case ePosition::p2:
-		return ePosition::p1;
-	case ePosition::p3:
-		return ePosition::p2;
-	case ePosition::p4:
-		return ePosition::p3;
-	case ePosition::p5:
-		return ePosition::p4;
-	case ePosition::p6:
-		return ePosition::p5;
+	case Enums::ePosition::p1:
+		return Enums::ePosition::p6;
+	case Enums::ePosition::p2:
+		return Enums::ePosition::p1;
+	case Enums::ePosition::p3:
+		return Enums::ePosition::p2;
+	case Enums::ePosition::p4:
+		return Enums::ePosition::p3;
+	case Enums::ePosition::p5:
+		return Enums::ePosition::p4;
+	case Enums::ePosition::p6:
+		return Enums::ePosition::p5;
 	}
 }
 
-Folie::GB::ePosition Folie::GB::selectRandomPosition()
+Folie::Enums::ePosition Folie::GB::selectRandomPosition()
 {
 	auto i = rnd->Next(1, 4);
 
 	switch (i)
 	{
 	case 1:
-		return ePosition::p5;
+		return Enums::ePosition::p5;
 	case 2:
-		return ePosition::p6;
+		return Enums::ePosition::p6;
 	case 3:
-		return ePosition::p1;
+		return Enums::ePosition::p1;
 	}
 }

@@ -20,47 +20,53 @@ namespace Folie
 	public ref class Player :UnityEngine::MonoBehaviour
 	{
 	private:
-		GB::ePosition targetChoosen;
+		Enums::ePosition targetChoosen;
 		UnityEngine::AI::NavMeshAgent ^agent;
+		UnityEngine::Vector3 destination, lookingAt;
+		Enums::ePosition hitTarget;
 
 	internal:
 		UnityEngine::Transform ^mano;
 
-		GB::ePosition currentPosition;
-		GB::eArea currentArea, startingArea;
-		GB::eCampo campo;
+		Enums::ePosition currentPosition;
+		Enums::eArea currentArea, startingArea;
+		Enums::eCampo campo;
 
 	public:
 		String ^name;
 
-		GB::ePosition startingPosition;
-		GB::eRole role;
+		Enums::ePosition startingPosition;
+		Enums::eRole role;
 
-		GB::eTeam team;
+		Enums::eTeam team;
 
 	private:
 		void Start();
 		void Update();
 
+		void moveTo_();
+
 	public:
 		bool inPosizione();
 
 		void move();
-		void moveToPosition(GB::ePosition position);
+		void moveToPosition(Enums::ePosition position);
 		void moveToNextPosition();
 		void moveTo(UnityEngine::Vector3 ^position);
 		void moveTo(float pos_x, float pos_z);
-		System::Collections::IEnumerator ^moveTo_i(float pos_x, float pos_z);
+		void moveTo(Enums::eJob job, float pos_x, float pos_z);
 
 		void pass_mode();
 		void serve();
 
+		void hit_();
 		void hit();
-		System::Collections::IEnumerator ^hit(GB::ePosition target);
+		void hit(Enums::ePosition target);
 
 		void lookAtAnOpponent();
 		void lookAt(UnityEngine::Vector2 ^dest);
-		System::Collections::IEnumerator ^lookAt(float x, float y);
+		void lookAt(float x, float y);
+		void lookAt();
 
 	};
 }

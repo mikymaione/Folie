@@ -8,42 +8,48 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #pragma once
 
-#include "Wait4Seconds.h"
-#include "CoRunner.h"
-#include "Ball.h"
-#include "Team.h"
-#include "Game.h"
-
-#using <UnityEngine.AIModule.dll> as_friend
-#using <UnityEngine.CoreModule.dll> as_friend
-#using <UnityEngine.PhysicsModule.dll> as_friend
-
 namespace Folie
 {
-	public ref class REF
+	public ref class Enums
 	{
 	public:
-		static CoRunner ^coRunner;
-
-		static Ball ^ball;
-		static Team ^teamA, ^teamB;
-		static Game ^game;
-
-	internal:
-		static System::Collections::IEnumerator ^w4ms(float seconds)
+		enum class eMode
 		{
-			return gcnew Wait4Seconds(seconds);
+			First, Last
 		};
 
-		static System::Collections::IEnumerator ^wUntil(System::Func<bool> ^fn)
+		enum class eJob
 		{
-			return gcnew UnityEngine::WaitUntil(fn);
+			Async, Sync
 		};
 
-		static System::Collections::IEnumerator ^wWhile(System::Func<bool> ^fn)
+		enum class eTeam
 		{
-			return gcnew UnityEngine::WaitWhile(fn);
+			A, B
 		};
 
+		enum class eCampo
+		{
+			up, down
+		};
+
+		enum class eArea
+		{
+			a4O, a4, a3, a2, a2E,
+			a5O, a5, a6, a1, a1E,
+			a5OS, a5S, a6S, a1S, a1ES
+		};
+
+		enum class ePosition
+		{
+			p4, p3, p2,
+			p5, p6, p1
+		};
+
+		enum class eRole
+		{
+			c1, p1, b1,
+			c2, p2, b2
+		};
 	};
 }

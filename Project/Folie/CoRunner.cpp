@@ -10,66 +10,80 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "CoRunner.h"
 #include "GenericEnumerable.h"
 
+Folie::CoRunnerItem::CoRunnerItem(Enums::eJob job, Enums::eMode mode, Action ^action, System::Collections::IEnumerator ^enu)
+{
+	this->job = job;
+	this->mode = mode;
+	this->action = action;
+	this->enu = enu;
+}
+
 Folie::CoRunner::CoRunner(UnityEngine::MonoBehaviour ^mb)
 {
 	this->mb = mb;
-
-	asyncQueue = gcnew System::Collections::Generic::Queue<System::Collections::IEnumerator ^>();
-	syncQueue = gcnew System::Collections::Generic::Queue<System::Collections::IEnumerator ^>();
+	syncQueue = gcnew Queue<CoRunnerItem ^>();
 }
 
-void Folie::CoRunner::Enqueue(eJob job, System::Collections::IEnumerator ^cosa)
+void Folie::CoRunner::Enqueue(CoRunnerItem ^i)
 {
-	switch (job)
+	switch (i->job)
 	{
-	case eJob::Async:
-		asyncQueue->Enqueue(cosa);
+	case Enums::eJob::Async:
+		switch (i->mode)
+		{
+		case Enums::eMode::First:
+			Start(i->action, i->enu);
+			break;
+		case Enums::eMode::Last:
+			Start(i->enu, i->action);
+			break;
+		}
 		break;
-	case eJob::Sync:
-		syncQueue->Enqueue(syncCoRun(cosa));
+	case Enums::eJob::Sync:
+		i->recursive = gcnew System::Action(this, &CoRunner::Run);
+		syncQueue->Enqueue(i);
 		break;
 	}
 }
 
 void Folie::CoRunner::Run()
 {
-	asyncRun();
-	syncRun();
-}
-
-void Folie::CoRunner::syncRun()
-{
 	if (syncQueue->Count > 0)
-		mb->StartCoroutine(syncQueue->Dequeue());
+	{
+		auto i = syncQueue->Dequeue();
+
+		switch (i->mode)
+		{
+		case Enums::eMode::First:
+			Start(i->action, i->enu, i->recursive);
+			break;
+		case Enums::eMode::Last:
+			Start(i->enu, i->action, i->recursive);
+			break;
+		}
+	}
 }
 
-void Folie::CoRunner::asyncRun()
+void Folie::CoRunner::Start(Action ^runMethod, System::Collections::IEnumerator ^f_last, Action ^recursive)
 {
-	while (asyncQueue->Count > 0)
-		mb->StartCoroutine(asyncQueue->Dequeue());
+	auto co = gcnew GenericEnumerable(Enums::eMode::First, runMethod, f_last, recursive);
+
+	mb->StartCoroutine(co->GetEnumerator());
 }
 
-System::Collections::IEnumerator ^Folie::CoRunner::syncCoRun(System::Collections::IEnumerator ^fun)
+void Folie::CoRunner::Start(System::Collections::IEnumerator ^f_pre, Action ^runMethod, Action ^recursive)
 {
-	auto enumerable = gcnew GenericEnumerable(
-		GenericEnumerable::eMode::Last,
-		gcnew System::Action(this, &CoRunner::asyncRun),
-		fun
-	);
+	auto co = gcnew GenericEnumerable(Enums::eMode::Last, runMethod, f_pre, recursive);
 
-	return enumerable->GetEnumerator();
+	mb->StartCoroutine(co->GetEnumerator());
 }
 
 void Folie::CoRunner::Start(System::Action ^runMethod, System::Collections::IEnumerator ^f_last)
 {
-	auto co = gcnew GenericEnumerable(GenericEnumerable::eMode::First, runMethod, f_last);
-
-	mb->StartCoroutine(co->GetEnumerator());
+	Start(runMethod, f_last, nullptr);
 }
 
 void Folie::CoRunner::Start(System::Collections::IEnumerator ^f_pre, System::Action ^runMethod)
 {
-	auto co = gcnew GenericEnumerable(GenericEnumerable::eMode::Last, runMethod, f_pre);
-
-	mb->StartCoroutine(co->GetEnumerator());
+	Start(f_pre, runMethod, nullptr);
 }

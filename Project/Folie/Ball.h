@@ -28,7 +28,7 @@ namespace Folie
 		void Update();
 
 	public:
-		void moveTo(GB::eCampo campo, GB::ePosition position);
+		void moveTo(Enums::eCampo campo, Enums::ePosition position);
 
 	};
 }
