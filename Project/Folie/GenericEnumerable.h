@@ -15,55 +15,53 @@ namespace Folie
 	ref class GenericEnumerable :System::Collections::IEnumerable
 	{
 	private:
-		System::Collections::IEnumerator ^iter;
-		System::Action ^runMethod, ^recursive;
-		Enums::eMode when_runMethod;
+		Work ^work;
+		System::Action ^recursive;
 
 		ref class GenericEnumerator :System::Collections::IEnumerator
 		{
 		private:
-			System::Collections::IEnumerator ^iter;
-			System::Action ^runMethod, ^recursive;
-			Enums::eMode when_runMethod;
+			Work ^work;
+			System::Action ^recursive;
+
+		private:
+			void invoke()
+			{
+				work->funzioneEseguita = true;
+
+				try
+				{
+					auto thisType = work->this_->GetType();
+					auto theMethod = thisType->GetMethod(work->nome_funzione, BindingFlags::NonPublic | BindingFlags::Public | BindingFlags::Instance);
+
+					theMethod->Invoke(work->this_, work->parametri);
+				}
+				catch (System::Exception ^e)
+				{
+					UnityEngine::Debug::LogError(e->Message);
+				}
+			};
 
 		public:
-			GenericEnumerator(Enums::eMode when_runMethod, System::Action ^runMethod, System::Collections::IEnumerator ^iter, System::Action ^recursive)
+			GenericEnumerator(Work ^work, System::Action ^recursive)
 			{
-				this->when_runMethod = when_runMethod;
-				this->runMethod = runMethod;
+				this->work = work;
 				this->recursive = recursive;
-				this->iter = iter;
 			};
 
 			virtual bool MoveNext()
 			{
-				switch (when_runMethod)
-				{
-				case Enums::eMode::First:
-					if (runMethod != nullptr)
-					{
-						runMethod();
-						runMethod = nullptr;
-					}
+				if (!work->funzioneEseguita)
+					if (work->sequence == Enums::eSequence::callAndWait)
+						invoke();
 
-					break;
-				}
-
-				auto more_elements_available = iter->MoveNext();
+				auto more_elements_available = work->waiter->MoveNext();
 
 				if (!more_elements_available)
 				{
-					switch (when_runMethod)
-					{
-					case Enums::eMode::Last:
-						if (runMethod != nullptr)
-						{
-							runMethod();
-							runMethod = nullptr;
-						}
-
-						break;
-					}
+					if (!work->funzioneEseguita)
+						if (work->sequence == Enums::eSequence::waitAndCall)
+							invoke();
 
 					if (recursive != nullptr)
 					{
@@ -77,31 +75,29 @@ namespace Folie
 
 			virtual void Reset()
 			{
-				iter->Reset();
+				work->waiter->Reset();
 			};
 
 			virtual property Object ^Current
 			{
 				Object ^get()
 				{
-					return iter->Current;
+					return work->waiter->Current;
 				}
 			};
 
 		};
 
 	public:
-		GenericEnumerable(Enums::eMode when_runMethod, System::Action ^runMethod, System::Collections::IEnumerator ^iter, System::Action ^recursive)
+		GenericEnumerable(Work ^work, System::Action ^recursive)
 		{
-			this->when_runMethod = when_runMethod;
-			this->runMethod = runMethod;
+			this->work = work;
 			this->recursive = recursive;
-			this->iter = iter;
 		}
 
 		virtual System::Collections::IEnumerator ^GetEnumerator()
 		{
-			return gcnew GenericEnumerator(when_runMethod, runMethod, iter, recursive);
+			return gcnew GenericEnumerator(work, recursive);
 		};
 
 	};

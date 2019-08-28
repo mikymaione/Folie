@@ -12,15 +12,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 void Folie::Team::Start()
 {
-	auto x = -1;
-
-	players = gcnew array<Player ^>(6);
-	players[x += 1] = C1;
-	players[x += 1] = C2;
-	players[x += 1] = P1;
-	players[x += 1] = P2;
-	players[x += 1] = B1;
-	players[x += 1] = B2;
+	players = gcnew array<Player ^> {C1, C2, P1, P2, B1, B2};
 }
 
 void Folie::Team::Update()
@@ -49,7 +41,7 @@ void Folie::Team::giocatoriPrenderePosizioniInCampo()
 		auto d = GB::getCoordinatesFromPosition(campo, p->startingPosition);
 
 		p->campo = campo;
-		p->moveTo(Enums::eJob::Async, d->x, d->y);
+		p->moveTo_Async(d->x, d->y);
 	}
 }
 

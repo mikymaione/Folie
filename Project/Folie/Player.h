@@ -22,8 +22,7 @@ namespace Folie
 	private:
 		Enums::ePosition targetChoosen;
 		UnityEngine::AI::NavMeshAgent ^agent;
-		UnityEngine::Vector3 destination, lookingAt;
-		Enums::ePosition hitTarget;
+		UnityEngine::Vector3 lookingAt;
 
 	internal:
 		UnityEngine::Transform ^mano;
@@ -43,8 +42,8 @@ namespace Folie
 	private:
 		void Start();
 		void Update();
-
-		void moveTo_();
+		void moveTo_(float pos_x, float pos_z);
+		void hit_(Enums::ePosition target);
 
 	public:
 		bool inPosizione();
@@ -54,12 +53,11 @@ namespace Folie
 		void moveToNextPosition();
 		void moveTo(UnityEngine::Vector3 ^position);
 		void moveTo(float pos_x, float pos_z);
-		void moveTo(Enums::eJob job, float pos_x, float pos_z);
+		void moveTo_Async(float pos_x, float pos_z);
 
 		void pass_mode();
 		void serve();
 
-		void hit_();
 		void hit();
 		void hit(Enums::ePosition target);
 

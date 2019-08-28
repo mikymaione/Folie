@@ -28,27 +28,27 @@ bool Folie::Player::inPosizione()
 	return GB::samePosition(agent->destination, transform->position);
 }
 
-void Folie::Player::moveTo_()
+void Folie::Player::moveTo_(float pos_x, float pos_z)
 {
-	currentArea = GB::getAreaFromCoordinates(destination.x, destination.z);
-	agent->destination = destination;
-}
+	auto d = UnityEngine::Vector3(pos_x, 0, pos_z);
+	currentArea = GB::getAreaFromCoordinates(pos_x, pos_z);
+	agent->destination = d;
 
-void Folie::Player::moveTo(Enums::eJob job, float pos_x, float pos_z)
-{
-	destination = UnityEngine::Vector3(pos_x, 0, pos_z);
-
-	REF::coRunner->Enqueue(gcnew CoRunnerItem(
-		job,
-		Enums::eMode::First,
-		gcnew Action(this, &Player::moveTo_),
-		REF::wUntil(gcnew Func<bool>(this, &Player::inPosizione))
-	));
 }
 
 void Folie::Player::moveTo(float pos_x, float pos_z)
 {
-	moveTo(Enums::eJob::Sync, pos_x, pos_z);
+	REF::waiter->callAndWait(
+		this,
+		"moveTo_",
+		gcnew array<float ^> {pos_x, pos_z},
+		REF::wUntil(gcnew Func<bool>(this, &Player::inPosizione))
+	);
+}
+
+void Folie::Player::moveTo_Async(float pos_x, float pos_z)
+{
+	moveTo_(pos_x, pos_z);
 }
 
 void Folie::Player::moveTo(UnityEngine::Vector3 ^position)
@@ -96,20 +96,18 @@ void Folie::Player::serve()
 
 void Folie::Player::hit(Enums::ePosition target)
 {
-	//if (distance_from_ball < 0.5)	
-	hitTarget = target;
-
-	REF::coRunner->Enqueue(gcnew CoRunnerItem(
-		Enums::eJob::Sync,
-		Enums::eMode::First,
-		gcnew Action(this, &Player::hit_),
-		REF::w4ms(0.1)
-	));
+	//if (distance_from_ball < 0.5)		
+	REF::waiter->callAndWait(
+		this,
+		"hit_",
+		gcnew array<Enums::ePosition ^> {target},
+		REF::w4s(0.1)
+	);
 }
 
-void Folie::Player::hit_()
+void Folie::Player::hit_(Enums::ePosition target)
 {
-	REF::ball->moveTo(GB::oppositeField(campo), hitTarget);
+	REF::ball->moveTo(GB::oppositeField(campo), target);
 }
 
 void Folie::Player::hit()

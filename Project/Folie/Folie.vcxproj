@@ -136,7 +136,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
-    <ClInclude Include="CoRunner.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GB.h" />
@@ -147,11 +146,12 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Team.h" />
     <ClInclude Include="Wait4Seconds.h" />
+    <ClInclude Include="Waiter.h" />
+    <ClInclude Include="Work.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="Ball.cpp" />
-    <ClCompile Include="CoRunner.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GB.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -162,6 +162,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Team.cpp" />
+    <ClCompile Include="Waiter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />

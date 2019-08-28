@@ -13,14 +13,9 @@ namespace Folie
 	public ref class Enums
 	{
 	public:
-		enum class eMode
+		enum class eSequence
 		{
-			First, Last
-		};
-
-		enum class eJob
-		{
-			Async, Sync
+			callAndWait, waitAndCall
 		};
 
 		enum class eTeam

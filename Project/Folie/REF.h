@@ -9,7 +9,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #pragma once
 
 #include "Wait4Seconds.h"
-#include "CoRunner.h"
+#include "Waiter.h"
 #include "Ball.h"
 #include "Team.h"
 #include "Game.h"
@@ -23,14 +23,14 @@ namespace Folie
 	public ref class REF
 	{
 	public:
-		static CoRunner ^coRunner;
-
+		static Waiter ^waiter;
+		
 		static Ball ^ball;
 		static Team ^teamA, ^teamB;
 		static Game ^game;
 
 	internal:
-		static System::Collections::IEnumerator ^w4ms(float seconds)
+		static System::Collections::IEnumerator ^w4s(float seconds)
 		{
 			return gcnew Wait4Seconds(seconds);
 		};

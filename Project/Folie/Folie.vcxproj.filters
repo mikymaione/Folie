@@ -39,16 +39,19 @@
     <ClInclude Include="REF.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="CoRunner.h">
+    <ClInclude Include="Wait4Seconds.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Waiter.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="GenericEnumerable.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Wait4Seconds.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums.h">
+    <ClInclude Include="Work.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
@@ -74,7 +77,7 @@
     <ClCompile Include="Game.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="CoRunner.cpp">
+    <ClCompile Include="Waiter.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>
