@@ -20,7 +20,11 @@ void Folie::Player::Start()
 
 void Folie::Player::Update()
 {
+	if (REF::ball != nullptr)
+		lookAtTheBall(REF::ball->ballIsFlying());
 
+	if (lookingAt != nullptr)
+		lookAt_(*lookingAt);
 }
 
 bool Folie::Player::inPosizione()
@@ -140,6 +144,14 @@ void Folie::Player::hit()
 	hit(target);
 }
 
+void Folie::Player::lookAtTheBall(bool looking)
+{
+	if (looking)
+		lookingAt = REF::ball->transform->position;
+	else
+		lookingAt = nullptr;
+}
+
 void Folie::Player::lookAtAnOpponent(float seconds)
 {
 	auto target = GB::selectRandomPosition();
@@ -162,9 +174,6 @@ void Folie::Player::lookAt(float seconds, float x, float z)
 
 void Folie::Player::lookAt(float seconds, UnityEngine::Vector3 to_)
 {
-	//IntPtr p;	
-	//System::Runtime::InteropServices::Marshal::GetDelegateForFunctionPointer(p, this->GetType());
-
 	REF::waiter->callAndWait(
 		this,
 		gcnew Action<UnityEngine::Vector3>(this, &Player::lookAt_),
@@ -175,7 +184,9 @@ void Folie::Player::lookAt(float seconds, UnityEngine::Vector3 to_)
 
 void Folie::Player::lookAt_(UnityEngine::Vector3 to_)
 {
-	transform->LookAt(to_);
+	auto to_y = UnityEngine::Vector3(to_.x, transform->position.y, to_.z);
+
+	transform->LookAt(to_y);
 }
 
 /*

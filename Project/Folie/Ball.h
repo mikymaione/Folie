@@ -20,10 +20,13 @@ namespace Folie
 		UnityEngine::Rigidbody ^rigidBody;
 		UnityEngine::Transform ^inMano;
 
+		bool hitted;
+
 	internal:
 		void attachToHand(String ^player_name);
 
 		bool ballInHand();
+		bool ballIsFlying();
 
 	private:
 		void Start();

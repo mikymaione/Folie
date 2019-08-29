@@ -12,7 +12,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 void Folie::Team::Start()
 {
-	players = gcnew array<Player ^> {C1, C2, P1, P2, B1, B2};
+	players = gcnew array<Player ^> {P1, P2, P3, P4, P5, P6};
 }
 
 void Folie::Team::Update()

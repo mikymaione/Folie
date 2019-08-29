@@ -703,7 +703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Margherita
-  startingPosition: 1
+  startingPosition: 4
   role: 1
   team: 1
 --- !u!4 &222444344 stripped
@@ -940,7 +940,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Davide
-  startingPosition: 5
+  startingPosition: 0
   role: 5
   team: 1
 --- !u!4 &401835982 stripped
@@ -2044,10 +2044,10 @@ MonoBehaviour:
   campo: 0
   P1: {fileID: 467354014}
   P2: {fileID: 837810538}
-  C1: {fileID: 1604036739}
-  C2: {fileID: 1625788192}
-  B1: {fileID: 1509818957}
-  B2: {fileID: 1827138190}
+  P3: {fileID: 1509818957}
+  P4: {fileID: 1827138190}
+  P5: {fileID: 1604036739}
+  P6: {fileID: 1625788192}
 --- !u!1 &1169157100 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -2102,7 +2102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Carla
-  startingPosition: 4
+  startingPosition: 1
   role: 4
   team: 1
 --- !u!4 &1169157105 stripped
@@ -2253,12 +2253,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Gruppo1
   campo: 1
-  P1: {fileID: 222444343}
-  P2: {fileID: 1169157104}
-  C1: {fileID: 143199513}
-  C2: {fileID: 1469049055}
-  B1: {fileID: 1571497254}
-  B2: {fileID: 401835981}
+  P1: {fileID: 1169157104}
+  P2: {fileID: 222444343}
+  P3: {fileID: 401835981}
+  P4: {fileID: 1571497254}
+  P5: {fileID: 1469049055}
+  P6: {fileID: 143199513}
 --- !u!1 &1325506166
 GameObject:
   m_ObjectHideFlags: 0
@@ -2599,7 +2599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Squilla
-  startingPosition: 0
+  startingPosition: 5
   role: 2
   team: 1
 --- !u!4 &1571497255 stripped

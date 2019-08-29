@@ -23,9 +23,7 @@ namespace Folie
 		String ^name;
 		Enums::eCampo campo;
 
-		Player ^P1, ^P2;
-		Player ^C1, ^C2;
-		Player ^B1, ^B2;
+		Player ^P1, ^P2, ^P3, ^P4, ^P5, ^P6;
 
 	private:
 		void Start();

@@ -22,6 +22,7 @@ namespace Folie
 	private:
 		Enums::ePosition targetChoosen;
 		UnityEngine::AI::NavMeshAgent ^agent;
+		UnityEngine::Vector3 ^lookingAt;
 
 	internal:
 		UnityEngine::Transform ^mano;
@@ -41,6 +42,7 @@ namespace Folie
 	private:
 		void Start();
 		void Update();
+
 		void moveTo_(float pos_x, float pos_z);
 
 		void hit_(Enums::ePosition target);
@@ -66,6 +68,7 @@ namespace Folie
 		void hit();
 		void hit(Enums::ePosition target);
 
+		void lookAtTheBall(bool looking);
 		void lookAtAnOpponent(float seconds);
 		void lookAt(float seconds, UnityEngine::Vector2 ^dest);
 		void lookAt(float seconds, float x, float z);

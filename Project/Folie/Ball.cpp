@@ -10,6 +10,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "Ball.h"
 #include "REF.h"
 
+void Folie::Ball::Start()
+{
+	rigidBody = GetComponent<UnityEngine::Rigidbody^>();
+}
+
+void Folie::Ball::Update()
+{
+	if (inMano != nullptr)
+		transform->SetPositionAndRotation(inMano->position, inMano->rotation);
+}
+
 void Folie::Ball::attachToHand(String ^player_name)
 {
 	for each (auto team in REF::teams)
@@ -26,15 +37,9 @@ bool Folie::Ball::ballInHand()
 	return inMano != nullptr;
 }
 
-void Folie::Ball::Start()
+bool Folie::Ball::ballIsFlying()
 {
-	rigidBody = GetComponent<UnityEngine::Rigidbody^>();
-}
-
-void Folie::Ball::Update()
-{
-	if (inMano != nullptr)
-		transform->SetPositionAndRotation(inMano->position, inMano->rotation);
+	return hitted && transform->position.y > 0;
 }
 
 void Folie::Ball::moveTo(Enums::eCampo campo, Enums::ePosition position)
@@ -55,4 +60,5 @@ void Folie::Ball::moveTo(Enums::eCampo campo, Enums::ePosition position)
 	auto vel = UnityEngine::Mathf::Sqrt(dist * UnityEngine::Physics::gravity.magnitude);
 
 	rigidBody->velocity = vel * dir.normalized;
+	hitted = true;
 }
