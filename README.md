@@ -1,5 +1,8 @@
 # Folie
-Artificial intelligence for volleyball games
+Folie is a library (in C++/CLI) for Unity that implements an artificial intelligence for volleyball games.
+
+### Trivia
+Raphaela Folie is the middle blocker of the Italian volleyball team.
 
 
 ## Minimum system requirements
