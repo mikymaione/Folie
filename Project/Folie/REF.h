@@ -29,6 +29,8 @@ namespace Folie
 		static Team ^teamA, ^teamB;
 		static Game ^game;
 
+		static array<Team ^> ^teams;
+
 	internal:
 		static System::Collections::IEnumerator ^w4s(float seconds)
 		{

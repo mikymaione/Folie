@@ -12,12 +12,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 void Folie::Ball::attachToHand(String ^player_name)
 {
-	for each (auto p in REF::teamA->players)
-		if (p->name->Equals(player_name))
-		{
-			inMano = p->mano;
-			break;
-		}
+	for each (auto team in REF::teams)
+		for each (auto p in team->players)
+			if (p->name->Equals(player_name))
+			{
+				inMano = p->mano;
+				break;
+			}
 }
 
 bool Folie::Ball::ballInHand()

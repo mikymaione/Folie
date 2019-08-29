@@ -36,7 +36,7 @@ namespace Folie
 					auto thisType = work->this_->GetType();
 					auto theMethod = thisType->GetMethod(work->nome_funzione, BindingFlags::NonPublic | BindingFlags::Public | BindingFlags::Instance);
 
-					UnityEngine::Debug::Log(scritta);
+					// UnityEngine::Debug::Log(scritta);
 					theMethod->Invoke(work->this_, work->parametri);
 				}
 				catch (System::Exception ^e)

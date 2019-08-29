@@ -21,7 +21,7 @@ namespace Folie
 	{
 	private:
 		Enums::ePosition targetChoosen;
-		UnityEngine::AI::NavMeshAgent ^agent;		
+		UnityEngine::AI::NavMeshAgent ^agent;
 
 	internal:
 		UnityEngine::Transform ^mano;
@@ -68,7 +68,7 @@ namespace Folie
 
 		void lookAtAnOpponent(float seconds);
 		void lookAt(float seconds, UnityEngine::Vector2 ^dest);
-		void lookAt(float seconds, float x, float y);
+		void lookAt(float seconds, float x, float z);
 		void lookAt(float seconds, UnityEngine::Vector3 to_);
 
 	};

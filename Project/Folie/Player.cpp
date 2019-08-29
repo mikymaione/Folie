@@ -103,7 +103,7 @@ void Folie::Player::serve()
 {
 	targetChoosen = GB::selectRandomPosition();
 	auto c = GB::getCoordinatesFromPosition(campo, targetChoosen);
-	
+
 	lookAt(2, c->x, c->y);
 	hit(targetChoosen);
 
@@ -153,9 +153,9 @@ void Folie::Player::lookAt(float seconds, UnityEngine::Vector2 ^dest)
 	lookAt(seconds, dest->x, dest->y);
 }
 
-void Folie::Player::lookAt(float seconds, float x, float y)
+void Folie::Player::lookAt(float seconds, float x, float z)
 {
-	auto to_ = UnityEngine::Vector3(x, transform->position.y, y);
+	auto to_ = UnityEngine::Vector3(x, transform->position.y, z);
 
 	lookAt(seconds, to_);
 }
