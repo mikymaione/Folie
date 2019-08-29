@@ -852,6 +852,7 @@ MonoBehaviour:
   m_Script: {fileID: -1316959609, guid: a87aca056b697d941ac5aa1ef36b5cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  matchPoints: 25
   ball: {fileID: 440725338}
   teamA: {fileID: 1116824673}
   teamB: {fileID: 1287462440}
