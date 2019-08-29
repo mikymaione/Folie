@@ -11,9 +11,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #using <UnityEngine.CoreModule.dll> as_friend
 
 #include "Work.h"
+#include "GenericEnumerable.h"
 
 using namespace System;
-using namespace System::Reflection;
 
 namespace Folie
 {
@@ -22,15 +22,47 @@ namespace Folie
 	private:
 		System::Collections::Generic::Queue<Work^> ^works;
 
-	public:
-		Waiter();
+	internal:
+		Waiter()
+		{
+			works = gcnew System::Collections::Generic::Queue<Work^>();
+		};
 
-		void Run();
+		void Run()
+		{
+			if (works->Count > 0)
+			{
+				auto work = works->Dequeue();
 
-		void callAndWait(UnityEngine::MonoBehaviour ^this_, String ^nome_funzione, array<Object ^> ^parametri, System::Collections::IEnumerator ^waiter);
-		void callAndWait(UnityEngine::MonoBehaviour ^this_, String ^nome_funzione, System::Collections::IEnumerator ^waiter);
+				auto ge = gcnew GenericEnumerable(
+					work,
+					gcnew Action(this, &Waiter::Run)
+				);
 
-		void waitAndCall(UnityEngine::MonoBehaviour ^this_, System::Collections::IEnumerator ^waiter, String ^nome_funzione, array<Object ^> ^parametri);
-		void waitAndCall(UnityEngine::MonoBehaviour ^this_, System::Collections::IEnumerator ^waiter, String ^nome_funzione);
+				work->this_->StartCoroutine(ge->GetEnumerator());
+			}
+		};
+
+		void callAndWait(UnityEngine::MonoBehaviour ^this_, Delegate ^nome_funzione, array<Object ^> ^parametri, System::Collections::IEnumerator ^waiter)
+		{
+			auto work = gcnew Work(Enums::eSequence::callAndWait, this_, nome_funzione, parametri, waiter);
+			works->Enqueue(work);
+		};
+
+		void callAndWait(UnityEngine::MonoBehaviour ^this_, Delegate ^nome_funzione, System::Collections::IEnumerator ^waiter)
+		{
+			callAndWait(this_, nome_funzione, nullptr, waiter);
+		};
+
+		void waitAndCall(UnityEngine::MonoBehaviour ^this_, System::Collections::IEnumerator ^waiter, Delegate ^nome_funzione, array<Object ^> ^parametri)
+		{
+			auto work = gcnew Work(Enums::eSequence::waitAndCall, this_, nome_funzione, parametri, waiter);
+			works->Enqueue(work);
+		};
+
+		void waitAndCall(UnityEngine::MonoBehaviour ^this_, System::Collections::IEnumerator ^waiter, Delegate ^nome_funzione)
+		{
+			waitAndCall(this_, waiter, nome_funzione, nullptr);
+		};
 	};
 }

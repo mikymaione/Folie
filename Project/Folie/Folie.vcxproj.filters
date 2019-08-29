@@ -77,9 +77,6 @@
     <ClCompile Include="Game.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="Waiter.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc">

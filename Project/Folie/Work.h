@@ -18,16 +18,16 @@ namespace Folie
 {
 	ref class Work
 	{
-	public:
+	internal:
 		bool funzioneEseguita;
 		Enums::eSequence sequence;
 		UnityEngine::MonoBehaviour ^this_;
-		String ^nome_funzione;
+		Delegate ^nome_funzione;
 		array<Object ^> ^parametri;
 		System::Collections::IEnumerator ^waiter;
 
-	public:
-		Work(Enums::eSequence sequence, UnityEngine::MonoBehaviour ^this_, String ^nome_funzione, array<Object ^> ^parametri, System::Collections::IEnumerator ^waiter)
+	internal:
+		Work(Enums::eSequence sequence, UnityEngine::MonoBehaviour ^this_, Delegate ^nome_funzione, array<Object ^> ^parametri, System::Collections::IEnumerator ^waiter)
 		{
 			this->sequence = sequence;
 			this->this_ = this_;

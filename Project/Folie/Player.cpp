@@ -40,7 +40,7 @@ void Folie::Player::moveTo(float pos_x, float pos_z)
 {
 	REF::waiter->callAndWait(
 		this,
-		"moveTo_",
+		gcnew Action<float, float>(this, &Player::moveTo_),
 		gcnew array<float ^> {pos_x, pos_z},
 		REF::wUntil(gcnew Func<bool>(this, &Player::inPosizione))
 	);
@@ -88,13 +88,13 @@ void Folie::Player::serveRitual()
 
 	REF::waiter->callAndWait(
 		this,
-		"takeTheBall",
+		gcnew Action(this, &Player::takeTheBall),
 		REF::wUntil(gcnew Func<bool>(REF::ball, &Ball::ballInHand))
 	);
 
 	REF::waiter->callAndWait(
 		this,
-		"serve",
+		gcnew Action(this, &Player::serve),
 		REF::w4s(0.1)
 	);
 }
@@ -122,7 +122,7 @@ void Folie::Player::hit(Enums::ePosition target)
 	//if (distance_from_ball < 0.5)		
 	REF::waiter->callAndWait(
 		this,
-		"hit_",
+		gcnew Action<Enums::ePosition>(this, &Player::hit_),
 		gcnew array<Enums::ePosition ^> {target},
 		REF::w4s(0.1)
 	);
@@ -162,9 +162,12 @@ void Folie::Player::lookAt(float seconds, float x, float z)
 
 void Folie::Player::lookAt(float seconds, UnityEngine::Vector3 to_)
 {
+	//IntPtr p;	
+	//System::Runtime::InteropServices::Marshal::GetDelegateForFunctionPointer(p, this->GetType());
+
 	REF::waiter->callAndWait(
 		this,
-		"lookAt_",
+		gcnew Action<UnityEngine::Vector3>(this, &Player::lookAt_),
 		gcnew array<UnityEngine::Vector3 ^> {to_},
 		REF::w4s(seconds)
 	);

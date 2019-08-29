@@ -28,21 +28,7 @@ namespace Folie
 			void invoke()
 			{
 				work->funzioneEseguita = true;
-
-				auto scritta = work->nome_funzione + " (" + work->parametri + ")";
-
-				try
-				{
-					auto thisType = work->this_->GetType();
-					auto theMethod = thisType->GetMethod(work->nome_funzione, BindingFlags::NonPublic | BindingFlags::Public | BindingFlags::Instance);
-
-					// UnityEngine::Debug::Log(scritta);
-					theMethod->Invoke(work->this_, work->parametri);
-				}
-				catch (System::Exception ^e)
-				{
-					UnityEngine::Debug::LogError(scritta + ": " + e->Message);
-				}
+				work->nome_funzione->DynamicInvoke(work->parametri);
 			};
 
 		public:
