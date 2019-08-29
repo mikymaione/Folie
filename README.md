@@ -1,5 +1,5 @@
-# Folie
-<img src="http://www.maionemiky.it/images/Folie.png" alt="logo" /> Folie is a library (in C++/CLI) for Unity that implements an artificial intelligence for volleyball games.
+# <img src="http://www.maionemiky.it/images/Folie.png" alt="logo" /> Folie
+Folie is a library (in C++/CLI) for Unity that implements an artificial intelligence for volleyball games.
 
 ### Trivia
 Raphaela Folie is the middle blocker of the Italian volleyball team.
