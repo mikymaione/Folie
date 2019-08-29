@@ -26,8 +26,7 @@ namespace Folie
 		Player ^P1, ^P2, ^P3, ^P4, ^P5, ^P6;
 
 	private:
-		void Start();
-		void Update();
+		void Start();		
 
 	public:
 		Player ^getPlayerAtPosition(Enums::ePosition position);

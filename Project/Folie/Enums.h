@@ -13,6 +13,13 @@ namespace Folie
 	public ref class Enums
 	{
 	public:
+		literal float minimu_distance_to_hit = 1;
+
+		enum class ePhase
+		{
+			serve, pass, set, attack, block
+		};
+
 		enum class eSequence
 		{
 			callAndWait, waitAndCall

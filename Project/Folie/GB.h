@@ -28,6 +28,8 @@ namespace Folie
 		static UnityEngine::Vector2 ^getCoordinatesFromPosition(Enums::eCampo campo, Enums::ePosition position);
 		static UnityEngine::Vector2 ^getCoordinatesFromArea(Enums::eCampo campo, Enums::eArea area);
 
+		static Enums::eCampo getCampoFromCoordinates(float z);
+
 		static Enums::eArea getAreaFromCoordinates(float x, float z);
 
 		static Enums::eArea getAreaFromPosition(Enums::ePosition current);

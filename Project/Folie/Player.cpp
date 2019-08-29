@@ -21,10 +21,47 @@ void Folie::Player::Start()
 void Folie::Player::Update()
 {
 	if (REF::ball != nullptr)
-		lookAtTheBall(REF::ball->ballIsFlying());
+	{
+		auto ballIsFlying = REF::ball->ballIsFlying();
+
+		lookAtTheBall(ballIsFlying);
+
+		if (ballIsFlying && getDistanceFromBall() < Enums::minimu_distance_to_hit)
+			switch (REF::ball->touch)
+			{
+			case 0:
+				if (phase != Enums::ePhase::pass)
+				{
+					phase = Enums::ePhase::pass;
+					pass_();
+				}
+				break;
+			case 1:
+				if (phase != Enums::ePhase::set)
+				{
+					phase = Enums::ePhase::set;
+					set_();
+				}
+				break;
+			case 2:
+				if (phase != Enums::ePhase::attack)
+				{
+					phase = Enums::ePhase::attack;
+					attack_(GB::selectRandomPosition());
+				}
+				break;
+			}
+	}
 
 	if (lookingAt != nullptr)
 		lookAt_(*lookingAt);
+}
+
+float Folie::Player::getDistanceFromBall()
+{
+	auto d = UnityEngine::Vector3::Distance(REF::ball->transform->position, transform->position);
+
+	return d;
 }
 
 bool Folie::Player::inPosizione()
@@ -79,12 +116,6 @@ void Folie::Player::moveToNextPosition()
 	moveToPosition(GB::getNextRotationPosition(currentPosition));
 }
 
-void Folie::Player::pass_mode()
-{
-	if (UnityEngine::Vector3::Distance(transform->position, REF::ball->transform->position) < 1)
-		hit();
-}
-
 void Folie::Player::serveRitual()
 {
 	lookAt(0.3, REF::ball->transform->position);
@@ -103,13 +134,29 @@ void Folie::Player::serveRitual()
 	);
 }
 
+void Folie::Player::serve_(Enums::ePosition target)
+{
+	if (getDistanceFromBall() < Enums::minimu_distance_to_hit)
+		REF::ball->serve(GB::oppositeField(campo), target);
+}
+
+void Folie::Player::serve(Enums::ePosition target)
+{
+	REF::waiter->callAndWait(
+		this,
+		gcnew Action<Enums::ePosition>(this, &Player::serve_),
+		gcnew array<Enums::ePosition ^> {target},
+		REF::w4s(1)
+	);
+}
+
 void Folie::Player::serve()
 {
 	targetChoosen = GB::selectRandomPosition();
 	auto c = GB::getCoordinatesFromPosition(campo, targetChoosen);
 
 	lookAt(2, c->x, c->y);
-	hit(targetChoosen);
+	serve(targetChoosen);
 
 	moveToPosition(startingPosition);
 }
@@ -121,27 +168,67 @@ void Folie::Player::takeTheBall()
 	move();
 }
 
-void Folie::Player::hit(Enums::ePosition target)
+void Folie::Player::attack(Enums::ePosition target)
 {
-	//if (distance_from_ball < 0.5)		
 	REF::waiter->callAndWait(
 		this,
-		gcnew Action<Enums::ePosition>(this, &Player::hit_),
+		gcnew Action<Enums::ePosition>(this, &Player::attack_),
 		gcnew array<Enums::ePosition ^> {target},
-		REF::w4s(0.1)
+		REF::w4s(1)
 	);
 }
 
-void Folie::Player::hit_(Enums::ePosition target)
+void Folie::Player::attack_(Enums::ePosition target)
 {
-	REF::ball->moveTo(GB::oppositeField(campo), target);
+	if (getDistanceFromBall() < Enums::minimu_distance_to_hit)
+		REF::ball->hit(GB::oppositeField(campo), target);
 }
 
-void Folie::Player::hit()
+void Folie::Player::attack()
 {
 	auto target = GB::selectRandomPosition();
 
-	hit(target);
+	attack(target);
+}
+
+void Folie::Player::set()
+{
+	REF::waiter->callAndWait(
+		this,
+		gcnew Action(this, &Player::set_),
+		REF::w4s(1)
+	);
+}
+
+void Folie::Player::set_()
+{
+	if (getDistanceFromBall() < Enums::minimu_distance_to_hit)
+	{
+		auto myTeam = REF::getTeam(team);
+		auto hitter = myTeam->getPlayerWithRole(Enums::eRole::b1);
+
+		REF::ball->hit(campo, hitter->currentArea);
+	}
+}
+
+void Folie::Player::pass()
+{
+	REF::waiter->callAndWait(
+		this,
+		gcnew Action(this, &Player::pass_),
+		REF::w4s(1)
+	);
+}
+
+void Folie::Player::pass_()
+{
+	if (getDistanceFromBall() < Enums::minimu_distance_to_hit)
+	{
+		auto myTeam = REF::getTeam(team);
+		auto setter = myTeam->getPlayerWithRole(Enums::eRole::p1);
+
+		REF::ball->hit(campo, setter->currentArea);
+	}
 }
 
 void Folie::Player::lookAtTheBall(bool looking)
@@ -188,54 +275,3 @@ void Folie::Player::lookAt_(UnityEngine::Vector3 to_)
 
 	transform->LookAt(to_y);
 }
-
-/*
-void Folie::Player::propagateEvent(GB::eEvent e)
-{
-	switch (e)
-	{
-	case GB::eEvent::giocatoriPrenderePosizioniInCampo:
-		moveToPosition(GB::eEvent::giocatoriPrenderePosizioniInCampo_end, startingPosition);
-		break;
-
-	case GB::eEvent::giocatoriPrenderePosizioniInCampo_end:
-		event_bubbleUp(e);
-		break;
-
-	case GB::eEvent::lookAtOpponent:
-		lookAtAnOpponent();
-		break;
-
-	case GB::eEvent::lookAtTheBall:
-		lookingAtTheBall = true;
-		break;
-
-	case GB::eEvent::lookAtTheBall_end:
-		lookingAtTheBall = false;
-		break;
-
-	case GB::eEvent::takeTheBall:
-		if (currentPosition == Enums::ePosition::p1)
-			moveTo(GB::eEvent::takeTheBall_end, REF::ball->pos_x, REF::ball->pos_z);
-		break;
-
-	case GB::eEvent::takeTheBall_end:
-		REF::ball->attachToHand(name);
-		currentArea = Enums::eArea::a1S;
-		move(GB::eEvent::gotoServingPosition_end);
-		break;
-
-	case GB::eEvent::gotoServingPosition_end:
-		serve();
-		event_bubbleUp(GB::eEvent::gotoServingPosition_end);
-		break;
-
-	case GB::eEvent::serve:
-		hit(targetChoosen);
-		event_bubbleUp(GB::eEvent::serve_do);
-		moveToPosition(GB::eEvent::serve_end, currentPosition);
-		break;
-
-	}
-}
-*/

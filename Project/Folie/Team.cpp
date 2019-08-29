@@ -15,11 +15,6 @@ void Folie::Team::Start()
 	players = gcnew array<Player ^> {P1, P2, P3, P4, P5, P6};
 }
 
-void Folie::Team::Update()
-{
-
-}
-
 Folie::Player ^Folie::Team::getPlayerAtPosition(Enums::ePosition position)
 {
 	for each (auto p in players)

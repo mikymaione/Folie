@@ -42,12 +42,14 @@ bool Folie::Ball::ballIsFlying()
 	return hitted && transform->position.y > 0;
 }
 
-void Folie::Ball::moveTo(Enums::eCampo campo, Enums::ePosition position)
+void Folie::Ball::move(Enums::eCampo campo, UnityEngine::Vector2 ^coordinate)
 {
 	inMano = nullptr;
 
-	auto c = GB::getCoordinatesFromPosition(campo, position);
-	auto p = UnityEngine::Vector3(c->x, 0, c->y);
+	if (touch > 3)
+		throw gcnew Exception("Superati 3 tocchi!");
+
+	auto p = UnityEngine::Vector3(coordinate->x, 0, coordinate->y);
 
 	auto dir = p - transform->position;
 	auto h = dir.y;
@@ -61,4 +63,42 @@ void Folie::Ball::moveTo(Enums::eCampo campo, Enums::ePosition position)
 
 	rigidBody->velocity = vel * dir.normalized;
 	hitted = true;
+}
+
+void Folie::Ball::hit(Enums::eCampo campo, UnityEngine::Vector2 ^coordinate)
+{
+	touch++;
+
+	if (campo != getCampoAttuale())
+		touch = 0;
+
+	move(campo, coordinate);
+}
+
+void Folie::Ball::hit(Enums::eCampo campo, Enums::eArea area)
+{
+	auto coordinate = GB::getCoordinatesFromArea(campo, area);
+	hit(campo, coordinate);
+}
+
+void Folie::Ball::hit(Enums::eCampo campo, Enums::ePosition position)
+{
+	auto coordinate = GB::getCoordinatesFromPosition(campo, position);
+	hit(campo, coordinate);
+}
+
+void Folie::Ball::serve(Enums::eCampo campo, Enums::ePosition position)
+{
+	touch = 0;
+
+	auto coordinate = GB::getCoordinatesFromPosition(campo, position);
+
+	move(campo, coordinate);
+}
+
+Folie::Enums::eCampo Folie::Ball::getCampoAttuale()
+{
+	auto c = GB::getCampoFromCoordinates(transform->position.z);
+
+	return c;
 }

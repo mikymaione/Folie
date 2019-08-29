@@ -118,6 +118,11 @@ UnityEngine::Vector2 ^Folie::GB::getCoordinatesFromArea(Enums::eCampo campo, Enu
 	}
 }
 
+Folie::Enums::eCampo Folie::GB::getCampoFromCoordinates(float z)
+{
+	return (z >= 10 ? Enums::eCampo::down : Enums::eCampo::up);
+}
+
 Folie::Enums::eArea Folie::GB::getAreaFromCoordinates(float x, float z)
 {
 	if (x < 1)

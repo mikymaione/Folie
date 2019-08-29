@@ -23,6 +23,10 @@ namespace Folie
 		bool hitted;
 
 	internal:
+		UInt16 touch;
+
+		Enums::eCampo getCampoAttuale();
+
 		void attachToHand(String ^player_name);
 
 		bool ballInHand();
@@ -32,8 +36,14 @@ namespace Folie
 		void Start();
 		void Update();
 
+		void move(Enums::eCampo campo, UnityEngine::Vector2 ^coordinate);
+
 	public:
-		void moveTo(Enums::eCampo campo, Enums::ePosition position);
+		void serve(Enums::eCampo campo, Enums::ePosition position);
+
+		void hit(Enums::eCampo campo, Enums::ePosition position);
+		void hit(Enums::eCampo campo, Enums::eArea area);
+		void hit(Enums::eCampo campo, UnityEngine::Vector2 ^coordinate);
 
 	};
 }

@@ -31,6 +31,8 @@ namespace Folie
 		Enums::eArea currentArea, startingArea;
 		Enums::eCampo campo;
 
+		Enums::ePhase phase;
+
 	public:
 		String ^name;
 
@@ -45,13 +47,17 @@ namespace Folie
 
 		void moveTo_(float pos_x, float pos_z);
 
-		void hit_(Enums::ePosition target);
+		void set_();
+		void pass_();
+		void attack_(Enums::ePosition target);
 		void lookAt_(UnityEngine::Vector3 to_);
 
+		void serve_(Enums::ePosition target);
 		void serve();
 		void takeTheBall();
 
 	public:
+		float getDistanceFromBall();
 		bool inPosizione();
 
 		void move();
@@ -61,12 +67,14 @@ namespace Folie
 		void moveTo(float pos_x, float pos_z);
 		void moveTo_Async(float pos_x, float pos_z);
 
-		void pass_mode();
+		void pass();
+		void set();
 
+		void serve(Enums::ePosition target);
 		void serveRitual();
 
-		void hit();
-		void hit(Enums::ePosition target);
+		void attack();
+		void attack(Enums::ePosition target);
 
 		void lookAtTheBall(bool looking);
 		void lookAtAnOpponent(float seconds);
