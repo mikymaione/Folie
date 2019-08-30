@@ -50,8 +50,7 @@ namespace Folie
 
 		enum class eRole
 		{
-			c1, p1, b1,
-			c2, p2, b2
+			Setter, OutsideHitter, MiddleBlocker, Libero, Opposite
 		};
 	};
 }

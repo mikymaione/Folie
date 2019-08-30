@@ -204,7 +204,7 @@ void Folie::Player::set_()
 {
 	if (getDistanceFromBall() < Enums::minimu_distance_to_hit)
 	{
-		auto hitter = team->getPlayerWithRole(Enums::eRole::b1);
+		auto hitter = team->getPlayerWithRole(Enums::eRole::OutsideHitter);
 
 		REF::ball->hit(campo, hitter->currentArea);
 	}
@@ -223,7 +223,7 @@ void Folie::Player::pass_()
 {
 	if (getDistanceFromBall() < Enums::minimu_distance_to_hit)
 	{
-		auto setter = team->getPlayerWithRole(Enums::eRole::p1);
+		auto setter = team->getPlayerWithRole(Enums::eRole::Setter);
 
 		REF::ball->hit(campo, setter->currentArea);
 	}

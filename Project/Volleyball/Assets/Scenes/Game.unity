@@ -512,8 +512,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Alessandro
   startingPosition: 3
-  role: 3
-  team: 1
+  role: 2
 --- !u!4 &143199514 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -704,8 +703,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Margherita
   startingPosition: 4
-  role: 1
-  team: 1
+  role: 0
 --- !u!4 &222444344 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -941,8 +939,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Davide
   startingPosition: 0
-  role: 5
-  team: 1
+  role: 4
 --- !u!4 &401835982 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -1225,8 +1222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Laura
   startingPosition: 1
-  role: 1
-  team: 0
+  role: 0
 --- !u!4 &467354015 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -1698,8 +1694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Lara
   startingPosition: 4
-  role: 4
-  team: 0
+  role: 0
 --- !u!4 &837810539 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -2103,8 +2098,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Carla
   startingPosition: 1
-  role: 4
-  team: 1
+  role: 0
 --- !u!4 &1169157105 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -2474,8 +2468,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Filippo
   startingPosition: 2
-  role: 0
-  team: 1
+  role: 1
 --- !u!4 &1469049056 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -2537,8 +2530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Federico
   startingPosition: 3
-  role: 5
-  team: 0
+  role: 1
 --- !u!4 &1509818958 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -2601,7 +2593,6 @@ MonoBehaviour:
   name: Squilla
   startingPosition: 5
   role: 2
-  team: 1
 --- !u!4 &1571497255 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -2663,8 +2654,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Michele
   startingPosition: 0
-  role: 0
-  team: 0
+  role: 2
 --- !u!4 &1604036740 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -2726,8 +2716,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Lorenzo
   startingPosition: 5
-  role: 3
-  team: 0
+  role: 2
 --- !u!4 &1625788193 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -2819,8 +2808,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Piero
   startingPosition: 2
-  role: 2
-  team: 0
+  role: 4
 --- !u!4 &1827138191 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
