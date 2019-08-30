@@ -12,6 +12,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 void Folie::Player::Start()
 {
+	phase = Enums::ePhase::null;
 	startingArea = GB::getAreaFromPosition(startingPosition);
 
 	agent = GetComponent<UnityEngine::AI::NavMeshAgent ^>();
@@ -30,7 +31,7 @@ void Folie::Player::Update()
 			switch (REF::ball->touch)
 			{
 			case 0:
-				if (phase != Enums::ePhase::pass)
+				if (phase != Enums::ePhase::serve && phase != Enums::ePhase::pass)
 				{
 					phase = Enums::ePhase::pass;
 					pass_();
@@ -118,20 +119,25 @@ void Folie::Player::moveToNextPosition()
 
 void Folie::Player::serveRitual()
 {
-	lookAt(0.3, REF::ball->transform->position);
-	moveTo(REF::ball->transform->position);
+	if (phase != Enums::ePhase::serve)
+	{
+		phase = Enums::ePhase::serve;
 
-	REF::waiter->callAndWait(
-		this,
-		gcnew Action(this, &Player::takeTheBall),
-		REF::wUntil(gcnew Func<bool>(REF::ball, &Ball::ballInHand))
-	);
+		lookAt(0.3, REF::ball->transform->position);
+		moveTo(REF::ball->transform->position);
 
-	REF::waiter->callAndWait(
-		this,
-		gcnew Action(this, &Player::serve),
-		REF::w4s(0.1)
-	);
+		REF::waiter->callAndWait(
+			this,
+			gcnew Action(this, &Player::takeTheBall),
+			REF::wUntil(gcnew Func<bool>(REF::ball, &Ball::ballInHand))
+		);
+
+		REF::waiter->callAndWait(
+			this,
+			gcnew Action(this, &Player::serve),
+			REF::w4s(0.1)
+		);
+	}
 }
 
 void Folie::Player::serve_(Enums::ePosition target)

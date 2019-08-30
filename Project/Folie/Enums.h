@@ -14,10 +14,12 @@ namespace Folie
 	{
 	public:
 		literal float minimu_distance_to_hit = 1;
+		literal float serve_angle = 32;
+		literal float pass_angle = 70;
 
 		enum class ePhase
 		{
-			serve, pass, set, attack, block
+			serve, pass, set, attack, block, null
 		};
 
 		enum class eSequence

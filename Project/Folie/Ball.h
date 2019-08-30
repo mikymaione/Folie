@@ -36,7 +36,7 @@ namespace Folie
 		void Start();
 		void Update();
 
-		void move(Enums::eCampo campo, UnityEngine::Vector2 ^coordinate);
+		void move(Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle);
 
 	public:
 		void serve(Enums::eCampo campo, Enums::ePosition position);

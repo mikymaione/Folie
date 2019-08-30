@@ -42,26 +42,33 @@ bool Folie::Ball::ballIsFlying()
 	return hitted && transform->position.y > 0;
 }
 
-void Folie::Ball::move(Enums::eCampo campo, UnityEngine::Vector2 ^coordinate)
+void Folie::Ball::move(Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle)
 {
 	inMano = nullptr;
 
 	if (touch > 3)
 		throw gcnew Exception("Superati 3 tocchi!");
 
-	auto p = UnityEngine::Vector3(coordinate->x, 0, coordinate->y);
+	auto a = angle * UnityEngine::Mathf::Deg2Rad; // Convert angle to radians
 
-	auto dir = p - transform->position;
-	auto h = dir.y;
-	dir.y = 0;
+	auto destination = UnityEngine::Vector3(coordinate->x, 0, coordinate->y);
 
-	auto dist = dir.magnitude;
-	dir.y = dist;
-	dist += h;
+	UnityEngine::Vector3 dir = destination - transform->position; // get Target Direction
 
-	auto vel = UnityEngine::Mathf::Sqrt(dist * UnityEngine::Physics::gravity.magnitude);
+	auto height = dir.y; // get height difference
+	dir.y = 0; // retain only the horizontal difference
 
-	rigidBody->velocity = vel * dir.normalized;
+	auto dist = dir.magnitude; // get horizontal direction
+
+	dir.y = dist * UnityEngine::Mathf::Tan(a); // set dir to the elevation angle.
+	dist += height / UnityEngine::Mathf::Tan(a); // Correction for small height differences
+
+	// Calculate the velocity magnitude
+	auto velocity = UnityEngine::Mathf::Sqrt(dist * UnityEngine::Physics::gravity.magnitude / UnityEngine::Mathf::Sin(2 * a));
+
+	UnityEngine::Debug::Log("Ang: " + angle + ", Vel: " + velocity);
+
+	rigidBody->velocity = velocity * dir.normalized; // Return a normalized vector.
 	hitted = true;
 }
 
@@ -72,7 +79,7 @@ void Folie::Ball::hit(Enums::eCampo campo, UnityEngine::Vector2 ^coordinate)
 	if (campo != getCampoAttuale())
 		touch = 0;
 
-	move(campo, coordinate);
+	move(campo, coordinate, Enums::pass_angle);
 }
 
 void Folie::Ball::hit(Enums::eCampo campo, Enums::eArea area)
@@ -93,7 +100,7 @@ void Folie::Ball::serve(Enums::eCampo campo, Enums::ePosition position)
 
 	auto coordinate = GB::getCoordinatesFromPosition(campo, position);
 
-	move(campo, coordinate);
+	move(campo, coordinate, Enums::serve_angle);
 }
 
 Folie::Enums::eCampo Folie::Ball::getCampoAttuale()
