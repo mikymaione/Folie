@@ -13,6 +13,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 void Folie::Team::Start()
 {
 	players = gcnew array<Player ^> {P1, P2, P3, P4, P5, P6};
+
+	for each (auto p in players)
+		p->team = this;
 }
 
 Folie::Player ^Folie::Team::getPlayerAtPosition(Enums::ePosition position)

@@ -17,6 +17,8 @@ using namespace System::Collections::Generic;
 
 namespace Folie
 {
+	ref class Team; // cross reference
+
 	public ref class Player :UnityEngine::MonoBehaviour
 	{
 	private:
@@ -33,13 +35,13 @@ namespace Folie
 
 		Enums::ePhase phase;
 
+		Team ^team;
+
 	public:
 		String ^name;
 
 		Enums::ePosition startingPosition;
-		Enums::eRole role;
-
-		Enums::eTeam team;
+		Enums::eRole role;		
 
 	private:
 		void Start();

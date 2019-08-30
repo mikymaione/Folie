@@ -32,17 +32,6 @@ namespace Folie
 		static array<Team ^> ^teams;
 
 	internal:
-		static Team ^getTeam(Enums::eTeam t)
-		{
-			switch (t)
-			{
-			case Folie::Enums::eTeam::A:
-				return teamA;
-			case Folie::Enums::eTeam::B:
-				return teamB;
-			}
-		};
-
 		static System::Collections::IEnumerator ^w4s(float seconds)
 		{
 			return gcnew Wait4Seconds(seconds);
