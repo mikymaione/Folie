@@ -143,7 +143,7 @@ void Folie::Player::serveRitual()
 void Folie::Player::serve_(Enums::ePosition target)
 {
 	if (getDistanceFromBall() < Enums::minimu_distance_to_hit)
-		REF::ball->serve(GB::oppositeField(campo), target);
+		REF::ball->serve(team, GB::oppositeField(campo), target);
 }
 
 void Folie::Player::serve(Enums::ePosition target)
@@ -187,7 +187,7 @@ void Folie::Player::attack(Enums::ePosition target)
 void Folie::Player::attack_(Enums::ePosition target)
 {
 	if (getDistanceFromBall() < Enums::minimu_distance_to_hit)
-		REF::ball->hit(GB::oppositeField(campo), target, Enums::attack_angle);
+		REF::ball->hit(team, GB::oppositeField(campo), target, Enums::attack_angle);
 }
 
 void Folie::Player::attack()
@@ -212,7 +212,7 @@ void Folie::Player::set_()
 	{
 		auto hitter = team->getPlayerWithRole(Enums::eRole::OutsideHitter, Enums::eCourt::front);
 
-		REF::ball->hit(campo, hitter->currentArea, Enums::pass_angle);
+		REF::ball->hit(team, campo, hitter->currentArea, Enums::pass_angle);
 	}
 }
 
@@ -231,7 +231,7 @@ void Folie::Player::pass_()
 	{
 		auto setter = team->getPlayerWithRole(Enums::eRole::Setter, Enums::eCourt::front);
 
-		REF::ball->hit(campo, setter->currentArea, Enums::pass_angle);
+		REF::ball->hit(team, campo, setter->currentArea, Enums::pass_angle);
 	}
 }
 

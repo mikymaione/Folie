@@ -14,13 +14,16 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 namespace Folie
 {
+	ref class Team; // cross reference
+
 	public ref class Ball :UnityEngine::MonoBehaviour
 	{
 	private:
 		UnityEngine::Rigidbody ^rigidBody;
 		UnityEngine::Transform ^inMano;
 
-		bool hitted;
+		Team ^lastTeamTouch;
+		bool hitted, ground;
 		Enums::eCampo campoPrecedente;
 
 	internal:
@@ -39,14 +42,14 @@ namespace Folie
 
 		void OnTriggerEnter(UnityEngine::Collider otherObjectCollider);
 
-		void move(Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle);
+		void move(Team ^t, Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle);
 
 	public:
-		void serve(Enums::eCampo campo, Enums::ePosition position);
+		void serve(Team ^t, Enums::eCampo campo, Enums::ePosition position);
 
-		void hit(Enums::eCampo campo, Enums::ePosition position, float angle);
-		void hit(Enums::eCampo campo, Enums::eArea area, float angle);
-		void hit(Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle);
+		void hit(Team ^t, Enums::eCampo campo, Enums::ePosition position, float angle);
+		void hit(Team ^t, Enums::eCampo campo, Enums::eArea area, float angle);
+		void hit(Team ^t, Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle);
 
 	};
 }

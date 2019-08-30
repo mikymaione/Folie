@@ -23,9 +23,10 @@ void Folie::Ball::Update()
 
 void Folie::Ball::OnTriggerEnter(UnityEngine::Collider otherObjectCollider)
 {
-	if (otherObjectCollider.CompareTag("Pavimento"))
+	if (hitted && otherObjectCollider.CompareTag("Pavimento"))
 	{
-		throw gcnew Exception("palla a terra!");
+		ground = true;
+		REF::game->ballOnGround(lastTeamTouch);
 	}
 }
 
@@ -36,6 +37,10 @@ void Folie::Ball::attachToHand(String ^player_name)
 			if (p->name->Equals(player_name))
 			{
 				inMano = p->mano;
+
+				hitted = false;
+				ground = false;
+
 				break;
 			}
 }
@@ -50,64 +55,74 @@ bool Folie::Ball::ballIsFlying()
 	return hitted && transform->position.y > 0;
 }
 
-void Folie::Ball::move(Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle)
+void Folie::Ball::move(Team ^t, Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle)
 {
-	inMano = nullptr;
+	if (!ground)
+	{
+		inMano = nullptr;
 
-	if (touch > 3)
-		throw gcnew Exception("Superati 3 tocchi!");
+		lastTeamTouch = t;
 
-	campoPrecedente = getCampoAttuale();
+		if (touch > 3)
+		{
+			ground = true;
+			REF::game->ballOnGround(lastTeamTouch);
+		}
+		else
+		{
+			campoPrecedente = getCampoAttuale();
 
-	auto a = angle * UnityEngine::Mathf::Deg2Rad;
+			auto a = angle * UnityEngine::Mathf::Deg2Rad;
 
-	auto destination = UnityEngine::Vector3(coordinate->x, 0, coordinate->y);
+			auto destination = UnityEngine::Vector3(coordinate->x, 0, coordinate->y);
 
-	UnityEngine::Vector3 dir = destination - transform->position;
+			UnityEngine::Vector3 dir = destination - transform->position;
 
-	auto height = dir.y;
-	dir.y = 0;
+			auto height = dir.y;
+			dir.y = 0;
 
-	auto dist = dir.magnitude;
+			auto dist = dir.magnitude;
 
-	dir.y = dist * UnityEngine::Mathf::Tan(a);
-	dist += height / UnityEngine::Mathf::Tan(a);
+			dir.y = dist * UnityEngine::Mathf::Tan(a);
+			dist += height / UnityEngine::Mathf::Tan(a);
 
-	auto velocity = UnityEngine::Mathf::Sqrt(dist * UnityEngine::Physics::gravity.magnitude / UnityEngine::Mathf::Sin(2 * a));
+			auto velocity = UnityEngine::Mathf::Sqrt(dist * UnityEngine::Physics::gravity.magnitude / UnityEngine::Mathf::Sin(2 * a));
 
-	rigidBody->velocity = velocity * dir.normalized;
-	hitted = true;
+			rigidBody->velocity = velocity * dir.normalized;
+			hitted = true;
+		}
+	}
 }
 
-void Folie::Ball::hit(Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle)
+void Folie::Ball::hit(Team ^t, Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle)
 {
 	if (campoPrecedente != getCampoAttuale())
 		touch = 0;
 
 	touch++;
 
-	move(campo, coordinate, Enums::pass_angle);
+	move(t, campo, coordinate, Enums::pass_angle);
 }
 
-void Folie::Ball::hit(Enums::eCampo campo, Enums::eArea area, float angle)
+void Folie::Ball::hit(Team ^t, Enums::eCampo campo, Enums::eArea area, float angle)
 {
 	auto coordinate = GB::getCoordinatesFromArea(campo, area);
-	hit(campo, coordinate, angle);
+	hit(t, campo, coordinate, angle);
 }
 
-void Folie::Ball::hit(Enums::eCampo campo, Enums::ePosition position, float angle)
+void Folie::Ball::hit(Team ^t, Enums::eCampo campo, Enums::ePosition position, float angle)
 {
 	auto coordinate = GB::getCoordinatesFromPosition(campo, position);
-	hit(campo, coordinate, angle);
+	hit(t, campo, coordinate, angle);
 }
 
-void Folie::Ball::serve(Enums::eCampo campo, Enums::ePosition position)
+void Folie::Ball::serve(Team ^t, Enums::eCampo campo, Enums::ePosition position)
 {
 	touch = 0;
 
 	auto coordinate = GB::getCoordinatesFromPosition(campo, position);
 
-	move(campo, coordinate, Enums::serve_angle);
+	move(t, campo, coordinate, Enums::serve_angle);
 }
 
 Folie::Enums::eCampo Folie::Ball::getCampoAttuale()
