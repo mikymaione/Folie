@@ -25,11 +25,31 @@ Folie::Player ^Folie::Team::getPlayerAtPosition(Enums::ePosition position)
 			return p;
 }
 
-Folie::Player ^Folie::Team::getPlayerWithRole(Enums::eRole role)
+List<Folie::Player ^> ^Folie::Team::getPlayersWithRole(Enums::eRole role)
 {
+	auto p_in_role = gcnew List<Player ^>(6);
+
 	for each (auto p in players)
 		if (p->role == role)
-			return p;
+			p_in_role->Add(p);
+
+	return p_in_role;
+}
+
+Folie::Player ^Folie::Team::getPlayerWithRole(Enums::eRole role, Enums::eCourt court)
+{
+	Player ^r;
+	auto players_in_role = getPlayersWithRole(role);
+
+	for each (auto p in players_in_role)
+	{
+		r = p;
+
+		if (p->getCurrentCourt() == court)
+			break;
+	}
+
+	return r;
 }
 
 void Folie::Team::giocatoriPrenderePosizioniInCampo()

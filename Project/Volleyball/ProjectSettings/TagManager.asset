@@ -7,6 +7,7 @@ TagManager:
   - Ball
   - Court
   - Mano
+  - Pavimento
   layers:
   - Default
   - TransparentFX

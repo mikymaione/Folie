@@ -187,7 +187,7 @@ void Folie::Player::attack(Enums::ePosition target)
 void Folie::Player::attack_(Enums::ePosition target)
 {
 	if (getDistanceFromBall() < Enums::minimu_distance_to_hit)
-		REF::ball->hit(GB::oppositeField(campo), target);
+		REF::ball->hit(GB::oppositeField(campo), target, Enums::attack_angle);
 }
 
 void Folie::Player::attack()
@@ -210,9 +210,9 @@ void Folie::Player::set_()
 {
 	if (getDistanceFromBall() < Enums::minimu_distance_to_hit)
 	{
-		auto hitter = team->getPlayerWithRole(Enums::eRole::OutsideHitter);
+		auto hitter = team->getPlayerWithRole(Enums::eRole::OutsideHitter, Enums::eCourt::front);
 
-		REF::ball->hit(campo, hitter->currentArea);
+		REF::ball->hit(campo, hitter->currentArea, Enums::pass_angle);
 	}
 }
 
@@ -229,9 +229,9 @@ void Folie::Player::pass_()
 {
 	if (getDistanceFromBall() < Enums::minimu_distance_to_hit)
 	{
-		auto setter = team->getPlayerWithRole(Enums::eRole::Setter);
+		auto setter = team->getPlayerWithRole(Enums::eRole::Setter, Enums::eCourt::front);
 
-		REF::ball->hit(campo, setter->currentArea);
+		REF::ball->hit(campo, setter->currentArea, Enums::pass_angle);
 	}
 }
 
@@ -258,7 +258,7 @@ void Folie::Player::lookAt(float seconds, UnityEngine::Vector2 ^dest)
 
 void Folie::Player::lookAt(float seconds, float x, float z)
 {
-	auto to_ = UnityEngine::Vector3(x, transform->position.y, z);
+	auto to_ = UnityEngine::Vector3(x, 0, z);
 
 	lookAt(seconds, to_);
 }
@@ -278,4 +278,11 @@ void Folie::Player::lookAt_(UnityEngine::Vector3 to_)
 	auto to_y = UnityEngine::Vector3(to_.x, transform->position.y, to_.z);
 
 	transform->LookAt(to_y);
+}
+
+Folie::Enums::eCourt Folie::Player::getCurrentCourt()
+{
+	auto c = GB::getCourtFromCoordinates(transform->position.z);
+
+	return c;
 }

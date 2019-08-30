@@ -41,7 +41,7 @@ namespace Folie
 		String ^name;
 
 		Enums::ePosition startingPosition;
-		Enums::eRole role;		
+		Enums::eRole role;
 
 	private:
 		void Start();
@@ -83,6 +83,8 @@ namespace Folie
 		void lookAt(float seconds, UnityEngine::Vector2 ^dest);
 		void lookAt(float seconds, float x, float z);
 		void lookAt(float seconds, UnityEngine::Vector3 to_);
+
+		Enums::eCourt getCurrentCourt();		
 
 	};
 }

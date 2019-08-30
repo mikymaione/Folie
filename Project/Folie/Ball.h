@@ -21,6 +21,7 @@ namespace Folie
 		UnityEngine::Transform ^inMano;
 
 		bool hitted;
+		Enums::eCampo campoPrecedente;
 
 	internal:
 		UInt16 touch;
@@ -36,14 +37,16 @@ namespace Folie
 		void Start();
 		void Update();
 
+		void OnTriggerEnter(UnityEngine::Collider otherObjectCollider);
+
 		void move(Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle);
 
 	public:
 		void serve(Enums::eCampo campo, Enums::ePosition position);
 
-		void hit(Enums::eCampo campo, Enums::ePosition position);
-		void hit(Enums::eCampo campo, Enums::eArea area);
-		void hit(Enums::eCampo campo, UnityEngine::Vector2 ^coordinate);
+		void hit(Enums::eCampo campo, Enums::ePosition position, float angle);
+		void hit(Enums::eCampo campo, Enums::eArea area, float angle);
+		void hit(Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle);
 
 	};
 }

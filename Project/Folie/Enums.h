@@ -14,6 +14,8 @@ namespace Folie
 	{
 	public:
 		literal float minimu_distance_to_hit = 1;
+		
+		literal float attack_angle = 40;
 		literal float serve_angle = 32;
 		literal float pass_angle = 70;
 
@@ -35,6 +37,11 @@ namespace Folie
 		enum class eCampo
 		{
 			up, down
+		};
+
+		enum class eCourt
+		{
+			front, back
 		};
 
 		enum class eArea

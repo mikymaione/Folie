@@ -123,6 +123,18 @@ Folie::Enums::eCampo Folie::GB::getCampoFromCoordinates(float z)
 	return (z >= 10 ? Enums::eCampo::down : Enums::eCampo::up);
 }
 
+Folie::Enums::eCourt Folie::GB::getCourtFromCoordinates(float z)
+{
+	if (z < 7)
+		return Enums::eCourt::back;
+	else if (z >= 7 && z < 10)
+		return Enums::eCourt::front;
+	else if (z >= 10 && z < 13)
+		return Enums::eCourt::front;
+	else if (z >= 13)
+		return Enums::eCourt::back;
+}
+
 Folie::Enums::eArea Folie::GB::getAreaFromCoordinates(float x, float z)
 {
 	if (x < 1)
@@ -252,5 +264,7 @@ Folie::Enums::ePosition Folie::GB::selectRandomPosition()
 		return Enums::ePosition::p6;
 	case 3:
 		return Enums::ePosition::p1;
+	default:
+		throw gcnew Exception("switch errato!");
 	}
 }
