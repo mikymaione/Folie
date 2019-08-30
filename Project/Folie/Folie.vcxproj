@@ -76,7 +76,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <EnableManagedIncrementalBuild>false</EnableManagedIncrementalBuild>
-    <LibraryPath>C:\Program Files\Unity\Editor\Data\Managed\UnityEngine\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Program Files\Unity\Editor\Data\UnityExtensions\Unity\GUISystem\;C:\Program Files\Unity\Editor\Data\Managed\UnityEngine\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -93,7 +93,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalUsingDirectories>C:\Program Files\Unity\Editor\Data\Managed\UnityEngine;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalUsingDirectories>C:\Program Files\Unity\Editor\Data\UnityExtensions\Unity\GUISystem;C:\Program Files\Unity\Editor\Data\Managed\UnityEngine;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
