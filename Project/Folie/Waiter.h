@@ -20,7 +20,29 @@ namespace Folie
 	ref class Waiter
 	{
 	private:
+		bool running;
 		System::Collections::Generic::Queue<Work^> ^works;
+
+		void runNextWork()
+		{
+			if (works->Count > 0)
+			{
+				running = true;
+
+				auto work = works->Dequeue();
+
+				auto ge = gcnew GenericEnumerable(
+					work,
+					gcnew Action(this, &Waiter::runNextWork)
+				);
+
+				work->this_->StartCoroutine(ge->GetEnumerator());
+			}
+			else
+			{
+				running = false;
+			}
+		}
 
 	internal:
 		Waiter()
@@ -28,19 +50,16 @@ namespace Folie
 			works = gcnew System::Collections::Generic::Queue<Work^>();
 		};
 
+		void clear()
+		{
+			running = false;
+			works->Clear();
+		};
+
 		void Run()
 		{
-			if (works->Count > 0)
-			{
-				auto work = works->Dequeue();
-
-				auto ge = gcnew GenericEnumerable(
-					work,
-					gcnew Action(this, &Waiter::Run)
-				);
-
-				work->this_->StartCoroutine(ge->GetEnumerator());
-			}
+			if (!running)
+				runNextWork();
 		};
 
 		void callAndWait(UnityEngine::MonoBehaviour ^this_, Delegate ^nome_funzione, array<Object ^> ^parametri, System::Collections::IEnumerator ^waiter)

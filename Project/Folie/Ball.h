@@ -39,8 +39,8 @@ namespace Folie
 	private:
 		void Start();
 		void Update();
-
-		void OnTriggerEnter(UnityEngine::Collider otherObjectCollider);
+		
+		void OnCollisionEnter(UnityEngine::Collision collision);
 
 		void move(Team ^t, Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle);
 

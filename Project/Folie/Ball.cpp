@@ -21,11 +21,14 @@ void Folie::Ball::Update()
 		transform->SetPositionAndRotation(inMano->position, inMano->rotation);
 }
 
-void Folie::Ball::OnTriggerEnter(UnityEngine::Collider otherObjectCollider)
+void Folie::Ball::OnCollisionEnter(UnityEngine::Collision collision)
 {
-	if (hitted && otherObjectCollider.CompareTag("Pavimento"))
+	if (hitted && collision.collider->CompareTag("Pavimento"))
 	{
 		ground = true;
+		hitted = false;
+		touch = 0;
+
 		REF::game->ballOnGround(lastTeamTouch);
 	}
 }

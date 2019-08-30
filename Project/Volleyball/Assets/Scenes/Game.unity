@@ -2106,7 +2106,7 @@ GameObject:
   - component: {fileID: 1110909429}
   - component: {fileID: 1110909428}
   m_Layer: 5
-  m_Name: PunteggioBawi
+  m_Name: PunteggioTeamA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2164,7 +2164,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Bawi Team: 0'
+  m_Text: 'TEAM A: 0'
 --- !u!222 &1110909429
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2606,7 +2606,7 @@ GameObject:
   - component: {fileID: 1443157086}
   - component: {fileID: 1443157085}
   m_Layer: 5
-  m_Name: PunteggioGruppo1
+  m_Name: PunteggioTeamB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2664,7 +2664,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Gruppo 1: 0'
+  m_Text: 'TEAM B: 0'
 --- !u!222 &1443157086
 CanvasRenderer:
   m_ObjectHideFlags: 0

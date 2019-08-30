@@ -248,6 +248,9 @@ void Folie::Player::lookAtAnOpponent(float seconds)
 	auto target = GB::selectRandomPosition();
 	auto c = GB::getCoordinatesFromPosition(GB::oppositeField(campo), target);
 
+	phase = Enums::ePhase::null;
+	lookingAt = nullptr;
+
 	lookAt(seconds, c);
 }
 
