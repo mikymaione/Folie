@@ -26,6 +26,8 @@ namespace Folie
 		UnityEngine::AI::NavMeshAgent ^agent;
 		UnityEngine::Vector3 ^lookingAt;
 
+		UnityEngine::Component ^goToElement;
+
 	internal:
 		UnityEngine::Transform ^mano;
 
@@ -58,6 +60,8 @@ namespace Folie
 		void serve();
 		void takeTheBall();
 
+		bool goToElementReached();
+
 	public:
 		float getDistanceFromBall();
 		bool inPosizione();
@@ -65,6 +69,7 @@ namespace Folie
 		void move();
 		void moveToPosition(Enums::ePosition position);
 		void moveToNextPosition();
+		void moveTo(UnityEngine::Component ^comp);
 		void moveTo(UnityEngine::Vector3 ^position);
 		void moveTo(float pos_x, float pos_z);
 		void moveTo_Async(float pos_x, float pos_z);
@@ -84,7 +89,7 @@ namespace Folie
 		void lookAt(float seconds, float x, float z);
 		void lookAt(float seconds, UnityEngine::Vector3 to_);
 
-		Enums::eCourt getCurrentCourt();		
+		Enums::eCourt getCurrentCourt();
 
 	};
 }

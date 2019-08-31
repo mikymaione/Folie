@@ -75,7 +75,6 @@ void Folie::Player::moveTo_(float pos_x, float pos_z)
 	auto d = UnityEngine::Vector3(pos_x, 0, pos_z);
 	currentArea = GB::getAreaFromCoordinates(pos_x, pos_z);
 	agent->destination = d;
-
 }
 
 void Folie::Player::moveTo(float pos_x, float pos_z)
@@ -117,6 +116,29 @@ void Folie::Player::moveToNextPosition()
 	moveToPosition(GB::getNextRotationPosition(currentPosition));
 }
 
+void Folie::Player::moveTo(UnityEngine::Component ^comp)
+{
+	goToElement = comp;
+
+	REF::waiter->callAndWait(
+		this,
+		gcnew Action<float, float>(this, &Player::moveTo_),
+		gcnew array<float ^> {comp->transform->position.x, comp->transform->position.z},
+		REF::wUntil(gcnew Func<bool>(this, &Player::goToElementReached))
+	);
+}
+
+bool Folie::Player::goToElementReached()
+{
+	auto dest = goToElement->transform->position;
+	auto dist = UnityEngine::Vector3::Distance(transform->position, dest);
+
+	if (dist > 1)
+		moveTo_(dest.x, dest.z);
+
+	return (dist < 1);
+}
+
 void Folie::Player::serveRitual()
 {
 	if (phase != Enums::ePhase::serve)
@@ -124,7 +146,7 @@ void Folie::Player::serveRitual()
 		phase = Enums::ePhase::serve;
 
 		lookAt(0.3, REF::ball->transform->position);
-		moveTo(REF::ball->transform->position);
+		moveTo(REF::ball);
 
 		REF::waiter->callAndWait(
 			this,
