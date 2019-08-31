@@ -44,6 +44,20 @@ namespace Folie
 			}
 		}
 
+		void enqueueWork(Enums::eSequence sequence, UnityEngine::MonoBehaviour ^this_, Delegate ^nome_funzione, array<Object ^> ^parametri, System::Collections::IEnumerator ^waiter)
+		{
+			auto work = gcnew Work(sequence, this_, nome_funzione, parametri, waiter);
+			works->Enqueue(work);
+
+			Run();
+		};
+
+		void Run()
+		{
+			if (!running)
+				runNextWork();
+		};
+
 	internal:
 		Waiter()
 		{
@@ -56,16 +70,9 @@ namespace Folie
 			works->Clear();
 		};
 
-		void Run()
-		{
-			if (!running)
-				runNextWork();
-		};
-
 		void callAndWait(UnityEngine::MonoBehaviour ^this_, Delegate ^nome_funzione, array<Object ^> ^parametri, System::Collections::IEnumerator ^waiter)
 		{
-			auto work = gcnew Work(Enums::eSequence::callAndWait, this_, nome_funzione, parametri, waiter);
-			works->Enqueue(work);
+			enqueueWork(Enums::eSequence::callAndWait, this_, nome_funzione, parametri, waiter);
 		};
 
 		void callAndWait(UnityEngine::MonoBehaviour ^this_, Delegate ^nome_funzione, System::Collections::IEnumerator ^waiter)
@@ -75,13 +82,13 @@ namespace Folie
 
 		void waitAndCall(UnityEngine::MonoBehaviour ^this_, System::Collections::IEnumerator ^waiter, Delegate ^nome_funzione, array<Object ^> ^parametri)
 		{
-			auto work = gcnew Work(Enums::eSequence::waitAndCall, this_, nome_funzione, parametri, waiter);
-			works->Enqueue(work);
+			enqueueWork(Enums::eSequence::waitAndCall, this_, nome_funzione, parametri, waiter);
 		};
 
 		void waitAndCall(UnityEngine::MonoBehaviour ^this_, System::Collections::IEnumerator ^waiter, Delegate ^nome_funzione)
 		{
 			waitAndCall(this_, waiter, nome_funzione, nullptr);
 		};
+
 	};
 }

@@ -10,6 +10,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "Team.h"
 #include "REF.h"
 
+Folie::Team::Team()
+{
+	waiter = gcnew Waiter();
+}
+
 void Folie::Team::Start()
 {
 	players = gcnew array<Player ^> {P1, P2, P3, P4, P5, P6};
@@ -56,7 +61,7 @@ void Folie::Team::giocatoriPrenderePosizioniInCampo()
 {
 	for each (auto p in players)
 	{
-		auto d = GB::getCoordinatesFromPosition(campo, p->startingPosition);
+		auto d = GB::getCoordinatesFromPosition(campo, p->currentPosition);
 
 		p->campo = campo;
 		p->moveTo_Async(d->x, d->y);
@@ -72,6 +77,12 @@ bool Folie::Team::giocatoriInPosizione()
 	return true;
 }
 
+void Folie::Team::moveToNextPosition()
+{
+	for each (auto p in players)
+		p->moveToNextPosition();
+}
+
 void Folie::Team::lookAtOpponent()
 {
 	for each (auto p in players)
@@ -81,7 +92,7 @@ void Folie::Team::lookAtOpponent()
 void Folie::Team::serve()
 {
 	for each (auto p in players)
-		if (p->currentArea == Enums::eArea::a1)
+		if (p->currentPosition == Enums::ePosition::p1)
 		{
 			p->serveRitual();
 			break;

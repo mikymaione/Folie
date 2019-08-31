@@ -16,6 +16,9 @@ namespace Folie
 {
 	public ref class Team :UnityEngine::MonoBehaviour
 	{
+	private:
+		Waiter ^waiter;
+
 	internal:
 		array<Player ^> ^players;
 
@@ -29,6 +32,8 @@ namespace Folie
 		void Start();
 
 	public:
+		Team();
+
 		Player ^getPlayerAtPosition(Enums::ePosition position);
 
 		List<Player ^> ^getPlayersWithRole(Enums::eRole role);
@@ -36,6 +41,8 @@ namespace Folie
 
 		void giocatoriPrenderePosizioniInCampo();
 		bool giocatoriInPosizione();
+
+		void moveToNextPosition();
 
 		void lookAtOpponent();
 		void serve();

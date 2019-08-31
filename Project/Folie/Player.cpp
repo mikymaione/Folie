@@ -10,10 +10,18 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "Player.h"
 #include "REF.h"
 
+Folie::Player::Player()
+{
+	waiter = gcnew Waiter();
+}
+
 void Folie::Player::Start()
 {
 	phase = Enums::ePhase::null;
+
 	startingArea = GB::getAreaFromPosition(startingPosition);
+	currentArea = startingArea;
+	currentPosition = startingPosition;
 
 	agent = GetComponent<UnityEngine::AI::NavMeshAgent ^>();
 	mano = GB::GetComponentsInChildren<UnityEngine::Transform ^>(this, "Mano");
@@ -79,7 +87,7 @@ void Folie::Player::moveTo_(float pos_x, float pos_z)
 
 void Folie::Player::moveTo(float pos_x, float pos_z)
 {
-	REF::waiter->callAndWait(
+	waiter->callAndWait(
 		this,
 		gcnew Action<float, float>(this, &Player::moveTo_),
 		gcnew array<float ^> {pos_x, pos_z},
@@ -105,22 +113,25 @@ void Folie::Player::move()
 
 void Folie::Player::moveToPosition(Enums::ePosition position)
 {
-	currentPosition = position;
 	currentArea = GB::getAreaFromPosition(position);
-
 	move();
 }
 
 void Folie::Player::moveToNextPosition()
 {
-	moveToPosition(GB::getNextRotationPosition(currentPosition));
+	auto n = GB::getNextRotationPosition(currentPosition);
+	auto d = GB::getCoordinatesFromPosition(campo, n);
+
+	currentPosition = n;
+
+	moveTo_Async(d->x, d->y);
 }
 
 void Folie::Player::moveTo(UnityEngine::Component ^comp)
 {
 	goToElement = comp;
 
-	REF::waiter->callAndWait(
+	waiter->callAndWait(
 		this,
 		gcnew Action<float, float>(this, &Player::moveTo_),
 		gcnew array<float ^> {comp->transform->position.x, comp->transform->position.z},
@@ -148,16 +159,16 @@ void Folie::Player::serveRitual()
 		lookAt(0.3, REF::ball->transform->position);
 		moveTo(REF::ball);
 
-		REF::waiter->callAndWait(
+		waiter->callAndWait(
 			this,
 			gcnew Action(this, &Player::takeTheBall),
 			REF::wUntil(gcnew Func<bool>(REF::ball, &Ball::ballInHand))
 		);
 
-		REF::waiter->callAndWait(
+		waiter->callAndWait(
 			this,
 			gcnew Action(this, &Player::serve),
-			REF::w4s(0.1)
+			REF::w4ms(100)
 		);
 	}
 }
@@ -168,25 +179,21 @@ void Folie::Player::serve_(Enums::ePosition target)
 		REF::ball->serve(this, GB::oppositeField(campo), target);
 }
 
-void Folie::Player::serve(Enums::ePosition target)
-{
-	REF::waiter->callAndWait(
-		this,
-		gcnew Action<Enums::ePosition>(this, &Player::serve_),
-		gcnew array<Enums::ePosition ^> {target},
-		REF::w4s(1)
-	);
-}
-
 void Folie::Player::serve()
 {
 	targetChoosen = GB::selectRandomPosition(Enums::eCourt::back);
 	auto c = GB::getCoordinatesFromPosition(campo, targetChoosen);
 
 	lookAt(2, c->x, c->y);
-	serve(targetChoosen);
 
-	moveToPosition(startingPosition);
+	waiter->callAndWait(
+		this,
+		gcnew Action<Enums::ePosition>(this, &Player::serve_),
+		gcnew array<Enums::ePosition ^> {targetChoosen},
+		REF::w4s(1)
+	);
+
+	moveToPosition(currentPosition);
 }
 
 void Folie::Player::takeTheBall()
@@ -198,7 +205,7 @@ void Folie::Player::takeTheBall()
 
 void Folie::Player::attack(Enums::ePosition target)
 {
-	REF::waiter->callAndWait(
+	waiter->callAndWait(
 		this,
 		gcnew Action<Enums::ePosition>(this, &Player::attack_),
 		gcnew array<Enums::ePosition ^> {target},
@@ -221,7 +228,7 @@ void Folie::Player::attack()
 
 void Folie::Player::set()
 {
-	REF::waiter->callAndWait(
+	waiter->callAndWait(
 		this,
 		gcnew Action(this, &Player::set_),
 		REF::w4s(1)
@@ -240,7 +247,7 @@ void Folie::Player::set_()
 
 void Folie::Player::pass()
 {
-	REF::waiter->callAndWait(
+	waiter->callAndWait(
 		this,
 		gcnew Action(this, &Player::pass_),
 		REF::w4s(1)
@@ -284,13 +291,12 @@ void Folie::Player::lookAt(float seconds, UnityEngine::Vector2 ^dest)
 void Folie::Player::lookAt(float seconds, float x, float z)
 {
 	auto to_ = UnityEngine::Vector3(x, 0, z);
-
 	lookAt(seconds, to_);
 }
 
 void Folie::Player::lookAt(float seconds, UnityEngine::Vector3 to_)
 {
-	REF::waiter->callAndWait(
+	waiter->callAndWait(
 		this,
 		gcnew Action<UnityEngine::Vector3>(this, &Player::lookAt_),
 		gcnew array<UnityEngine::Vector3 ^> {to_},
@@ -301,7 +307,6 @@ void Folie::Player::lookAt(float seconds, UnityEngine::Vector3 to_)
 void Folie::Player::lookAt_(UnityEngine::Vector3 to_)
 {
 	auto to_y = UnityEngine::Vector3(to_.x, transform->position.y, to_.z);
-
 	transform->LookAt(to_y);
 }
 

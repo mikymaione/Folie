@@ -10,6 +10,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "Ball.h"
 #include "REF.h"
 
+Folie::Ball::Ball()
+{
+	waiter = gcnew Waiter();
+}
+
 void Folie::Ball::Start()
 {
 	rigidBody = GetComponent<UnityEngine::Rigidbody^>();
@@ -40,7 +45,7 @@ void Folie::Ball::OnCollisionEnter(UnityEngine::Collision collision)
 		hitted = false;
 		touch = 0;
 
-		REF::game->ballOnGround(lastPlayerTouch);
+		REF::game->ballOnGround(getCampoAttuale(), lastPlayerTouch);
 	}
 }
 
@@ -69,79 +74,108 @@ bool Folie::Ball::ballIsFlying()
 	return hitted && transform->position.y > 0;
 }
 
-void Folie::Ball::move(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle)
+void Folie::Ball::addForce(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle)
 {
-	if (!ground)
+	if (!hitting)
 	{
-		inMano = nullptr;
-
-		lastPlayerTouch = playerTouch;
-
-		if (touch > 3)
+		if (!ground)
 		{
-			ground = true;
-			REF::game->ballOnGround(lastPlayerTouch);
-		}
-		else
-		{
-			campoPrecedente = getCampoAttuale();
+			inMano = nullptr;
+			hitting = true;
 
-			auto a = angle * UnityEngine::Mathf::Deg2Rad;
+			lastPlayerTouch = playerTouch;
 
-			auto destination = UnityEngine::Vector3(coordinate->x, 0, coordinate->y);
+			if (touch > 3)
+			{
+				ground = true;
+				REF::game->ballOnGround(getCampoAttuale(), lastPlayerTouch);
+			}
+			else
+			{
+				campoPrecedente = getCampoAttuale();
 
-			UnityEngine::Vector3 dir = destination - transform->position;
+				auto a = angle * UnityEngine::Mathf::Deg2Rad;
 
-			auto height = dir.y;
-			dir.y = 0;
+				auto destination = UnityEngine::Vector3(coordinate->x, 0, coordinate->y);
 
-			auto dist = dir.magnitude;
+				UnityEngine::Vector3 dir = destination - transform->position;
 
-			dir.y = dist * UnityEngine::Mathf::Tan(a);
-			dist += height / UnityEngine::Mathf::Tan(a);
+				auto height = dir.y;
+				dir.y = 0;
 
-			auto velocity = UnityEngine::Mathf::Sqrt(dist * UnityEngine::Physics::gravity.magnitude / UnityEngine::Mathf::Sin(2 * a));
+				auto dist = dir.magnitude;
 
-			rigidBody->velocity = velocity * dir.normalized;
-			hitted = true;
+				dir.y = dist * UnityEngine::Mathf::Tan(a);
+				dist += height / UnityEngine::Mathf::Tan(a);
+
+				auto velocity = UnityEngine::Mathf::Sqrt(dist * UnityEngine::Physics::gravity.magnitude / UnityEngine::Mathf::Sin(2 * a));
+
+				rigidBody->velocity = velocity * dir.normalized;
+
+				hitted = true;
+
+				waiter->callAndWait(
+					this,
+					gcnew Action<bool>(this, &Ball::setHitting),
+					gcnew array<bool ^> {false},
+					REF::w4ms(150)
+				);
+			}
 		}
 	}
 }
 
+void Folie::Ball::setHitting(bool hitting_)
+{
+	hitting = hitting_;
+}
+
 void Folie::Ball::hit(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle)
 {
-	if (campoPrecedente != getCampoAttuale())
-		touch = 0;
+	if (!hitting)
+	{
+		if (campoPrecedente != getCampoAttuale())
+			touch = 0;
 
-	touch++;
+		touch++;
 
-	move(playerTouch, campo, coordinate, Enums::pass_angle);
+		addForce(playerTouch, campo, coordinate, Enums::pass_angle);
+	}
 }
 
 void Folie::Ball::hit(Player ^playerTouch, Enums::eCampo campo, Enums::eArea area, float angle)
 {
-	auto coordinate = GB::getCoordinatesFromArea(campo, area);
-	hit(playerTouch, campo, coordinate, angle);
+	if (!hitting)
+	{
+		auto coordinate = GB::getCoordinatesFromArea(campo, area);
+		hit(playerTouch, campo, coordinate, angle);
+	}
 }
 
 void Folie::Ball::hit(Player ^playerTouch, Enums::eCampo campo, Enums::ePosition position, float angle)
 {
-	auto coordinate = GB::getCoordinatesFromPosition(campo, position);
-	hit(playerTouch, campo, coordinate, angle);
+	if (!hitting)
+	{
+		auto coordinate = GB::getCoordinatesFromPosition(campo, position);
+		hit(playerTouch, campo, coordinate, angle);
+	}
 }
 
 void Folie::Ball::serve(Player ^playerTouch, Enums::eCampo campo, Enums::ePosition position)
 {
-	touch = 0;
+	if (!hitting)
+	{
+		touch = 0;
 
-	auto coordinate = GB::getCoordinatesFromPosition(campo, position);
+		auto coordinate = GB::getCoordinatesFromPosition(campo, position);
 
-	move(playerTouch, campo, coordinate, Enums::serve_angle);
+		addForce(playerTouch, campo, coordinate, Enums::serve_angle);
+	}
 }
 
 Folie::Enums::eCampo Folie::Ball::getCampoAttuale()
 {
-	auto c = GB::getCampoFromCoordinates(transform->position.z);
+	auto c = GB::getCampoFromCoordinates(transform->position.x, transform->position.z);
 
 	return c;
 }

@@ -14,16 +14,19 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 namespace Folie
 {
+	ref class Waiter; // cross reference
 	ref class Player; // cross reference
 
 	public ref class Ball :UnityEngine::MonoBehaviour
 	{
 	private:
+		Waiter ^waiter;
+
 		UnityEngine::Rigidbody ^rigidBody;
 		UnityEngine::Transform ^inMano;
 
 		Player ^lastPlayerTouch;
-		bool hitted, ground;
+		bool hitted, hitting, ground;
 		Enums::eCampo campoPrecedente;
 
 	internal:
@@ -42,9 +45,13 @@ namespace Folie
 
 		void OnCollisionEnter(UnityEngine::Collision collision);
 
-		void move(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle);
+		void addForce(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle);
+
+		void setHitting(bool hitting_);
 
 	public:
+		Ball();
+
 		void serve(Player ^playerTouch, Enums::eCampo campo, Enums::ePosition position);
 
 		void hit(Player ^playerTouch, Enums::eCampo campo, Enums::ePosition position, float angle);

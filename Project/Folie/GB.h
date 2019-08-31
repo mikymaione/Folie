@@ -28,7 +28,7 @@ namespace Folie
 		static UnityEngine::Vector2 ^getCoordinatesFromPosition(Enums::eCampo campo, Enums::ePosition position);
 		static UnityEngine::Vector2 ^getCoordinatesFromArea(Enums::eCampo campo, Enums::eArea area);
 
-		static Enums::eCampo getCampoFromCoordinates(float z);
+		static Enums::eCampo getCampoFromCoordinates(float x, float z);
 		static Enums::eCourt getCourtFromCoordinates(float z);
 		static Enums::eArea getAreaFromCoordinates(float x, float z);
 
@@ -37,6 +37,8 @@ namespace Folie
 
 		static Enums::ePosition selectRandomPosition(Enums::eCourt court);
 		static Enums::ePosition selectRandomPosition();
+
+		static Enums::eRotate teamToRotate(Enums::eTeam t);
 
 		generic <class T> where T : UnityEngine::Component static T GetComponentsInChildren(UnityEngine::MonoBehaviour ^mb, String ^tag);
 

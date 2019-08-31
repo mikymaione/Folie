@@ -75,7 +75,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <EnableManagedIncrementalBuild>false</EnableManagedIncrementalBuild>
+    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
     <LibraryPath>C:\Program Files\Unity\Editor\Data\UnityExtensions\Unity\GUISystem\;C:\Program Files\Unity\Editor\Data\Managed\UnityEngine\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

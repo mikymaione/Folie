@@ -49,7 +49,7 @@ UnityEngine::Vector2 ^Folie::GB::getCoordinatesFromArea(Enums::eCampo campo, Enu
 		switch (area)
 		{
 		case Enums::eArea::a4O:
-			return gcnew UnityEngine::Vector2(0, 0);
+			return gcnew UnityEngine::Vector2(-1, 8);
 		case Enums::eArea::a4:
 			return gcnew UnityEngine::Vector2(2, 8);
 		case Enums::eArea::a3:
@@ -57,9 +57,9 @@ UnityEngine::Vector2 ^Folie::GB::getCoordinatesFromArea(Enums::eCampo campo, Enu
 		case Enums::eArea::a2:
 			return gcnew UnityEngine::Vector2(8, 8);
 		case Enums::eArea::a2E:
-			return gcnew UnityEngine::Vector2(0, 0);
+			return gcnew UnityEngine::Vector2(11, 8);
 		case Enums::eArea::a5O:
-			return gcnew UnityEngine::Vector2(0, 0);
+			return gcnew UnityEngine::Vector2(-1, 4);
 		case Enums::eArea::a5:
 			return gcnew UnityEngine::Vector2(2, 3);
 		case Enums::eArea::a6:
@@ -67,24 +67,24 @@ UnityEngine::Vector2 ^Folie::GB::getCoordinatesFromArea(Enums::eCampo campo, Enu
 		case Enums::eArea::a1:
 			return gcnew UnityEngine::Vector2(8, 3);
 		case Enums::eArea::a1E:
-			return gcnew UnityEngine::Vector2(0, 0);
+			return gcnew UnityEngine::Vector2(11, 3);
 		case Enums::eArea::a5OS:
-			return gcnew UnityEngine::Vector2(0, 0);
+			return gcnew UnityEngine::Vector2(-1, -1);
 		case Enums::eArea::a5S:
-			return gcnew UnityEngine::Vector2(0, 0);
+			return gcnew UnityEngine::Vector2(2, -1);
 		case Enums::eArea::a6S:
-			return gcnew UnityEngine::Vector2(0, 0);
+			return gcnew UnityEngine::Vector2(5, -1);
 		case Enums::eArea::a1S:
 			return gcnew UnityEngine::Vector2(8, -1);
 		case Enums::eArea::a1ES:
-			return gcnew UnityEngine::Vector2(0, 0);
+			return gcnew UnityEngine::Vector2(11, -1);
 		}
 		break;
 	case Enums::eCampo::down:
 		switch (area)
 		{
 		case Enums::eArea::a4O:
-			return gcnew UnityEngine::Vector2(0, 0);
+			return gcnew UnityEngine::Vector2(11, 11);
 		case Enums::eArea::a4:
 			return gcnew UnityEngine::Vector2(8, 11);
 		case Enums::eArea::a3:
@@ -92,9 +92,9 @@ UnityEngine::Vector2 ^Folie::GB::getCoordinatesFromArea(Enums::eCampo campo, Enu
 		case Enums::eArea::a2:
 			return gcnew UnityEngine::Vector2(2, 11);
 		case Enums::eArea::a2E:
-			return gcnew UnityEngine::Vector2(0, 0);
+			return gcnew UnityEngine::Vector2(-1, 11);
 		case Enums::eArea::a5O:
-			return gcnew UnityEngine::Vector2(0, 0);
+			return gcnew UnityEngine::Vector2(11, 16);
 		case Enums::eArea::a5:
 			return gcnew UnityEngine::Vector2(8, 16);
 		case Enums::eArea::a6:
@@ -102,25 +102,30 @@ UnityEngine::Vector2 ^Folie::GB::getCoordinatesFromArea(Enums::eCampo campo, Enu
 		case Enums::eArea::a1:
 			return gcnew UnityEngine::Vector2(2, 16);
 		case Enums::eArea::a1E:
-			return gcnew UnityEngine::Vector2(0, 0);
+			return gcnew UnityEngine::Vector2(-1, 16);
 		case Enums::eArea::a5OS:
-			return gcnew UnityEngine::Vector2(0, 0);
+			return gcnew UnityEngine::Vector2(11, 20);
 		case Enums::eArea::a5S:
-			return gcnew UnityEngine::Vector2(0, 0);
+			return gcnew UnityEngine::Vector2(8, 20);
 		case Enums::eArea::a6S:
-			return gcnew UnityEngine::Vector2(0, 0);
+			return gcnew UnityEngine::Vector2(5, 20);
 		case Enums::eArea::a1S:
 			return gcnew UnityEngine::Vector2(2, 20);
 		case Enums::eArea::a1ES:
-			return gcnew UnityEngine::Vector2(0, 0);
+			return gcnew UnityEngine::Vector2(-1, 20);
 		}
 		break;
 	}
+
+	throw gcnew Exception("case campo" + campo.ToString() + ",area: " + area.ToString() + " non gestito!");
 }
 
-Folie::Enums::eCampo Folie::GB::getCampoFromCoordinates(float z)
+Folie::Enums::eCampo Folie::GB::getCampoFromCoordinates(float x, float z)
 {
-	return (z >= 10 ? Enums::eCampo::down : Enums::eCampo::up);
+	if (x < 1 || x >= 10)
+		return Enums::eCampo::fuori;
+	else
+		return (z >= 10 ? Enums::eCampo::down : Enums::eCampo::up);
 }
 
 Folie::Enums::eCourt Folie::GB::getCourtFromCoordinates(float z)
@@ -299,5 +304,18 @@ Folie::Enums::ePosition Folie::GB::selectRandomPosition()
 		return Enums::ePosition::p5;
 	case 6:
 		return Enums::ePosition::p6;
+	}
+}
+
+Folie::Enums::eRotate Folie::GB::teamToRotate(Enums::eTeam t)
+{
+	switch (t)
+	{
+	case Folie::Enums::eTeam::A:
+		return Enums::eRotate::TeamA;
+		break;
+	case Folie::Enums::eTeam::B:
+		return Enums::eRotate::TeamB;
+		break;
 	}
 }

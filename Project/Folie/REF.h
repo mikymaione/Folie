@@ -23,8 +23,6 @@ namespace Folie
 	public ref class REF
 	{
 	public:
-		static Waiter ^waiter;
-
 		static Ball ^ball;
 		static Team ^teamA, ^teamB;
 		static Game ^game;
@@ -32,8 +30,25 @@ namespace Folie
 		static array<Team ^> ^teams;
 
 	internal:
-		static System::Collections::IEnumerator ^w4s(float seconds)
+		static System::Collections::IEnumerator ^w4ms(UInt16 milliseconds)
 		{
+			float ms = milliseconds;
+			float mille = 1000;
+			float s = ms / mille;
+
+			if (s <= 0)
+				s = 0.00001;
+
+			return gcnew Wait4Seconds(s);
+		}
+
+		static System::Collections::IEnumerator ^w4s(UInt16 seconds)
+		{
+			float s = seconds;
+
+			if (s <= 0)
+				s = 0.00001;
+
 			return gcnew Wait4Seconds(seconds);
 		};
 

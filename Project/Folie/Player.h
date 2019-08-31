@@ -22,6 +22,8 @@ namespace Folie
 	public ref class Player :UnityEngine::MonoBehaviour
 	{
 	private:
+		Waiter ^waiter;
+
 		Enums::ePosition targetChoosen;
 		UnityEngine::AI::NavMeshAgent ^agent;
 		UnityEngine::Vector3 ^lookingAt;
@@ -63,12 +65,15 @@ namespace Folie
 		bool goToElementReached();
 
 	public:
+		Player();
+
 		float getDistanceFromBall();
+
 		bool inPosizione();
 
 		void move();
-		void moveToPosition(Enums::ePosition position);
 		void moveToNextPosition();
+		void moveToPosition(Enums::ePosition position);
 		void moveTo(UnityEngine::Component ^comp);
 		void moveTo(UnityEngine::Vector3 ^position);
 		void moveTo(float pos_x, float pos_z);
@@ -77,7 +82,6 @@ namespace Folie
 		void pass();
 		void set();
 
-		void serve(Enums::ePosition target);
 		void serveRitual();
 
 		void attack();
