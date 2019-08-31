@@ -14,7 +14,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 namespace Folie
 {
-	ref class Team; // cross reference
+	ref class Player; // cross reference
 
 	public ref class Ball :UnityEngine::MonoBehaviour
 	{
@@ -22,7 +22,7 @@ namespace Folie
 		UnityEngine::Rigidbody ^rigidBody;
 		UnityEngine::Transform ^inMano;
 
-		Team ^lastTeamTouch;
+		Player ^lastPlayerTouch;
 		bool hitted, ground;
 		Enums::eCampo campoPrecedente;
 
@@ -39,17 +39,17 @@ namespace Folie
 	private:
 		void Start();
 		void Update();
-		
+
 		void OnCollisionEnter(UnityEngine::Collision collision);
 
-		void move(Team ^t, Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle);
+		void move(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle);
 
 	public:
-		void serve(Team ^t, Enums::eCampo campo, Enums::ePosition position);
+		void serve(Player ^playerTouch, Enums::eCampo campo, Enums::ePosition position);
 
-		void hit(Team ^t, Enums::eCampo campo, Enums::ePosition position, float angle);
-		void hit(Team ^t, Enums::eCampo campo, Enums::eArea area, float angle);
-		void hit(Team ^t, Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle);
+		void hit(Player ^playerTouch, Enums::eCampo campo, Enums::ePosition position, float angle);
+		void hit(Player ^playerTouch, Enums::eCampo campo, Enums::eArea area, float angle);
+		void hit(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle);
 
 	};
 }

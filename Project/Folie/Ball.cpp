@@ -22,17 +22,25 @@ void Folie::Ball::Update()
 
 	if (transform->position.y < -0.3)
 		transform->position = UnityEngine::Vector3(11.69, 0.4, 7.93);
+
+	REF::game->touch->text = "Touch: " + touch;
 }
 
 void Folie::Ball::OnCollisionEnter(UnityEngine::Collision collision)
 {
-	if (hitted && collision.collider->CompareTag("Pavimento"))
+	auto gobj = collision.collider->gameObject;
+
+	if (gobj->CompareTag("Player"))
+	{
+		lastPlayerTouch = gobj->GetComponent<Player ^>();
+	}
+	else if (hitted && gobj->CompareTag("Pavimento"))
 	{
 		ground = true;
 		hitted = false;
 		touch = 0;
 
-		REF::game->ballOnGround(lastTeamTouch);
+		REF::game->ballOnGround(lastPlayerTouch);
 	}
 }
 
@@ -61,18 +69,18 @@ bool Folie::Ball::ballIsFlying()
 	return hitted && transform->position.y > 0;
 }
 
-void Folie::Ball::move(Team ^t, Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle)
+void Folie::Ball::move(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle)
 {
 	if (!ground)
 	{
 		inMano = nullptr;
 
-		lastTeamTouch = t;
+		lastPlayerTouch = playerTouch;
 
 		if (touch > 3)
 		{
 			ground = true;
-			REF::game->ballOnGround(lastTeamTouch);
+			REF::game->ballOnGround(lastPlayerTouch);
 		}
 		else
 		{
@@ -100,35 +108,35 @@ void Folie::Ball::move(Team ^t, Enums::eCampo campo, UnityEngine::Vector2 ^coord
 	}
 }
 
-void Folie::Ball::hit(Team ^t, Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle)
+void Folie::Ball::hit(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle)
 {
 	if (campoPrecedente != getCampoAttuale())
 		touch = 0;
 
 	touch++;
 
-	move(t, campo, coordinate, Enums::pass_angle);
+	move(playerTouch, campo, coordinate, Enums::pass_angle);
 }
 
-void Folie::Ball::hit(Team ^t, Enums::eCampo campo, Enums::eArea area, float angle)
+void Folie::Ball::hit(Player ^playerTouch, Enums::eCampo campo, Enums::eArea area, float angle)
 {
 	auto coordinate = GB::getCoordinatesFromArea(campo, area);
-	hit(t, campo, coordinate, angle);
+	hit(playerTouch, campo, coordinate, angle);
 }
 
-void Folie::Ball::hit(Team ^t, Enums::eCampo campo, Enums::ePosition position, float angle)
+void Folie::Ball::hit(Player ^playerTouch, Enums::eCampo campo, Enums::ePosition position, float angle)
 {
 	auto coordinate = GB::getCoordinatesFromPosition(campo, position);
-	hit(t, campo, coordinate, angle);
+	hit(playerTouch, campo, coordinate, angle);
 }
 
-void Folie::Ball::serve(Team ^t, Enums::eCampo campo, Enums::ePosition position)
+void Folie::Ball::serve(Player ^playerTouch, Enums::eCampo campo, Enums::ePosition position)
 {
 	touch = 0;
 
 	auto coordinate = GB::getCoordinatesFromPosition(campo, position);
 
-	move(t, campo, coordinate, Enums::serve_angle);
+	move(playerTouch, campo, coordinate, Enums::serve_angle);
 }
 
 Folie::Enums::eCampo Folie::Ball::getCampoAttuale()
