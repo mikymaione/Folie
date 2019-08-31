@@ -17,6 +17,11 @@ Raphaela Folie is the middle blocker of the Italian volleyball team.
 1. Visual Studio 2017 (http://visualstudio.microsoft.com)
 2. Unity 2018.3.7 (http://store.unity.com/download)
 
+## Use the library
+1. Copy the library in the Plugin folder:
+
+	```Release\CopyLibraryInUnity.bat```
+
 
 ## License
 Copyright 2019 (c) [MAIONE MIKY]. All rights reserved.
