@@ -39,25 +39,13 @@ void Folie::Player::Update()
 			switch (REF::ball->touch)
 			{
 			case 0:
-				if (phase != Enums::ePhase::serve && phase != Enums::ePhase::pass)
-				{
-					phase = Enums::ePhase::pass;
-					pass_();
-				}
+				pass_();
 				break;
 			case 1:
-				if (phase != Enums::ePhase::set)
-				{
-					phase = Enums::ePhase::set;
-					set_();
-				}
+				set_();
 				break;
 			case 2:
-				if (phase != Enums::ePhase::attack)
-				{
-					phase = Enums::ePhase::attack;
-					attack_(GB::selectRandomPosition());
-				}
+				attack_(GB::selectRandomPosition());
 				break;
 			}
 	}
@@ -215,8 +203,16 @@ void Folie::Player::attack(Enums::ePosition target)
 
 void Folie::Player::attack_(Enums::ePosition target)
 {
-	if (getDistanceFromBall() < Enums::minimu_distance_to_hit)
-		REF::ball->hit(this, GB::oppositeField(campo), target, Enums::attack_angle);
+	if (phase != Enums::ePhase::attack)
+	{
+		phase = Enums::ePhase::attack;
+
+		auto court_target = GB::getCourtFromPosition(target);
+
+		auto angle = (court_target == this->getCurrentCourt() ? Enums::pass_angle : Enums::attack_angle);
+
+		REF::ball->hit(this, GB::oppositeField(campo), target, angle);
+	}
 }
 
 void Folie::Player::attack()
@@ -237,9 +233,11 @@ void Folie::Player::set()
 
 void Folie::Player::set_()
 {
-	if (getDistanceFromBall() < Enums::minimu_distance_to_hit)
+	if (phase != Enums::ePhase::set)
 	{
 		auto hitter = team->getPlayerWithRole(Enums::eRole::OutsideHitter, Enums::eCourt::front);
+
+		phase = Enums::ePhase::set;
 
 		REF::ball->hit(this, campo, hitter->currentArea, Enums::pass_angle);
 	}
@@ -256,9 +254,11 @@ void Folie::Player::pass()
 
 void Folie::Player::pass_()
 {
-	if (getDistanceFromBall() < Enums::minimu_distance_to_hit)
+	if (phase != Enums::ePhase::serve && phase != Enums::ePhase::pass)
 	{
 		auto setter = team->getPlayerWithRole(Enums::eRole::Setter, Enums::eCourt::front);
+
+		phase = Enums::ePhase::pass;
 
 		REF::ball->hit(this, campo, setter->currentArea, Enums::pass_angle);
 	}

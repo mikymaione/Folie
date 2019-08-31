@@ -125,19 +125,34 @@ Folie::Enums::eCampo Folie::GB::getCampoFromCoordinates(float x, float z)
 	if (x < 1 || x >= 10)
 		return Enums::eCampo::fuori;
 	else
-		return (z >= 10 ? Enums::eCampo::down : Enums::eCampo::up);
+		return (z < 10 ? Enums::eCampo::up : Enums::eCampo::down);
 }
 
 Folie::Enums::eCourt Folie::GB::getCourtFromCoordinates(float z)
 {
-	if (z < 7)
-		return Enums::eCourt::back;
-	else if (z >= 7 && z < 10)
+	if (z >= 7 && z < 13)
 		return Enums::eCourt::front;
-	else if (z >= 10 && z < 13)
-		return Enums::eCourt::front;
-	else if (z >= 13)
+	else
 		return Enums::eCourt::back;
+}
+
+Folie::Enums::eCourt Folie::GB::getCourtFromPosition(Enums::ePosition pos)
+{
+	switch (pos)
+	{
+	case Folie::Enums::ePosition::p4:
+		return Enums::eCourt::front;
+	case Folie::Enums::ePosition::p3:
+		return Enums::eCourt::front;
+	case Folie::Enums::ePosition::p2:
+		return Enums::eCourt::front;
+	case Folie::Enums::ePosition::p5:
+		return Enums::eCourt::back;
+	case Folie::Enums::ePosition::p6:
+		return Enums::eCourt::back;
+	case Folie::Enums::ePosition::p1:
+		return Enums::eCourt::back;
+	}
 }
 
 Folie::Enums::eArea Folie::GB::getAreaFromCoordinates(float x, float z)

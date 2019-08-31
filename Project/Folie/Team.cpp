@@ -43,18 +43,14 @@ List<Folie::Player ^> ^Folie::Team::getPlayersWithRole(Enums::eRole role)
 
 Folie::Player ^Folie::Team::getPlayerWithRole(Enums::eRole role, Enums::eCourt court)
 {
-	Player ^r;
 	auto players_in_role = getPlayersWithRole(role);
 
 	for each (auto p in players_in_role)
-	{
-		r = p;
-
 		if (p->getCurrentCourt() == court)
-			break;
-	}
+			return p;
 
-	return r;
+	for each (auto p in players_in_role)
+		return p;
 }
 
 void Folie::Team::giocatoriPrenderePosizioniInCampo()

@@ -29,8 +29,9 @@ namespace Folie
 		static UnityEngine::Vector2 ^getCoordinatesFromArea(Enums::eCampo campo, Enums::eArea area);
 
 		static Enums::eCampo getCampoFromCoordinates(float x, float z);
-		static Enums::eCourt getCourtFromCoordinates(float z);
 		static Enums::eArea getAreaFromCoordinates(float x, float z);
+		static Enums::eCourt getCourtFromCoordinates(float z);
+		static Enums::eCourt getCourtFromPosition(Enums::ePosition pos);
 
 		static Enums::eArea getAreaFromPosition(Enums::ePosition current);
 		static Enums::ePosition getNextRotationPosition(Enums::ePosition current);

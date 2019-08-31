@@ -61,6 +61,7 @@ namespace Folie
 	internal:
 		Waiter()
 		{
+			running = false;
 			works = gcnew System::Collections::Generic::Queue<Work^>();
 		};
 
