@@ -252,19 +252,52 @@ Folie::Enums::ePosition Folie::GB::getNextRotationPosition(Enums::ePosition curr
 	}
 }
 
-Folie::Enums::ePosition Folie::GB::selectRandomPosition()
+Folie::Enums::ePosition Folie::GB::selectRandomPosition(Enums::eCourt court)
 {
 	auto i = rnd->Next(1, 4);
+
+	switch (court)
+	{
+	case Folie::Enums::eCourt::front:
+		switch (i)
+		{
+		case 1:
+			return Enums::ePosition::p4;
+		case 2:
+			return Enums::ePosition::p3;
+		case 3:
+			return Enums::ePosition::p2;
+		}
+	case Folie::Enums::eCourt::back:
+		switch (i)
+		{
+		case 1:
+			return Enums::ePosition::p5;
+		case 2:
+			return Enums::ePosition::p6;
+		case 3:
+			return Enums::ePosition::p1;
+		}
+	}
+}
+
+Folie::Enums::ePosition Folie::GB::selectRandomPosition()
+{
+	auto i = rnd->Next(1, 7);
 
 	switch (i)
 	{
 	case 1:
-		return Enums::ePosition::p5;
-	case 2:
-		return Enums::ePosition::p6;
-	case 3:
 		return Enums::ePosition::p1;
-	default:
-		throw gcnew Exception("switch errato!");
+	case 2:
+		return Enums::ePosition::p2;
+	case 3:
+		return Enums::ePosition::p3;
+	case 4:
+		return Enums::ePosition::p4;
+	case 5:
+		return Enums::ePosition::p5;
+	case 6:
+		return Enums::ePosition::p6;
 	}
 }

@@ -19,6 +19,9 @@ void Folie::Ball::Update()
 {
 	if (inMano != nullptr)
 		transform->SetPositionAndRotation(inMano->position, inMano->rotation);
+
+	if (transform->position.y < -0.3)
+		transform->position = UnityEngine::Vector3(11.69, 0.4, 7.93);
 }
 
 void Folie::Ball::OnCollisionEnter(UnityEngine::Collision collision)

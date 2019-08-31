@@ -158,7 +158,7 @@ void Folie::Player::serve(Enums::ePosition target)
 
 void Folie::Player::serve()
 {
-	targetChoosen = GB::selectRandomPosition();
+	targetChoosen = GB::selectRandomPosition(Enums::eCourt::back);
 	auto c = GB::getCoordinatesFromPosition(campo, targetChoosen);
 
 	lookAt(2, c->x, c->y);

@@ -34,6 +34,8 @@ namespace Folie
 
 		static Enums::eArea getAreaFromPosition(Enums::ePosition current);
 		static Enums::ePosition getNextRotationPosition(Enums::ePosition current);
+
+		static Enums::ePosition selectRandomPosition(Enums::eCourt court);
 		static Enums::ePosition selectRandomPosition();
 
 		generic <class T> where T : UnityEngine::Component static T GetComponentsInChildren(UnityEngine::MonoBehaviour ^mb, String ^tag);
