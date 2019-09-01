@@ -277,10 +277,9 @@ void Folie::Player::pass_()
 {
 	if (phase != Enums::ePhase::serve && phase != Enums::ePhase::pass)
 	{
-		auto setter = team->getPlayerWithRole(this, Enums::eRole::Setter, Enums::eCourt::front);
-
 		phase = Enums::ePhase::pass;
 
+		auto setter = team->getPlayerWithRole(this, Enums::eRole::Setter, Enums::eCourt::front);
 		REF::ball->hit(this, campo, setter->currentArea, Enums::pass_angle);
 	}
 }

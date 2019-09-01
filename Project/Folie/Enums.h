@@ -15,7 +15,7 @@ namespace Folie
 	public:
 		literal float min_distance_to_hit = 1.5f;
 
-		literal float attack_angle = 53;
+		literal float attack_angle = 50;
 		literal float serve_angle = 32;
 		literal float pass_angle = 70;
 
