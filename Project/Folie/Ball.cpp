@@ -22,6 +22,11 @@ void Folie::Ball::Start()
 
 void Folie::Ball::Update()
 {
+	if (campoPrecedente != getCampoAttuale())
+		touch = 0;
+
+	campoPrecedente = getCampoAttuale();
+
 	if (inMano != nullptr)
 		transform->SetPositionAndRotation(inMano->position, inMano->rotation);
 
@@ -76,51 +81,45 @@ bool Folie::Ball::ballIsFlying()
 
 void Folie::Ball::addForce(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle)
 {
-	if (!hitting)
+	if (!ground)
 	{
-		if (!ground)
+		inMano = nullptr;
+
+		lastPlayerTouch = playerTouch;
+
+		if (touch > 3)
 		{
-			inMano = nullptr;
-			hitting = true;
+			ground = true;
+			REF::game->ballOnGround(getCampoAttuale(), lastPlayerTouch);
+		}
+		else
+		{
+			auto a = angle * UnityEngine::Mathf::Deg2Rad;
 
-			lastPlayerTouch = playerTouch;
+			auto destination = UnityEngine::Vector3(coordinate->x, 0, coordinate->y);
 
-			if (touch > 3)
-			{
-				ground = true;
-				REF::game->ballOnGround(getCampoAttuale(), lastPlayerTouch);
-			}
-			else
-			{
-				campoPrecedente = getCampoAttuale();
+			UnityEngine::Vector3 dir = destination - transform->position;
 
-				auto a = angle * UnityEngine::Mathf::Deg2Rad;
+			auto height = dir.y;
+			dir.y = 0;
 
-				auto destination = UnityEngine::Vector3(coordinate->x, 0, coordinate->y);
+			auto dist = dir.magnitude;
 
-				UnityEngine::Vector3 dir = destination - transform->position;
+			dir.y = dist * UnityEngine::Mathf::Tan(a);
+			dist += height / UnityEngine::Mathf::Tan(a);
 
-				auto height = dir.y;
-				dir.y = 0;
+			auto velocity = UnityEngine::Mathf::Sqrt(dist * UnityEngine::Physics::gravity.magnitude / UnityEngine::Mathf::Sin(2 * a));
 
-				auto dist = dir.magnitude;
+			rigidBody->velocity = velocity * dir.normalized;
 
-				dir.y = dist * UnityEngine::Mathf::Tan(a);
-				dist += height / UnityEngine::Mathf::Tan(a);
+			hitted = true;
 
-				auto velocity = UnityEngine::Mathf::Sqrt(dist * UnityEngine::Physics::gravity.magnitude / UnityEngine::Mathf::Sin(2 * a));
-
-				rigidBody->velocity = velocity * dir.normalized;
-
-				hitted = true;
-
-				waiter->callAndWait(
-					this,
-					gcnew Action<bool>(this, &Ball::setHitting),
-					gcnew array<bool ^> {false},
-					REF::w4ms(150)
-				);
-			}
+			waiter->callAndWait(
+				this,
+				gcnew Action<bool>(this, &Ball::setHitting),
+				gcnew array<bool ^> {false},
+				REF::w4ms(150)
+			);
 		}
 	}
 }
@@ -134,12 +133,10 @@ void Folie::Ball::hit(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vec
 {
 	if (!hitting)
 	{
-		if (campoPrecedente != getCampoAttuale())
-			touch = 0;
-
+		hitting = true;
 		touch++;
 
-		addForce(playerTouch, campo, coordinate, Enums::pass_angle);
+		addForce(playerTouch, campo, coordinate, angle);
 	}
 }
 

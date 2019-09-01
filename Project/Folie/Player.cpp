@@ -235,7 +235,7 @@ void Folie::Player::set_()
 {
 	if (phase != Enums::ePhase::set)
 	{
-		auto hitter = team->getPlayerWithRole(Enums::eRole::OutsideHitter, Enums::eCourt::front);
+		auto hitter = team->getPlayerWithRole(this, Enums::eRole::OutsideHitter, Enums::eCourt::front);
 
 		phase = Enums::ePhase::set;
 
@@ -256,7 +256,7 @@ void Folie::Player::pass_()
 {
 	if (phase != Enums::ePhase::serve && phase != Enums::ePhase::pass)
 	{
-		auto setter = team->getPlayerWithRole(Enums::eRole::Setter, Enums::eCourt::front);
+		auto setter = team->getPlayerWithRole(this, Enums::eRole::Setter, Enums::eCourt::front);
 
 		phase = Enums::ePhase::pass;
 

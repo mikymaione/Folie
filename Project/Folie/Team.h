@@ -37,7 +37,7 @@ namespace Folie
 		Player ^getPlayerAtPosition(Enums::ePosition position);
 
 		List<Player ^> ^getPlayersWithRole(Enums::eRole role);
-		Player ^getPlayerWithRole(Enums::eRole role, Enums::eCourt court);
+		Player ^getPlayerWithRole(Player ^mySelf, Enums::eRole search_role, Enums::eCourt court);
 
 		void giocatoriPrenderePosizioniInCampo();
 		bool giocatoriInPosizione();
