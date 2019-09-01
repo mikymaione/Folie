@@ -75,7 +75,7 @@ namespace Folie
 		void moveToNextPosition();
 		void moveToPosition(Enums::ePosition position);
 		void moveTo(UnityEngine::Component ^comp);
-		void moveTo(UnityEngine::Vector3 ^position);
+		void moveTo(UnityEngine::Vector3 position);
 		void moveTo(float pos_x, float pos_z);
 		void moveTo_Async(float pos_x, float pos_z);
 
@@ -91,7 +91,7 @@ namespace Folie
 
 		void lookAtTheBall(bool looking);
 		void lookAtAnOpponent();
-		void lookAt(float seconds, UnityEngine::Vector2 ^dest);
+		void lookAt(float seconds, UnityEngine::Vector2 dest);
 		void lookAt(float seconds, float x, float z);
 		void lookAt(float seconds, UnityEngine::Vector3 to_);
 

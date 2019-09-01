@@ -88,9 +88,9 @@ void Folie::Player::moveTo_Async(float pos_x, float pos_z)
 	moveTo_(pos_x, pos_z);
 }
 
-void Folie::Player::moveTo(UnityEngine::Vector3 ^position)
+void Folie::Player::moveTo(UnityEngine::Vector3 position)
 {
-	moveTo(position->x, position->z);
+	moveTo(position.x, position.z);
 }
 
 void Folie::Player::move()
@@ -313,9 +313,9 @@ void Folie::Player::lookAtAnOpponent()
 	);
 }
 
-void Folie::Player::lookAt(float seconds, UnityEngine::Vector2 ^dest)
+void Folie::Player::lookAt(float seconds, UnityEngine::Vector2 dest)
 {
-	lookAt(seconds, dest->x, dest->y);
+	lookAt(seconds, dest.x, dest.y);
 }
 
 void Folie::Player::lookAt(float seconds, float x, float z)
