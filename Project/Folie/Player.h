@@ -87,6 +87,8 @@ namespace Folie
 		void attack();
 		void attack(Enums::ePosition target);
 
+		float calculateAngleOfAttack(Enums::ePosition target);
+
 		void lookAtTheBall(bool looking);
 		void lookAtAnOpponent();
 		void lookAt(float seconds, UnityEngine::Vector2 ^dest);

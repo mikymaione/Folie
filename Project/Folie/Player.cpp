@@ -201,17 +201,25 @@ void Folie::Player::attack(Enums::ePosition target)
 	);
 }
 
+float Folie::Player::calculateAngleOfAttack(Enums::ePosition target)
+{
+	auto court_target = GB::getCourtFromPosition(target);
+	auto court_mySelf = this->getCurrentCourt();
+
+	if (court_mySelf == Enums::eCourt::back && court_target == Enums::eCourt::back)
+		return Enums::serve_angle;
+	else if (court_mySelf == Enums::eCourt::back && court_target == Enums::eCourt::front)
+		return Enums::attack_angle;
+	else
+		return Enums::pass_angle;
+}
+
 void Folie::Player::attack_(Enums::ePosition target)
 {
 	if (phase != Enums::ePhase::attack)
 	{
 		phase = Enums::ePhase::attack;
-
-		auto court_target = GB::getCourtFromPosition(target);
-
-		auto angle = (court_target == this->getCurrentCourt() ? Enums::pass_angle : Enums::attack_angle);
-
-		REF::ball->hit(this, GB::oppositeField(campo), target, angle);
+		REF::ball->hit(this, GB::oppositeField(campo), target, calculateAngleOfAttack(target));
 	}
 }
 
