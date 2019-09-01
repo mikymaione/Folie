@@ -58,7 +58,7 @@ namespace Folie
 		void attack_(Enums::ePosition target);
 		void lookAt_(UnityEngine::Vector3 to_);
 
-		void serve_(Enums::ePosition target);
+		void serve_(UnityEngine::Vector2 target);
 		void serve();
 		void takeTheBall();
 

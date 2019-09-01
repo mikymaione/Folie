@@ -47,12 +47,12 @@ namespace Folie
 
 		void addForce(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate, float angle);
 
-		void setHitting(Boolean hitting_);
+		void setHitting(bool hitting_);
 
 	public:
 		Ball();
 
-		void serve(Player ^playerTouch, Enums::eCampo campo, Enums::ePosition position);
+		void serve(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate);
 
 		void hit(Player ^playerTouch, Enums::eCampo campo, Enums::ePosition position, float angle);
 		void hit(Player ^playerTouch, Enums::eCampo campo, Enums::eArea area, float angle);

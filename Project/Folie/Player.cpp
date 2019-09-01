@@ -161,10 +161,26 @@ void Folie::Player::serveRitual()
 	}
 }
 
-void Folie::Player::serve_(Enums::ePosition target)
+void Folie::Player::serve_(UnityEngine::Vector2 target)
 {
 	if (getDistanceFromBall() < Enums::min_distance_to_hit)
-		REF::ball->serve(this, GB::oppositeField(campo), target);
+	{
+		auto dest_court = GB::oppositeField(campo);
+
+		auto y = target.y;
+
+		switch (dest_court)
+		{
+		case Folie::Enums::eCampo::up:
+			y = 1;
+			break;
+		case Folie::Enums::eCampo::down:
+			y = 18;
+			break;
+		}
+
+		REF::ball->serve(this, dest_court, UnityEngine::Vector2(target.x, y));
+	}
 }
 
 void Folie::Player::serve()
@@ -176,8 +192,8 @@ void Folie::Player::serve()
 
 	waiter->callAndWait(
 		this,
-		gcnew Action<Enums::ePosition>(this, &Player::serve_),
-		gcnew array<Enums::ePosition ^> {targetChoosen},
+		gcnew Action<UnityEngine::Vector2>(this, &Player::serve_),
+		gcnew array<UnityEngine::Vector2 ^> {c},
 		REF::w4s(1)
 	);
 
@@ -191,6 +207,15 @@ void Folie::Player::takeTheBall()
 	move();
 }
 
+void Folie::Player::attack_(Enums::ePosition target)
+{
+	if (phase != Enums::ePhase::attack)
+	{
+		phase = Enums::ePhase::attack;
+		REF::ball->hit(this, GB::oppositeField(campo), target, calculateAngleOfAttack(target));
+	}
+}
+
 void Folie::Player::attack(Enums::ePosition target)
 {
 	waiter->callAndWait(
@@ -199,6 +224,13 @@ void Folie::Player::attack(Enums::ePosition target)
 		gcnew array<Enums::ePosition ^> {target},
 		REF::w4s(1)
 	);
+}
+
+void Folie::Player::attack()
+{
+	auto target = GB::selectRandomPosition();
+
+	attack(target);
 }
 
 float Folie::Player::calculateAngleOfAttack(Enums::ePosition target)
@@ -212,22 +244,6 @@ float Folie::Player::calculateAngleOfAttack(Enums::ePosition target)
 		return Enums::attack_angle;
 	else
 		return Enums::pass_angle;
-}
-
-void Folie::Player::attack_(Enums::ePosition target)
-{
-	if (phase != Enums::ePhase::attack)
-	{
-		phase = Enums::ePhase::attack;
-		REF::ball->hit(this, GB::oppositeField(campo), target, calculateAngleOfAttack(target));
-	}
-}
-
-void Folie::Player::attack()
-{
-	auto target = GB::selectRandomPosition();
-
-	attack(target);
 }
 
 void Folie::Player::set()

@@ -114,14 +114,11 @@ void Folie::Ball::hit(Player ^playerTouch, Enums::eCampo campo, Enums::ePosition
 	}
 }
 
-void Folie::Ball::serve(Player ^playerTouch, Enums::eCampo campo, Enums::ePosition position)
+void Folie::Ball::serve(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate)
 {
 	if (!hitting)
 	{
 		touch = 0;
-
-		auto coordinate = GB::getCoordinatesFromPosition(campo, position);
-
 		addForce(playerTouch, campo, coordinate, Enums::serve_angle);
 	}
 }
