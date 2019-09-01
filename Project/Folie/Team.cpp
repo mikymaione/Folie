@@ -66,7 +66,7 @@ void Folie::Team::giocatoriPrenderePosizioniInCampo()
 		auto d = GB::getCoordinatesFromPosition(campo, p->currentPosition);
 
 		p->campo = campo;
-		p->moveTo_Async(d->x, d->y);
+		p->moveTo_Async(d.x, d.y);
 	}
 }
 

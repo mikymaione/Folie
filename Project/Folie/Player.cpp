@@ -96,7 +96,7 @@ void Folie::Player::moveTo(UnityEngine::Vector3 ^position)
 void Folie::Player::move()
 {
 	auto c = GB::getCoordinatesFromArea(campo, currentArea);
-	moveTo(c->x, c->y);
+	moveTo(c.x, c.y);
 }
 
 void Folie::Player::moveToPosition(Enums::ePosition position)
@@ -112,7 +112,7 @@ void Folie::Player::moveToNextPosition()
 
 	currentPosition = n;
 
-	moveTo_Async(d->x, d->y);
+	moveTo_Async(d.x, d.y);
 }
 
 void Folie::Player::moveTo(UnityEngine::Component ^comp)
@@ -172,7 +172,7 @@ void Folie::Player::serve()
 	targetChoosen = GB::selectRandomPosition(Enums::eCourt::back);
 	auto c = GB::getCoordinatesFromPosition(campo, targetChoosen);
 
-	lookAt(2, c->x, c->y);
+	lookAt(2, c.x, c.y);
 
 	waiter->callAndWait(
 		this,
@@ -303,7 +303,7 @@ void Folie::Player::lookAtAnOpponent()
 	phase = Enums::ePhase::null;
 	lookingAt = nullptr;
 
-	auto to_ = UnityEngine::Vector3(c->x, transform->position.y, c->y);
+	auto to_ = UnityEngine::Vector3(c.x, transform->position.y, c.y);
 
 	waiter->waitAndCall(
 		this,

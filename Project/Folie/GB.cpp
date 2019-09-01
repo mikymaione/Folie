@@ -44,14 +44,14 @@ Folie::Enums::eCampo Folie::GB::oppositeField(Enums::eCampo campo)
 	}
 }
 
-UnityEngine::Vector2 ^Folie::GB::getCoordinatesFromPosition(Enums::eCampo campo, Enums::ePosition position)
+UnityEngine::Vector2 Folie::GB::getCoordinatesFromPosition(Enums::eCampo campo, Enums::ePosition position)
 {
 	auto area = getAreaFromPosition(position);
 
 	return getCoordinatesFromArea(campo, area);
 }
 
-UnityEngine::Vector2 ^Folie::GB::getCoordinatesFromArea(Enums::eCampo campo, Enums::eArea area)
+UnityEngine::Vector2 Folie::GB::getCoordinatesFromArea(Enums::eCampo campo, Enums::eArea area)
 {
 	switch (campo)
 	{
@@ -59,70 +59,70 @@ UnityEngine::Vector2 ^Folie::GB::getCoordinatesFromArea(Enums::eCampo campo, Enu
 		switch (area)
 		{
 		case Enums::eArea::a4O:
-			return gcnew UnityEngine::Vector2(-1, 8);
+			return UnityEngine::Vector2(-1, 8);
 		case Enums::eArea::a4:
-			return gcnew UnityEngine::Vector2(2, 8);
+			return UnityEngine::Vector2(2, 8);
 		case Enums::eArea::a3:
-			return gcnew UnityEngine::Vector2(5, 8);
+			return UnityEngine::Vector2(5, 8);
 		case Enums::eArea::a2:
-			return gcnew UnityEngine::Vector2(8, 8);
+			return UnityEngine::Vector2(8, 8);
 		case Enums::eArea::a2E:
-			return gcnew UnityEngine::Vector2(11, 8);
+			return UnityEngine::Vector2(11, 8);
 		case Enums::eArea::a5O:
-			return gcnew UnityEngine::Vector2(-1, 4);
+			return UnityEngine::Vector2(-1, 4);
 		case Enums::eArea::a5:
-			return gcnew UnityEngine::Vector2(2, 3);
+			return UnityEngine::Vector2(2, 3);
 		case Enums::eArea::a6:
-			return gcnew UnityEngine::Vector2(5, 3);
+			return UnityEngine::Vector2(5, 3);
 		case Enums::eArea::a1:
-			return gcnew UnityEngine::Vector2(8, 3);
+			return UnityEngine::Vector2(8, 3);
 		case Enums::eArea::a1E:
-			return gcnew UnityEngine::Vector2(11, 3);
+			return UnityEngine::Vector2(11, 3);
 		case Enums::eArea::a5OS:
-			return gcnew UnityEngine::Vector2(-1, -1);
+			return UnityEngine::Vector2(-1, -1);
 		case Enums::eArea::a5S:
-			return gcnew UnityEngine::Vector2(2, -1);
+			return UnityEngine::Vector2(2, -1);
 		case Enums::eArea::a6S:
-			return gcnew UnityEngine::Vector2(5, -1);
+			return UnityEngine::Vector2(5, -1);
 		case Enums::eArea::a1S:
-			return gcnew UnityEngine::Vector2(8, -1);
+			return UnityEngine::Vector2(8, -1);
 		case Enums::eArea::a1ES:
-			return gcnew UnityEngine::Vector2(11, -1);
+			return UnityEngine::Vector2(11, -1);
 		}
 		break;
 	case Enums::eCampo::down:
 		switch (area)
 		{
 		case Enums::eArea::a4O:
-			return gcnew UnityEngine::Vector2(11, 11);
+			return UnityEngine::Vector2(11, 11);
 		case Enums::eArea::a4:
-			return gcnew UnityEngine::Vector2(8, 11);
+			return UnityEngine::Vector2(8, 11);
 		case Enums::eArea::a3:
-			return gcnew UnityEngine::Vector2(5, 11);
+			return UnityEngine::Vector2(5, 11);
 		case Enums::eArea::a2:
-			return gcnew UnityEngine::Vector2(2, 11);
+			return UnityEngine::Vector2(2, 11);
 		case Enums::eArea::a2E:
-			return gcnew UnityEngine::Vector2(-1, 11);
+			return UnityEngine::Vector2(-1, 11);
 		case Enums::eArea::a5O:
-			return gcnew UnityEngine::Vector2(11, 16);
+			return UnityEngine::Vector2(11, 16);
 		case Enums::eArea::a5:
-			return gcnew UnityEngine::Vector2(8, 16);
+			return UnityEngine::Vector2(8, 16);
 		case Enums::eArea::a6:
-			return gcnew UnityEngine::Vector2(5, 16);
+			return UnityEngine::Vector2(5, 16);
 		case Enums::eArea::a1:
-			return gcnew UnityEngine::Vector2(2, 16);
+			return UnityEngine::Vector2(2, 16);
 		case Enums::eArea::a1E:
-			return gcnew UnityEngine::Vector2(-1, 16);
+			return UnityEngine::Vector2(-1, 16);
 		case Enums::eArea::a5OS:
-			return gcnew UnityEngine::Vector2(11, 20);
+			return UnityEngine::Vector2(11, 20);
 		case Enums::eArea::a5S:
-			return gcnew UnityEngine::Vector2(8, 20);
+			return UnityEngine::Vector2(8, 20);
 		case Enums::eArea::a6S:
-			return gcnew UnityEngine::Vector2(5, 20);
+			return UnityEngine::Vector2(5, 20);
 		case Enums::eArea::a1S:
-			return gcnew UnityEngine::Vector2(2, 20);
+			return UnityEngine::Vector2(2, 20);
 		case Enums::eArea::a1ES:
-			return gcnew UnityEngine::Vector2(-1, 20);
+			return UnityEngine::Vector2(-1, 20);
 		}
 		break;
 	}

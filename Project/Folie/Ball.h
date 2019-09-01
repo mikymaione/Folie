@@ -45,9 +45,9 @@ namespace Folie
 
 		void OnCollisionEnter(UnityEngine::Collision collision);
 
-		void addForce(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle);
+		void addForce(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate, float angle);
 
-		void setHitting(bool hitting_);
+		void setHitting(Boolean hitting_);
 
 	public:
 		Ball();
@@ -56,7 +56,7 @@ namespace Folie
 
 		void hit(Player ^playerTouch, Enums::eCampo campo, Enums::ePosition position, float angle);
 		void hit(Player ^playerTouch, Enums::eCampo campo, Enums::eArea area, float angle);
-		void hit(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 ^coordinate, float angle);
+		void hit(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate, float angle);
 
 	};
 }

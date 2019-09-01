@@ -28,8 +28,8 @@ namespace Folie
 		static bool samePosition(UnityEngine::Vector3 a, UnityEngine::Vector3 b);
 		static Enums::eCampo oppositeField(Enums::eCampo campo);
 
-		static UnityEngine::Vector2 ^getCoordinatesFromPosition(Enums::eCampo campo, Enums::ePosition position);
-		static UnityEngine::Vector2 ^getCoordinatesFromArea(Enums::eCampo campo, Enums::eArea area);
+		static UnityEngine::Vector2 getCoordinatesFromPosition(Enums::eCampo campo, Enums::ePosition position);
+		static UnityEngine::Vector2 getCoordinatesFromArea(Enums::eCampo campo, Enums::eArea area);
 
 		static Enums::eCampo getCampoFromCoordinates(float x, float z);
 		static Enums::eArea getAreaFromCoordinates(float x, float z);
