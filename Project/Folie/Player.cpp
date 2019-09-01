@@ -32,22 +32,42 @@ void Folie::Player::Update()
 	if (REF::ball != nullptr)
 	{
 		auto ballIsFlying = REF::ball->ballIsFlying();
+		auto distanceFromBall = getDistanceFromBall();
 
 		lookAtTheBall(ballIsFlying);
 
-		if (ballIsFlying && getDistanceFromBall() < Enums::min_distance_to_hit)
-			switch (REF::ball->touch)
+		if (ballIsFlying)
+		{
+			if (distanceFromBall < Enums::min_distance_to_hit)
 			{
-			case 0:
-				pass_();
-				break;
-			case 1:
-				set_();
-				break;
-			case 2:
-				attack_(GB::selectRandomPosition());
-				break;
+				switch (REF::ball->touch)
+				{
+				case 0:
+					pass_();
+					break;
+				case 1:
+					set_();
+					break;
+				case 2:
+					attack_(GB::selectRandomPosition());
+					break;
+				}
+
+				team->playerThatSayMia = nullptr;
+				REF::game->mine->text = "Mine:";
 			}
+			else if (distanceFromBall < Enums::min_distance_to_move_to_the_ball && team->playerThatSayMia == nullptr)
+			{
+				team->playerThatSayMia = this;
+				REF::game->mine->text = "Mine: " + name;
+				agent->destination = REF::ball->destination;
+			}
+			else
+			{
+				auto myPos = GB::getCoordinatesFromPosition(campo, currentPosition);
+				moveTo_Async(myPos.x, myPos.y);
+			}
+		}
 	}
 
 	if (lookingAt != nullptr)

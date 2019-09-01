@@ -20,6 +20,7 @@ namespace Folie
 		Waiter ^waiter;
 
 	internal:
+		Player ^playerThatSayMia;
 		array<Player ^> ^players;
 
 	public:

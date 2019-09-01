@@ -30,6 +30,8 @@ namespace Folie
 		Enums::eCampo campoPrecedente;
 
 	internal:
+		UnityEngine::Vector2 destination;
+
 		UInt16 touch;
 
 		Enums::eCampo getCampoAttuale();

@@ -61,7 +61,7 @@ void Folie::Ball::attachToHand(String ^player_name)
 			if (p->name->Equals(player_name))
 			{
 				inMano = p->mano;
-				REF::game->playerName->text = "Player: " + p->name;
+				REF::game->playerName->text = "Last touch: " + p->name;
 
 				hitted = false;
 				ground = false;
@@ -137,7 +137,7 @@ void Folie::Ball::addForce(Player ^playerTouch, Enums::eCampo campo, UnityEngine
 		inMano = nullptr;
 
 		lastPlayerTouch = playerTouch;
-		REF::game->playerName->text = "Player: " + lastPlayerTouch->name;
+		REF::game->playerName->text = "Last touch: " + lastPlayerTouch->name;
 
 		if (touch > 3)
 		{
@@ -164,6 +164,7 @@ void Folie::Ball::addForce(Player ^playerTouch, Enums::eCampo campo, UnityEngine
 
 			rigidBody->velocity = velocity * dir.normalized;
 
+			destination = coordinate;
 			hitted = true;
 
 			waiter->callAndWait(
