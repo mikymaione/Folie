@@ -35,7 +35,7 @@ void Folie::Player::Update()
 
 		lookAtTheBall(ballIsFlying);
 
-		if (ballIsFlying && getDistanceFromBall() < Enums::minimu_distance_to_hit)
+		if (ballIsFlying && getDistanceFromBall() < Enums::min_distance_to_hit)
 			switch (REF::ball->touch)
 			{
 			case 0:
@@ -163,7 +163,7 @@ void Folie::Player::serveRitual()
 
 void Folie::Player::serve_(Enums::ePosition target)
 {
-	if (getDistanceFromBall() < Enums::minimu_distance_to_hit)
+	if (getDistanceFromBall() < Enums::min_distance_to_hit)
 		REF::ball->serve(this, GB::oppositeField(campo), target);
 }
 

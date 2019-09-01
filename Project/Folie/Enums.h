@@ -13,9 +13,9 @@ namespace Folie
 	public ref class Enums
 	{
 	public:
-		literal float minimu_distance_to_hit = 1;
+		literal float min_distance_to_hit = 1.5f;
 
-		literal float attack_angle = 40;
+		literal float attack_angle = 46;
 		literal float serve_angle = 32;
 		literal float pass_angle = 70;
 
