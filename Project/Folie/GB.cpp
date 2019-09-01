@@ -9,6 +9,16 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "stdafx.h"
 #include "GB.h"
 
+void Folie::GB::init()
+{
+	rnd = gcnew Random(DateTime::Now.Second);
+}
+
+UInt16 Folie::GB::rndUInt16(UInt16 from_, UInt16 to_)
+{
+	return rnd->Next(from_, to_ + 1);
+}
+
 generic <class T> where T : UnityEngine::Component T Folie::GB::GetComponentsInChildren(UnityEngine::MonoBehaviour ^mb, String ^tag)
 {
 	auto elements = mb->GetComponentsInChildren<T>();

@@ -82,7 +82,7 @@ void Folie::Team::moveToNextPosition()
 void Folie::Team::lookAtOpponent()
 {
 	for each (auto p in players)
-		p->lookAtAnOpponent(0);
+		p->lookAtAnOpponent();
 }
 
 void Folie::Team::serve()

@@ -272,15 +272,25 @@ void Folie::Player::lookAtTheBall(bool looking)
 		lookingAt = nullptr;
 }
 
-void Folie::Player::lookAtAnOpponent(float seconds)
+void Folie::Player::lookAtAnOpponent()
 {
+	float t = GB::rndUInt16(1, 20);
+	float seconds = t / 10.0f;
+
 	auto target = GB::selectRandomPosition();
 	auto c = GB::getCoordinatesFromPosition(GB::oppositeField(campo), target);
 
 	phase = Enums::ePhase::null;
 	lookingAt = nullptr;
 
-	lookAt(seconds, c);
+	auto to_ = UnityEngine::Vector3(c->x, transform->position.y, c->y);
+
+	waiter->waitAndCall(
+		this,
+		REF::w4s(seconds),
+		gcnew Action<UnityEngine::Vector3>(this, &Player::lookAt_),
+		gcnew array<UnityEngine::Vector3 ^> {to_}
+	);
 }
 
 void Folie::Player::lookAt(float seconds, UnityEngine::Vector2 ^dest)

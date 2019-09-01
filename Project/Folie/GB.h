@@ -18,10 +18,13 @@ namespace Folie
 {
 	public ref class GB abstract sealed
 	{
-	internal:
+	private:
 		static Random ^rnd;
 
 	public:
+		static void init();
+		static UInt16 rndUInt16(UInt16 from_, UInt16 to_);
+
 		static bool samePosition(UnityEngine::Vector3 a, UnityEngine::Vector3 b);
 		static Enums::eCampo oppositeField(Enums::eCampo campo);
 

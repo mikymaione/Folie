@@ -33,11 +33,10 @@ namespace Folie
 		static System::Collections::IEnumerator ^w4ms(UInt16 milliseconds)
 		{
 			float ms = milliseconds;
-			float mille = 1000;
-			float s = ms / mille;
+			float s = ms / 1000.0f;
 
 			if (s <= 0)
-				s = 0.00001;
+				s = 0.00001f;
 
 			return gcnew Wait4Seconds(s);
 		}
@@ -47,7 +46,7 @@ namespace Folie
 			float s = seconds;
 
 			if (s <= 0)
-				s = 0.00001;
+				s = 0.00001f;
 
 			return gcnew Wait4Seconds(seconds);
 		};
