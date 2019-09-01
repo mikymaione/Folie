@@ -243,9 +243,22 @@ void Folie::Player::set_()
 {
 	if (phase != Enums::ePhase::set)
 	{
-		auto hitter = team->getPlayerWithRole(this, Enums::eRole::OutsideHitter, Enums::eCourt::front);
-
 		phase = Enums::ePhase::set;
+
+		auto randomRole = Enums::eRole::Opposite;
+		auto randomCourt = Enums::eCourt::front;
+
+		auto r = GB::rndUInt16(1, 30);
+		if (r % 2 == 0)
+			randomRole = Enums::eRole::OutsideHitter;
+		else if (r % 3 == 0)
+			randomRole = Enums::eRole::MiddleBlocker;
+
+		auto c = GB::rndUInt16(1, 3);
+		if (c % 3 == 0)
+			randomCourt = Enums::eCourt::back;
+
+		auto hitter = team->getPlayerWithRole(this, randomRole, randomCourt);
 
 		REF::ball->hit(this, campo, hitter->currentArea, Enums::pass_angle);
 	}

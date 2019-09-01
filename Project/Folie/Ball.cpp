@@ -61,6 +61,7 @@ void Folie::Ball::attachToHand(String ^player_name)
 			if (p->name->Equals(player_name))
 			{
 				inMano = p->mano;
+				REF::game->playerName->text = "Player: " + p->name;
 
 				hitted = false;
 				ground = false;
@@ -86,6 +87,7 @@ void Folie::Ball::addForce(Player ^playerTouch, Enums::eCampo campo, UnityEngine
 		inMano = nullptr;
 
 		lastPlayerTouch = playerTouch;
+		REF::game->playerName->text = "Player: " + lastPlayerTouch->name;
 
 		if (touch > 3)
 		{

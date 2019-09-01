@@ -42,6 +42,8 @@ namespace Folie
 		static Enums::ePosition selectRandomPosition(Enums::eCourt court);
 		static Enums::ePosition selectRandomPosition();
 
+		static Enums::eCourt selectRandomCourt();
+
 		static Enums::eRotate teamToRotate(Enums::eTeam t);
 
 		generic <class T> where T : UnityEngine::Component static T GetComponentsInChildren(UnityEngine::MonoBehaviour ^mb, String ^tag);

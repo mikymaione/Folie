@@ -53,6 +53,10 @@ Folie::Player ^Folie::Team::getPlayerWithRole(Player ^mySelf, Enums::eRole searc
 	for each (auto p in players_in_role)
 		if (!p->Equals(mySelf))
 			return p;
+
+	for each (auto p in players)
+		if (!p->Equals(mySelf))
+			return p;
 }
 
 void Folie::Team::giocatoriPrenderePosizioniInCampo()
@@ -91,7 +95,7 @@ void Folie::Team::serve()
 {
 	for each (auto p in players)
 		if (p->currentPosition == Enums::ePosition::p1)
-		{
+		{			
 			p->serveRitual();
 			break;
 		}

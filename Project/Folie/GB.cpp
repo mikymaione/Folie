@@ -332,6 +332,19 @@ Folie::Enums::ePosition Folie::GB::selectRandomPosition()
 	}
 }
 
+Folie::Enums::eCourt Folie::GB::selectRandomCourt()
+{
+	auto r = rndUInt16(1, 2);
+
+	switch (r)
+	{
+	case 1:
+		return Enums::eCourt::back;
+	case 2:
+		return Enums::eCourt::front;
+	}
+}
+
 Folie::Enums::eRotate Folie::GB::teamToRotate(Enums::eTeam t)
 {
 	switch (t)
