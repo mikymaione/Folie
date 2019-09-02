@@ -1,0 +1,22 @@
+Multi-level AI:
+– Higher level: strategic decisions
+– Middle level: coordinated motion system (play patterns)
+– Lowest level: single unit
+
+Architecture:
+Tactical AI: Tactical Analysis > Rule-based system
+Decision Making: Rule-based system > Playbook, Physics prediction (team members / ball)
+Movement: Playbook > Kinematic steering
+Movement: Physics prediction (team members / ball) > Kinematic steering, Rule-based system, Tactical Analysis
+
+Physics prediction: predict trajectory
+Playbook: algorithms for making sure that characters move at the correct time; formation motion system
+
+Movement algo. family: kinematic movement:
+class Character
+class Game
+class MovementAlgo
+class MovementRequest
+movReq = MovementAlgo.elaborate(game, player)
+player.move(moveReq);
+
