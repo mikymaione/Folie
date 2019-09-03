@@ -22,7 +22,7 @@ namespace Folie
 	public ref class Player :UnityEngine::MonoBehaviour
 	{
 	private:
-		Waiter ^waiter;
+		CoroutineQueue ^waiter;
 
 		Enums::ePosition targetChoosen;
 		UnityEngine::AI::NavMeshAgent ^agent;

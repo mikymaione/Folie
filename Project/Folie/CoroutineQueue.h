@@ -17,7 +17,7 @@ using namespace System;
 
 namespace Folie
 {
-	ref class Waiter
+	ref class CoroutineQueue
 	{
 	private:
 		bool running;
@@ -33,7 +33,7 @@ namespace Folie
 
 				auto ge = gcnew GenericEnumerable(
 					work,
-					gcnew Action(this, &Waiter::runNextWork)
+					gcnew Action(this, &CoroutineQueue::runNextWork)
 				);
 
 				work->this_->StartCoroutine(ge->GetEnumerator());
@@ -59,7 +59,7 @@ namespace Folie
 		};
 
 	internal:
-		Waiter()
+		CoroutineQueue()
 		{
 			running = false;
 			works = gcnew System::Collections::Generic::Queue<Work^>();

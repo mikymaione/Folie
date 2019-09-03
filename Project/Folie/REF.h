@@ -9,7 +9,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #pragma once
 
 #include "Wait4Seconds.h"
-#include "Waiter.h"
+#include "CoroutineQueue.h"
 #include "Ball.h"
 #include "Team.h"
 #include "Game.h"

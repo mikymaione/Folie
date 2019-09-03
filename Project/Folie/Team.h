@@ -17,7 +17,7 @@ namespace Folie
 	public ref class Team :UnityEngine::MonoBehaviour
 	{
 	private:
-		Waiter ^waiter;
+		CoroutineQueue ^waiter;
 
 	internal:
 		Player ^playerThatSayMia;

@@ -45,13 +45,13 @@
     <ClInclude Include="Enums.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Waiter.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
     <ClInclude Include="GenericEnumerable.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="Work.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="CoroutineQueue.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

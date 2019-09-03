@@ -14,13 +14,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 namespace Folie
 {
-	ref class Waiter; // cross reference
+	ref class CoroutineQueue; // cross reference
 	ref class Player; // cross reference
 
 	public ref class Ball :UnityEngine::MonoBehaviour
 	{
 	private:
-		Waiter ^waiter;
+		CoroutineQueue ^waiter;
 
 		UnityEngine::Rigidbody ^rigidBody;
 		UnityEngine::Transform ^inMano;

@@ -146,7 +146,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Team.h" />
     <ClInclude Include="Wait4Seconds.h" />
-    <ClInclude Include="Waiter.h" />
+    <ClInclude Include="CoroutineQueue.h" />
     <ClInclude Include="Work.h" />
   </ItemGroup>
   <ItemGroup>

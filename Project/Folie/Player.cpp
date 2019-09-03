@@ -12,7 +12,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 Folie::Player::Player()
 {
-	waiter = gcnew Waiter();
+	waiter = gcnew CoroutineQueue();
 }
 
 void Folie::Player::Start()
