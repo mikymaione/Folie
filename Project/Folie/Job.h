@@ -16,7 +16,7 @@ using namespace System;
 
 namespace Folie
 {
-	ref class Work
+	ref class Job
 	{
 	internal:
 		bool funzioneEseguita;
@@ -27,7 +27,7 @@ namespace Folie
 		System::Collections::IEnumerator ^waiter;
 
 	internal:
-		Work(Enums::eSequence sequence, UnityEngine::MonoBehaviour ^this_, Delegate ^nome_funzione, array<Object ^> ^parametri, System::Collections::IEnumerator ^waiter)
+		Job(Enums::eSequence sequence, UnityEngine::MonoBehaviour ^this_, Delegate ^nome_funzione, array<Object ^> ^parametri, System::Collections::IEnumerator ^waiter)
 		{
 			this->sequence = sequence;
 			this->this_ = this_;

@@ -48,10 +48,10 @@
     <ClInclude Include="GenericEnumerable.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Work.h">
+    <ClInclude Include="CoroutineQueue.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="CoroutineQueue.h">
+    <ClInclude Include="Job.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

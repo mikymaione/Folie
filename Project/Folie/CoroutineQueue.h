@@ -10,7 +10,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #using <UnityEngine.CoreModule.dll> as_friend
 
-#include "Work.h"
+#include "Job.h"
 #include "GenericEnumerable.h"
 
 using namespace System;
@@ -21,7 +21,7 @@ namespace Folie
 	{
 	private:
 		bool running;
-		System::Collections::Generic::Queue<Work^> ^works;
+		System::Collections::Generic::Queue<Job^> ^works;
 
 		void runNextWork()
 		{
@@ -46,7 +46,7 @@ namespace Folie
 
 		void enqueueWork(Enums::eSequence sequence, UnityEngine::MonoBehaviour ^this_, Delegate ^nome_funzione, array<Object ^> ^parametri, System::Collections::IEnumerator ^waiter)
 		{
-			auto work = gcnew Work(sequence, this_, nome_funzione, parametri, waiter);
+			auto work = gcnew Job(sequence, this_, nome_funzione, parametri, waiter);
 			works->Enqueue(work);
 
 			Run();
@@ -62,7 +62,7 @@ namespace Folie
 		CoroutineQueue()
 		{
 			running = false;
-			works = gcnew System::Collections::Generic::Queue<Work^>();
+			works = gcnew System::Collections::Generic::Queue<Job^>();
 		};
 
 		void callAndWait(UnityEngine::MonoBehaviour ^this_, Delegate ^nome_funzione, array<Object ^> ^parametri, System::Collections::IEnumerator ^waiter)

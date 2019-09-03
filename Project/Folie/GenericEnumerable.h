@@ -15,13 +15,13 @@ namespace Folie
 	ref class GenericEnumerable :System::Collections::IEnumerable
 	{
 	private:
-		Work ^work;
+		Job ^work;
 		System::Action ^recursive;
 
 		ref class GenericEnumerator :System::Collections::IEnumerator
 		{
 		private:
-			Work ^work;
+			Job ^work;
 			System::Action ^recursive;
 
 		private:
@@ -32,7 +32,7 @@ namespace Folie
 			};
 
 		public:
-			GenericEnumerator(Work ^work, System::Action ^recursive)
+			GenericEnumerator(Job ^work, System::Action ^recursive)
 			{
 				this->work = work;
 				this->recursive = recursive;
@@ -78,7 +78,7 @@ namespace Folie
 		};
 
 	public:
-		GenericEnumerable(Work ^work, System::Action ^recursive)
+		GenericEnumerable(Job ^work, System::Action ^recursive)
 		{
 			this->work = work;
 			this->recursive = recursive;
