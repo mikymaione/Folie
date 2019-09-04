@@ -8,57 +8,45 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #pragma once
 
-#include "GB.h"
+#include "Player.hpp"
 
-#using <UnityEngine.PhysicsModule.dll> as_friend
+using namespace System;
 
 namespace Folie
 {
-	ref class CoroutineQueue; // cross reference
-	ref class Player; // cross reference
-
-	public ref class Ball :UnityEngine::MonoBehaviour
+	public ref class Team :UnityEngine::MonoBehaviour
 	{
 	private:
 		CoroutineQueue ^waiter;
 
-		UnityEngine::Rigidbody ^rigidBody;
-		UnityEngine::Transform ^inMano;
-
-		Player ^lastPlayerTouch;
-		bool hitted, hitting, ground;
-		Enums::eCampo campoPrecedente;
-
 	internal:
-		UnityEngine::Vector2 destination;
+		Player ^playerThatSayMia;
+		array<Player ^> ^players;
 
-		UInt16 touch;
+	public:
+		String ^name;
+		Enums::eCampo campo;
 
-		Enums::eCampo getCampoAttuale();
-
-		void attachToHand(String ^player_name);
-
-		bool ballInHand();
-		bool ballIsFlying();
+		Player ^P1, ^P2, ^P3, ^P4, ^P5, ^P6;
 
 	private:
 		void Start();
-		void Update();
-
-		void OnCollisionEnter(UnityEngine::Collision collision);
-
-		void addForce(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate, float angle);
-
-		void setHitting(bool hitting_);
 
 	public:
-		Ball();
+		Team();
 
-		void serve(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate);
+		Player ^getPlayerAtPosition(Enums::ePosition position);
 
-		void hit(Player ^playerTouch, Enums::eCampo campo, Enums::ePosition position, float angle);
-		void hit(Player ^playerTouch, Enums::eCampo campo, Enums::eArea area, float angle);
-		void hit(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate, float angle);
+		List<Player ^> ^getPlayersWithRole(Enums::eRole role);
+		Player ^getPlayerWithRole(Player ^mySelf, Enums::eRole search_role, Enums::eCourt court);
+
+		void giocatoriPrenderePosizioniInCampo();
+		bool giocatoriInPosizione();
+
+		void moveToNextPosition();
+
+		void lookAtOpponent();
+		void serve();
 
 	};
 }

@@ -135,19 +135,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Ball.h" />
-    <ClInclude Include="Enums.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GB.h" />
-    <ClInclude Include="GenericEnumerable.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="REF.h" />
+    <ClInclude Include="Ball.hpp" />
+    <ClInclude Include="Enums.hpp" />
+    <ClInclude Include="Game.hpp" />
+    <ClInclude Include="GB.hpp" />
+    <ClInclude Include="GenericEnumerable.hpp" />
+    <ClInclude Include="Player.hpp" />
+    <ClInclude Include="REF.hpp" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Team.h" />
-    <ClInclude Include="Wait4Seconds.h" />
-    <ClInclude Include="CoroutineQueue.h" />
-    <ClInclude Include="Job.h" />
+    <ClInclude Include="Team.hpp" />
+    <ClInclude Include="Wait4Seconds.hpp" />
+    <ClInclude Include="CoroutineQueue.hpp" />
+    <ClInclude Include="Job.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />

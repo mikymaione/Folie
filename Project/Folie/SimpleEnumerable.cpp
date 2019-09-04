@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "SimpleEnumerable.h"
+#include "SimpleEnumerable.hpp"
 
 bool Folie::SimpleEnumerable::SimpleEnumerator::MoveNext()
 {

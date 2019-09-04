@@ -10,8 +10,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #using <UnityEngine.CoreModule.dll> as_friend
 
-#include "Job.h"
-#include "GenericEnumerable.h"
+#include "Job.hpp"
+#include "GenericEnumerable.hpp"
 
 using namespace System;
 

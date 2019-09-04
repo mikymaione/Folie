@@ -8,11 +8,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #pragma once
 
-#include "Wait4Seconds.h"
-#include "CoroutineQueue.h"
-#include "Ball.h"
-#include "Team.h"
-#include "Game.h"
+#include "Wait4Seconds.hpp"
+#include "CoroutineQueue.hpp"
+#include "Ball.hpp"
+#include "Team.hpp"
+#include "Game.hpp"
 
 #using <UnityEngine.AIModule.dll> as_friend
 #using <UnityEngine.CoreModule.dll> as_friend

@@ -10,7 +10,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #using <UnityEngine.CoreModule.dll> as_friend
 
-#include "Enums.h"
+#include "Enums.hpp"
 
 using namespace System;
 

@@ -21,37 +21,37 @@
     <ClInclude Include="Resource.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="Player.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Team.h">
+    <ClInclude Include="Team.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Ball.h">
+    <ClInclude Include="Ball.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="GB.h">
+    <ClInclude Include="GB.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="Game.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="REF.h">
+    <ClInclude Include="REF.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Wait4Seconds.h">
+    <ClInclude Include="Wait4Seconds.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Enums.h">
+    <ClInclude Include="Enums.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="GenericEnumerable.h">
+    <ClInclude Include="GenericEnumerable.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="CoroutineQueue.h">
+    <ClInclude Include="CoroutineQueue.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Job.h">
+    <ClInclude Include="Job.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

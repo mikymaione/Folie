@@ -8,8 +8,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #pragma once
 
-#include "GB.h"
-#include "Ball.h"
+#include "GB.hpp"
+#include "Ball.hpp"
 
 #using <UnityEngine.AIModule.dll> as_friend
 
