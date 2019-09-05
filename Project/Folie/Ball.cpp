@@ -44,12 +44,13 @@ void Folie::Ball::Update()
 	{
 		touch = 0;
 		inMano = nullptr;
-		lastPlayerTouch = nullptr;
 		hitted = false;
 		hitting = false;
-		ground = false;
+		ground = true;
 
 		REF::game->ballOnGround(getCampoAttuale(), lastPlayerTouch);
+
+		lastPlayerTouch = nullptr;
 
 		rigidBody->velocity = UnityEngine::Vector3::zero;
 		transform->position = UnityEngine::Vector3(11.69f, 0.4f, 7.93f);

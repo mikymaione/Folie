@@ -244,6 +244,14 @@ void Folie::Player::attack_(Enums::ePosition target)
 	if (phase != Enums::ePhase::attack)
 	{
 		phase = Enums::ePhase::attack;
+
+		switch (GB::getCampoFromCoordinates(transform->position.x, transform->position.z))
+		{
+		case Enums::eCampo::up:
+			//
+			break;
+		}
+
 		REF::ball->hit(this, GB::oppositeField(campo), target, calculateAngleOfAttack(target));
 	}
 }
