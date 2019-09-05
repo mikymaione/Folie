@@ -38,7 +38,7 @@ void Folie::Player::Update()
 
 		if (ballIsFlying)
 		{
-			if (distanceFromBall < Enums::min_distance_to_hit)
+			if (distanceFromBall < Enums::min_distance_to_hit && campo == REF::ball->getCampoAttuale())
 			{
 				switch (REF::ball->touch)
 				{
@@ -66,6 +66,18 @@ void Folie::Player::Update()
 			{
 				auto myPos = GB::getCoordinates2DFromPosition(campo, currentPosition);
 				moveTo_Async(myPos.x, myPos.y);
+			}
+
+			switch (campo)
+			{
+			case Folie::Enums::eCampo::up:
+				if (transform->position.z > 9.8f)
+					transform->position.Set(transform->position.x, transform->position.y, 9.9f);
+				break;
+			case Folie::Enums::eCampo::down:
+				if (transform->position.z < 10.2f)
+					transform->position.Set(transform->position.x, transform->position.y, 10.2f);
+				break;
 			}
 		}
 	}

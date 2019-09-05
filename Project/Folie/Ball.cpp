@@ -30,8 +30,30 @@ void Folie::Ball::Update()
 	if (inMano != nullptr)
 		transform->SetPositionAndRotation(inMano->position, inMano->rotation);
 
-	if (transform->position.y < -0.3)
+	if (hitted && !ballInHand())
+		if (transform->position.y < -0.0155f)
+		{
+			ground = true;
+			hitted = false;
+			touch = 0;
+
+			REF::game->ballOnGround(getCampoAttuale(), lastPlayerTouch);
+		}
+
+	if (transform->position.y < -0.3 || GB::outOfTheVisibleArea3D(transform->position))
+	{
+		touch = 0;
+		inMano = nullptr;
+		lastPlayerTouch = nullptr;
+		hitted = false;
+		hitting = false;
+		ground = false;
+
+		REF::game->ballOnGround(getCampoAttuale(), lastPlayerTouch);
+
+		rigidBody->velocity = UnityEngine::Vector3::zero;
 		transform->position = UnityEngine::Vector3(11.69f, 0.4f, 7.93f);
+	}
 
 	REF::game->touch->text = "Touch: " + touch;
 }
@@ -41,17 +63,7 @@ void Folie::Ball::OnCollisionEnter(UnityEngine::Collision collision)
 	auto gobj = collision.collider->gameObject;
 
 	if (gobj->CompareTag("Player"))
-	{
 		lastPlayerTouch = gobj->GetComponent<Player ^>();
-	}
-	else if (hitted && gobj->CompareTag("Pavimento"))
-	{
-		ground = true;
-		hitted = false;
-		touch = 0;
-
-		REF::game->ballOnGround(getCampoAttuale(), lastPlayerTouch);
-	}
 }
 
 void Folie::Ball::attachToHand(String ^player_name)

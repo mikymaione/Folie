@@ -27,6 +27,9 @@ namespace Folie
 		static UInt16 rndUInt16(UInt16 from_, UInt16 to_);
 		static Int16 rndInt16(Int16 from_, Int16 to_);
 
+		static bool inTheFieldArea3D(UnityEngine::Vector3 pos);
+		static bool outOfTheVisibleArea3D(UnityEngine::Vector3 pos);
+
 		static bool samePosition2D(UnityEngine::Vector2 a, UnityEngine::Vector2 b);
 		static bool samePosition3D(UnityEngine::Vector3 a, UnityEngine::Vector3 b);
 

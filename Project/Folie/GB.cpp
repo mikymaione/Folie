@@ -24,6 +24,16 @@ Int16 Folie::GB::rndInt16(Int16 from_, Int16 to_)
 	return rnd->Next(from_, to_ + 1);
 }
 
+bool Folie::GB::inTheFieldArea3D(UnityEngine::Vector3 pos)
+{
+	return pos.x >= 1 && pos.x < 10 && pos.z >= 1 && pos.z < 19;
+}
+
+bool Folie::GB::outOfTheVisibleArea3D(UnityEngine::Vector3 pos)
+{
+	return (pos.y < -0.3 || pos.x > 19 || pos.x < -9 || pos.z >30 || pos.z < -10);
+}
+
 generic <class T> where T : UnityEngine::Component T Folie::GB::GetComponentsInChildren(UnityEngine::MonoBehaviour ^mb, String ^tag)
 {
 	auto elements = mb->GetComponentsInChildren<T>();
@@ -143,9 +153,16 @@ UnityEngine::Vector2 Folie::GB::getCoordinates2DFromArea(Enums::eCampo campo, En
 Folie::Enums::eCampo Folie::GB::getCampoFromCoordinates(float x, float z)
 {
 	if (x < 1 || x >= 10)
+	{
 		return Enums::eCampo::fuori;
+	}
 	else
-		return (z < 10 ? Enums::eCampo::up : Enums::eCampo::down);
+	{
+		if (z >= 1 && z < 19)
+			return (z < 10 ? Enums::eCampo::up : Enums::eCampo::down);
+		else
+			return Enums::eCampo::fuori;
+	}
 }
 
 Folie::Enums::eCourt Folie::GB::getCourtFromCoordinates(float z)
