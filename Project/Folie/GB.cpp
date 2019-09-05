@@ -163,6 +163,29 @@ UnityEngine::Vector2 Folie::GB::getCoordinates2DFromArea(Enums::eCampo campo, En
 	throw gcnew Exception("case campo" + campo.ToString() + ",area: " + area.ToString() + " non gestito!");
 }
 
+Folie::Enums::eArea Folie::GB::getAttackArea(Enums::eCourt court, Enums::eRole role, Enums::ePosition position, UInt16 number_of_setters)
+{
+	switch (role)
+	{
+	case Folie::Enums::eRole::Setter:
+		if (number_of_setters == 1)
+			return Enums::eArea::a2;
+		else
+			return (court == Enums::eCourt::front ? Enums::eArea::a2 : Enums::eArea::a5);
+	case Folie::Enums::eRole::OutsideHitter:
+		return (court == Enums::eCourt::front ? Enums::eArea::a4O : Enums::eArea::a1E);
+	case Folie::Enums::eRole::MiddleBlocker:
+		return (court == Enums::eCourt::front ? Enums::eArea::a3 : Enums::eArea::a6);
+	case Folie::Enums::eRole::Libero:
+		return  Enums::eArea::a6;
+	case Folie::Enums::eRole::Opposite:
+		if (number_of_setters == 1)
+			return Enums::eArea::a5O;
+		else
+			return (court == Enums::eCourt::front ? Enums::eArea::a2E : Enums::eArea::a5O);
+	}
+}
+
 Folie::Enums::eCampo Folie::GB::getCampoFromCoordinates(float x, float z)
 {
 	if (x < 1 || x >= 10)

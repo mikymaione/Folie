@@ -76,7 +76,8 @@ namespace Folie
 
 		float getDistanceFromBall();
 
-		bool inPosizione();
+		void giocatorePrenderePosizioniInCampo(Enums::eCampo campo_);		
+		bool inPassPosition();
 
 		void move();
 		void moveToNextPosition();

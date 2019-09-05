@@ -30,10 +30,6 @@ void Folie::Ball::Update()
 	if (inMano != nullptr)
 		transform->SetPositionAndRotation(inMano->position, inMano->rotation);
 
-	if (hitted && !ballInHand())
-		if (transform->position.y < -0.0155f)
-			ballOnTheFloor();
-
 	if (transform->position.y < -0.3 || GB::outOfTheVisibleArea3D(transform->position))
 	{
 		ballOnTheFloor();

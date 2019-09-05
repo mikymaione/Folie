@@ -29,6 +29,8 @@ namespace Folie
 
 		Player ^P1, ^P2, ^P3, ^P4, ^P5, ^P6;
 
+		UInt16 number_of_setters;
+
 	private:
 		void Start();
 

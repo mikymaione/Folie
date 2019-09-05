@@ -20,7 +20,12 @@ void Folie::Team::Start()
 	players = gcnew array<Player ^> {P1, P2, P3, P4, P5, P6};
 
 	for each (auto p in players)
+	{
 		p->team = this;
+
+		if (p->role == Enums::eRole::Setter)
+			number_of_setters++;
+	}
 }
 
 Folie::Player ^Folie::Team::getPlayerAtPosition(Enums::ePosition position)
@@ -62,18 +67,13 @@ Folie::Player ^Folie::Team::getPlayerWithRole(Player ^mySelf, Enums::eRole searc
 void Folie::Team::giocatoriPrenderePosizioniInCampo()
 {
 	for each (auto p in players)
-	{
-		auto d = GB::getCoordinates2DFromPosition(campo, p->currentPosition);
-
-		p->campo = campo;
-		p->moveTo_Async(d.x, d.y);
-	}
+		p->giocatorePrenderePosizioniInCampo(campo);
 }
 
 bool Folie::Team::giocatoriInPosizione()
 {
 	for each (auto p in players)
-		if (!p->inPosizione())
+		if (!p->inPassPosition())
 			return false;
 
 	return true;
@@ -95,7 +95,7 @@ void Folie::Team::serve()
 {
 	for each (auto p in players)
 		if (p->currentPosition == Enums::ePosition::p1)
-		{			
+		{
 			p->serveRitual();
 			break;
 		}
