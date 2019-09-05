@@ -23,13 +23,17 @@ namespace Folie
 
 	public:
 		static void init();
-		static UInt16 rndUInt16(UInt16 from_, UInt16 to_);
 
-		static bool samePosition(UnityEngine::Vector3 a, UnityEngine::Vector3 b);
+		static UInt16 rndUInt16(UInt16 from_, UInt16 to_);
+		static Int16 rndInt16(Int16 from_, Int16 to_);
+
+		static bool samePosition2D(UnityEngine::Vector2 a, UnityEngine::Vector2 b);
+		static bool samePosition3D(UnityEngine::Vector3 a, UnityEngine::Vector3 b);
+
 		static Enums::eCampo oppositeField(Enums::eCampo campo);
 
-		static UnityEngine::Vector2 getCoordinatesFromPosition(Enums::eCampo campo, Enums::ePosition position);
-		static UnityEngine::Vector2 getCoordinatesFromArea(Enums::eCampo campo, Enums::eArea area);
+		static UnityEngine::Vector2 getCoordinates2DFromPosition(Enums::eCampo campo, Enums::ePosition position);
+		static UnityEngine::Vector2 getCoordinates2DFromArea(Enums::eCampo campo, Enums::eArea area);
 
 		static Enums::eCampo getCampoFromCoordinates(float x, float z);
 		static Enums::eArea getAreaFromCoordinates(float x, float z);

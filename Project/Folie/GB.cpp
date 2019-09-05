@@ -19,6 +19,11 @@ UInt16 Folie::GB::rndUInt16(UInt16 from_, UInt16 to_)
 	return rnd->Next(from_, to_ + 1);
 }
 
+Int16 Folie::GB::rndInt16(Int16 from_, Int16 to_)
+{
+	return rnd->Next(from_, to_ + 1);
+}
+
 generic <class T> where T : UnityEngine::Component T Folie::GB::GetComponentsInChildren(UnityEngine::MonoBehaviour ^mb, String ^tag)
 {
 	auto elements = mb->GetComponentsInChildren<T>();
@@ -28,7 +33,12 @@ generic <class T> where T : UnityEngine::Component T Folie::GB::GetComponentsInC
 			return c;
 }
 
-bool Folie::GB::samePosition(UnityEngine::Vector3 a, UnityEngine::Vector3 b)
+bool Folie::GB::samePosition2D(UnityEngine::Vector2 a, UnityEngine::Vector2 b)
+{
+	return a.x == b.x && a.y == b.y;
+}
+
+bool Folie::GB::samePosition3D(UnityEngine::Vector3 a, UnityEngine::Vector3 b)
 {
 	return a.x == b.x && a.z == b.z;
 }
@@ -44,14 +54,14 @@ Folie::Enums::eCampo Folie::GB::oppositeField(Enums::eCampo campo)
 	}
 }
 
-UnityEngine::Vector2 Folie::GB::getCoordinatesFromPosition(Enums::eCampo campo, Enums::ePosition position)
+UnityEngine::Vector2 Folie::GB::getCoordinates2DFromPosition(Enums::eCampo campo, Enums::ePosition position)
 {
 	auto area = getAreaFromPosition(position);
 
-	return getCoordinatesFromArea(campo, area);
+	return getCoordinates2DFromArea(campo, area);
 }
 
-UnityEngine::Vector2 Folie::GB::getCoordinatesFromArea(Enums::eCampo campo, Enums::eArea area)
+UnityEngine::Vector2 Folie::GB::getCoordinates2DFromArea(Enums::eCampo campo, Enums::eArea area)
 {
 	switch (campo)
 	{

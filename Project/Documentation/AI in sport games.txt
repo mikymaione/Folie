@@ -1,3 +1,23 @@
+Characters behaviour:
+a) Movement:
+-individuals
+-realistic
+-physical simulation
+
+b) Decision making:
+-possible actions: set, receive, pass, attack, block, serve, move
+-distinct states: looking at the ball, active, take position, take the ball
+-behaviour change: ball position, touch count
+-need to look ahead: ball trajectory, touch count
+
+c) tactical and strategic AI:
+-characters work togheter
+-characters think for themselves and display a group behaviour
+
+Strategy: serve receive system, offensive system, coverage system, defensive system.
+Formation: "4–2", "6–2" and "5–1"
+
+
 Multi-level AI:
 – Higher level: strategic decisions
 – Middle level: coordinated motion system (play patterns)

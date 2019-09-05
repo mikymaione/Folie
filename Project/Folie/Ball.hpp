@@ -30,7 +30,8 @@ namespace Folie
 		Enums::eCampo campoPrecedente;
 
 	internal:
-		UnityEngine::Vector2 destination;
+		UnityEngine::Vector2 destination2D, target2D;
+		UnityEngine::Vector3 destination3D;
 
 		UInt16 touch;
 
@@ -47,18 +48,18 @@ namespace Folie
 
 		void OnCollisionEnter(UnityEngine::Collision collision);
 
-		void addForce(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate, float angle);
+		void addForce(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate2D, float angle_Deg);
 
 		void setHitting(bool hitting_);
 
 	public:
 		Ball();
 
-		void serve(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate);
+		void serve(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate2D);
 
-		void hit(Player ^playerTouch, Enums::eCampo campo, Enums::ePosition position, float angle);
-		void hit(Player ^playerTouch, Enums::eCampo campo, Enums::eArea area, float angle);
-		void hit(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate, float angle);
+		void hit(Player ^playerTouch, Enums::eCampo campo, Enums::ePosition position, float angle_Deg);
+		void hit(Player ^playerTouch, Enums::eCampo campo, Enums::eArea area, float angle_Deg);
+		void hit(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate2D, float angle_Deg);
 
 	};
 }

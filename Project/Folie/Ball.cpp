@@ -85,41 +85,41 @@ void Folie::Ball::setHitting(bool hitting_)
 	hitting = hitting_;
 }
 
-void Folie::Ball::hit(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate, float angle)
+void Folie::Ball::hit(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate2D, float angle_Deg)
 {
 	if (!hitting)
 	{
 		hitting = true;
 		touch++;
 
-		addForce(playerTouch, campo, coordinate, angle);
+		addForce(playerTouch, campo, coordinate2D, angle_Deg);
 	}
 }
 
-void Folie::Ball::hit(Player ^playerTouch, Enums::eCampo campo, Enums::eArea area, float angle)
+void Folie::Ball::hit(Player ^playerTouch, Enums::eCampo campo, Enums::eArea area, float angle_Deg)
 {
 	if (!hitting)
 	{
-		auto coordinate = GB::getCoordinatesFromArea(campo, area);
-		hit(playerTouch, campo, coordinate, angle);
+		auto coordinate = GB::getCoordinates2DFromArea(campo, area);
+		hit(playerTouch, campo, coordinate, angle_Deg);
 	}
 }
 
-void Folie::Ball::hit(Player ^playerTouch, Enums::eCampo campo, Enums::ePosition position, float angle)
+void Folie::Ball::hit(Player ^playerTouch, Enums::eCampo campo, Enums::ePosition position, float angle_Deg)
 {
 	if (!hitting)
 	{
-		auto coordinate = GB::getCoordinatesFromPosition(campo, position);
-		hit(playerTouch, campo, coordinate, angle);
+		auto coordinate = GB::getCoordinates2DFromPosition(campo, position);
+		hit(playerTouch, campo, coordinate, angle_Deg);
 	}
 }
 
-void Folie::Ball::serve(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate)
+void Folie::Ball::serve(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate2D)
 {
 	if (!hitting)
 	{
 		touch = 0;
-		addForce(playerTouch, campo, coordinate, Enums::serve_angle);
+		addForce(playerTouch, campo, coordinate2D, Enums::serve_angle);
 	}
 }
 
@@ -130,7 +130,7 @@ Folie::Enums::eCampo Folie::Ball::getCampoAttuale()
 	return c;
 }
 
-void Folie::Ball::addForce(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate, float angle)
+void Folie::Ball::addForce(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate2D, float angle_Deg)
 {
 	if (!ground)
 	{
@@ -146,32 +146,37 @@ void Folie::Ball::addForce(Player ^playerTouch, Enums::eCampo campo, UnityEngine
 		}
 		else
 		{
-			auto a = angle * UnityEngine::Mathf::Deg2Rad;
+			auto x_error = GB::rndInt16(-1, 1);
+			auto z_error = GB::rndInt16(-1, 1);
 
-			auto destination = UnityEngine::Vector3(coordinate.x, 0, coordinate.y);
+			target2D = coordinate2D;
 
-			auto dir = UnityEngine::Vector3::operator-(destination, transform->position);
+			destination2D = UnityEngine::Vector2(coordinate2D.x + x_error, coordinate2D.y + z_error);
+			destination3D = UnityEngine::Vector3(destination2D.x, 0, destination2D.y);
+
+			auto dir = UnityEngine::Vector3::operator-(destination3D, transform->position);
 
 			auto height = dir.y;
 			dir.y = 0;
 
 			auto dist = dir.magnitude;
 
-			dir.y = dist * UnityEngine::Mathf::Tan(a);
-			dist += height / UnityEngine::Mathf::Tan(a);
+			auto angle_Rad = angle_Deg * UnityEngine::Mathf::Deg2Rad;
 
-			auto velocity = UnityEngine::Mathf::Sqrt(dist * UnityEngine::Physics::gravity.magnitude / UnityEngine::Mathf::Sin(2 * a));
+			dir.y = dist * UnityEngine::Mathf::Tan(angle_Rad);
+			dist += height / UnityEngine::Mathf::Tan(angle_Rad);
+
+			auto velocity = UnityEngine::Mathf::Sqrt(dist * UnityEngine::Physics::gravity.magnitude / UnityEngine::Mathf::Sin(2 * angle_Rad));
 
 			rigidBody->velocity = velocity * dir.normalized;
 
-			destination = coordinate;
 			hitted = true;
 
 			waiter->callAndWait(
 				this,
 				gcnew Action<bool>(this, &Ball::setHitting),
 				gcnew array<bool ^> {false},
-				REF::w4ms(150)
+				REF::w4ms(1000)
 			);
 		}
 	}

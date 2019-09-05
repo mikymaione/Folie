@@ -56,15 +56,15 @@ void Folie::Player::Update()
 				team->playerThatSayMia = nullptr;
 				REF::game->mine->text = "Mine:";
 			}
-			else if (distanceFromBall < Enums::min_distance_to_move_to_the_ball && team->playerThatSayMia == nullptr)
+			else if (GB::samePosition2D(REF::ball->target2D, GB::getCoordinates2DFromPosition(campo, currentPosition)))
 			{
 				team->playerThatSayMia = this;
 				REF::game->mine->text = "Mine: " + name;
-				agent->destination = REF::ball->destination;
+				agent->destination = REF::ball->destination3D;
 			}
 			else
 			{
-				auto myPos = GB::getCoordinatesFromPosition(campo, currentPosition);
+				auto myPos = GB::getCoordinates2DFromPosition(campo, currentPosition);
 				moveTo_Async(myPos.x, myPos.y);
 			}
 		}
@@ -83,7 +83,7 @@ float Folie::Player::getDistanceFromBall()
 
 bool Folie::Player::inPosizione()
 {
-	return GB::samePosition(agent->destination, transform->position);
+	return GB::samePosition3D(agent->destination, transform->position);
 }
 
 void Folie::Player::moveTo_(float pos_x, float pos_z)
@@ -115,7 +115,7 @@ void Folie::Player::moveTo(UnityEngine::Vector3 position)
 
 void Folie::Player::move()
 {
-	auto c = GB::getCoordinatesFromArea(campo, currentArea);
+	auto c = GB::getCoordinates2DFromArea(campo, currentArea);
 	moveTo(c.x, c.y);
 }
 
@@ -128,7 +128,7 @@ void Folie::Player::moveToPosition(Enums::ePosition position)
 void Folie::Player::moveToNextPosition()
 {
 	auto n = GB::getNextRotationPosition(currentPosition);
-	auto d = GB::getCoordinatesFromPosition(campo, n);
+	auto d = GB::getCoordinates2DFromPosition(campo, n);
 
 	currentPosition = n;
 
@@ -206,7 +206,7 @@ void Folie::Player::serve_(UnityEngine::Vector2 target)
 void Folie::Player::serve()
 {
 	targetChoosen = GB::selectRandomPosition(Enums::eCourt::back);
-	auto c = GB::getCoordinatesFromPosition(campo, targetChoosen);
+	auto c = GB::getCoordinates2DFromPosition(campo, targetChoosen);
 
 	lookAt(2, c.x, c.y);
 
@@ -334,7 +334,7 @@ void Folie::Player::lookAtAnOpponent()
 	float seconds = t / 10.0f;
 
 	auto target = GB::selectRandomPosition();
-	auto c = GB::getCoordinatesFromPosition(GB::oppositeField(campo), target);
+	auto c = GB::getCoordinates2DFromPosition(GB::oppositeField(campo), target);
 
 	phase = Enums::ePhase::null;
 	lookingAt = nullptr;
