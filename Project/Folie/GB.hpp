@@ -33,6 +33,8 @@ namespace Folie
 		static bool samePosition2D(UnityEngine::Vector2 a, UnityEngine::Vector2 b);
 		static bool samePosition3D(UnityEngine::Vector3 a, UnityEngine::Vector3 b);
 
+		static bool canAttackJumping(Enums::eRole role);
+
 		static Enums::eCampo oppositeField(Enums::eCampo campo);
 
 		static UnityEngine::Vector2 getCoordinates2DFromPosition(Enums::eCampo campo, Enums::ePosition position);

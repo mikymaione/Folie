@@ -23,6 +23,7 @@ void Folie::Player::Start()
 	currentArea = startingArea;
 	currentPosition = startingPosition;
 
+	rigidBody = GetComponent<UnityEngine::Rigidbody ^>();
 	agent = GetComponent<UnityEngine::AI::NavMeshAgent ^>();
 	mano = GB::GetComponentsInChildren<UnityEngine::Transform ^>(this, "Mano");
 }
@@ -60,7 +61,27 @@ void Folie::Player::Update()
 			{
 				team->playerThatSayMia = this;
 				REF::game->mine->text = "Mine: " + name;
-				agent->destination = REF::ball->destination3D;
+
+				if (!jumping)
+				{
+					agent->destination = REF::ball->destination3D;
+
+					switch (REF::ball->touch)
+					{
+					case 2:
+						if (GB::canAttackJumping(role))
+							if (distanceFromBall < Enums::min_distance_to_jump)
+								setJumping(true);
+
+						switch (GB::getCourtFromPosition(currentPosition))
+						{
+						case Enums::eCourt::front:
+
+							break;
+						}
+						break;
+					}
+				}
 			}
 			else
 			{
@@ -79,6 +100,10 @@ void Folie::Player::Update()
 					transform->position.Set(transform->position.x, transform->position.y, 10.2f);
 				break;
 			}
+		}
+		else
+		{
+			agent->enabled = true;
 		}
 	}
 
@@ -170,6 +195,24 @@ bool Folie::Player::goToElementReached()
 	return (dist < 1);
 }
 
+void Folie::Player::setJumping(bool j)
+{
+	agent->enabled = !j;
+	jumping = j;
+
+	if (j)
+	{
+		rigidBody->AddRelativeForce(UnityEngine::Vector3::up * rigidBody->mass * 3, UnityEngine::ForceMode::Impulse);
+
+		waiter->callAndWait(
+			this,
+			gcnew Action<bool>(this, &Player::setJumping),
+			gcnew array<bool ^> {false},
+			REF::w4s(1)
+		);
+	}
+}
+
 void Folie::Player::serveRitual()
 {
 	if (phase != Enums::ePhase::serve)
@@ -204,10 +247,10 @@ void Folie::Player::serve_(UnityEngine::Vector2 target)
 		switch (dest_court)
 		{
 		case Folie::Enums::eCampo::up:
-			y = 1;
+			y = 2;
 			break;
 		case Folie::Enums::eCampo::down:
-			y = 18;
+			y = 17;
 			break;
 		}
 
@@ -244,14 +287,6 @@ void Folie::Player::attack_(Enums::ePosition target)
 	if (phase != Enums::ePhase::attack)
 	{
 		phase = Enums::ePhase::attack;
-
-		switch (GB::getCampoFromCoordinates(transform->position.x, transform->position.z))
-		{
-		case Enums::eCampo::up:
-			//
-			break;
-		}
-
 		REF::ball->hit(this, GB::oppositeField(campo), target, calculateAngleOfAttack(target));
 	}
 }

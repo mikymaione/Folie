@@ -22,10 +22,15 @@ namespace Folie
 	public ref class Player :UnityEngine::MonoBehaviour
 	{
 	private:
+		bool jumping;
+
 		CoroutineQueue ^waiter;
 
 		Enums::ePosition targetChoosen;
+
 		UnityEngine::AI::NavMeshAgent ^agent;
+		UnityEngine::Rigidbody ^rigidBody;
+
 		UnityEngine::Vector3 ^lookingAt;
 
 		UnityEngine::Component ^goToElement;
@@ -63,6 +68,8 @@ namespace Folie
 		void takeTheBall();
 
 		bool goToElementReached();
+
+		void setJumping(bool j);
 
 	public:
 		Player();

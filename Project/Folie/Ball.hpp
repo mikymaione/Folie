@@ -52,6 +52,8 @@ namespace Folie
 
 		void setHitting(bool hitting_);
 
+		void ballOnTheFloor();
+
 	public:
 		Ball();
 

@@ -53,6 +53,19 @@ bool Folie::GB::samePosition3D(UnityEngine::Vector3 a, UnityEngine::Vector3 b)
 	return a.x == b.x && a.z == b.z;
 }
 
+bool Folie::GB::canAttackJumping(Enums::eRole role)
+{
+	switch (role)
+	{
+	case Folie::Enums::eRole::OutsideHitter:
+	case Folie::Enums::eRole::MiddleBlocker:
+	case Folie::Enums::eRole::Opposite:
+		return true;
+	default:
+		return false;
+	}
+}
+
 Folie::Enums::eCampo Folie::GB::oppositeField(Enums::eCampo campo)
 {
 	switch (campo)

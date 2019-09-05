@@ -476,6 +476,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
+--- !u!54 &143199511
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 143199509}
+  serializedVersion: 2
+  m_Mass: 75
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!195 &143199512
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -746,6 +762,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
+--- !u!54 &222444341
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222444339}
+  serializedVersion: 2
+  m_Mass: 50
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!195 &222444342
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1066,6 +1098,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
+--- !u!54 &401835979
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401835977}
+  serializedVersion: 2
+  m_Mass: 85
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!195 &401835980
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1349,6 +1397,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
+--- !u!54 &467354012
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467354010}
+  serializedVersion: 2
+  m_Mass: 50
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!195 &467354013
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1912,6 +1976,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
+--- !u!54 &837810536
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837810534}
+  serializedVersion: 2
+  m_Mass: 50
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!195 &837810537
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2498,6 +2578,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
+--- !u!54 &1169157102
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169157100}
+  serializedVersion: 2
+  m_Mass: 60
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!195 &1169157103
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4704,6 +4800,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
+--- !u!54 &1469049053
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469049051}
+  serializedVersion: 2
+  m_Mass: 75
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!195 &1469049054
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4766,6 +4878,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
+--- !u!54 &1509818955
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509818953}
+  serializedVersion: 2
+  m_Mass: 60
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!195 &1509818956
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4828,6 +4956,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
+--- !u!54 &1571497252
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571497250}
+  serializedVersion: 2
+  m_Mass: 90
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!195 &1571497253
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4890,6 +5034,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
+--- !u!54 &1604036737
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604036735}
+  serializedVersion: 2
+  m_Mass: 80
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!195 &1604036738
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4952,6 +5112,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
+--- !u!54 &1625788190
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625788188}
+  serializedVersion: 2
+  m_Mass: 70
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!195 &1625788191
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5135,6 +5311,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.083, y: 0.16, z: 0.045}
   m_Center: {x: 0, y: 0.08, z: 0}
+--- !u!54 &1827138188
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827138186}
+  serializedVersion: 2
+  m_Mass: 70
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!195 &1827138189
 NavMeshAgent:
   m_ObjectHideFlags: 0
