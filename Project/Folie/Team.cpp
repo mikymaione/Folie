@@ -64,6 +64,12 @@ Folie::Player ^Folie::Team::getPlayerWithRole(Player ^mySelf, Enums::eRole searc
 			return p;
 }
 
+void Folie::Team::giocatoriPrenderePosizioniInRicezione()
+{
+	for each (auto p in players)
+		p->giocatorePrenderePosizioniInRicezione();
+}
+
 void Folie::Team::giocatoriPrenderePosizioniInCampo()
 {
 	for each (auto p in players)

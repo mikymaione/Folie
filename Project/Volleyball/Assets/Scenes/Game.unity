@@ -501,7 +501,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 143199509}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.043
+  m_Radius: 0.053
   m_Speed: 5
   m_Acceleration: 10
   avoidancePriority: 50
@@ -527,6 +527,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Alessandro
+  walkSpeed: 5
+  runSpeed: 9
   startingPosition: 3
   role: 2
 --- !u!4 &143199514 stripped
@@ -787,7 +789,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 222444339}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.043
+  m_Radius: 0.053
   m_Speed: 5
   m_Acceleration: 10
   avoidancePriority: 50
@@ -813,6 +815,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Margherita
+  walkSpeed: 5
+  runSpeed: 9
   startingPosition: 4
   role: 0
 --- !u!4 &222444344 stripped
@@ -1123,7 +1127,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 401835977}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.043
+  m_Radius: 0.053
   m_Speed: 5
   m_Acceleration: 10
   avoidancePriority: 50
@@ -1149,6 +1153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Davide
+  walkSpeed: 5
+  runSpeed: 9
   startingPosition: 0
   role: 4
 --- !u!4 &401835982 stripped
@@ -1422,7 +1428,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 467354010}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.043
+  m_Radius: 0.053
   m_Speed: 5
   m_Acceleration: 10
   avoidancePriority: 50
@@ -1448,6 +1454,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Laura
+  walkSpeed: 5
+  runSpeed: 9
   startingPosition: 1
   role: 0
 --- !u!4 &467354015 stripped
@@ -2001,7 +2009,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 837810534}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.043
+  m_Radius: 0.053
   m_Speed: 5
   m_Acceleration: 10
   avoidancePriority: 50
@@ -2027,6 +2035,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Lara
+  walkSpeed: 5
+  runSpeed: 9
   startingPosition: 4
   role: 0
 --- !u!4 &837810539 stripped
@@ -2559,6 +2569,8 @@ MonoBehaviour:
   P4: {fileID: 1827138190}
   P5: {fileID: 1604036739}
   P6: {fileID: 1625788192}
+  number_of_setters: 0
+  serving: 0
 --- !u!1 &1169157100 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -2603,7 +2615,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1169157100}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.043
+  m_Radius: 0.053
   m_Speed: 5
   m_Acceleration: 10
   avoidancePriority: 50
@@ -2629,6 +2641,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Carla
+  walkSpeed: 5
+  runSpeed: 9
   startingPosition: 1
   role: 1
 --- !u!4 &1169157105 stripped
@@ -2785,6 +2799,8 @@ MonoBehaviour:
   P4: {fileID: 1571497254}
   P5: {fileID: 1469049055}
   P6: {fileID: 143199513}
+  number_of_setters: 0
+  serving: 0
 --- !u!1 &1325506166
 GameObject:
   m_ObjectHideFlags: 0
@@ -4825,7 +4841,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1469049051}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.043
+  m_Radius: 0.053
   m_Speed: 5
   m_Acceleration: 10
   avoidancePriority: 50
@@ -4851,8 +4867,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Filippo
+  walkSpeed: 5
+  runSpeed: 9
   startingPosition: 2
-  role: 1
+  role: 2
 --- !u!4 &1469049056 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11de9d883ba29e7408300ad1c2cc424b,
@@ -4903,7 +4921,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1509818953}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.043
+  m_Radius: 0.053
   m_Speed: 5
   m_Acceleration: 10
   avoidancePriority: 50
@@ -4929,6 +4947,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Federico
+  walkSpeed: 5
+  runSpeed: 9
   startingPosition: 3
   role: 1
 --- !u!4 &1509818958 stripped
@@ -4981,7 +5001,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1571497250}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.043
+  m_Radius: 0.053
   m_Speed: 5
   m_Acceleration: 10
   avoidancePriority: 50
@@ -5007,6 +5027,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Squilla
+  walkSpeed: 5
+  runSpeed: 9
   startingPosition: 5
   role: 2
 --- !u!4 &1571497255 stripped
@@ -5059,7 +5081,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1604036735}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.043
+  m_Radius: 0.053
   m_Speed: 5
   m_Acceleration: 10
   avoidancePriority: 50
@@ -5085,6 +5107,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Michele
+  walkSpeed: 5
+  runSpeed: 9
   startingPosition: 0
   role: 2
 --- !u!4 &1604036740 stripped
@@ -5137,7 +5161,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1625788188}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.043
+  m_Radius: 0.053
   m_Speed: 5
   m_Acceleration: 10
   avoidancePriority: 50
@@ -5163,6 +5187,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Lorenzo
+  walkSpeed: 5
+  runSpeed: 9
   startingPosition: 5
   role: 2
 --- !u!4 &1625788193 stripped
@@ -5336,7 +5362,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1827138186}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.043
+  m_Radius: 0.053
   m_Speed: 5
   m_Acceleration: 10
   avoidancePriority: 50
@@ -5362,6 +5388,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Piero
+  walkSpeed: 5
+  runSpeed: 9
   startingPosition: 2
   role: 1
 --- !u!4 &1827138191 stripped

@@ -31,6 +31,8 @@ namespace Folie
 
 		UInt16 number_of_setters;
 
+		bool serving;
+
 	private:
 		void Start();
 
@@ -42,6 +44,7 @@ namespace Folie
 		List<Player ^> ^getPlayersWithRole(Enums::eRole role);
 		Player ^getPlayerWithRole(Player ^mySelf, Enums::eRole search_role, Enums::eCourt court);
 
+		void giocatoriPrenderePosizioniInRicezione();
 		void giocatoriPrenderePosizioniInCampo();
 		bool giocatoriInPosizione();
 

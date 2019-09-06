@@ -49,6 +49,9 @@ namespace Folie
 	public:
 		String ^name;
 
+		float walkSpeed = 5;
+		float runSpeed = 9;
+
 		Enums::ePosition startingPosition;
 		Enums::eRole role;
 
@@ -56,7 +59,7 @@ namespace Folie
 		void Start();
 		void Update();
 
-		void moveTo_(float pos_x, float pos_z);
+		void moveTo_(float speed, float pos_x, float pos_z);
 
 		void set_();
 		void pass_();
@@ -71,21 +74,25 @@ namespace Folie
 
 		void setJumping(bool j);
 
+		void giocatorePrenderePosizioniInCampo(UnityEngine::Vector2 posizione);
+
 	public:
 		Player();
 
 		float getDistanceFromBall();
 
-		void giocatorePrenderePosizioniInCampo(Enums::eCampo campo_);		
+		void giocatorePrenderePosizioniInRicezione();
+		void giocatorePrenderePosizioniInCampo(Enums::eCampo campo_);
+
 		bool inPassPosition();
 
-		void move();
+		void move(float speed);
 		void moveToNextPosition();
 		void moveToPosition(Enums::ePosition position);
-		void moveTo(UnityEngine::Component ^comp);
-		void moveTo(UnityEngine::Vector3 position);
-		void moveTo(float pos_x, float pos_z);
-		void moveTo_Async(float pos_x, float pos_z);
+		void moveTo(float speed, UnityEngine::Component ^comp);
+		void moveTo(float speed, UnityEngine::Vector3 position);
+		void moveTo(float speed, float pos_x, float pos_z);
+		void moveTo_Async(float speed, float pos_x, float pos_z);
 
 		void pass();
 		void set();
