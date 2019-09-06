@@ -45,12 +45,12 @@ namespace Folie
 		Enums::ePhase phase;
 
 		Team ^team;
-
-	public:
-		String ^name;
-
+		
 		float walkSpeed = 5;
 		float runSpeed = 9;
+
+	public:
+		String ^name;	
 
 		Enums::ePosition startingPosition;
 		Enums::eRole role;

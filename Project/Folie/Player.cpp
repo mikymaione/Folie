@@ -292,13 +292,7 @@ void Folie::Player::setJumping(bool j)
 
 	if (j)
 	{
-		auto pos_of_landing2D = GB::getCoordinates2DFromPosition(campo, currentPosition);
-		auto pos_of_landing3D = UnityEngine::Vector3(pos_of_landing2D.x, 0, pos_of_landing2D.y);
-		auto myPos = UnityEngine::Vector3(transform->position.x, 0, transform->position.z);
-		auto dir = UnityEngine::Vector3::operator-(myPos, pos_of_landing3D);
-		dir = UnityEngine::Vector3::operator+(UnityEngine::Vector3::up, dir.normalized);
-
-		rigidBody->AddRelativeForce(dir * rigidBody->mass * 3, UnityEngine::ForceMode::Impulse);
+		rigidBody->AddRelativeForce(UnityEngine::Vector3::up * rigidBody->mass * 3, UnityEngine::ForceMode::Impulse);
 
 		waiter->callAndWait(
 			this,

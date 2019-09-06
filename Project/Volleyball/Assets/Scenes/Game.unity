@@ -503,7 +503,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.053
   m_Speed: 5
-  m_Acceleration: 10
+  m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 200
   m_StoppingDistance: 0
@@ -527,8 +527,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Alessandro
-  walkSpeed: 5
-  runSpeed: 9
   startingPosition: 3
   role: 2
 --- !u!4 &143199514 stripped
@@ -870,7 +868,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.053
   m_Speed: 5
-  m_Acceleration: 10
+  m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 200
   m_StoppingDistance: 0
@@ -894,8 +892,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Margherita
-  walkSpeed: 5
-  runSpeed: 9
   startingPosition: 4
   role: 0
 --- !u!4 &222444344 stripped
@@ -1210,7 +1206,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.053
   m_Speed: 5
-  m_Acceleration: 10
+  m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 200
   m_StoppingDistance: 0
@@ -1234,8 +1230,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Davide
-  walkSpeed: 5
-  runSpeed: 9
   startingPosition: 0
   role: 4
 --- !u!4 &401835982 stripped
@@ -1511,7 +1505,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.053
   m_Speed: 5
-  m_Acceleration: 10
+  m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 200
   m_StoppingDistance: 0
@@ -1535,8 +1529,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Laura
-  walkSpeed: 5
-  runSpeed: 9
   startingPosition: 1
   role: 0
 --- !u!4 &467354015 stripped
@@ -2171,7 +2163,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.053
   m_Speed: 5
-  m_Acceleration: 10
+  m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 200
   m_StoppingDistance: 0
@@ -2195,8 +2187,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Lara
-  walkSpeed: 5
-  runSpeed: 9
   startingPosition: 4
   role: 0
 --- !u!4 &837810539 stripped
@@ -2779,7 +2769,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.053
   m_Speed: 5
-  m_Acceleration: 10
+  m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 200
   m_StoppingDistance: 0
@@ -2803,8 +2793,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Carla
-  walkSpeed: 5
-  runSpeed: 9
   startingPosition: 1
   role: 1
 --- !u!4 &1169157105 stripped
@@ -5005,7 +4993,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.053
   m_Speed: 5
-  m_Acceleration: 10
+  m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 200
   m_StoppingDistance: 0
@@ -5029,8 +5017,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Filippo
-  walkSpeed: 5
-  runSpeed: 9
   startingPosition: 2
   role: 2
 --- !u!4 &1469049056 stripped
@@ -5085,7 +5071,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.053
   m_Speed: 5
-  m_Acceleration: 10
+  m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 200
   m_StoppingDistance: 0
@@ -5109,8 +5095,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Federico
-  walkSpeed: 5
-  runSpeed: 9
   startingPosition: 3
   role: 1
 --- !u!4 &1509818958 stripped
@@ -5165,7 +5149,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.053
   m_Speed: 5
-  m_Acceleration: 10
+  m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 200
   m_StoppingDistance: 0
@@ -5189,8 +5173,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Squilla
-  walkSpeed: 5
-  runSpeed: 9
   startingPosition: 5
   role: 2
 --- !u!4 &1571497255 stripped
@@ -5245,7 +5227,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.053
   m_Speed: 5
-  m_Acceleration: 10
+  m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 200
   m_StoppingDistance: 0
@@ -5269,8 +5251,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Michele
-  walkSpeed: 5
-  runSpeed: 9
   startingPosition: 0
   role: 2
 --- !u!4 &1604036740 stripped
@@ -5325,7 +5305,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.053
   m_Speed: 5
-  m_Acceleration: 10
+  m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 200
   m_StoppingDistance: 0
@@ -5349,8 +5329,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Lorenzo
-  walkSpeed: 5
-  runSpeed: 9
   startingPosition: 5
   role: 2
 --- !u!4 &1625788193 stripped
@@ -5526,7 +5504,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.053
   m_Speed: 5
-  m_Acceleration: 10
+  m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 200
   m_StoppingDistance: 0
@@ -5550,8 +5528,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Piero
-  walkSpeed: 5
-  runSpeed: 9
   startingPosition: 2
   role: 1
 --- !u!4 &1827138191 stripped
