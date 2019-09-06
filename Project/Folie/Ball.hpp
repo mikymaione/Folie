@@ -29,6 +29,7 @@ namespace Folie
 		bool hitted, hitting, ground;
 
 	internal:
+		Enums::eArea targetArea;
 		UnityEngine::Vector2 destination2D, target2D;
 		UnityEngine::Vector3 destination3D;
 

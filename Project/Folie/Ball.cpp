@@ -41,7 +41,7 @@ void Folie::Ball::OnCollisionEnter(UnityEngine::Collision collision)
 	if (gobj->CompareTag("Player"))
 	{
 		lastPlayerTouch = gobj->GetComponent<Player ^>();
-		lastPlayerTouch->team->touch++;
+		//lastPlayerTouch->team->touch++;
 	}
 	else if (hitted && gobj->CompareTag("Pavimento"))
 	{
@@ -97,57 +97,44 @@ void Folie::Ball::ballOnTheFloor()
 
 void Folie::Ball::hit(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate2D, float angle_Deg)
 {
-	if (!hitting)
-	{
-		hitting = true;
-
-		addForce(playerTouch, campo, coordinate2D, angle_Deg);
-	}
+	addForce(playerTouch, campo, coordinate2D, angle_Deg);
 }
 
 void Folie::Ball::hit(Player ^playerTouch, Enums::eCampo campo, Enums::eArea area, float angle_Deg)
 {
-	if (!hitting)
-	{
-		auto coordinate = GB::getCoordinates2DFromArea(campo, area);
-		hit(playerTouch, campo, coordinate, angle_Deg);
-	}
+	auto coordinate = GB::getCoordinates2DFromArea(campo, area);
+	hit(playerTouch, campo, coordinate, angle_Deg);
 }
 
 void Folie::Ball::hit(Player ^playerTouch, Enums::eCampo campo, Enums::ePosition position, float angle_Deg)
 {
-	if (!hitting)
-	{
-		auto coordinate = GB::getCoordinates2DFromPosition(campo, position);
-		hit(playerTouch, campo, coordinate, angle_Deg);
-	}
+	auto coordinate = GB::getCoordinates2DFromPosition(campo, position);
+	hit(playerTouch, campo, coordinate, angle_Deg);
 }
 
 void Folie::Ball::serve(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate2D)
 {
-	if (!hitting)
-		addForce(playerTouch, campo, coordinate2D, Enums::serve_angle);
+	addForce(playerTouch, campo, coordinate2D, Enums::serve_angle);
 }
 
 Folie::Enums::eCampo Folie::Ball::getCampoAttuale()
 {
-	auto c = GB::getCampoFromCoordinates(transform->position.x, transform->position.z);
-
-	return c;
+	return GB::getCampoFromCoordinates(transform->position.x, transform->position.z);
 }
 
 void Folie::Ball::addForce(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate2D, float angle_Deg)
 {
-	if (!ground)
+	if (!ground && !hitting)
 	{
+		hitting = true;
 		inMano = nullptr;
 
-		playerTouch->team->touch++;
+		playerTouch->team->incTouch();
 
 		lastPlayerTouch = playerTouch;
 		REF::game->playerName->text = "Last touch: " + lastPlayerTouch->name;
 
-		if (playerTouch->team->touch > 3)
+		if (playerTouch->team->getTouch() > 3)
 		{
 			ground = true;
 			REF::game->ballOnGround(getCampoAttuale(), lastPlayerTouch);
@@ -161,6 +148,8 @@ void Folie::Ball::addForce(Player ^playerTouch, Enums::eCampo campo, UnityEngine
 
 			destination2D = UnityEngine::Vector2(coordinate2D.x + x_error, coordinate2D.y + z_error);
 			destination3D = UnityEngine::Vector3(destination2D.x, 0, destination2D.y);
+
+			targetArea = GB::getAreaFromCoordinates(destination2D.x, destination2D.y);
 
 			auto dir = UnityEngine::Vector3::operator-(destination3D, transform->position);
 
@@ -184,7 +173,7 @@ void Folie::Ball::addForce(Player ^playerTouch, Enums::eCampo campo, UnityEngine
 				this,
 				gcnew Action<bool>(this, &Ball::setHitting),
 				gcnew array<bool ^> {false},
-				REF::w4ms(1000)
+				REF::w4ms(800)
 			);
 		}
 	}

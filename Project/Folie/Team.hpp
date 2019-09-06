@@ -19,11 +19,12 @@ namespace Folie
 	private:
 		CoroutineQueue ^waiter;
 
+		bool _lockTouch;
+		UInt16 _touch;
+
 	internal:
 		Player ^playerThatSayMia;
 		array<Player ^> ^players;
-
-		UInt16 touch;
 
 	public:
 		String ^name;
@@ -38,8 +39,14 @@ namespace Folie
 	private:
 		void Start();
 
+		void unlockTouch();
+
 	internal:
 		void setMine(String ^s);
+
+		UInt16 getTouch();
+		void incTouch();
+		void zeroTouch();
 
 	public:
 		Team();
@@ -57,6 +64,8 @@ namespace Folie
 
 		void lookAtOpponent();
 		void serve();
+
+		void reset();
 
 	};
 }

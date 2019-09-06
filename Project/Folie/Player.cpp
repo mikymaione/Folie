@@ -30,7 +30,7 @@ void Folie::Player::Start()
 
 void Folie::Player::Update()
 {
-	if (REF::ball != nullptr)
+	if (REF::ball != nullptr && phase != Enums::ePhase::serve)
 	{
 		auto ballIsFlying = REF::ball->ballIsFlying();
 		auto distanceFromBall = getDistanceFromBall();
@@ -42,15 +42,26 @@ void Folie::Player::Update()
 			auto attack_area = GB::getAttackArea(getCurrentCourt(), role, currentPosition, team->number_of_setters);
 			auto coord_attack_area = GB::getCoordinates2DFromArea(campo, attack_area);
 
-			if (distanceFromBall < Enums::min_distance_to_hit && campo == REF::ball->getCampoAttuale())
+			if (distanceFromBall < Enums::min_distance_to_hit)
 			{
-				switch (team->touch)
+				switch (team->getTouch())
 				{
 				case 0:
 					pass_();
 					break;
 				case 1:
-					set_();
+					switch (role)
+					{
+					case Folie::Enums::eRole::Libero:
+					case Folie::Enums::eRole::Setter:
+						set_();
+						break;
+					case Folie::Enums::eRole::OutsideHitter:
+					case Folie::Enums::eRole::MiddleBlocker:
+					case Folie::Enums::eRole::Opposite:
+						attack_(GB::selectRandomPosition());
+						break;
+					}
 					break;
 				case 2:
 					attack_(GB::selectRandomPosition());
@@ -60,9 +71,19 @@ void Folie::Player::Update()
 				team->playerThatSayMia = nullptr;
 				team->setMine("");
 			}
-			else if (GB::samePosition2D(REF::ball->target2D, GB::getCoordinates2DFromArea(campo, currentArea)))
+			else if (!jumping && GB::samePosition2D(REF::ball->target2D, coord_attack_area))
 			{
-				if (role == Enums::eRole::Setter && team->touch == 0)
+				switch (team->getTouch())
+				{
+				case 2:
+					if (distanceFromBall < Enums::min_distance_to_jump && GB::canAttackJumping(role))
+						setJumping(true);
+					break;
+				}
+			}
+			else if (REF::ball->targetArea == currentArea)
+			{
+				if (role == Enums::eRole::Setter && team->getTouch() == 0)
 				{
 					auto front_middle_blocker = team->getPlayerWithRole(this, Enums::eRole::MiddleBlocker, Enums::eCourt::front);
 
@@ -80,16 +101,6 @@ void Folie::Player::Update()
 				if (!jumping)
 					agent->destination = REF::ball->destination3D;
 			}
-			else if (!jumping && GB::samePosition2D(REF::ball->target2D, coord_attack_area))
-			{
-				switch (team->touch)
-				{
-				case 2:
-					if (distanceFromBall < Enums::min_distance_to_jump && GB::canAttackJumping(role))
-						setJumping(true);
-					break;
-				}
-			}
 			else if (!jumping)
 			{
 				auto prendi_posizione = true;
@@ -98,12 +109,12 @@ void Folie::Player::Update()
 					switch (role)
 					{
 					case Folie::Enums::eRole::Opposite:
-						prendi_posizione = (team->touch > 0);
+						prendi_posizione = (team->getTouch() > 0);
 						break;
 					case Folie::Enums::eRole::OutsideHitter:
 					case Folie::Enums::eRole::MiddleBlocker:
 						if (getCurrentCourt() == Enums::eCourt::back)
-							prendi_posizione = (team->touch > 0);
+							prendi_posizione = (team->getTouch() > 0);
 
 						break;
 					}
@@ -235,10 +246,10 @@ void Folie::Player::move(float speed)
 	moveTo(speed, c.x, c.y);
 }
 
-void Folie::Player::moveToPosition(Enums::ePosition position)
+void Folie::Player::moveToPosition(float speed, Enums::ePosition position)
 {
 	currentArea = GB::getAreaFromPosition(position);
-	move(walkSpeed);
+	move(speed);
 }
 
 void Folie::Player::moveToNextPosition()
@@ -323,24 +334,21 @@ void Folie::Player::serveRitual()
 
 void Folie::Player::serve_(UnityEngine::Vector2 target)
 {
-	if (getDistanceFromBall() < Enums::min_distance_to_hit)
+	auto dest_court = GB::oppositeField(campo);
+
+	auto y = target.y;
+
+	switch (dest_court)
 	{
-		auto dest_court = GB::oppositeField(campo);
-
-		auto y = target.y;
-
-		switch (dest_court)
-		{
-		case Folie::Enums::eCampo::up:
-			y = 2;
-			break;
-		case Folie::Enums::eCampo::down:
-			y = 17;
-			break;
-		}
-
-		REF::ball->serve(this, dest_court, UnityEngine::Vector2(target.x, y));
+	case Folie::Enums::eCampo::up:
+		y = 2;
+		break;
+	case Folie::Enums::eCampo::down:
+		y = 17;
+		break;
 	}
+
+	REF::ball->serve(this, dest_court, UnityEngine::Vector2(target.x, y));
 }
 
 void Folie::Player::serve()
@@ -357,7 +365,7 @@ void Folie::Player::serve()
 		REF::w4s(1)
 	);
 
-	moveToPosition(currentPosition);
+	moveToPosition(runSpeed, currentPosition);
 }
 
 void Folie::Player::takeTheBall()
@@ -398,7 +406,11 @@ float Folie::Player::calculateAngleOfAttack(Enums::ePosition target)
 	auto court_target = GB::getCourtFromPosition(target);
 	auto court_mySelf = this->getCurrentCourt();
 
-	if (court_mySelf == Enums::eCourt::back && court_target == Enums::eCourt::back)
+	if (jumping && court_mySelf == Enums::eCourt::back)
+		return Enums::jump_attack_angle;
+	else if (jumping && court_mySelf == Enums::eCourt::front)
+		return Enums::jump_kill_angle;
+	else if (court_mySelf == Enums::eCourt::back && court_target == Enums::eCourt::back)
 		return Enums::serve_angle;
 	else if (court_mySelf == Enums::eCourt::back && court_target == Enums::eCourt::front)
 		return Enums::attack_angle;
@@ -436,6 +448,8 @@ void Folie::Player::set_()
 
 		auto hitter = team->getPlayerWithRole(this, randomRole, randomCourt);
 		auto area = GB::getAttackArea(hitter->getCurrentCourt(), hitter->role, hitter->currentPosition, team->number_of_setters);
+
+		team->playerThatSayMia = hitter;
 
 		REF::ball->hit(this, campo, area, Enums::pass_angle);
 	}

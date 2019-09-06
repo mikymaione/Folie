@@ -88,7 +88,7 @@ namespace Folie
 
 		void move(float speed);
 		void moveToNextPosition();
-		void moveToPosition(Enums::ePosition position);
+		void moveToPosition(float speed, Enums::ePosition position);
 		void moveTo(float speed, UnityEngine::Component ^comp);
 		void moveTo(float speed, UnityEngine::Vector3 position);
 		void moveTo(float speed, float pos_x, float pos_z);

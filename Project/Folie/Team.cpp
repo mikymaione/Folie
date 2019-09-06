@@ -36,6 +36,37 @@ void Folie::Team::setMine(String ^s)
 		REF::game->mineTeamB->text = "Mine: " + s;
 }
 
+void Folie::Team::unlockTouch()
+{
+	_lockTouch = false;
+}
+
+UInt16 Folie::Team::getTouch()
+{
+	return _touch;
+}
+
+void Folie::Team::incTouch()
+{
+	if (!_lockTouch)
+	{
+		_touch++;
+		_lockTouch = true;
+
+		waiter->waitAndCall(
+			this,
+			REF::w4ms(200),
+			gcnew Action(this, &Team::unlockTouch)
+		);
+	}
+}
+
+void Folie::Team::zeroTouch()
+{
+	_touch = 0;
+	_lockTouch = false;
+}
+
 Folie::Player ^Folie::Team::getPlayerAtPosition(Enums::ePosition position)
 {
 	for each (auto p in players)
@@ -107,7 +138,7 @@ void Folie::Team::lookAtOpponent()
 
 void Folie::Team::serve()
 {
-	touch = 0;
+	zeroTouch();
 
 	for each (auto p in players)
 		if (p->currentPosition == Enums::ePosition::p1)
@@ -115,4 +146,10 @@ void Folie::Team::serve()
 			p->serveRitual();
 			break;
 		}
+}
+
+void Folie::Team::reset()
+{
+	playerThatSayMia = nullptr;
+	zeroTouch();
 }

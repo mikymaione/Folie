@@ -17,6 +17,8 @@ namespace Folie
 		literal float min_distance_to_jump = 3.5f;
 		literal float min_distance_to_move_to_the_ball = 6.0f;
 
+		literal float jump_kill_angle = 5;
+		literal float jump_attack_angle = 20;
 		literal float attack_angle = 50;
 		literal float serve_angle = 32;
 		literal float pass_angle = 70;
