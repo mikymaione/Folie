@@ -27,13 +27,10 @@ namespace Folie
 
 		Player ^lastPlayerTouch;
 		bool hitted, hitting, ground;
-		Enums::eCampo campoPrecedente;
 
 	internal:
 		UnityEngine::Vector2 destination2D, target2D;
 		UnityEngine::Vector3 destination3D;
-
-		UInt16 touch;
 
 		Enums::eCampo getCampoAttuale();
 

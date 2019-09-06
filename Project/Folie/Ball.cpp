@@ -22,11 +22,6 @@ void Folie::Ball::Start()
 
 void Folie::Ball::Update()
 {
-	if (campoPrecedente != getCampoAttuale())
-		touch = 0;
-
-	campoPrecedente = getCampoAttuale();
-
 	if (inMano != nullptr)
 		transform->SetPositionAndRotation(inMano->position, inMano->rotation);
 
@@ -37,8 +32,6 @@ void Folie::Ball::Update()
 		rigidBody->velocity = UnityEngine::Vector3::zero;
 		transform->position = UnityEngine::Vector3(11.69f, 0.4f, 7.93f);
 	}
-
-	REF::game->touch->text = "Touch: " + touch;
 }
 
 void Folie::Ball::OnCollisionEnter(UnityEngine::Collision collision)
@@ -46,9 +39,14 @@ void Folie::Ball::OnCollisionEnter(UnityEngine::Collision collision)
 	auto gobj = collision.collider->gameObject;
 
 	if (gobj->CompareTag("Player"))
+	{
 		lastPlayerTouch = gobj->GetComponent<Player ^>();
+		lastPlayerTouch->team->touch++;
+	}
 	else if (hitted && gobj->CompareTag("Pavimento"))
+	{
 		ballOnTheFloor();
+	}
 }
 
 void Folie::Ball::attachToHand(String ^player_name)
@@ -86,7 +84,6 @@ void Folie::Ball::ballOnTheFloor()
 {
 	if (lastPlayerTouch != nullptr)
 	{
-		touch = 0;
 		inMano = nullptr;
 		hitted = false;
 		hitting = false;
@@ -103,7 +100,6 @@ void Folie::Ball::hit(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vec
 	if (!hitting)
 	{
 		hitting = true;
-		touch++;
 
 		addForce(playerTouch, campo, coordinate2D, angle_Deg);
 	}
@@ -130,10 +126,7 @@ void Folie::Ball::hit(Player ^playerTouch, Enums::eCampo campo, Enums::ePosition
 void Folie::Ball::serve(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate2D)
 {
 	if (!hitting)
-	{
-		touch = 0;
 		addForce(playerTouch, campo, coordinate2D, Enums::serve_angle);
-	}
 }
 
 Folie::Enums::eCampo Folie::Ball::getCampoAttuale()
@@ -149,10 +142,12 @@ void Folie::Ball::addForce(Player ^playerTouch, Enums::eCampo campo, UnityEngine
 	{
 		inMano = nullptr;
 
+		playerTouch->team->touch++;
+
 		lastPlayerTouch = playerTouch;
 		REF::game->playerName->text = "Last touch: " + lastPlayerTouch->name;
 
-		if (touch > 3)
+		if (playerTouch->team->touch > 3)
 		{
 			ground = true;
 			REF::game->ballOnGround(getCampoAttuale(), lastPlayerTouch);

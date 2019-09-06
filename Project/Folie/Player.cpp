@@ -42,14 +42,9 @@ void Folie::Player::Update()
 			auto attack_area = GB::getAttackArea(getCurrentCourt(), role, currentPosition, team->number_of_setters);
 			auto coord_attack_area = GB::getCoordinates2DFromArea(campo, attack_area);
 
-			if (team->playerThatSayMia != nullptr)
-			{
-
-			}
-
 			if (distanceFromBall < Enums::min_distance_to_hit && campo == REF::ball->getCampoAttuale())
 			{
-				switch (REF::ball->touch)
+				switch (team->touch)
 				{
 				case 0:
 					pass_();
@@ -63,28 +58,31 @@ void Folie::Player::Update()
 				}
 
 				team->playerThatSayMia = nullptr;
-				REF::game->mine->text = "Mine:";
-			}			
+				team->setMine("");
+			}
 			else if (GB::samePosition2D(REF::ball->target2D, GB::getCoordinates2DFromArea(campo, currentArea)))
 			{
-				if (role == Enums::eRole::Setter && REF::ball->touch == 0)
+				if (role == Enums::eRole::Setter && team->touch == 0)
 				{
 					auto front_middle_blocker = team->getPlayerWithRole(this, Enums::eRole::MiddleBlocker, Enums::eCourt::front);
+
 					team->playerThatSayMia = front_middle_blocker;
+
+					front_middle_blocker->moveTo_Async(runSpeed, REF::ball->destination2D.x, REF::ball->destination2D.y);
 				}
 				else
 				{
 					team->playerThatSayMia = this;
 				}
 
-				REF::game->mine->text = "Mine: " + name;
+				team->setMine(name);
 
 				if (!jumping)
 					agent->destination = REF::ball->destination3D;
 			}
 			else if (!jumping && GB::samePosition2D(REF::ball->target2D, coord_attack_area))
 			{
-				switch (REF::ball->touch)
+				switch (team->touch)
 				{
 				case 2:
 					if (distanceFromBall < Enums::min_distance_to_jump && GB::canAttackJumping(role))
@@ -100,12 +98,12 @@ void Folie::Player::Update()
 					switch (role)
 					{
 					case Folie::Enums::eRole::Opposite:
-						prendi_posizione = (REF::ball->touch > 0);
+						prendi_posizione = (team->touch > 0);
 						break;
 					case Folie::Enums::eRole::OutsideHitter:
 					case Folie::Enums::eRole::MiddleBlocker:
 						if (getCurrentCourt() == Enums::eCourt::back)
-							prendi_posizione = (REF::ball->touch > 0);
+							prendi_posizione = (team->touch > 0);
 
 						break;
 					}

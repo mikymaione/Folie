@@ -28,6 +28,14 @@ void Folie::Team::Start()
 	}
 }
 
+void Folie::Team::setMine(String ^s)
+{
+	if (this == REF::teamA)
+		REF::game->mineTeamA->text = "Mine: " + s;
+	else if (this == REF::teamB)
+		REF::game->mineTeamB->text = "Mine: " + s;
+}
+
 Folie::Player ^Folie::Team::getPlayerAtPosition(Enums::ePosition position)
 {
 	for each (auto p in players)
@@ -99,6 +107,8 @@ void Folie::Team::lookAtOpponent()
 
 void Folie::Team::serve()
 {
+	touch = 0;
+
 	for each (auto p in players)
 		if (p->currentPosition == Enums::ePosition::p1)
 		{

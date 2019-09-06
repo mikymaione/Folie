@@ -23,6 +23,8 @@ namespace Folie
 		Player ^playerThatSayMia;
 		array<Player ^> ^players;
 
+		UInt16 touch;
+
 	public:
 		String ^name;
 		Enums::eCampo campo;
@@ -35,6 +37,9 @@ namespace Folie
 
 	private:
 		void Start();
+
+	internal:
+		void setMine(String ^s);
 
 	public:
 		Team();
