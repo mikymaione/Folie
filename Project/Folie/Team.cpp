@@ -30,16 +30,17 @@ void Folie::Team::Start()
 
 void Folie::Team::setMine(String ^name_)
 {
-	auto mine = "Mine: " + name_;
+	String ^empty = "Mine: ";
+	auto mine = empty + name_;
 
 	if (this == REF::teamA)
 	{
 		REF::game->mineTeamA->text = mine;
-		REF::game->mineTeamB->text = String::Empty;
+		REF::game->mineTeamB->text = empty;
 	}
 	else
 	{
-		REF::game->mineTeamA->text = String::Empty;
+		REF::game->mineTeamA->text = empty;
 		REF::game->mineTeamB->text = mine;
 	}
 }

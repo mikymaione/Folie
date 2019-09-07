@@ -83,7 +83,7 @@ void Folie::Player::Update()
 			}
 			else if (REF::ball->targetArea == currentArea)
 			{
-				if (role == Enums::eRole::Setter && team->getTouch() == 0)
+				if (role == Enums::eRole::Setter && team->number_of_setters == 1 && team->getTouch() == 0)
 				{
 					auto front_middle_blocker = team->getPlayerWithRole(this, Enums::eRole::MiddleBlocker, Enums::eCourt::front);
 
@@ -108,6 +108,10 @@ void Folie::Player::Update()
 				if (!team->serving)
 					switch (role)
 					{
+					case Folie::Enums::eRole::Setter:
+						if (team->number_of_setters > 1 && getCurrentCourt() == Enums::eCourt::back)
+							prendi_posizione = (team->getTouch() > 0);
+						break;
 					case Folie::Enums::eRole::Opposite:
 						prendi_posizione = (team->getTouch() > 0);
 						break;
@@ -282,7 +286,7 @@ bool Folie::Player::goToElementReached()
 	auto dist = UnityEngine::Vector3::Distance(transform->position, dest);
 
 	if (dist > 1)
-		moveTo_(runSpeed, dest.x, dest.z);
+		moveTo_(walkSpeed, dest.x, dest.z);
 
 	return (dist < 1);
 }
@@ -402,10 +406,14 @@ float Folie::Player::calculateAngleOfAttack(Enums::ePosition target)
 	auto court_target = GB::getCourtFromPosition(target);
 	auto court_mySelf = this->getCurrentCourt();
 
-	if (jumping && court_mySelf == Enums::eCourt::back)
+	if (jumping && court_mySelf == Enums::eCourt::back && court_target == Enums::eCourt::front)
+		return Enums::serve_angle;
+	else if (jumping && court_mySelf == Enums::eCourt::back && court_target == Enums::eCourt::back)
 		return Enums::jump_attack_angle;
-	else if (jumping && court_mySelf == Enums::eCourt::front)
+	else if (jumping && court_mySelf == Enums::eCourt::front && court_target == Enums::eCourt::back)
 		return Enums::jump_kill_angle;
+	else if (jumping && court_mySelf == Enums::eCourt::front && court_target == Enums::eCourt::front)
+		return Enums::jump_attack_angle;
 	else if (court_mySelf == Enums::eCourt::back && court_target == Enums::eCourt::back)
 		return Enums::serve_angle;
 	else if (court_mySelf == Enums::eCourt::back && court_target == Enums::eCourt::front)
