@@ -69,7 +69,6 @@ void Folie::Player::Update()
 				}
 
 				team->playerThatSayMia = nullptr;
-				team->setMine("");
 			}
 			else if (!jumping && GB::samePosition2D(REF::ball->target2D, coord_attack_area))
 			{
@@ -96,10 +95,9 @@ void Folie::Player::Update()
 					team->playerThatSayMia = this;
 				}
 
-				team->setMine(name);
-
 				if (!jumping)
-					agent->destination = REF::ball->destination3D;
+					if (GB::getCampoFromCoordinates(REF::ball->destination3D.x, REF::ball->destination3D.z) == campo)
+						agent->destination = REF::ball->destination3D;
 			}
 			else if (!jumping)
 			{
@@ -125,18 +123,6 @@ void Folie::Player::Update()
 
 				if (prendi_posizione)
 					moveTo_Async(runSpeed, coord_attack_area.x, coord_attack_area.y);
-			}
-
-			switch (campo)
-			{
-			case Folie::Enums::eCampo::up:
-				if (transform->position.z > 9.8f)
-					transform->position.Set(transform->position.x, transform->position.y, 9.9f);
-				break;
-			case Folie::Enums::eCampo::down:
-				if (transform->position.z < 10.2f)
-					transform->position.Set(transform->position.x, transform->position.y, 10.2f);
-				break;
 			}
 		}
 		else
@@ -221,9 +207,11 @@ void Folie::Player::moveTo_(float speed, float pos_x, float pos_z)
 
 	currentArea = GB::getAreaFromCoordinates(pos_x, pos_z);
 
-	agent->speed = speed;
-	agent->destination = d;
-	agent->speed = speed;
+	if (agent->enabled)
+	{
+		agent->speed = speed;
+		agent->destination = d;
+	}
 }
 
 void Folie::Player::moveTo(float speed, float pos_x, float pos_z)

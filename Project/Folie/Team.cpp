@@ -28,21 +28,20 @@ void Folie::Team::Start()
 	}
 }
 
-void Folie::Team::setMine(String ^name_)
+void Folie::Team::Update()
 {
-	String ^empty = "Mine: ";
-	auto mine = empty + name_;
+	setMine();
+}
+
+void Folie::Team::setMine()
+{
+	auto name = (playerThatSayMia == nullptr ? "" : playerThatSayMia->name);
+	auto mine = "Mine: " + name;
 
 	if (this == REF::teamA)
-	{
 		REF::game->mineTeamA->text = mine;
-		REF::game->mineTeamB->text = empty;
-	}
 	else
-	{
-		REF::game->mineTeamA->text = empty;
 		REF::game->mineTeamB->text = mine;
-	}
 }
 
 void Folie::Team::unlockTouch()

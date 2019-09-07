@@ -38,12 +38,13 @@ namespace Folie
 
 	private:
 		void Start();
+		void Update();
+
+		void setMine();
 
 		void unlockTouch();
 
 	internal:
-		void setMine(String ^name_);
-
 		UInt16 getTouch();
 		void incTouch();
 		void zeroTouch();
