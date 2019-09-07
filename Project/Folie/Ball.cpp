@@ -39,14 +39,9 @@ void Folie::Ball::OnCollisionEnter(UnityEngine::Collision collision)
 	auto gobj = collision.collider->gameObject;
 
 	if (gobj->CompareTag("Player"))
-	{
 		lastPlayerTouch = gobj->GetComponent<Player ^>();
-		//lastPlayerTouch->team->touch++;
-	}
 	else if (hitted && gobj->CompareTag("Pavimento"))
-	{
 		ballOnTheFloor();
-	}
 }
 
 void Folie::Ball::attachToHand(String ^player_name)

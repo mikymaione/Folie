@@ -42,7 +42,14 @@ void Folie::Player::Update()
 			auto attack_area = GB::getAttackArea(getCurrentCourt(), role, currentPosition, team->number_of_setters);
 			auto coord_attack_area = GB::getCoordinates2DFromArea(campo, attack_area);
 
-			if (distanceFromBall < Enums::min_distance_to_hit)
+			if (gamePhase != Enums::eGamePhase::serve || team->getTouch() > 0)
+				gamePhase = (campo == REF::ball->getCampoAttuale() ? Enums::eGamePhase::attack : Enums::eGamePhase::defence);
+
+			if (gamePhase == Enums::eGamePhase::defence)
+			{
+				giocatorePrenderePosizioniInRicezione();
+			}
+			else if (distanceFromBall < Enums::min_distance_to_hit)
 			{
 				switch (team->getTouch())
 				{
@@ -97,7 +104,7 @@ void Folie::Player::Update()
 
 				if (!jumping)
 					if (GB::getCampoFromCoordinates(REF::ball->destination3D.x, REF::ball->destination3D.z) == campo)
-						agent->destination = REF::ball->destination3D;
+						moveTo_Async(runSpeed, REF::ball->destination3D.x, REF::ball->destination3D.z);
 			}
 			else if (!jumping)
 			{
@@ -146,7 +153,7 @@ void Folie::Player::giocatorePrenderePosizioniInRicezione()
 {
 	auto posizione = GB::getCoordinates2DFromPosition(campo, currentPosition);
 
-	if (team->number_of_setters == 1)
+	if (gamePhase == Enums::eGamePhase::serve && team->number_of_setters == 1)
 		switch (role)
 		{
 		case Folie::Enums::eRole::Setter:

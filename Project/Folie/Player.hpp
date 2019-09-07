@@ -42,6 +42,7 @@ namespace Folie
 		Enums::eArea currentArea, startingArea;
 		Enums::eCampo campo;
 
+		Enums::eGamePhase gamePhase;
 		Enums::ePhase phase;
 
 		Team ^team;

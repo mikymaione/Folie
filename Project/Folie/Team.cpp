@@ -118,7 +118,10 @@ Folie::Player ^Folie::Team::getPlayerWithRole(Player ^mySelf, Enums::eRole searc
 void Folie::Team::giocatoriPrenderePosizioniInRicezione()
 {
 	for each (auto p in players)
+	{
+		p->gamePhase = Enums::eGamePhase::serve;
 		p->giocatorePrenderePosizioniInRicezione();
+	}
 }
 
 void Folie::Team::giocatoriPrenderePosizioniInCampo()
@@ -153,11 +156,15 @@ void Folie::Team::serve()
 	zeroTouch();
 
 	for each (auto p in players)
+	{
+		p->gamePhase = Enums::eGamePhase::serve;
+
 		if (p->currentPosition == Enums::ePosition::p1)
 		{
 			p->serveRitual();
 			break;
 		}
+	}
 }
 
 void Folie::Team::reset()

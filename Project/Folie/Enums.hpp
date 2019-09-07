@@ -23,6 +23,11 @@ namespace Folie
 		literal float serve_angle = 35;
 		literal float pass_angle = 70;
 
+		enum class eGamePhase
+		{
+			attack, defence, serve
+		};
+
 		enum class eRotate
 		{
 			TeamA, TeamB, null
