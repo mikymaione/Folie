@@ -19,8 +19,8 @@ namespace Folie
 
 		literal float jump_kill_angle = 15;
 		literal float jump_attack_angle = 25;
-		literal float attack_angle = 50;
-		literal float serve_angle = 30;
+		literal float attack_angle = 55;
+		literal float serve_angle = 35;
 		literal float pass_angle = 70;
 
 		enum class eRotate
