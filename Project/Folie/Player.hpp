@@ -45,12 +45,12 @@ namespace Folie
 		Enums::ePhase phase;
 
 		Team ^team;
-		
+
 		float walkSpeed = 5;
 		float runSpeed = 9;
 
 	public:
-		String ^name;	
+		String ^name;
 
 		Enums::ePosition startingPosition;
 		Enums::eRole role;
@@ -106,9 +106,9 @@ namespace Folie
 
 		void lookAtTheBall(bool looking);
 		void lookAtAnOpponent();
-		void lookAt(float seconds, UnityEngine::Vector2 dest);
-		void lookAt(float seconds, float x, float z);
-		void lookAt(float seconds, UnityEngine::Vector3 to_);
+		void lookAt(UInt16 seconds, UnityEngine::Vector2 dest);
+		void lookAt(UInt16 seconds, float x, float z);
+		void lookAt(UInt16 seconds, UnityEngine::Vector3 to_);
 
 		Enums::eCourt getCurrentCourt();
 

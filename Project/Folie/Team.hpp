@@ -42,7 +42,7 @@ namespace Folie
 		void unlockTouch();
 
 	internal:
-		void setMine(String ^s);
+		void setMine(String ^name_);
 
 		UInt16 getTouch();
 		void incTouch();

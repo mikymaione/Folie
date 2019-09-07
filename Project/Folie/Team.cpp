@@ -28,12 +28,20 @@ void Folie::Team::Start()
 	}
 }
 
-void Folie::Team::setMine(String ^s)
+void Folie::Team::setMine(String ^name_)
 {
+	auto mine = "Mine: " + name_;
+
 	if (this == REF::teamA)
-		REF::game->mineTeamA->text = "Mine: " + s;
-	else if (this == REF::teamB)
-		REF::game->mineTeamB->text = "Mine: " + s;
+	{
+		REF::game->mineTeamA->text = mine;
+		REF::game->mineTeamB->text = String::Empty;
+	}
+	else
+	{
+		REF::game->mineTeamA->text = String::Empty;
+		REF::game->mineTeamB->text = mine;
+	}
 }
 
 void Folie::Team::unlockTouch()
@@ -72,6 +80,8 @@ Folie::Player ^Folie::Team::getPlayerAtPosition(Enums::ePosition position)
 	for each (auto p in players)
 		if (p->currentPosition == position)
 			return p;
+
+	return players[0];
 }
 
 List<Folie::Player ^> ^Folie::Team::getPlayersWithRole(Enums::eRole role)
@@ -101,6 +111,8 @@ Folie::Player ^Folie::Team::getPlayerWithRole(Player ^mySelf, Enums::eRole searc
 	for each (auto p in players)
 		if (!p->Equals(mySelf))
 			return p;
+
+	return players[0];
 }
 
 void Folie::Team::giocatoriPrenderePosizioniInRicezione()

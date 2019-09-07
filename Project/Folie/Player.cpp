@@ -203,6 +203,7 @@ void Folie::Player::giocatorePrenderePosizioniInCampo(UnityEngine::Vector2 posiz
 {
 	agent->enabled = true;
 	moveTo_Async(walkSpeed, posizione.x, posizione.y);
+	lookAtAnOpponent();
 }
 
 bool Folie::Player::inPassPosition()
@@ -218,6 +219,7 @@ void Folie::Player::moveTo_(float speed, float pos_x, float pos_z)
 
 	agent->speed = speed;
 	agent->destination = d;
+	agent->speed = speed;
 }
 
 void Folie::Player::moveTo(float speed, float pos_x, float pos_z)
@@ -309,7 +311,7 @@ void Folie::Player::serveRitual()
 	{
 		phase = Enums::ePhase::serve;
 
-		lookAt(0.3, REF::ball->transform->position);
+		lookAt(1, REF::ball->transform->position);
 		moveTo(walkSpeed, REF::ball);
 
 		waiter->callAndWait(
@@ -479,8 +481,7 @@ void Folie::Player::lookAtTheBall(bool looking)
 
 void Folie::Player::lookAtAnOpponent()
 {
-	float t = GB::rndUInt16(1, 20);
-	float seconds = t / 10.0f;
+	auto milliseconds = GB::rndUInt16(400, 2000);
 
 	auto target = GB::selectRandomPosition();
 	auto c = GB::getCoordinates2DFromPosition(GB::oppositeField(campo), target);
@@ -492,24 +493,24 @@ void Folie::Player::lookAtAnOpponent()
 
 	waiter->waitAndCall(
 		this,
-		REF::w4s(seconds),
+		REF::w4ms(milliseconds),
 		gcnew Action<UnityEngine::Vector3>(this, &Player::lookAt_),
 		gcnew array<UnityEngine::Vector3 ^> {to_}
 	);
 }
 
-void Folie::Player::lookAt(float seconds, UnityEngine::Vector2 dest)
+void Folie::Player::lookAt(UInt16 seconds, UnityEngine::Vector2 dest)
 {
 	lookAt(seconds, dest.x, dest.y);
 }
 
-void Folie::Player::lookAt(float seconds, float x, float z)
+void Folie::Player::lookAt(UInt16 seconds, float x, float z)
 {
 	auto to_ = UnityEngine::Vector3(x, 0, z);
 	lookAt(seconds, to_);
 }
 
-void Folie::Player::lookAt(float seconds, UnityEngine::Vector3 to_)
+void Folie::Player::lookAt(UInt16 seconds, UnityEngine::Vector3 to_)
 {
 	waiter->callAndWait(
 		this,
