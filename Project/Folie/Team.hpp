@@ -56,6 +56,8 @@ namespace Folie
 		List<Player ^> ^getPlayersWithRole(Enums::eRole role);
 		Player ^getPlayerWithRole(Player ^mySelf, Enums::eRole search_role, Enums::eCourt court);
 
+		Enums::ePosition getAnEmptyPosition(Enums::ePosition myPosition);
+
 		void playersTakePositionInReception();
 		void playersTakePositionsOnTheField();
 		bool arePlayersInPosition();

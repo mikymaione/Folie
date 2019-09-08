@@ -25,14 +25,17 @@ namespace Folie
 		UnityEngine::Rigidbody ^rigidBody;
 		UnityEngine::Transform ^inHand;
 
-		Player ^lastPlayerTouch;
 		bool hitted, hitting, ground;
 
 	internal:
+		Player ^lastPlayerTouch;
+
 		Enums::eArea targetArea;
+
 		UnityEngine::Vector2 destination2D, target2D;
 		UnityEngine::Vector3 destination3D;
 
+	internal:
 		Enums::eField getActualField();
 
 		void attachToHand(String ^player_name);

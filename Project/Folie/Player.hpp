@@ -85,7 +85,7 @@ namespace Folie
 		void playerTakePositionInReception();
 		void playerTakePositionsOnTheField(Enums::eField field_);
 
-		bool inPassPosition();
+		bool inPosition();
 
 		void move(float speed);
 		void moveToNextPosition();
@@ -111,7 +111,11 @@ namespace Folie
 		void lookAt(UInt16 seconds, float x, float z);
 		void lookAt(UInt16 seconds, UnityEngine::Vector3 to_);
 
+		bool canTouchTheBall();
+
 		Enums::eCourt getCurrentCourt();
+
+		void clearQueue();
 
 	};
 }

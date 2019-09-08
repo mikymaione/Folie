@@ -119,7 +119,7 @@ Folie::Enums::eField Folie::Ball::getActualField()
 
 void Folie::Ball::addForce(Player ^playerTouch, Enums::eField field, UnityEngine::Vector2 coordinate2D, float angle_Deg)
 {
-	if (!ground && !hitting)
+	if (!ground && !hitting && ((inHand != nullptr) || (inHand == nullptr && lastPlayerTouch != playerTouch)))
 	{
 		hitting = true;
 		inHand = nullptr;

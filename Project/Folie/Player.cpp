@@ -49,7 +49,7 @@ void Folie::Player::Update()
 			{
 				playerTakePositionInReception();
 			}
-			else if (distanceFromBall < Enums::min_distance_to_hit)
+			else if (distanceFromBall < Enums::min_distance_to_hit && canTouchTheBall())
 			{
 				switch (team->getTouch())
 				{
@@ -102,9 +102,18 @@ void Folie::Player::Update()
 					team->playerThatSayMia = this;
 				}
 
-				if (!jumping)
-					if (GB::getCampoFromCoordinates(REF::ball->destination3D.x, REF::ball->destination3D.z) == field)
+				if (!jumping && GB::getCampoFromCoordinates(REF::ball->destination3D.x, REF::ball->destination3D.z) == field)
+					if (canTouchTheBall())
+					{
 						moveTo_Async(runSpeed, REF::ball->destination3D.x, REF::ball->destination3D.z);
+					}
+					else
+					{
+						auto empty_pos = team->getAnEmptyPosition(currentPosition);
+						auto empty_pos2D = GB::getCoordinates2DFromPosition(field, empty_pos);
+
+						moveTo_Async(runSpeed, empty_pos2D.x, empty_pos2D.y);
+					}
 			}
 			else if (!jumping)
 			{
@@ -199,11 +208,11 @@ void Folie::Player::playerTakePositionsOnTheField(Enums::eField field_)
 void Folie::Player::playerTakePositionsOnTheField(UnityEngine::Vector2 position)
 {
 	agent->enabled = true;
-	moveTo_Async(walkSpeed, position.x, position.y);
+	moveTo(walkSpeed, position.x, position.y);
 	lookAtAnOpponent();
 }
 
-bool Folie::Player::inPassPosition()
+bool Folie::Player::inPosition()
 {
 	return GB::samePosition3D(agent->destination, transform->position);
 }
@@ -227,7 +236,7 @@ void Folie::Player::moveTo(float speed, float pos_x, float pos_z)
 		this,
 		gcnew Action<float, float, float>(this, &Player::moveTo_),
 		gcnew array<float ^> {speed, pos_x, pos_z},
-		REF::wUntil(gcnew Func<bool>(this, &Player::inPassPosition))
+		REF::wUntil(gcnew Func<bool>(this, &Player::inPosition))
 	);
 }
 
@@ -351,7 +360,9 @@ void Folie::Player::serve()
 	targetChoosen = GB::selectRandomPosition(Enums::eCourt::back);
 	auto c = GB::getCoordinates2DFromPosition(field, targetChoosen);
 
-	lookAt(2, c.x, c.y);
+	auto seconds = GB::rndUInt16(1, 3);
+
+	lookAt(seconds, c.x, c.y);
 
 	waiter->callAndWait(
 		this,
@@ -484,7 +495,7 @@ void Folie::Player::lookAtTheBall(bool looking)
 
 void Folie::Player::lookAtAnOpponent()
 {
-	auto milliseconds = GB::rndUInt16(100, 1000);
+	auto milliseconds = GB::rndUInt16(50, 500);
 
 	auto target = GB::selectRandomPosition();
 	auto c = GB::getCoordinates2DFromPosition(GB::oppositeField(field), target);
@@ -525,8 +536,13 @@ void Folie::Player::lookAt(UInt16 seconds, UnityEngine::Vector3 to_)
 
 void Folie::Player::lookAt_(UnityEngine::Vector3 to_)
 {
-	auto to_y = UnityEngine::Vector3(to_.x, transform->position.y, to_.z);
-	transform->LookAt(to_y);
+	auto dest = UnityEngine::Vector3(to_.x, transform->position.y, to_.z);
+	transform->LookAt(dest);
+}
+
+bool Folie::Player::canTouchTheBall()
+{
+	return (this != REF::ball->lastPlayerTouch);
 }
 
 Folie::Enums::eCourt Folie::Player::getCurrentCourt()
@@ -534,4 +550,9 @@ Folie::Enums::eCourt Folie::Player::getCurrentCourt()
 	auto c = GB::getCourtFromPosition(currentPosition);
 
 	return c;
+}
+
+void Folie::Player::clearQueue()
+{
+	waiter->clearQueue();
 }

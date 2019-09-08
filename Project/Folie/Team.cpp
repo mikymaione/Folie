@@ -115,6 +115,24 @@ Folie::Player ^Folie::Team::getPlayerWithRole(Player ^mySelf, Enums::eRole searc
 	return players[0];
 }
 
+Folie::Enums::ePosition Folie::Team::getAnEmptyPosition(Enums::ePosition myPosition)
+{
+	auto positions = Enum::GetValues(Enums::ePosition::typeid);
+	auto free = gcnew System::Collections::Generic::SortedSet<System::Object ^>();
+
+	for each (auto e in positions)
+		free->Add(e);
+
+	for each (auto p in players)
+		if (free->Contains(p->currentPosition))
+			free->Remove(p->currentPosition);
+
+	for each (auto f in free)
+		return (Enums::ePosition)f;
+
+	return myPosition;
+}
+
 void Folie::Team::playersTakePositionInReception()
 {
 	for each (auto p in players)
@@ -133,7 +151,7 @@ void Folie::Team::playersTakePositionsOnTheField()
 bool Folie::Team::arePlayersInPosition()
 {
 	for each (auto p in players)
-		if (!p->inPassPosition())
+		if (!p->inPosition())
 			return false;
 
 	return true;
@@ -171,4 +189,7 @@ void Folie::Team::reset()
 {
 	playerThatSayMia = nullptr;
 	zeroTouch();
+
+	for each (auto p in players)
+		p->clearQueue();
 }

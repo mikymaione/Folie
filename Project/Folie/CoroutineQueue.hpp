@@ -65,6 +65,12 @@ namespace Folie
 			works = gcnew System::Collections::Generic::Queue<Job^>();
 		};
 
+		void clearQueue()
+		{
+			works->Clear();
+			running = false;
+		};
+
 		void callAndWait(UnityEngine::MonoBehaviour ^this_, Delegate ^function, array<Object ^> ^parameters, System::Collections::IEnumerator ^waiter)
 		{
 			enqueueWork(Enums::eSequence::callAndWait, this_, function, parameters, waiter);
