@@ -28,7 +28,7 @@ namespace Folie
 			attack, defence, serve
 		};
 
-		enum class eRotate
+		enum class eRotateTeam
 		{
 			TeamA, TeamB, null
 		};
@@ -48,9 +48,9 @@ namespace Folie
 			A, B
 		};
 
-		enum class eCampo
+		enum class eField
 		{
-			up, down, fuori
+			up, down, out
 		};
 
 		enum class eCourt

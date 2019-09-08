@@ -66,29 +66,29 @@ bool Folie::GB::canAttackJumping(Enums::eRole role)
 	}
 }
 
-Folie::Enums::eCampo Folie::GB::oppositeField(Enums::eCampo campo)
+Folie::Enums::eField Folie::GB::oppositeField(Enums::eField campo)
 {
 	switch (campo)
 	{
-	case Enums::eCampo::up:
-		return Enums::eCampo::down;
-	case Enums::eCampo::down:
-		return Enums::eCampo::up;
+	case Enums::eField::up:
+		return Enums::eField::down;
+	case Enums::eField::down:
+		return Enums::eField::up;
 	}
 }
 
-UnityEngine::Vector2 Folie::GB::getCoordinates2DFromPosition(Enums::eCampo campo, Enums::ePosition position)
+UnityEngine::Vector2 Folie::GB::getCoordinates2DFromPosition(Enums::eField campo, Enums::ePosition position)
 {
 	auto area = getAreaFromPosition(position);
 
 	return getCoordinates2DFromArea(campo, area);
 }
 
-UnityEngine::Vector2 Folie::GB::getCoordinates2DFromArea(Enums::eCampo campo, Enums::eArea area)
+UnityEngine::Vector2 Folie::GB::getCoordinates2DFromArea(Enums::eField campo, Enums::eArea area)
 {
 	switch (campo)
 	{
-	case Enums::eCampo::up:
+	case Enums::eField::up:
 		switch (area)
 		{
 		case Enums::eArea::a4O:
@@ -123,7 +123,7 @@ UnityEngine::Vector2 Folie::GB::getCoordinates2DFromArea(Enums::eCampo campo, En
 			return UnityEngine::Vector2(11, -1);
 		}
 		break;
-	case Enums::eCampo::down:
+	case Enums::eField::down:
 		switch (area)
 		{
 		case Enums::eArea::a4O:
@@ -186,18 +186,18 @@ Folie::Enums::eArea Folie::GB::getAttackArea(Enums::eCourt court, Enums::eRole r
 	}
 }
 
-Folie::Enums::eCampo Folie::GB::getCampoFromCoordinates(float x, float z)
+Folie::Enums::eField Folie::GB::getCampoFromCoordinates(float x, float z)
 {
 	if (x < 1 || x >= 10)
 	{
-		return Enums::eCampo::fuori;
+		return Enums::eField::out;
 	}
 	else
 	{
 		if (z >= 1 && z < 19)
-			return (z < 10 ? Enums::eCampo::up : Enums::eCampo::down);
+			return (z < 10 ? Enums::eField::up : Enums::eField::down);
 		else
-			return Enums::eCampo::fuori;
+			return Enums::eField::out;
 	}
 }
 
@@ -408,15 +408,15 @@ Folie::Enums::eCourt Folie::GB::selectRandomCourt()
 	}
 }
 
-Folie::Enums::eRotate Folie::GB::teamToRotate(Enums::eTeam t)
+Folie::Enums::eRotateTeam Folie::GB::teamToRotate(Enums::eTeam t)
 {
 	switch (t)
 	{
 	case Folie::Enums::eTeam::A:
-		return Enums::eRotate::TeamA;
+		return Enums::eRotateTeam::TeamA;
 		break;
 	case Folie::Enums::eTeam::B:
-		return Enums::eRotate::TeamB;
+		return Enums::eRotateTeam::TeamB;
 		break;
 	}
 }

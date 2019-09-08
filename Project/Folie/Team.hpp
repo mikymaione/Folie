@@ -28,7 +28,7 @@ namespace Folie
 
 	public:
 		String ^name;
-		Enums::eCampo campo;
+		Enums::eField campo;
 
 		Player ^P1, ^P2, ^P3, ^P4, ^P5, ^P6;
 
@@ -58,8 +58,8 @@ namespace Folie
 		Player ^getPlayerWithRole(Player ^mySelf, Enums::eRole search_role, Enums::eCourt court);
 
 		void giocatoriPrenderePosizioniInRicezione();
-		void giocatoriPrenderePosizioniInCampo();
-		bool giocatoriInPosizione();
+		void playersTakePositionsOnTheField();
+		bool arePlayersInPosition();
 
 		void moveToNextPosition();
 

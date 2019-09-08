@@ -187,7 +187,7 @@ void Folie::Player::giocatorePrenderePosizioniInRicezione()
 	giocatorePrenderePosizioniInCampo(posizione);
 }
 
-void Folie::Player::giocatorePrenderePosizioniInCampo(Enums::eCampo campo_)
+void Folie::Player::giocatorePrenderePosizioniInCampo(Enums::eField campo_)
 {
 	campo = campo_;
 
@@ -335,10 +335,10 @@ void Folie::Player::serve_(UnityEngine::Vector2 target)
 
 	switch (dest_court)
 	{
-	case Folie::Enums::eCampo::up:
+	case Folie::Enums::eField::up:
 		y = 2;
 		break;
-	case Folie::Enums::eCampo::down:
+	case Folie::Enums::eField::down:
 		y = 17;
 		break;
 	}

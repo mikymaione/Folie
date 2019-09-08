@@ -90,34 +90,34 @@ void Folie::Ball::ballOnTheFloor()
 	}
 }
 
-void Folie::Ball::hit(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate2D, float angle_Deg)
+void Folie::Ball::hit(Player ^playerTouch, Enums::eField campo, UnityEngine::Vector2 coordinate2D, float angle_Deg)
 {
 	addForce(playerTouch, campo, coordinate2D, angle_Deg);
 }
 
-void Folie::Ball::hit(Player ^playerTouch, Enums::eCampo campo, Enums::eArea area, float angle_Deg)
+void Folie::Ball::hit(Player ^playerTouch, Enums::eField campo, Enums::eArea area, float angle_Deg)
 {
 	auto coordinate = GB::getCoordinates2DFromArea(campo, area);
 	hit(playerTouch, campo, coordinate, angle_Deg);
 }
 
-void Folie::Ball::hit(Player ^playerTouch, Enums::eCampo campo, Enums::ePosition position, float angle_Deg)
+void Folie::Ball::hit(Player ^playerTouch, Enums::eField campo, Enums::ePosition position, float angle_Deg)
 {
 	auto coordinate = GB::getCoordinates2DFromPosition(campo, position);
 	hit(playerTouch, campo, coordinate, angle_Deg);
 }
 
-void Folie::Ball::serve(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate2D)
+void Folie::Ball::serve(Player ^playerTouch, Enums::eField campo, UnityEngine::Vector2 coordinate2D)
 {
 	addForce(playerTouch, campo, coordinate2D, Enums::serve_angle);
 }
 
-Folie::Enums::eCampo Folie::Ball::getCampoAttuale()
+Folie::Enums::eField Folie::Ball::getCampoAttuale()
 {
 	return GB::getCampoFromCoordinates(transform->position.x, transform->position.z);
 }
 
-void Folie::Ball::addForce(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate2D, float angle_Deg)
+void Folie::Ball::addForce(Player ^playerTouch, Enums::eField campo, UnityEngine::Vector2 coordinate2D, float angle_Deg)
 {
 	if (!ground && !hitting)
 	{

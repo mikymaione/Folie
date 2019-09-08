@@ -40,7 +40,7 @@ namespace Folie
 
 		Enums::ePosition currentPosition;
 		Enums::eArea currentArea, startingArea;
-		Enums::eCampo campo;
+		Enums::eField campo;
 
 		Enums::eGamePhase gamePhase;
 		Enums::ePhase phase;
@@ -83,7 +83,7 @@ namespace Folie
 		float getDistanceFromBall();
 
 		void giocatorePrenderePosizioniInRicezione();
-		void giocatorePrenderePosizioniInCampo(Enums::eCampo campo_);
+		void giocatorePrenderePosizioniInCampo(Enums::eField campo_);
 
 		bool inPassPosition();
 

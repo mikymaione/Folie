@@ -124,13 +124,13 @@ void Folie::Team::giocatoriPrenderePosizioniInRicezione()
 	}
 }
 
-void Folie::Team::giocatoriPrenderePosizioniInCampo()
+void Folie::Team::playersTakePositionsOnTheField()
 {
 	for each (auto p in players)
 		p->giocatorePrenderePosizioniInCampo(campo);
 }
 
-bool Folie::Team::giocatoriInPosizione()
+bool Folie::Team::arePlayersInPosition()
 {
 	for each (auto p in players)
 		if (!p->inPassPosition())

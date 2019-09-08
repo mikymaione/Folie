@@ -35,14 +35,14 @@ namespace Folie
 
 		static bool canAttackJumping(Enums::eRole role);
 
-		static Enums::eCampo oppositeField(Enums::eCampo campo);
+		static Enums::eField oppositeField(Enums::eField field);
 
-		static UnityEngine::Vector2 getCoordinates2DFromPosition(Enums::eCampo campo, Enums::ePosition position);
-		static UnityEngine::Vector2 getCoordinates2DFromArea(Enums::eCampo campo, Enums::eArea area);
+		static UnityEngine::Vector2 getCoordinates2DFromPosition(Enums::eField field, Enums::ePosition position);
+		static UnityEngine::Vector2 getCoordinates2DFromArea(Enums::eField field, Enums::eArea area);
 
 		static Enums::eArea getAttackArea(Enums::eCourt court, Enums::eRole role, Enums::ePosition position, UInt16 number_of_setters);
 
-		static Enums::eCampo getCampoFromCoordinates(float x, float z);
+		static Enums::eField getCampoFromCoordinates(float x, float z);
 		static Enums::eArea getAreaFromCoordinates(float x, float z);
 		static Enums::eCourt getCourtFromCoordinates(float z);
 		static Enums::eCourt getCourtFromPosition(Enums::ePosition pos);
@@ -55,7 +55,7 @@ namespace Folie
 
 		static Enums::eCourt selectRandomCourt();
 
-		static Enums::eRotate teamToRotate(Enums::eTeam t);
+		static Enums::eRotateTeam teamToRotate(Enums::eTeam t);
 
 		generic <class T> where T : UnityEngine::Component static T GetComponentsInChildren(UnityEngine::MonoBehaviour ^mb, String ^tag);
 

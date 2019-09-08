@@ -33,7 +33,7 @@ namespace Folie
 		UnityEngine::Vector2 destination2D, target2D;
 		UnityEngine::Vector3 destination3D;
 
-		Enums::eCampo getCampoAttuale();
+		Enums::eField getCampoAttuale();
 
 		void attachToHand(String ^player_name);
 
@@ -46,7 +46,7 @@ namespace Folie
 
 		void OnCollisionEnter(UnityEngine::Collision collision);
 
-		void addForce(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate2D, float angle_Deg);
+		void addForce(Player ^playerTouch, Enums::eField campo, UnityEngine::Vector2 coordinate2D, float angle_Deg);
 
 		void setHitting(bool hitting_);
 
@@ -55,11 +55,11 @@ namespace Folie
 	public:
 		Ball();
 
-		void serve(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate2D);
+		void serve(Player ^playerTouch, Enums::eField campo, UnityEngine::Vector2 coordinate2D);
 
-		void hit(Player ^playerTouch, Enums::eCampo campo, Enums::ePosition position, float angle_Deg);
-		void hit(Player ^playerTouch, Enums::eCampo campo, Enums::eArea area, float angle_Deg);
-		void hit(Player ^playerTouch, Enums::eCampo campo, UnityEngine::Vector2 coordinate2D, float angle_Deg);
+		void hit(Player ^playerTouch, Enums::eField campo, Enums::ePosition position, float angle_Deg);
+		void hit(Player ^playerTouch, Enums::eField campo, Enums::eArea area, float angle_Deg);
+		void hit(Player ^playerTouch, Enums::eField campo, UnityEngine::Vector2 coordinate2D, float angle_Deg);
 
 	};
 }
