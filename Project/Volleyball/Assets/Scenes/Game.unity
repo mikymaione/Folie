@@ -2714,7 +2714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: BawiTim
-  campo: 0
+  field: 0
   P1: {fileID: 467354014}
   P2: {fileID: 837810538}
   P3: {fileID: 1509818957}
@@ -2942,7 +2942,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Gruppo1
-  campo: 1
+  field: 1
   P1: {fileID: 1169157104}
   P2: {fileID: 222444343}
   P3: {fileID: 401835981}

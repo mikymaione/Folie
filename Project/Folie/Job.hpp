@@ -19,20 +19,20 @@ namespace Folie
 	ref class Job
 	{
 	internal:
-		bool funzioneEseguita;
+		bool functionCalled;
 		Enums::eSequence sequence;
 		UnityEngine::MonoBehaviour ^this_;
-		Delegate ^nome_funzione;
-		array<Object ^> ^parametri;
+		Delegate ^function;
+		array<Object ^> ^parameters;
 		System::Collections::IEnumerator ^waiter;
 
 	internal:
-		Job(Enums::eSequence sequence, UnityEngine::MonoBehaviour ^this_, Delegate ^nome_funzione, array<Object ^> ^parametri, System::Collections::IEnumerator ^waiter)
+		Job(Enums::eSequence sequence, UnityEngine::MonoBehaviour ^this_, Delegate ^function, array<Object ^> ^parameters, System::Collections::IEnumerator ^waiter)
 		{
 			this->sequence = sequence;
 			this->this_ = this_;
-			this->nome_funzione = nome_funzione;
-			this->parametri = parametri;
+			this->function = function;
+			this->parameters = parameters;
 			this->waiter = waiter;
 		};
 

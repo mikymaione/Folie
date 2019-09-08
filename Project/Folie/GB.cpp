@@ -66,9 +66,9 @@ bool Folie::GB::canAttackJumping(Enums::eRole role)
 	}
 }
 
-Folie::Enums::eField Folie::GB::oppositeField(Enums::eField campo)
+Folie::Enums::eField Folie::GB::oppositeField(Enums::eField field)
 {
-	switch (campo)
+	switch (field)
 	{
 	case Enums::eField::up:
 		return Enums::eField::down;
@@ -77,16 +77,16 @@ Folie::Enums::eField Folie::GB::oppositeField(Enums::eField campo)
 	}
 }
 
-UnityEngine::Vector2 Folie::GB::getCoordinates2DFromPosition(Enums::eField campo, Enums::ePosition position)
+UnityEngine::Vector2 Folie::GB::getCoordinates2DFromPosition(Enums::eField field, Enums::ePosition position)
 {
 	auto area = getAreaFromPosition(position);
 
-	return getCoordinates2DFromArea(campo, area);
+	return getCoordinates2DFromArea(field, area);
 }
 
-UnityEngine::Vector2 Folie::GB::getCoordinates2DFromArea(Enums::eField campo, Enums::eArea area)
+UnityEngine::Vector2 Folie::GB::getCoordinates2DFromArea(Enums::eField field, Enums::eArea area)
 {
-	switch (campo)
+	switch (field)
 	{
 	case Enums::eField::up:
 		switch (area)
@@ -160,7 +160,7 @@ UnityEngine::Vector2 Folie::GB::getCoordinates2DFromArea(Enums::eField campo, En
 		break;
 	}
 
-	throw gcnew Exception("case campo" + campo.ToString() + ",area: " + area.ToString() + " non gestito!");
+	throw gcnew Exception("case field" + field.ToString() + ",area: " + area.ToString() + " non gestito!");
 }
 
 Folie::Enums::eArea Folie::GB::getAttackArea(Enums::eCourt court, Enums::eRole role, Enums::ePosition position, UInt16 number_of_setters)

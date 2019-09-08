@@ -44,9 +44,9 @@ namespace Folie
 			}
 		}
 
-		void enqueueWork(Enums::eSequence sequence, UnityEngine::MonoBehaviour ^this_, Delegate ^nome_funzione, array<Object ^> ^parametri, System::Collections::IEnumerator ^waiter)
+		void enqueueWork(Enums::eSequence sequence, UnityEngine::MonoBehaviour ^this_, Delegate ^function, array<Object ^> ^parameters, System::Collections::IEnumerator ^waiter)
 		{
-			auto work = gcnew Job(sequence, this_, nome_funzione, parametri, waiter);
+			auto work = gcnew Job(sequence, this_, function, parameters, waiter);
 			works->Enqueue(work);
 
 			Run();
@@ -65,24 +65,24 @@ namespace Folie
 			works = gcnew System::Collections::Generic::Queue<Job^>();
 		};
 
-		void callAndWait(UnityEngine::MonoBehaviour ^this_, Delegate ^nome_funzione, array<Object ^> ^parametri, System::Collections::IEnumerator ^waiter)
+		void callAndWait(UnityEngine::MonoBehaviour ^this_, Delegate ^function, array<Object ^> ^parameters, System::Collections::IEnumerator ^waiter)
 		{
-			enqueueWork(Enums::eSequence::callAndWait, this_, nome_funzione, parametri, waiter);
+			enqueueWork(Enums::eSequence::callAndWait, this_, function, parameters, waiter);
 		};
 
-		void callAndWait(UnityEngine::MonoBehaviour ^this_, Delegate ^nome_funzione, System::Collections::IEnumerator ^waiter)
+		void callAndWait(UnityEngine::MonoBehaviour ^this_, Delegate ^function, System::Collections::IEnumerator ^waiter)
 		{
-			callAndWait(this_, nome_funzione, nullptr, waiter);
+			callAndWait(this_, function, nullptr, waiter);
 		};
 
-		void waitAndCall(UnityEngine::MonoBehaviour ^this_, System::Collections::IEnumerator ^waiter, Delegate ^nome_funzione, array<Object ^> ^parametri)
+		void waitAndCall(UnityEngine::MonoBehaviour ^this_, System::Collections::IEnumerator ^waiter, Delegate ^function, array<Object ^> ^parameters)
 		{
-			enqueueWork(Enums::eSequence::waitAndCall, this_, nome_funzione, parametri, waiter);
+			enqueueWork(Enums::eSequence::waitAndCall, this_, function, parameters, waiter);
 		};
 
-		void waitAndCall(UnityEngine::MonoBehaviour ^this_, System::Collections::IEnumerator ^waiter, Delegate ^nome_funzione)
+		void waitAndCall(UnityEngine::MonoBehaviour ^this_, System::Collections::IEnumerator ^waiter, Delegate ^function)
 		{
-			waitAndCall(this_, waiter, nome_funzione, nullptr);
+			waitAndCall(this_, waiter, function, nullptr);
 		};
 
 	};

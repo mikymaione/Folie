@@ -26,15 +26,14 @@ namespace Folie
 		Player ^playerThatSayMia;
 		array<Player ^> ^players;
 
+		UInt16 number_of_setters;
+		bool serving;
+
 	public:
 		String ^name;
-		Enums::eField campo;
+		Enums::eField field;
 
 		Player ^P1, ^P2, ^P3, ^P4, ^P5, ^P6;
-
-		UInt16 number_of_setters;
-
-		bool serving;
 
 	private:
 		void Start();
@@ -57,7 +56,7 @@ namespace Folie
 		List<Player ^> ^getPlayersWithRole(Enums::eRole role);
 		Player ^getPlayerWithRole(Player ^mySelf, Enums::eRole search_role, Enums::eCourt court);
 
-		void giocatoriPrenderePosizioniInRicezione();
+		void playersTakePositionInReception();
 		void playersTakePositionsOnTheField();
 		bool arePlayersInPosition();
 

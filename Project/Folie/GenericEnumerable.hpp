@@ -16,31 +16,31 @@ namespace Folie
 	{
 	private:
 		Job ^work;
-		System::Action ^recursive;
+		System::Action ^callback_function;
 
 		ref class GenericEnumerator :System::Collections::IEnumerator
 		{
 		private:
 			Job ^work;
-			System::Action ^recursive;
+			System::Action ^callback_function;
 
 		private:
 			void invoke()
 			{
-				work->funzioneEseguita = true;
-				work->nome_funzione->DynamicInvoke(work->parametri);
+				work->functionCalled = true;
+				work->function->DynamicInvoke(work->parameters);
 			};
 
 		public:
-			GenericEnumerator(Job ^work, System::Action ^recursive)
+			GenericEnumerator(Job ^work, System::Action ^callback_function)
 			{
 				this->work = work;
-				this->recursive = recursive;
+				this->callback_function = callback_function;
 			};
 
 			virtual bool MoveNext()
 			{
-				if (!work->funzioneEseguita)
+				if (!work->functionCalled)
 					if (work->sequence == Enums::eSequence::callAndWait)
 						invoke();
 
@@ -48,14 +48,14 @@ namespace Folie
 
 				if (!more_elements_available)
 				{
-					if (!work->funzioneEseguita)
+					if (!work->functionCalled)
 						if (work->sequence == Enums::eSequence::waitAndCall)
 							invoke();
 
-					if (recursive != nullptr)
+					if (callback_function != nullptr)
 					{
-						recursive();
-						recursive = nullptr;
+						callback_function();
+						callback_function = nullptr;
 					}
 				}
 
@@ -78,15 +78,15 @@ namespace Folie
 		};
 
 	public:
-		GenericEnumerable(Job ^work, System::Action ^recursive)
+		GenericEnumerable(Job ^work, System::Action ^callback_function)
 		{
 			this->work = work;
-			this->recursive = recursive;
+			this->callback_function = callback_function;
 		}
 
 		virtual System::Collections::IEnumerator ^GetEnumerator()
 		{
-			return gcnew GenericEnumerator(work, recursive);
+			return gcnew GenericEnumerator(work, callback_function);
 		};
 
 	};

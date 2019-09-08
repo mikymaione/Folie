@@ -15,13 +15,13 @@ namespace Folie
 	ref class Wait4Seconds : UnityEngine::CustomYieldInstruction
 	{
 	private:
-		float _timer;
-		float _duration;
+		float timer;
+		float duration;
 
 	public:
 		Wait4Seconds(float seconds)
 		{
-			_duration = seconds;
+			duration = seconds;
 
 			Reset();
 		};
@@ -30,10 +30,10 @@ namespace Folie
 		{
 			bool get() override
 			{
-				auto timer = _timer;
-				_timer += UnityEngine::Time::deltaTime;
+				auto t = timer;
+				timer += UnityEngine::Time::deltaTime;
 
-				return timer < _duration;
+				return t < duration;
 			}
 		};
 

@@ -36,11 +36,11 @@ namespace Folie
 		UnityEngine::Component ^goToElement;
 
 	internal:
-		UnityEngine::Transform ^mano;
+		UnityEngine::Transform ^hand;
 
 		Enums::ePosition currentPosition;
 		Enums::eArea currentArea, startingArea;
-		Enums::eField campo;
+		Enums::eField field;
 
 		Enums::eGamePhase gamePhase;
 		Enums::ePhase phase;
@@ -75,15 +75,15 @@ namespace Folie
 
 		void setJumping(bool j);
 
-		void giocatorePrenderePosizioniInCampo(UnityEngine::Vector2 posizione);
+		void playerTakePositionsOnTheField(UnityEngine::Vector2 position);
 
 	public:
 		Player();
 
 		float getDistanceFromBall();
 
-		void giocatorePrenderePosizioniInRicezione();
-		void giocatorePrenderePosizioniInCampo(Enums::eField campo_);
+		void playerTakePositionInReception();
+		void playerTakePositionsOnTheField(Enums::eField field_);
 
 		bool inPassPosition();
 

@@ -115,19 +115,19 @@ Folie::Player ^Folie::Team::getPlayerWithRole(Player ^mySelf, Enums::eRole searc
 	return players[0];
 }
 
-void Folie::Team::giocatoriPrenderePosizioniInRicezione()
+void Folie::Team::playersTakePositionInReception()
 {
 	for each (auto p in players)
 	{
 		p->gamePhase = Enums::eGamePhase::serve;
-		p->giocatorePrenderePosizioniInRicezione();
+		p->playerTakePositionInReception();
 	}
 }
 
 void Folie::Team::playersTakePositionsOnTheField()
 {
 	for each (auto p in players)
-		p->giocatorePrenderePosizioniInCampo(campo);
+		p->playerTakePositionsOnTheField(field);
 }
 
 bool Folie::Team::arePlayersInPosition()
