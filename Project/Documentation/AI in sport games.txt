@@ -11,7 +11,7 @@ b) Decision making:
 -need to look ahead: ball trajectory, touch count
 
 c) tactical and strategic AI:
--characters work togheter
+-characters work together
 -characters think for themselves and display a group behaviour
 
 Strategy: serve receive system, offensive system, coverage system, defensive system.
