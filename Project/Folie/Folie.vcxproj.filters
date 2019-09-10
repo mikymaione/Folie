@@ -54,6 +54,9 @@
     <ClInclude Include="Job.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="SM.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">

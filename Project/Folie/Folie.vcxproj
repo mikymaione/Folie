@@ -143,6 +143,7 @@
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="REF.hpp" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SM.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Team.hpp" />
     <ClInclude Include="Wait4Seconds.hpp" />
@@ -171,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
