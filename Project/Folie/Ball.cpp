@@ -18,6 +18,7 @@ Folie::Ball::Ball()
 void Folie::Ball::Start()
 {
 	rigidBody = GetComponent<UnityEngine::Rigidbody^>();
+	_started = true;
 }
 
 void Folie::Ball::Update()

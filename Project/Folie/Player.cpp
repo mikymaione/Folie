@@ -26,6 +26,8 @@ void Folie::Player::Start()
 	rigidBody = GetComponent<UnityEngine::Rigidbody ^>();
 	agent = GetComponent<UnityEngine::AI::NavMeshAgent ^>();
 	hand = GB::GetComponentsInChildren<UnityEngine::Transform ^>(this, "Mano");
+
+	_started = true;
 }
 
 void Folie::Player::Update()

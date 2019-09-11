@@ -9,6 +9,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #pragma once
 
 #include "GB.hpp"
+#include "MonoBehaviourEX.hpp"
 
 #using <UnityEngine.PhysicsModule.dll> as_friend
 
@@ -17,7 +18,7 @@ namespace Folie
 	ref class CoroutineQueue; // cross reference
 	ref class Player; // cross reference
 
-	public ref class Ball :UnityEngine::MonoBehaviour
+	public ref class Ball :MonoBehaviourEX
 	{
 	private:
 		CoroutineQueue ^waiter;

@@ -8,66 +8,19 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #pragma once
 
-#include "Player.hpp"
-
-using namespace System;
+#using <UnityEngine.CoreModule.dll> as_friend
 
 namespace Folie
 {
-	public ref class Team :MonoBehaviourEX
+	public ref class MonoBehaviourEX :UnityEngine::MonoBehaviour
 	{
-	private:
-		CoroutineQueue ^waiter;
-
-		bool _lockTouch;
-		UInt16 _touch;
-
-	internal:
-		Player ^playerThatSayMia;
-		array<Player ^> ^players;
-
-		UInt16 number_of_setters;
-		bool serving;
+	protected:
+		bool _started;
 
 	public:
-		String ^name;
-		Enums::eField field;
-
-		Player ^P1, ^P2, ^P3, ^P4, ^P5, ^P6;
-
-	private:
-		void Start();
-		void Update();
-
-		void setMine();
-
-		void unlockTouch();
-
-	internal:
-		UInt16 getTouch();
-		void incTouch();
-		void zeroTouch();
-
-	public:
-		Team();
-
-		Player ^getPlayerAtPosition(Enums::ePosition position);
-
-		List<Player ^> ^getPlayersWithRole(Enums::eRole role);
-		Player ^getPlayerWithRole(Player ^mySelf, Enums::eRole search_role, Enums::eCourt court);
-
-		Enums::ePosition getAnEmptyPosition(Enums::ePosition myPosition);
-
-		void playersTakePositionInReception();
-		void playersTakePositionsOnTheField();
-		bool arePlayersInPosition();
-
-		void moveToNextPosition();
-
-		void lookAtOpponent();
-		void serve();
-
-		void reset();
-
+		bool started()
+		{
+			return _started;
+		}
 	};
 }

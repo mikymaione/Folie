@@ -8,36 +8,39 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #pragma once
 
-#include "REF.hpp"
-#include "CoroutineQueue.hpp"
-
-#using <UnityEngine.UI.dll> as_friend
-
 using namespace System;
 using namespace System::Collections::Generic;
 
 namespace Folie
 {
+	ref class State; // cross reference
+	ref class SMEnumerable; // cross reference
+
 	public ref class Transaction
 	{
-	public:
+	internal:
 		State ^toState;
 		System::Collections::IEnumerator ^waiter;
 
 	public:
-		Transaction(Func<bool> ^endCondition)
+		Transaction(State ^toState, Func<bool> ^endCondition) :Transaction(toState, gcnew UnityEngine::WaitUntil(endCondition)) {}
+
+		Transaction(State ^toState, System::Collections::IEnumerator ^waiter)
 		{
-			waiter = REF::wUntil(endCondition);
+			this->toState = toState;
+			this->waiter = waiter;
 		}
 	};
 
 	public ref class State
 	{
+	internal:
+		UnityEngine::MonoBehaviour ^this_;
+
 	public:
 		Delegate ^entryAction, ^exitAction;
 		array<Object ^> ^parameters;
 
-		UnityEngine::MonoBehaviour ^this_;
 		HashSet<Transaction ^> ^transactions;
 
 	public:
@@ -46,35 +49,38 @@ namespace Folie
 			this->transactions = gcnew HashSet<Transaction ^>();
 			this->this_ = this_;
 		}
-	};
 
-	public ref class SM
-	{
-	private:
-		State ^current;
-
-	public:
-		HashSet<State ^> ^states;
-
-	public:
-		SM()
+		State(UnityEngine::MonoBehaviour ^this_, Delegate ^entryAction) :State(this_)
 		{
-			states = gcnew HashSet<State ^>();
+			this->entryAction = entryAction;
 		}
 
-		void run(State ^current)
+		State(UnityEngine::MonoBehaviour ^this_, Delegate ^entryAction, array<Object ^> ^parameters) :State(this_, entryAction)
 		{
-			this->current = current;
+			this->parameters = parameters;
+		}
 
-			for each (auto t in current->transactions)
-			{
-				auto ge = gcnew SMEnumerable(
-					t,
-					gcnew Action<State ^>(this, &SM::run)
-				);
+		State(UnityEngine::MonoBehaviour ^this_, System::Collections::IEnumerator ^waiter, Delegate ^exitAction, State ^toState) :State(this_)
+		{
+			this->exitAction = exitAction;
+			this->transactions->Add(gcnew Transaction(toState, waiter));
+		}
 
-				current->this_->StartCoroutine(ge->GetEnumerator());
-			}
+		State(UnityEngine::MonoBehaviour ^this_, Delegate ^entryAction, System::Collections::IEnumerator ^waiter, State ^toState) :State(this_)
+		{
+			this->entryAction = entryAction;
+			this->transactions->Add(gcnew Transaction(toState, waiter));
+		}
+
+		State(UnityEngine::MonoBehaviour ^this_, Delegate ^entryAction, Func<bool> ^endCondition, State ^toState) :State(this_)
+		{
+			this->entryAction = entryAction;
+			this->transactions->Add(gcnew Transaction(toState, endCondition));
+		}
+
+		State(UnityEngine::MonoBehaviour ^this_, Func<bool> ^endCondition, State ^toState) :State(this_)
+		{
+			this->transactions->Add(gcnew Transaction(toState, endCondition));
 		}
 	};
 
@@ -146,6 +152,34 @@ namespace Folie
 		virtual System::Collections::IEnumerator ^GetEnumerator()
 		{
 			return smEnumerator;
+		}
+	};
+
+	public ref class SM
+	{
+	public:
+		State ^current;
+		HashSet<State ^> ^states;
+
+	public:
+		SM()
+		{
+			states = gcnew HashSet<State ^>();
+		}
+
+		void run(State ^current)
+		{
+			this->current = current;
+
+			for each (auto t in current->transactions)
+			{
+				auto ge = gcnew SMEnumerable(
+					t,
+					gcnew Action<State ^>(this, &SM::run)
+				);
+
+				current->this_->StartCoroutine(ge->GetEnumerator());
+			}
 		}
 	};
 }

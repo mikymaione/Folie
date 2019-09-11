@@ -26,6 +26,8 @@ void Folie::Team::Start()
 		if (p->role == Enums::eRole::Setter)
 			number_of_setters++;
 	}
+
+	_started = true;
 }
 
 void Folie::Team::Update()

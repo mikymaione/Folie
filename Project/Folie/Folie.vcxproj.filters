@@ -57,6 +57,9 @@
     <ClInclude Include="SM.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="MonoBehaviourEX.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
