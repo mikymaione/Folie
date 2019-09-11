@@ -14,7 +14,7 @@ using namespace System;
 
 namespace Folie
 {
-	public ref class Team :MonoBehaviourEX
+	public ref class Team sealed :MonoBehaviourEX
 	{
 	private:
 		CoroutineQueue ^waiter;
@@ -44,7 +44,7 @@ namespace Folie
 		void unlockTouch();
 
 	internal:
-		virtual bool started() override;
+		bool started() override;
 
 		UInt16 getTouch();
 		void incTouch();

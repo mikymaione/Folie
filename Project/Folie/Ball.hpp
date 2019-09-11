@@ -18,7 +18,7 @@ namespace Folie
 	ref class CoroutineQueue; // cross reference
 	ref class Player; // cross reference
 
-	public ref class Ball :MonoBehaviourEX
+	public ref class Ball sealed :MonoBehaviourEX
 	{
 	private:
 		CoroutineQueue ^waiter;

@@ -15,6 +15,7 @@ Folie::Player::Player()
 	waiter = gcnew CoroutineQueue();
 }
 
+// Unity
 void Folie::Player::Start()
 {
 	phase = Enums::ePhase::null;
@@ -30,6 +31,7 @@ void Folie::Player::Start()
 	_started = true;
 }
 
+// Unity
 void Folie::Player::Update()
 {
 	if (REF::ball != nullptr && phase != Enums::ePhase::serve)

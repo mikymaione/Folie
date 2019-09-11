@@ -19,7 +19,7 @@ namespace Folie
 {
 	ref class Team; // cross reference
 
-	public ref class Player :MonoBehaviourEX
+	public ref class Player sealed :MonoBehaviourEX
 	{
 	private:
 		bool jumping;

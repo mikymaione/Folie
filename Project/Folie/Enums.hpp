@@ -10,7 +10,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 namespace Folie
 {
-	public ref class Enums
+	public ref class Enums abstract sealed
 	{
 	public:
 		literal float min_distance_to_hit = 1.5f;

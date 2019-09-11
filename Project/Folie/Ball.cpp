@@ -15,12 +15,14 @@ Folie::Ball::Ball()
 	waiter = gcnew CoroutineQueue();
 }
 
+// Unity
 void Folie::Ball::Start()
 {
 	rigidBody = GetComponent<UnityEngine::Rigidbody^>();
 	_started = true;
 }
 
+// Unity
 void Folie::Ball::Update()
 {
 	if (inHand != nullptr)
