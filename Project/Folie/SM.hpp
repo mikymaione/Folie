@@ -204,6 +204,16 @@ namespace Folie
 				return state;
 			}
 
+			State ^addState(UnityEngine::MonoBehaviour ^this_, Func<bool> ^endCondition, Delegate ^exitAction, State ^toState)
+			{
+				auto state = addState(this_);
+
+				state->exitAction = exitAction;
+				state->transactions->Add(gcnew Transaction(toState, endCondition));
+
+				return state;
+			}
+
 			State ^addState(UnityEngine::MonoBehaviour ^this_, Func<bool> ^endCondition, State ^toState)
 			{
 				auto state = addState(this_);
