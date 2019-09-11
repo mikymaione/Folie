@@ -44,6 +44,8 @@ namespace Folie
 		void unlockTouch();
 
 	internal:
+		virtual bool started() override;
+
 		UInt16 getTouch();
 		void incTouch();
 		void zeroTouch();

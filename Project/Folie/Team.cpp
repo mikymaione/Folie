@@ -15,6 +15,21 @@ Folie::Team::Team()
 	waiter = gcnew CoroutineQueue();
 }
 
+bool Folie::Team::started()
+{
+	if (_started)
+	{
+		for each (auto p in players)
+			if (!p->started())
+				return false;
+
+		return true;
+	}
+
+	return false;
+}
+
+// Unity
 void Folie::Team::Start()
 {
 	players = gcnew array<Player ^> {P1, P2, P3, P4, P5, P6};
@@ -30,6 +45,7 @@ void Folie::Team::Start()
 	_started = true;
 }
 
+// Unity
 void Folie::Team::Update()
 {
 	setMine();

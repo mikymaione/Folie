@@ -17,8 +17,8 @@ namespace Folie
 	protected:
 		bool _started;
 
-	public:
-		bool started()
+	internal:
+		virtual bool started()
 		{
 			return _started;
 		}
