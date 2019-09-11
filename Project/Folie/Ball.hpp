@@ -44,6 +44,8 @@ namespace Folie
 		bool ballInHand();
 		bool ballIsFlying();
 
+		bool started() override;
+
 	private:
 		void Start();
 		void Update();

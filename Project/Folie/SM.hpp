@@ -21,15 +21,20 @@ namespace Folie
 		public ref class Transaction
 		{
 		internal:
-			State ^toState;
+			State ^toState, ^state;
 			System::Collections::IEnumerator ^waiter;
 
 		internal:
-			Transaction(State ^toState, Func<bool> ^endCondition) :Transaction(toState, gcnew UnityEngine::WaitUntil(endCondition)) {}
-
-			Transaction(State ^toState, System::Collections::IEnumerator ^waiter)
+			Transaction(State ^state, State ^toState)
 			{
+				this->state = state;
 				this->toState = toState;
+			}
+
+			Transaction(State ^state, State ^toState, Func<bool> ^endCondition) :Transaction(state, toState, gcnew UnityEngine::WaitUntil(endCondition)) {}
+
+			Transaction(State ^state, State ^toState, System::Collections::IEnumerator ^waiter) :Transaction(state, toState)
+			{
 				this->waiter = waiter;
 			}
 		};
@@ -37,13 +42,20 @@ namespace Folie
 		public ref class State
 		{
 		internal:
+			String ^name;
+
 			UnityEngine::MonoBehaviour ^this_;
 
-		internal:
 			Delegate ^entryAction, ^exitAction;
 			array<Object ^> ^parameters;
 
 			HashSet<Transaction ^> ^transactions;
+
+		internal:
+			State(String ^name)
+			{
+				this->name = name;
+			}
 		};
 
 		private ref class SMEnumerator :System::Collections::IEnumerator
@@ -61,7 +73,8 @@ namespace Folie
 
 			virtual bool MoveNext()
 			{
-				auto state = transaction->toState;
+				auto state = transaction->state;
+				auto next_state = transaction->toState;
 
 				if (state->entryAction != nullptr)
 				{
@@ -69,7 +82,7 @@ namespace Folie
 					state->entryAction = nullptr;
 				}
 
-				auto more_elements_available = transaction->waiter->MoveNext();
+				auto more_elements_available = (transaction->waiter != nullptr && transaction->waiter->MoveNext());
 
 				if (!more_elements_available && callback_function != nullptr)
 				{
@@ -79,8 +92,11 @@ namespace Folie
 						state->exitAction = nullptr;
 					}
 
-					callback_function->DynamicInvoke(state);
-					callback_function = nullptr;
+					if (transaction->waiter != nullptr)
+					{
+						callback_function->DynamicInvoke(next_state);
+						callback_function = nullptr;
+					}
 				}
 
 				return more_elements_available;
@@ -144,9 +160,9 @@ namespace Folie
 				}
 			}
 
-			State ^addState(UnityEngine::MonoBehaviour ^this_)
+			State ^addState(String ^name, UnityEngine::MonoBehaviour ^this_)
 			{
-				auto state = gcnew State();
+				auto state = gcnew State(name);
 
 				state->transactions = gcnew HashSet<Transaction ^>();
 				state->this_ = this_;
@@ -156,69 +172,69 @@ namespace Folie
 				return state;
 			}
 
-			State ^addState(UnityEngine::MonoBehaviour ^this_, Delegate ^entryAction)
+			State ^addState(String ^name, UnityEngine::MonoBehaviour ^this_, Delegate ^entryAction)
 			{
-				auto state = addState(this_);
+				auto state = addState(name, this_);
 
 				state->entryAction = entryAction;
 
 				return state;
 			}
 
-			State ^addState(UnityEngine::MonoBehaviour ^this_, Delegate ^entryAction, array<Object ^> ^parameters)
+			State ^addState(String ^name, UnityEngine::MonoBehaviour ^this_, Delegate ^entryAction, array<Object ^> ^parameters)
 			{
-				auto state = addState(this_, entryAction);
+				auto state = addState(name, this_, entryAction);
 
 				state->parameters = parameters;
 
 				return state;
 			}
 
-			State ^addState(UnityEngine::MonoBehaviour ^this_, System::Collections::IEnumerator ^waiter, Delegate ^exitAction, State ^toState)
+			State ^addState(String ^name, UnityEngine::MonoBehaviour ^this_, System::Collections::IEnumerator ^waiter, Delegate ^exitAction, State ^toState)
 			{
-				auto state = addState(this_);
+				auto state = addState(name, this_);
 
 				state->exitAction = exitAction;
-				state->transactions->Add(gcnew Transaction(toState, waiter));
+				state->transactions->Add(gcnew Transaction(state, toState, waiter));
 
 				return state;
 			}
 
-			State ^addState(UnityEngine::MonoBehaviour ^this_, Delegate ^entryAction, System::Collections::IEnumerator ^waiter, State ^toState)
+			State ^addState(String ^name, UnityEngine::MonoBehaviour ^this_, Delegate ^entryAction, System::Collections::IEnumerator ^waiter, State ^toState)
 			{
-				auto state = addState(this_);
+				auto state = addState(name, this_);
 
 				state->entryAction = entryAction;
-				state->transactions->Add(gcnew Transaction(toState, waiter));
+				state->transactions->Add(gcnew Transaction(state, toState, waiter));
 
 				return state;
 			}
 
-			State ^addState(UnityEngine::MonoBehaviour ^this_, Delegate ^entryAction, Func<bool> ^endCondition, State ^toState)
+			State ^addState(String ^name, UnityEngine::MonoBehaviour ^this_, Delegate ^entryAction, Func<bool> ^endCondition, State ^toState)
 			{
-				auto state = addState(this_);
+				auto state = addState(name, this_);
 
 				state->entryAction = entryAction;
-				state->transactions->Add(gcnew Transaction(toState, endCondition));
+				state->transactions->Add(gcnew Transaction(state, toState, endCondition));
 
 				return state;
 			}
 
-			State ^addState(UnityEngine::MonoBehaviour ^this_, Func<bool> ^endCondition, Delegate ^exitAction, State ^toState)
+			State ^addState(String ^name, UnityEngine::MonoBehaviour ^this_, Func<bool> ^endCondition, Delegate ^exitAction, State ^toState)
 			{
-				auto state = addState(this_);
+				auto state = addState(name, this_);
 
 				state->exitAction = exitAction;
-				state->transactions->Add(gcnew Transaction(toState, endCondition));
+				state->transactions->Add(gcnew Transaction(state, toState, endCondition));
 
 				return state;
 			}
 
-			State ^addState(UnityEngine::MonoBehaviour ^this_, Func<bool> ^endCondition, State ^toState)
+			State ^addState(String ^name, UnityEngine::MonoBehaviour ^this_, Func<bool> ^endCondition, State ^toState)
 			{
-				auto state = addState(this_);
+				auto state = addState(name, this_);
 
-				state->transactions->Add(gcnew Transaction(toState, endCondition));
+				state->transactions->Add(gcnew Transaction(state, toState, endCondition));
 
 				return state;
 			}

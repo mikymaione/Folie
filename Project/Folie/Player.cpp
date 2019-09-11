@@ -216,6 +216,11 @@ void Folie::Player::playerTakePositionsOnTheField(UnityEngine::Vector2 position)
 	lookAtAnOpponent();
 }
 
+bool Folie::Player::started()
+{
+	return _started;
+}
+
 bool Folie::Player::inPosition()
 {
 	return GB::samePosition3D(agent->destination, transform->position);
@@ -357,6 +362,7 @@ void Folie::Player::serve_(UnityEngine::Vector2 target)
 	}
 
 	REF::ball->serve(this, dest_court, UnityEngine::Vector2(target.x, y));
+	REF::game->SM->run(REF::game->S_rally);
 }
 
 void Folie::Player::serve()

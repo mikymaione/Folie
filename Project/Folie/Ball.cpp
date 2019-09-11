@@ -73,6 +73,11 @@ bool Folie::Ball::ballIsFlying()
 	return hitted && transform->position.y > 0;
 }
 
+bool Folie::Ball::started()
+{
+	return _started;
+}
+
 void Folie::Ball::setHitting(bool hitting_)
 {
 	hitting = hitting_;

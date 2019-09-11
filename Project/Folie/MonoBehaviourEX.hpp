@@ -18,9 +18,6 @@ namespace Folie
 		bool _started;
 
 	internal:
-		virtual bool started()
-		{
-			return _started;
-		}
+		virtual bool started() abstract;
 	};
 }

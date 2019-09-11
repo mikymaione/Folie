@@ -77,6 +77,9 @@ namespace Folie
 
 		void playerTakePositionsOnTheField(UnityEngine::Vector2 position);
 
+	internal:
+		bool started() override;
+
 	public:
 		Player();
 
