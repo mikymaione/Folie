@@ -92,7 +92,7 @@ void Folie::Ball::ballOnTheFloor()
 		hitting = false;
 		ground = true;
 
-		REF::game->ballOnGround(getActualField(), lastPlayerTouch);
+		REF::game->pointMade(getActualField(), lastPlayerTouch);
 
 		lastPlayerTouch = nullptr;
 	}
@@ -140,7 +140,7 @@ void Folie::Ball::addForce(Player ^playerTouch, Enums::eField field, UnityEngine
 		if (playerTouch->team->getTouch() > 3)
 		{
 			ground = true;
-			REF::game->ballOnGround(getActualField(), lastPlayerTouch);
+			REF::game->pointMade(getActualField(), lastPlayerTouch);
 		}
 		else
 		{
