@@ -66,7 +66,7 @@ namespace Folie
 			}
 		};
 
-		private ref class SMEnumerator :System::Collections::IEnumerator
+		private ref class SMEnumerator sealed :System::Collections::IEnumerator
 		{
 		private:
 			Transaction ^transaction;
@@ -113,7 +113,7 @@ namespace Folie
 			}
 		};
 
-		private ref class SMEnumerable :System::Collections::IEnumerable
+		private ref class SMEnumerable sealed :System::Collections::IEnumerable
 		{
 		private:
 			SMEnumerator ^smEnumerator;

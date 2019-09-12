@@ -60,6 +60,9 @@
     <ClInclude Include="MonoBehaviourEX.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="DT.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
