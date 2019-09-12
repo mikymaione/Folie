@@ -55,7 +55,7 @@ namespace Folie
 			UnityEngine::MonoBehaviour ^this_;
 
 			Delegate ^entryAction, ^exitAction;
-			array<Object ^> ^parameters;
+			array<Object ^> ^entryParameters, ^exitParameters;
 
 			HashSet<Transaction ^> ^transactions;
 
@@ -88,7 +88,7 @@ namespace Folie
 				if (!more_elements_available)
 				{
 					if (state->exitAction != nullptr)
-						state->exitAction->DynamicInvoke(state->parameters);
+						state->exitAction->DynamicInvoke(state->exitParameters);
 
 					auto next_state = transaction->toState;
 
@@ -167,7 +167,7 @@ namespace Folie
 					current = to_;
 
 					if (current->entryAction != nullptr)
-						current->entryAction->DynamicInvoke(current->parameters);
+						current->entryAction->DynamicInvoke(current->entryParameters);
 
 					for each (auto t in current->transactions)
 					{
@@ -211,11 +211,11 @@ namespace Folie
 				return state;
 			}
 
-			State ^addState(String ^name, UnityEngine::MonoBehaviour ^this_, Delegate ^entryAction, array<Object ^> ^parameters)
+			State ^addState(String ^name, UnityEngine::MonoBehaviour ^this_, Delegate ^entryAction, array<Object ^> ^entryParameters)
 			{
 				auto state = addState(name, this_, entryAction);
 
-				state->parameters = parameters;
+				state->entryParameters = entryParameters;
 
 				return state;
 			}
