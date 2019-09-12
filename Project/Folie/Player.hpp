@@ -10,6 +10,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #include "GB.hpp"
 #include "Ball.hpp"
+#include "DT.hpp"
 
 #using <UnityEngine.AIModule.dll> as_friend
 
@@ -22,6 +23,8 @@ namespace Folie
 	public ref class Player sealed :MonoBehaviourEX
 	{
 	private:
+		AI::DT ^DT;
+
 		bool jumping;
 
 		CoroutineQueue ^waiter;
@@ -66,6 +69,8 @@ namespace Folie
 		void pass_();
 		void attack_(Enums::ePosition target);
 		void lookAt_(UnityEngine::Vector3 to_);
+
+		void block();
 
 		void serve_(UnityEngine::Vector2 target);
 		void serve();
@@ -120,5 +125,20 @@ namespace Folie
 
 		void clearQueue();
 
+	private:
+		bool iAmInTheFrontCourt();
+
+		UInt16 howManyTouch();
+		void touchSwitcher(UInt16 touch);
+
+		void takeDefenceScheme();
+		void takeAttackScheme();
+
+		bool ballIsInFlyingToMyPosition();
+		bool ballIsInMyCourts();
+
+		void moveToBallFallPosition();
+
+		void Update2();
 	};
 }

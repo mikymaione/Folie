@@ -9,15 +9,61 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #pragma once
 
 using namespace System;
+using namespace System::Collections::Generic;
 
 namespace Folie
 {
 	namespace AI
 	{
-		public ref class DT
+		ref class Decision abstract
 		{
-		internal:
-			Delegate ^condition, ^switcher;
+		public:
+			virtual void Execute() abstract;
+		};
+
+		ref class DT :Decision
+		{
+		public:
+			Dictionary<Object^, Decision^> ^Switcher;
+			Decision ^Positive, ^Negative;
+			Delegate ^Test;
+
+		private:
+			Object ^positiveVal;
+
+		public:
+			DT(Delegate ^Test)
+			{
+				this->Test = Test;
+			}
+
+			DT(Delegate ^Test, Object ^positiveVal) :DT(Test)
+			{
+				this->positiveVal = positiveVal;
+			}
+
+			void Execute() override
+			{
+				auto res = Test->DynamicInvoke();
+
+				if (Switcher == nullptr)
+				{
+					if (positiveVal == nullptr || positiveVal->Equals(res))
+						Positive->Execute();
+					else
+						Negative->Execute();
+				}
+				else
+				{
+					if (Switcher->ContainsKey(res))
+						Switcher[res]->Execute();
+				}
+			}
+
+			static Dictionary<Object^, Decision^> ^newSwitcher()
+			{
+				return gcnew Dictionary<Object^, Decision^>();
+			}
 		};
 	}
 }

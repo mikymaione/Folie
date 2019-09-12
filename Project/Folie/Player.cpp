@@ -13,6 +13,167 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 Folie::Player::Player()
 {
 	waiter = gcnew CoroutineQueue();
+
+	DT = gcnew AI::DT(
+		gcnew Func<bool>(this, &Player::ballIsInMyCourts),
+		true
+	);
+
+	auto DT_ballIsInFlyingToMyPosition = gcnew AI::DT(
+		gcnew Func<bool>(this, &Player::ballIsInFlyingToMyPosition),
+		true
+	);
+
+	auto DT_iAmInTheFrontCourt = gcnew AI::DT(
+		gcnew Func<bool>(this, &Player::iAmInTheFrontCourt),
+		true
+	);
+
+
+	auto DT_takeAttackScheme = gcnew AI::DT(gcnew Action(this, &Player::takeAttackScheme));
+	auto DT_takeDefenceScheme = gcnew AI::DT(gcnew Action(this, &Player::takeDefenceScheme));
+
+	auto DT_block = gcnew AI::DT(gcnew Action(this, &Player::block));
+	auto DT_pass = gcnew AI::DT(gcnew Action(this, &Player::pass));
+	auto DT_set = gcnew AI::DT(gcnew Action(this, &Player::set));
+	auto DT_attack = gcnew AI::DT(gcnew Action(this, &Player::attack));
+
+	auto DT_getTouch = gcnew AI::DT(gcnew Func<UInt16>(this, &Player::howManyTouch));
+
+	auto DT_touchSwitcher = gcnew AI::DT(gcnew Action<UInt16>(this, &Player::touchSwitcher));
+
+	auto DT_moveToBallFallPosition = gcnew AI::DT(gcnew Action(this, &Player::moveToBallFallPosition));
+
+
+	DT->Positive = DT_ballIsInFlyingToMyPosition;
+	DT->Negative = DT_takeDefenceScheme;
+
+	DT_iAmInTheFrontCourt->Positive = DT_block;
+
+	DT_takeDefenceScheme->Positive = DT_iAmInTheFrontCourt;
+
+	DT_ballIsInFlyingToMyPosition->Positive = DT_moveToBallFallPosition;
+	DT_ballIsInFlyingToMyPosition->Negative = DT_takeAttackScheme;
+
+	DT_moveToBallFallPosition->Positive = DT_getTouch;
+
+	DT_getTouch->Switcher = AI::DT::newSwitcher();
+	DT_getTouch->Switcher->Add(0, DT_pass);
+	DT_getTouch->Switcher->Add(1, DT_set);
+	DT_getTouch->Switcher->Add(2, DT_attack);
+
+	DT_takeAttackScheme->Positive = DT;
+	DT_block->Positive = DT;
+	DT_pass->Positive = DT;
+	DT_set->Positive = DT;
+	DT_attack->Positive = DT;
+}
+
+bool Folie::Player::iAmInTheFrontCourt()
+{
+	switch (getCurrentCourt())
+	{
+	case Folie::Enums::eCourt::front:
+		return true;
+	case Folie::Enums::eCourt::back:
+		return false;
+	}
+}
+
+UInt16 Folie::Player::howManyTouch()
+{
+	return team->getTouch();
+}
+
+void Folie::Player::touchSwitcher(UInt16 touch)
+{
+	switch (touch)
+	{
+	case 0:
+		pass_();
+		break;
+	case 1:
+		switch (role)
+		{
+		case Folie::Enums::eRole::Libero:
+		case Folie::Enums::eRole::Setter:
+			set_();
+			break;
+		case Folie::Enums::eRole::OutsideHitter:
+		case Folie::Enums::eRole::MiddleBlocker:
+		case Folie::Enums::eRole::Opposite:
+			attack_(GB::selectRandomPosition());
+			break;
+		}
+		break;
+	case 2:
+		attack_(GB::selectRandomPosition());
+		break;
+	}
+
+	team->playerThatSayMia = nullptr;
+}
+
+void Folie::Player::takeDefenceScheme()
+{
+	playerTakePositionInReception();
+}
+
+void Folie::Player::takeAttackScheme()
+{
+	auto prendi_position = true;
+
+	auto attack_area = GB::getAttackArea(getCurrentCourt(), role, currentPosition, team->number_of_setters);
+	auto coord_attack_area = GB::getCoordinates2DFromArea(field, attack_area);
+
+	if (!team->serving)
+		switch (role)
+		{
+		case Folie::Enums::eRole::Setter:
+			if (team->number_of_setters > 1 && getCurrentCourt() == Enums::eCourt::back)
+				prendi_position = (team->getTouch() > 0);
+			break;
+		case Folie::Enums::eRole::Opposite:
+			prendi_position = (team->getTouch() > 0);
+			break;
+		case Folie::Enums::eRole::OutsideHitter:
+		case Folie::Enums::eRole::MiddleBlocker:
+			if (getCurrentCourt() == Enums::eCourt::back)
+				prendi_position = (team->getTouch() > 0);
+
+			break;
+		}
+
+	if (prendi_position)
+		moveTo_Async(runSpeed, coord_attack_area.x, coord_attack_area.y);
+}
+
+bool Folie::Player::ballIsInFlyingToMyPosition()
+{
+	return currentArea == REF::ball->targetArea;
+}
+
+bool Folie::Player::ballIsInMyCourts()
+{
+	if (REF::ball != nullptr && phase != Enums::ePhase::serve)
+	{
+		auto ballIsFlying = REF::ball->ballIsFlying();
+
+		if (ballIsFlying)
+		{
+			auto myCourt = getCurrentCourt();
+			auto ballCourt = GB::getCourtFromPosition(currentPosition);
+
+			return myCourt == ballCourt;
+		}
+	}
+
+	return false;
+}
+
+void Folie::Player::moveToBallFallPosition()
+{
+	moveTo(runSpeed, REF::ball->destination3D);
 }
 
 // Unity
@@ -33,6 +194,11 @@ void Folie::Player::Start()
 
 // Unity
 void Folie::Player::Update()
+{
+	DT->Execute();
+}
+
+void Folie::Player::Update2()
 {
 	if (REF::ball != nullptr && phase != Enums::ePhase::serve)
 	{
@@ -548,6 +714,11 @@ void Folie::Player::lookAt_(UnityEngine::Vector3 to_)
 {
 	auto dest = UnityEngine::Vector3(to_.x, transform->position.y, to_.z);
 	transform->LookAt(dest);
+}
+
+void Folie::Player::block()
+{
+	setJumping(true);
 }
 
 bool Folie::Player::canTouchTheBall()
