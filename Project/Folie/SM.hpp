@@ -22,6 +22,9 @@ namespace Folie
 		{
 		internal:
 			State ^toState, ^state;
+
+			Func<bool> ^goToNextStateIfTrue;
+
 			System::Collections::IEnumerator ^waiter;
 
 		internal:
@@ -31,12 +34,17 @@ namespace Folie
 				this->toState = toState;
 			}
 
-			Transaction(State ^state, State ^toState, Func<bool> ^endCondition) :Transaction(state, toState, gcnew UnityEngine::WaitUntil(endCondition)) {}
+			Transaction(State ^state, Func<bool> ^goToNextStateIfTrue, State ^toState) :Transaction(state, toState)
+			{
+				this->goToNextStateIfTrue = goToNextStateIfTrue;
+			}
 
 			Transaction(State ^state, State ^toState, System::Collections::IEnumerator ^waiter) :Transaction(state, toState)
 			{
 				this->waiter = waiter;
 			}
+
+			Transaction(State ^state, State ^toState, Func<bool> ^endCondition) :Transaction(state, toState, gcnew UnityEngine::WaitUntil(endCondition)) {}
 		};
 
 		public ref class State
@@ -74,29 +82,18 @@ namespace Folie
 			virtual bool MoveNext()
 			{
 				auto state = transaction->state;
-				auto next_state = transaction->toState;
 
-				if (state->entryAction != nullptr)
-				{
-					state->entryAction->DynamicInvoke(state->parameters);
-					state->entryAction = nullptr;
-				}
+				auto more_elements_available = transaction->waiter->MoveNext();
 
-				auto more_elements_available = (transaction->waiter != nullptr && transaction->waiter->MoveNext());
-
-				if (!more_elements_available && callback_function != nullptr)
+				if (!more_elements_available)
 				{
 					if (state->exitAction != nullptr)
-					{
 						state->exitAction->DynamicInvoke(state->parameters);
-						state->exitAction = nullptr;
-					}
 
-					if (transaction->waiter != nullptr)
-					{
-						callback_function->DynamicInvoke(next_state);
-						callback_function = nullptr;
-					}
+					auto next_state = transaction->toState;
+
+					if (callback_function != nullptr)
+						callback_function->DynamicInvoke(next_state, state);
 				}
 
 				return more_elements_available;
@@ -145,18 +142,51 @@ namespace Folie
 				states = gcnew HashSet<State ^>();
 			}
 
-			void run(State ^current)
+			void run(State ^to_)
 			{
-				this->current = current;
+				if (current == nullptr)
+					run(to_, nullptr); // for circular reference bug
+				else
+					run(to_, current);
+			}
 
-				for each (auto t in current->transactions)
+			void run(State ^to_, State ^from_)
+			{
+				auto transactionToThisStateIsPossible = (from_ == nullptr);
+
+				if (!transactionToThisStateIsPossible)
+					for each (auto t in from_->transactions)
+						if (t->toState == to_)
+						{
+							transactionToThisStateIsPossible = true;
+							break;
+						}
+
+				if (transactionToThisStateIsPossible)
 				{
-					auto ge = gcnew SMEnumerable(
-						t,
-						gcnew Action<State ^>(this, &SM::run)
-					);
+					current = to_;
 
-					current->this_->StartCoroutine(ge->GetEnumerator());
+					if (current->entryAction != nullptr)
+						current->entryAction->DynamicInvoke(current->parameters);
+
+					for each (auto t in current->transactions)
+					{
+						if (t->waiter == nullptr)
+						{
+							if (t->goToNextStateIfTrue != nullptr)
+								if (t->goToNextStateIfTrue())
+									run(t->toState);
+						}
+						else
+						{
+							auto ge = gcnew SMEnumerable(
+								t,
+								gcnew Action<State^, State^>(this, &SM::run)
+							);
+
+							current->this_->StartCoroutine(ge->GetEnumerator());
+						}
+					}
 				}
 			}
 
