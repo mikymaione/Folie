@@ -26,7 +26,9 @@ namespace Folie
 		public:
 			Dictionary<Object^, Decision^> ^Switcher;
 			Decision ^Positive, ^Negative;
+
 			Delegate ^Test;
+			array<Object ^> ^testParams;
 
 		private:
 			Object ^positiveVal;
@@ -44,14 +46,20 @@ namespace Folie
 
 			void Execute() override
 			{
-				auto res = Test->DynamicInvoke();
+				auto res = Test->DynamicInvoke(testParams);
 
 				if (Switcher == nullptr)
 				{
 					if (positiveVal == nullptr || positiveVal->Equals(res))
-						Positive->Execute();
+					{
+						if (Positive != nullptr)
+							Positive->Execute();
+					}
 					else
-						Negative->Execute();
+					{
+						if (Negative != nullptr)
+							Negative->Execute();
+					}
 				}
 				else
 				{

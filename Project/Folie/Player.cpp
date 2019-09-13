@@ -14,21 +14,20 @@ Folie::Player::Player()
 {
 	waiter = gcnew CoroutineQueue();
 
-	DT = gcnew AI::DT(
-		gcnew Func<bool>(this, &Player::ballIsInMyCourts),
-		true
-	);
+	DT_served = gcnew AI::DT(gcnew Func<bool>(this, &Player::served), true);
 
-	auto DT_ballIsInFlyingToMyPosition = gcnew AI::DT(
-		gcnew Func<bool>(this, &Player::ballIsInFlyingToMyPosition),
-		true
-	);
+	auto DT_ballIsFlying = gcnew AI::DT(gcnew Func<bool>(this, &Player::ballIsFlying), true);
 
-	auto DT_iAmInTheFrontCourt = gcnew AI::DT(
-		gcnew Func<bool>(this, &Player::iAmInTheFrontCourt),
-		true
-	);
+	auto DT_lookAtTheBall = gcnew AI::DT(gcnew Action<bool>(this, &Player::lookAtTheBall));
+	DT_lookAtTheBall->testParams = gcnew array<Boolean ^> {true};
 
+	auto DT_dontLookAtTheBall = gcnew AI::DT(gcnew Action<bool>(this, &Player::lookAtTheBall));
+	DT_dontLookAtTheBall->testParams = gcnew array<Boolean ^> {false};
+
+	auto DT_ballIsInMyCourts = gcnew AI::DT(gcnew Func<bool>(this, &Player::ballIsInMyCourts), true);
+
+	auto DT_ballIsInFlyingToMyPosition = gcnew AI::DT(gcnew Func<bool>(this, &Player::ballIsInFlyingToMyPosition), true);
+	auto DT_iAmInTheFrontCourt = gcnew AI::DT(gcnew Func<bool>(this, &Player::iAmInTheFrontCourt), true);
 
 	auto DT_takeAttackScheme = gcnew AI::DT(gcnew Action(this, &Player::takeAttackScheme));
 	auto DT_takeDefenceScheme = gcnew AI::DT(gcnew Action(this, &Player::takeDefenceScheme));
@@ -38,35 +37,57 @@ Folie::Player::Player()
 	auto DT_set = gcnew AI::DT(gcnew Action(this, &Player::set));
 	auto DT_attack = gcnew AI::DT(gcnew Action(this, &Player::attack));
 
-	auto DT_getTouch = gcnew AI::DT(gcnew Func<UInt16>(this, &Player::howManyTouch));
-
-	auto DT_touchSwitcher = gcnew AI::DT(gcnew Action<UInt16>(this, &Player::touchSwitcher));
+	auto DT_howManyTouch = gcnew AI::DT(gcnew Func<UInt16>(this, &Player::howManyTouch));
 
 	auto DT_moveToBallFallPosition = gcnew AI::DT(gcnew Action(this, &Player::moveToBallFallPosition));
 
+	DT_served->Positive = DT_ballIsFlying;
+	DT_ballIsFlying->Positive = DT_lookAtTheBall;
+	DT_ballIsFlying->Negative = DT_dontLookAtTheBall;
 
-	DT->Positive = DT_ballIsInFlyingToMyPosition;
-	DT->Negative = DT_takeDefenceScheme;
+	DT_lookAtTheBall->Positive = DT_ballIsInMyCourts;
 
-	DT_iAmInTheFrontCourt->Positive = DT_block;
+	DT_ballIsInMyCourts->Positive = DT_ballIsInFlyingToMyPosition;
+	DT_ballIsInMyCourts->Negative = DT_takeDefenceScheme;
 
 	DT_takeDefenceScheme->Positive = DT_iAmInTheFrontCourt;
+
+	//DT_iAmInTheFrontCourt->Positive = DT_block; // to-do
 
 	DT_ballIsInFlyingToMyPosition->Positive = DT_moveToBallFallPosition;
 	DT_ballIsInFlyingToMyPosition->Negative = DT_takeAttackScheme;
 
-	DT_moveToBallFallPosition->Positive = DT_getTouch;
+	DT_moveToBallFallPosition->Positive = DT_howManyTouch;
 
-	DT_getTouch->Switcher = AI::DT::newSwitcher();
-	DT_getTouch->Switcher->Add(0, DT_pass);
-	DT_getTouch->Switcher->Add(1, DT_set);
-	DT_getTouch->Switcher->Add(2, DT_attack);
+	DT_howManyTouch->Switcher = AI::DT::newSwitcher();
+	DT_howManyTouch->Switcher->Add(0, DT_pass);
+	DT_howManyTouch->Switcher->Add(1, DT_set);
+	DT_howManyTouch->Switcher->Add(2, DT_attack);
+}
 
-	DT_takeAttackScheme->Positive = DT;
-	DT_block->Positive = DT;
-	DT_pass->Positive = DT;
-	DT_set->Positive = DT;
-	DT_attack->Positive = DT;
+bool Folie::Player::served()
+{
+	auto served = false;
+
+	if (REF::ball != nullptr && phase != Enums::ePhase::serve)
+		served = true;
+
+	if (lookingAt != nullptr)
+		lookAt_(*lookingAt);
+
+	return served;
+}
+
+bool Folie::Player::ballIsFlying()
+{
+	auto ballIsFlying = REF::ball->ballIsFlying();
+
+	if (ballIsFlying)
+		return true;
+	else
+		agent->enabled = true;
+
+	return false;
 }
 
 bool Folie::Player::iAmInTheFrontCourt()
@@ -85,38 +106,13 @@ UInt16 Folie::Player::howManyTouch()
 	return team->getTouch();
 }
 
-void Folie::Player::touchSwitcher(UInt16 touch)
-{
-	switch (touch)
-	{
-	case 0:
-		pass_();
-		break;
-	case 1:
-		switch (role)
-		{
-		case Folie::Enums::eRole::Libero:
-		case Folie::Enums::eRole::Setter:
-			set_();
-			break;
-		case Folie::Enums::eRole::OutsideHitter:
-		case Folie::Enums::eRole::MiddleBlocker:
-		case Folie::Enums::eRole::Opposite:
-			attack_(GB::selectRandomPosition());
-			break;
-		}
-		break;
-	case 2:
-		attack_(GB::selectRandomPosition());
-		break;
-	}
-
-	team->playerThatSayMia = nullptr;
-}
-
 void Folie::Player::takeDefenceScheme()
 {
-	playerTakePositionInReception();
+	if (gamePhase != Enums::eGamePhase::serve || team->getTouch() > 0)
+		gamePhase = (field == REF::ball->getActualField() ? Enums::eGamePhase::attack : Enums::eGamePhase::defence);
+
+	if (gamePhase == Enums::eGamePhase::defence)
+		playerTakePositionInReception();
 }
 
 void Folie::Player::takeAttackScheme()
@@ -155,20 +151,10 @@ bool Folie::Player::ballIsInFlyingToMyPosition()
 
 bool Folie::Player::ballIsInMyCourts()
 {
-	if (REF::ball != nullptr && phase != Enums::ePhase::serve)
-	{
-		auto ballIsFlying = REF::ball->ballIsFlying();
+	auto myCourt = getCurrentCourt();
+	auto ballCourt = GB::getCourtFromPosition(currentPosition);
 
-		if (ballIsFlying)
-		{
-			auto myCourt = getCurrentCourt();
-			auto ballCourt = GB::getCourtFromPosition(currentPosition);
-
-			return myCourt == ballCourt;
-		}
-	}
-
-	return false;
+	return myCourt == ballCourt;
 }
 
 void Folie::Player::moveToBallFallPosition()
@@ -195,7 +181,7 @@ void Folie::Player::Start()
 // Unity
 void Folie::Player::Update()
 {
-	DT->Execute();
+	DT_served->Execute();
 }
 
 void Folie::Player::Update2()

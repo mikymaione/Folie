@@ -23,7 +23,7 @@ namespace Folie
 	public ref class Player sealed :MonoBehaviourEX
 	{
 	private:
-		AI::DT ^DT;
+		AI::DT ^DT_served;
 
 		bool jumping;
 
@@ -129,13 +129,15 @@ namespace Folie
 		bool iAmInTheFrontCourt();
 
 		UInt16 howManyTouch();
-		void touchSwitcher(UInt16 touch);
 
 		void takeDefenceScheme();
 		void takeAttackScheme();
 
 		bool ballIsInFlyingToMyPosition();
 		bool ballIsInMyCourts();
+
+		bool served();
+		bool ballIsFlying();
 
 		void moveToBallFallPosition();
 
