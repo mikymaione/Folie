@@ -23,7 +23,7 @@ namespace Folie
 	public ref class Player sealed :MonoBehaviourEX
 	{
 	private:
-		AI::DT ^DT_served;
+		AI::DT ^DT_rally;
 
 		bool jumping;
 
@@ -123,24 +123,27 @@ namespace Folie
 
 		Enums::eCourt getCurrentCourt();
 
+		bool ballIsFlying();
+		bool isBallInMyArea();
+		bool canIReachTheBallJumping();
+		bool ballIsReacheable();
+
+		bool Serving();
+
+		void lookAtTarget();
+		void EnableAgent();
+
+		void ballOfNoOne();
+
+		void takeCorrectPositionPreAttack();
+		void takeCorrectPositionInAttackMode();
+
+		Enums::eGamePhase getGamePhase();
+		Enums::eRole getRole();
+
+		UInt16 getTouch();
+
 		void clearQueue();
 
-	private:
-		bool iAmInTheFrontCourt();
-
-		UInt16 howManyTouch();
-
-		void takeDefenceScheme();
-		void takeAttackScheme();
-
-		bool ballIsInFlyingToMyPosition();
-		bool ballIsInMyCourts();
-
-		bool served();
-		bool ballIsFlying();
-
-		void moveToBallFallPosition();
-
-		void Update2();
 	};
 }

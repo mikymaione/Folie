@@ -14,151 +14,82 @@ Folie::Player::Player()
 {
 	waiter = gcnew CoroutineQueue();
 
-	DT_served = gcnew AI::DT(gcnew Func<bool>(this, &Player::served));
+	DT_rally = gcnew AI::DT();
+	auto DT_Serving = gcnew AI::DT(gcnew Func<bool>(this, &Player::Serving));
 
+	auto DT_lookAtTarget = gcnew AI::DT(gcnew Action(this, &Player::lookAtTarget));
 	auto DT_ballIsFlying = gcnew AI::DT(gcnew Func<bool>(this, &Player::ballIsFlying));
-
 	auto DT_lookAtTheBall = gcnew AI::DT(gcnew Action<bool>(this, &Player::lookAtTheBall), true);
-	auto DT_dontLookAtTheBall = gcnew AI::DT(gcnew Action<bool>(this, &Player::lookAtTheBall), false);
+	auto DT_DontLookAtTheBall = gcnew AI::DT(gcnew Action<bool>(this, &Player::lookAtTheBall), false);
 
-	auto DT_ballIsInMyCourts = gcnew AI::DT(gcnew Func<bool>(this, &Player::ballIsInMyCourts));
+	auto DT_EnableAgent = gcnew AI::DT(gcnew Action(this, &Player::EnableAgent));
 
-	auto DT_ballIsInFlyingToMyPosition = gcnew AI::DT(gcnew Func<bool>(this, &Player::ballIsInFlyingToMyPosition));
+	auto DT_getGamePhase = gcnew AI::DT(gcnew Func<Enums::eGamePhase>(this, &Player::getGamePhase));
+	auto DT_playerTakePositionInReception = gcnew AI::DT(gcnew Action(this, &Player::playerTakePositionInReception));
 
-	auto DT_iAmInTheFrontCourt = gcnew AI::DT(gcnew Func<bool>(this, &Player::iAmInTheFrontCourt));
+	auto DT_startAttackMode = gcnew AI::DT();
+	auto DT_ballIsReacheable = gcnew AI::DT(gcnew Func<bool>(this, &Player::ballIsReacheable));
+	auto DT_getTouch = gcnew AI::DT(gcnew Func<UInt16>(this, &Player::getTouch));
 
-	auto DT_takeAttackScheme = gcnew AI::DT(gcnew Action(this, &Player::takeAttackScheme));
-	auto DT_takeDefenceScheme = gcnew AI::DT(gcnew Action(this, &Player::takeDefenceScheme));
+	auto DT_getRole = gcnew AI::DT(gcnew Func<Enums::eRole>(this, &Player::getRole));
 
-	auto DT_block = gcnew AI::DT(gcnew Action(this, &Player::block));
-	auto DT_pass = gcnew AI::DT(gcnew Action(this, &Player::pass));
-	auto DT_set = gcnew AI::DT(gcnew Action(this, &Player::set));
+	auto DT_pass = gcnew AI::DT(gcnew Action(this, &Player::pass_));
+	auto DT_set = gcnew AI::DT(gcnew Action(this, &Player::set_));
 	auto DT_attack = gcnew AI::DT(gcnew Action(this, &Player::attack));
 
-	auto DT_moveToBallFallPosition = gcnew AI::DT(gcnew Action(this, &Player::moveToBallFallPosition));
+	auto DT_ballOfNoOne = gcnew AI::DT(gcnew Action(this, &Player::ballOfNoOne));
 
-	auto DT_howManyTouch = gcnew AI::DT(gcnew Func<UInt16>(this, &Player::howManyTouch));
+	auto DT_canIReachTheBallJumping = gcnew AI::DT(gcnew Func<bool>(this, &Player::canIReachTheBallJumping));
+	auto DT_setJumping = gcnew AI::DT(gcnew Action<bool>(this, &Player::setJumping), true);
+
+	auto DT_isBallInMyArea = gcnew AI::DT(gcnew Func<bool>(this, &Player::isBallInMyArea));
+	auto DT_takeCorrectPositionInAttackMode = gcnew AI::DT(gcnew Action(this, &Player::takeCorrectPositionInAttackMode));
+	auto DT_takeCorrectPositionPreAttack = gcnew AI::DT(gcnew Action(this, &Player::takeCorrectPositionPreAttack));
 
 
-	DT_served->chanches->Add(true, DT_ballIsFlying);
+	DT_rally->decisions->AddLast(DT_Serving);
+	DT_rally->decisions->AddLast(DT_lookAtTarget);
+	DT_Serving->chanches->Add(true, DT_ballIsFlying);
+
 	DT_ballIsFlying->chanches->Add(true, DT_lookAtTheBall);
-	DT_ballIsFlying->chanches->Add(false, DT_dontLookAtTheBall);
+	DT_ballIsFlying->chanches->Add(false, DT_DontLookAtTheBall);
 
-	DT_lookAtTheBall->chanches->Add(true, DT_ballIsInMyCourts);
+	DT_DontLookAtTheBall->decisions->AddLast(DT_EnableAgent);
+	DT_lookAtTheBall->decisions->AddLast(DT_getGamePhase);
 
-	DT_ballIsInMyCourts->chanches->Add(true, DT_ballIsInFlyingToMyPosition);
-	DT_ballIsInMyCourts->chanches->Add(false, DT_takeDefenceScheme);
+	DT_getGamePhase->chanches->Add(Enums::eGamePhase::defence, DT_playerTakePositionInReception);
+	DT_getGamePhase->negateChanches->Add(Enums::eGamePhase::defence, DT_startAttackMode);
 
-	DT_takeDefenceScheme->chanches->Add(true, DT_iAmInTheFrontCourt);
 
-	//DT_iAmInTheFrontCourt->chanches->Add(true, DT_block); // to-do
+	DT_startAttackMode->decisions->AddLast(DT_ballIsReacheable);
 
-	DT_ballIsInFlyingToMyPosition->chanches->Add(true, DT_moveToBallFallPosition);
-	DT_ballIsInFlyingToMyPosition->chanches->Add(false, DT_takeAttackScheme);
+	DT_ballIsReacheable->chanches->Add(true, DT_getTouch);
+	DT_ballIsReacheable->chanches->Add(false, DT_canIReachTheBallJumping);
 
-	DT_moveToBallFallPosition->chanches->Add(true, DT_howManyTouch);
 
-	DT_howManyTouch->chanches->Add(0, DT_pass);
-	DT_howManyTouch->chanches->Add(1, DT_set);
-	DT_howManyTouch->chanches->Add(2, DT_attack);
+	DT_getTouch->chanches->Add(0, DT_pass);
+	DT_getTouch->chanches->Add(1, DT_getRole);
+	DT_getTouch->chanches->Add(2, DT_attack);
+
+	DT_pass->decisions->AddLast(DT_ballOfNoOne);
+	DT_set->decisions->AddLast(DT_ballOfNoOne);
+	DT_attack->decisions->AddLast(DT_ballOfNoOne);
+
+	DT_getRole->chanches->Add(Enums::eRole::Libero, DT_set);
+	DT_getRole->chanches->Add(Enums::eRole::Setter, DT_set);
+
+	DT_getRole->chanches->Add(Enums::eRole::OutsideHitter, DT_attack);
+	DT_getRole->chanches->Add(Enums::eRole::MiddleBlocker, DT_attack);
+	DT_getRole->chanches->Add(Enums::eRole::Opposite, DT_attack);
+
+
+	DT_canIReachTheBallJumping->chanches->Add(true, DT_setJumping);
+	DT_canIReachTheBallJumping->chanches->Add(false, DT_isBallInMyArea);
+
+	DT_isBallInMyArea->chanches->Add(true, DT_takeCorrectPositionInAttackMode);
+	DT_isBallInMyArea->chanches->Add(false, DT_takeCorrectPositionPreAttack);
 }
 
-bool Folie::Player::served()
-{
-	auto served = false;
-
-	if (REF::ball != nullptr && phase != Enums::ePhase::serve)
-		served = true;
-
-	if (lookingAt != nullptr)
-		lookAt_(*lookingAt);
-
-	return served;
-}
-
-bool Folie::Player::ballIsFlying()
-{
-	auto ballIsFlying = REF::ball->ballIsFlying();
-
-	if (ballIsFlying)
-		return true;
-	else
-		agent->enabled = true;
-
-	return false;
-}
-
-bool Folie::Player::iAmInTheFrontCourt()
-{
-	switch (getCurrentCourt())
-	{
-	case Folie::Enums::eCourt::front:
-		return true;
-	case Folie::Enums::eCourt::back:
-		return false;
-	}
-}
-
-UInt16 Folie::Player::howManyTouch()
-{
-	return team->getTouch();
-}
-
-void Folie::Player::takeDefenceScheme()
-{
-	if (gamePhase != Enums::eGamePhase::serve || team->getTouch() > 0)
-		gamePhase = (field == REF::ball->getActualField() ? Enums::eGamePhase::attack : Enums::eGamePhase::defence);
-
-	if (gamePhase == Enums::eGamePhase::defence)
-		playerTakePositionInReception();
-}
-
-void Folie::Player::takeAttackScheme()
-{
-	auto prendi_position = true;
-
-	auto attack_area = GB::getAttackArea(getCurrentCourt(), role, currentPosition, team->number_of_setters);
-	auto coord_attack_area = GB::getCoordinates2DFromArea(field, attack_area);
-
-	if (!team->serving)
-		switch (role)
-		{
-		case Folie::Enums::eRole::Setter:
-			if (team->number_of_setters > 1 && getCurrentCourt() == Enums::eCourt::back)
-				prendi_position = (team->getTouch() > 0);
-			break;
-		case Folie::Enums::eRole::Opposite:
-			prendi_position = (team->getTouch() > 0);
-			break;
-		case Folie::Enums::eRole::OutsideHitter:
-		case Folie::Enums::eRole::MiddleBlocker:
-			if (getCurrentCourt() == Enums::eCourt::back)
-				prendi_position = (team->getTouch() > 0);
-
-			break;
-		}
-
-	if (prendi_position)
-		moveTo_Async(runSpeed, coord_attack_area.x, coord_attack_area.y);
-}
-
-bool Folie::Player::ballIsInFlyingToMyPosition()
-{
-	return currentArea == REF::ball->targetArea;
-}
-
-bool Folie::Player::ballIsInMyCourts()
-{
-	auto myCourt = getCurrentCourt();
-	auto ballCourt = GB::getCourtFromPosition(currentPosition);
-
-	return myCourt == ballCourt;
-}
-
-void Folie::Player::moveToBallFallPosition()
-{
-	moveTo(runSpeed, REF::ball->destination3D);
-}
 
 // Unity
 void Folie::Player::Start()
@@ -179,130 +110,136 @@ void Folie::Player::Start()
 // Unity
 void Folie::Player::Update()
 {
-	DT_served->Execute();
+	DT_rally->Execute();
 }
 
-void Folie::Player::Update2()
+
+bool Folie::Player::ballIsFlying()
 {
-	if (REF::ball != nullptr && phase != Enums::ePhase::serve)
-	{
-		auto ballIsFlying = REF::ball->ballIsFlying();
-		auto distanceFromBall = getDistanceFromBall();
+	return REF::ball->ballIsFlying();
+}
 
-		lookAtTheBall(ballIsFlying);
+bool Folie::Player::isBallInMyArea()
+{
+	return (REF::ball->targetArea == currentArea);
+}
 
-		if (ballIsFlying)
+bool Folie::Player::canIReachTheBallJumping()
+{
+	auto attack_area = GB::getAttackArea(getCurrentCourt(), role, currentPosition, team->number_of_setters);
+	auto coord_attack_area = GB::getCoordinates2DFromArea(field, attack_area);
+	auto distanceFromBall = getDistanceFromBall();
+
+	if (!jumping && GB::samePosition2D(REF::ball->target2D, coord_attack_area))
+		if (distanceFromBall < Enums::min_distance_to_jump && GB::canAttackJumping(role))
+			if (team->getTouch() == 2)
+				return true;
+
+	return false;
+}
+
+bool Folie::Player::ballIsReacheable()
+{
+	return getDistanceFromBall() < Enums::min_distance_to_hit && canTouchTheBall();
+}
+
+bool Folie::Player::Serving()
+{
+	return (REF::ball != nullptr && phase != Enums::ePhase::serve);
+}
+
+void Folie::Player::lookAtTarget()
+{
+	if (lookingAt != nullptr)
+		lookAt_(*lookingAt);
+}
+
+void Folie::Player::EnableAgent()
+{
+	agent->enabled = true;
+}
+
+void Folie::Player::ballOfNoOne()
+{
+	team->playerThatSayMia = nullptr;
+}
+
+void Folie::Player::takeCorrectPositionPreAttack()
+{
+	auto prendi_position = true;
+
+	if (!team->serving)
+		switch (role)
 		{
-			auto attack_area = GB::getAttackArea(getCurrentCourt(), role, currentPosition, team->number_of_setters);
-			auto coord_attack_area = GB::getCoordinates2DFromArea(field, attack_area);
+		case Folie::Enums::eRole::Setter:
+			if (team->number_of_setters > 1 && getCurrentCourt() == Enums::eCourt::back)
+				prendi_position = (team->getTouch() > 0);
+			break;
+		case Folie::Enums::eRole::Opposite:
+			prendi_position = (team->getTouch() > 0);
+			break;
+		case Folie::Enums::eRole::OutsideHitter:
+		case Folie::Enums::eRole::MiddleBlocker:
+			if (getCurrentCourt() == Enums::eCourt::back)
+				prendi_position = (team->getTouch() > 0);
 
-			if (gamePhase != Enums::eGamePhase::serve || team->getTouch() > 0)
-				gamePhase = (field == REF::ball->getActualField() ? Enums::eGamePhase::attack : Enums::eGamePhase::defence);
+			break;
+		}
 
-			if (gamePhase == Enums::eGamePhase::defence)
-			{
-				playerTakePositionInReception();
-			}
-			else if (distanceFromBall < Enums::min_distance_to_hit && canTouchTheBall())
-			{
-				switch (team->getTouch())
-				{
-				case 0:
-					pass_();
-					break;
-				case 1:
-					switch (role)
-					{
-					case Folie::Enums::eRole::Libero:
-					case Folie::Enums::eRole::Setter:
-						set_();
-						break;
-					case Folie::Enums::eRole::OutsideHitter:
-					case Folie::Enums::eRole::MiddleBlocker:
-					case Folie::Enums::eRole::Opposite:
-						attack_(GB::selectRandomPosition());
-						break;
-					}
-					break;
-				case 2:
-					attack_(GB::selectRandomPosition());
-					break;
-				}
+	if (prendi_position)
+	{
+		auto attack_area = GB::getAttackArea(getCurrentCourt(), role, currentPosition, team->number_of_setters);
+		auto coord_attack_area = GB::getCoordinates2DFromArea(field, attack_area);
 
-				team->playerThatSayMia = nullptr;
-			}
-			else if (!jumping && GB::samePosition2D(REF::ball->target2D, coord_attack_area))
-			{
-				switch (team->getTouch())
-				{
-				case 2:
-					if (distanceFromBall < Enums::min_distance_to_jump && GB::canAttackJumping(role))
-						setJumping(true);
-					break;
-				}
-			}
-			else if (REF::ball->targetArea == currentArea)
-			{
-				if (role == Enums::eRole::Setter && team->number_of_setters == 1 && team->getTouch() == 0)
-				{
-					auto front_middle_blocker = team->getPlayerWithRole(this, Enums::eRole::MiddleBlocker, Enums::eCourt::front);
+		moveTo_Async(runSpeed, coord_attack_area.x, coord_attack_area.y);
+	}
+}
 
-					team->playerThatSayMia = front_middle_blocker;
+void Folie::Player::takeCorrectPositionInAttackMode()
+{
+	if (role == Enums::eRole::Setter && team->number_of_setters == 1 && team->getTouch() == 0)
+	{
+		auto front_middle_blocker = team->getPlayerWithRole(this, Enums::eRole::MiddleBlocker, Enums::eCourt::front);
 
-					front_middle_blocker->moveTo_Async(runSpeed, REF::ball->destination2D.x, REF::ball->destination2D.y);
-				}
-				else
-				{
-					team->playerThatSayMia = this;
-				}
+		team->playerThatSayMia = front_middle_blocker;
 
-				if (!jumping && GB::getCampoFromCoordinates(REF::ball->destination3D.x, REF::ball->destination3D.z) == field)
-					if (canTouchTheBall())
-					{
-						moveTo_Async(runSpeed, REF::ball->destination3D.x, REF::ball->destination3D.z);
-					}
-					else
-					{
-						auto empty_pos = team->getAnEmptyPosition(currentPosition);
-						auto empty_pos2D = GB::getCoordinates2DFromPosition(field, empty_pos);
+		front_middle_blocker->moveTo_Async(runSpeed, REF::ball->destination2D.x, REF::ball->destination2D.y);
+	}
+	else
+	{
+		team->playerThatSayMia = this;
+	}
 
-						moveTo_Async(runSpeed, empty_pos2D.x, empty_pos2D.y);
-					}
-			}
-			else if (!jumping)
-			{
-				auto prendi_position = true;
-
-				if (!team->serving)
-					switch (role)
-					{
-					case Folie::Enums::eRole::Setter:
-						if (team->number_of_setters > 1 && getCurrentCourt() == Enums::eCourt::back)
-							prendi_position = (team->getTouch() > 0);
-						break;
-					case Folie::Enums::eRole::Opposite:
-						prendi_position = (team->getTouch() > 0);
-						break;
-					case Folie::Enums::eRole::OutsideHitter:
-					case Folie::Enums::eRole::MiddleBlocker:
-						if (getCurrentCourt() == Enums::eCourt::back)
-							prendi_position = (team->getTouch() > 0);
-
-						break;
-					}
-
-				if (prendi_position)
-					moveTo_Async(runSpeed, coord_attack_area.x, coord_attack_area.y);
-			}
+	if (!jumping && GB::getCampoFromCoordinates(REF::ball->destination3D.x, REF::ball->destination3D.z) == field)
+		if (canTouchTheBall())
+		{
+			moveTo_Async(runSpeed, REF::ball->destination3D.x, REF::ball->destination3D.z);
 		}
 		else
 		{
-			agent->enabled = true;
-		}
-	}
+			auto empty_pos = team->getAnEmptyPosition(currentPosition);
+			auto empty_pos2D = GB::getCoordinates2DFromPosition(field, empty_pos);
 
-	if (lookingAt != nullptr)
-		lookAt_(*lookingAt);
+			moveTo_Async(runSpeed, empty_pos2D.x, empty_pos2D.y);
+		}
+}
+
+Folie::Enums::eGamePhase Folie::Player::getGamePhase()
+{
+	if (gamePhase != Enums::eGamePhase::serve || team->getTouch() > 0)
+		gamePhase = (field == REF::ball->getActualField() ? Enums::eGamePhase::attack : Enums::eGamePhase::defence);
+
+	return gamePhase;
+}
+
+Folie::Enums::eRole Folie::Player::getRole()
+{
+	return role;
+}
+
+UInt16 Folie::Player::getTouch()
+{
+	return team->getTouch();
 }
 
 float Folie::Player::getDistanceFromBall()

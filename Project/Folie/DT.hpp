@@ -18,15 +18,23 @@ namespace Folie
 		ref class DT
 		{
 		public:
-			Dictionary<Object^, DT^> ^chanches;
+			LinkedList<DT^> ^decisions;
+			Dictionary<Object^, DT^> ^chanches, ^negateChanches;
 
 			Delegate ^Test;
 			array<Object^> ^testParams;
 
 		public:
-			DT(Delegate ^Test)
+			DT()
 			{
+				this->negateChanches = gcnew Dictionary<Object^, DT^>();
 				this->chanches = gcnew Dictionary<Object^, DT^>();
+
+				this->decisions = gcnew LinkedList<DT^>();
+			}
+
+			DT(Delegate ^Test) :DT()
+			{
 				this->Test = Test;
 			}
 
@@ -42,11 +50,20 @@ namespace Folie
 
 			void Execute()
 			{
-				auto res = Test->DynamicInvoke(testParams);
+				auto result = (Test == nullptr ? nullptr : Test->DynamicInvoke(testParams));
 
-				if (res != nullptr)
-					if (chanches->ContainsKey(res))
-						chanches[res]->Execute();
+				if (result != nullptr)
+				{
+					if (chanches->ContainsKey(result))
+						chanches[result]->Execute();
+					else
+						for each (auto k in negateChanches->Keys)
+							if (!result->Equals(k))
+								negateChanches[k]->Execute();
+				}
+
+				for each (auto decision in decisions)
+					decision->Execute();
 			}
 		};
 	}
