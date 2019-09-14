@@ -14,20 +14,18 @@ Folie::Player::Player()
 {
 	waiter = gcnew CoroutineQueue();
 
-	DT_served = gcnew AI::DT(gcnew Func<bool>(this, &Player::served), true);
+	DT_served = gcnew AI::DT(gcnew Func<bool>(this, &Player::served));
 
-	auto DT_ballIsFlying = gcnew AI::DT(gcnew Func<bool>(this, &Player::ballIsFlying), true);
+	auto DT_ballIsFlying = gcnew AI::DT(gcnew Func<bool>(this, &Player::ballIsFlying));
 
-	auto DT_lookAtTheBall = gcnew AI::DT(gcnew Action<bool>(this, &Player::lookAtTheBall));
-	DT_lookAtTheBall->testParams = gcnew array<Boolean ^> {true};
+	auto DT_lookAtTheBall = gcnew AI::DT(gcnew Action<bool>(this, &Player::lookAtTheBall), true);
+	auto DT_dontLookAtTheBall = gcnew AI::DT(gcnew Action<bool>(this, &Player::lookAtTheBall), false);
 
-	auto DT_dontLookAtTheBall = gcnew AI::DT(gcnew Action<bool>(this, &Player::lookAtTheBall));
-	DT_dontLookAtTheBall->testParams = gcnew array<Boolean ^> {false};
+	auto DT_ballIsInMyCourts = gcnew AI::DT(gcnew Func<bool>(this, &Player::ballIsInMyCourts));
 
-	auto DT_ballIsInMyCourts = gcnew AI::DT(gcnew Func<bool>(this, &Player::ballIsInMyCourts), true);
+	auto DT_ballIsInFlyingToMyPosition = gcnew AI::DT(gcnew Func<bool>(this, &Player::ballIsInFlyingToMyPosition));
 
-	auto DT_ballIsInFlyingToMyPosition = gcnew AI::DT(gcnew Func<bool>(this, &Player::ballIsInFlyingToMyPosition), true);
-	auto DT_iAmInTheFrontCourt = gcnew AI::DT(gcnew Func<bool>(this, &Player::iAmInTheFrontCourt), true);
+	auto DT_iAmInTheFrontCourt = gcnew AI::DT(gcnew Func<bool>(this, &Player::iAmInTheFrontCourt));
 
 	auto DT_takeAttackScheme = gcnew AI::DT(gcnew Action(this, &Player::takeAttackScheme));
 	auto DT_takeDefenceScheme = gcnew AI::DT(gcnew Action(this, &Player::takeDefenceScheme));
@@ -37,32 +35,32 @@ Folie::Player::Player()
 	auto DT_set = gcnew AI::DT(gcnew Action(this, &Player::set));
 	auto DT_attack = gcnew AI::DT(gcnew Action(this, &Player::attack));
 
-	auto DT_howManyTouch = gcnew AI::DT(gcnew Func<UInt16>(this, &Player::howManyTouch));
-
 	auto DT_moveToBallFallPosition = gcnew AI::DT(gcnew Action(this, &Player::moveToBallFallPosition));
 
-	DT_served->Positive = DT_ballIsFlying;
-	DT_ballIsFlying->Positive = DT_lookAtTheBall;
-	DT_ballIsFlying->Negative = DT_dontLookAtTheBall;
+	auto DT_howManyTouch = gcnew AI::DT(gcnew Func<UInt16>(this, &Player::howManyTouch));
 
-	DT_lookAtTheBall->Positive = DT_ballIsInMyCourts;
 
-	DT_ballIsInMyCourts->Positive = DT_ballIsInFlyingToMyPosition;
-	DT_ballIsInMyCourts->Negative = DT_takeDefenceScheme;
+	DT_served->chanches->Add(true, DT_ballIsFlying);
+	DT_ballIsFlying->chanches->Add(true, DT_lookAtTheBall);
+	DT_ballIsFlying->chanches->Add(false, DT_dontLookAtTheBall);
 
-	DT_takeDefenceScheme->Positive = DT_iAmInTheFrontCourt;
+	DT_lookAtTheBall->chanches->Add(true, DT_ballIsInMyCourts);
 
-	//DT_iAmInTheFrontCourt->Positive = DT_block; // to-do
+	DT_ballIsInMyCourts->chanches->Add(true, DT_ballIsInFlyingToMyPosition);
+	DT_ballIsInMyCourts->chanches->Add(false, DT_takeDefenceScheme);
 
-	DT_ballIsInFlyingToMyPosition->Positive = DT_moveToBallFallPosition;
-	DT_ballIsInFlyingToMyPosition->Negative = DT_takeAttackScheme;
+	DT_takeDefenceScheme->chanches->Add(true, DT_iAmInTheFrontCourt);
 
-	DT_moveToBallFallPosition->Positive = DT_howManyTouch;
+	//DT_iAmInTheFrontCourt->chanches->Add(true, DT_block); // to-do
 
-	DT_howManyTouch->Switcher = AI::DT::newSwitcher();
-	DT_howManyTouch->Switcher->Add(0, DT_pass);
-	DT_howManyTouch->Switcher->Add(1, DT_set);
-	DT_howManyTouch->Switcher->Add(2, DT_attack);
+	DT_ballIsInFlyingToMyPosition->chanches->Add(true, DT_moveToBallFallPosition);
+	DT_ballIsInFlyingToMyPosition->chanches->Add(false, DT_takeAttackScheme);
+
+	DT_moveToBallFallPosition->chanches->Add(true, DT_howManyTouch);
+
+	DT_howManyTouch->chanches->Add(0, DT_pass);
+	DT_howManyTouch->chanches->Add(1, DT_set);
+	DT_howManyTouch->chanches->Add(2, DT_attack);
 }
 
 bool Folie::Player::served()

@@ -15,62 +15,38 @@ namespace Folie
 {
 	namespace AI
 	{
-		ref class Decision abstract
+		ref class DT
 		{
 		public:
-			virtual void Execute() abstract;
-		};
-
-		ref class DT :Decision
-		{
-		public:
-			Dictionary<Object^, Decision^> ^Switcher;
-			Decision ^Positive, ^Negative;
+			Dictionary<Object^, DT^> ^chanches;
 
 			Delegate ^Test;
-			array<Object ^> ^testParams;
-
-		private:
-			Object ^positiveVal;
+			array<Object^> ^testParams;
 
 		public:
 			DT(Delegate ^Test)
 			{
+				this->chanches = gcnew Dictionary<Object^, DT^>();
 				this->Test = Test;
 			}
 
-			DT(Delegate ^Test, Object ^positiveVal) :DT(Test)
+			DT(Delegate ^Test, array<Object^> ^testParams) :DT(Test)
 			{
-				this->positiveVal = positiveVal;
+				this->testParams = testParams;
 			}
 
-			void Execute() override
+			DT(Delegate ^Test, Object ^testParam) :DT(Test)
+			{
+				this->testParams = gcnew array<Object^> {testParam};
+			}
+
+			void Execute()
 			{
 				auto res = Test->DynamicInvoke(testParams);
 
-				if (Switcher == nullptr)
-				{
-					if (positiveVal == nullptr || positiveVal->Equals(res))
-					{
-						if (Positive != nullptr)
-							Positive->Execute();
-					}
-					else
-					{
-						if (Negative != nullptr)
-							Negative->Execute();
-					}
-				}
-				else
-				{
-					if (Switcher->ContainsKey(res))
-						Switcher[res]->Execute();
-				}
-			}
-
-			static Dictionary<Object^, Decision^> ^newSwitcher()
-			{
-				return gcnew Dictionary<Object^, Decision^>();
+				if (res != nullptr)
+					if (chanches->ContainsKey(res))
+						chanches[res]->Execute();
 			}
 		};
 	}
