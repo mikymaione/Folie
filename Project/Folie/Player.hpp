@@ -23,7 +23,7 @@ namespace Folie
 	public ref class Player sealed :MonoBehaviourEX
 	{
 	private:
-		AI::DT ^DT_rally;
+		AI::DT<System::Object^> ^DT_rally;
 
 		bool jumping;
 

@@ -15,11 +15,16 @@ namespace Folie
 {
 	namespace AI
 	{
-		ref class DT
+		interface class IDT
+		{
+			void Execute();
+		};
+
+		generic <class T> ref class DT :IDT
 		{
 		public:
-			LinkedList<DT^> ^decisions;
-			Dictionary<Object^, DT^> ^chanches, ^negateChanches;
+			LinkedList<IDT^> ^decisions;
+			Dictionary<T, IDT^> ^chanches, ^negateChanches;
 
 			Delegate ^Test;
 			array<Object^> ^testParams;
@@ -27,10 +32,10 @@ namespace Folie
 		public:
 			DT()
 			{
-				this->negateChanches = gcnew Dictionary<Object^, DT^>();
-				this->chanches = gcnew Dictionary<Object^, DT^>();
+				this->negateChanches = gcnew Dictionary<T, IDT^>();
+				this->chanches = gcnew Dictionary<T, IDT^>();
 
-				this->decisions = gcnew LinkedList<DT^>();
+				this->decisions = gcnew LinkedList<IDT^>();
 			}
 
 			DT(Delegate ^Test) :DT()
@@ -38,27 +43,24 @@ namespace Folie
 				this->Test = Test;
 			}
 
-			DT(Delegate ^Test, array<Object^> ^testParams) :DT(Test)
-			{
-				this->testParams = testParams;
-			}
-
 			DT(Delegate ^Test, Object ^testParam) :DT(Test)
 			{
 				this->testParams = gcnew array<Object^> {testParam};
 			}
 
-			void Execute()
+			virtual void Execute()
 			{
 				auto result = (Test == nullptr ? nullptr : Test->DynamicInvoke(testParams));
 
 				if (result != nullptr)
 				{
-					if (chanches->ContainsKey(result))
-						chanches[result]->Execute();
+					auto r = (T)result;
+
+					if (chanches->ContainsKey(r))
+						chanches[r]->Execute();
 					else
 						for each (auto k in negateChanches->Keys)
-							if (!result->Equals(k))
+							if (!r->Equals(k))
 								negateChanches[k]->Execute();
 				}
 
