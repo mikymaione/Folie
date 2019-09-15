@@ -9,7 +9,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #pragma once
 
 #include "Unity/Wait4Seconds.hpp"
-#include "CoroutineQueue.hpp"
+#include "Unity/CoroutineQueue.hpp"
 #include "Ball.hpp"
 #include "Team.hpp"
 #include "Game.hpp"

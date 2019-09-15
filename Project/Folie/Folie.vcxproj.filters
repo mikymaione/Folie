@@ -42,15 +42,6 @@
     <ClInclude Include="Enums.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="GenericEnumerable.hpp">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="CoroutineQueue.hpp">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="Job.hpp">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
     <ClInclude Include="AI\DT.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
@@ -61,6 +52,15 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="Unity\Wait4Seconds.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Unity\CoroutineQueue.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Unity\GenericEnumerable.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Unity\Job.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
