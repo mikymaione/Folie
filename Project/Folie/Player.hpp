@@ -23,7 +23,7 @@ namespace Folie
 	public ref class Player sealed :Unity::MonoBehaviourEX
 	{
 	private:
-		AI::BT<System::Object^> ^DT_rally;
+		AI::BT ^BT_rally;
 
 		bool jumping;
 
@@ -62,6 +62,11 @@ namespace Folie
 	private:
 		void Start();
 		void Update();
+
+		void create_BT_Rally();
+		void create_DT_hitTheBall();
+
+		void hitTheBall();
 
 		void moveTo_(float speed, float pos_x, float pos_z);
 
@@ -108,6 +113,8 @@ namespace Folie
 
 		bool ballIsFlying();
 		bool isBallInMyArea();
+		bool isBallInMyCourt();
+		bool imInFrontCourt();
 		bool canIReachTheBallJumping();
 		bool ballIsReacheable();
 

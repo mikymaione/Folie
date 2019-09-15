@@ -15,58 +15,115 @@ namespace Folie
 {
 	namespace AI
 	{
-		interface class IBT
+		interface class IBTNode
 		{
-			void Execute();
+			bool Execute();
 		};
 
-		generic <class T> ref class BT :IBT
+
+		ref class BTQuestion :IBTNode
 		{
 		public:
-			LinkedList<IBT^> ^sequentialEndActions;
-			Dictionary<T, IBT^> ^chanches, ^negateChanches;
-
-			Delegate ^test;
-			array<Object^> ^testParams;
+			Delegate ^boolFN;
+			array<Object^> ^params;
 
 		public:
-			BT()
+			BTQuestion(Delegate ^boolFN)
 			{
-				this->negateChanches = gcnew Dictionary<T, IBT^>();
-				this->chanches = gcnew Dictionary<T, IBT^>();
-
-				this->sequentialEndActions = gcnew LinkedList<IBT^>();
+				this->boolFN = boolFN;
 			}
 
-			BT(Delegate ^test) :BT()
+			virtual bool Execute()
 			{
-				this->test = test;
+				return (bool)boolFN->DynamicInvoke(params);
+			}
+		};
+
+		generic <class T> ref class BTAction:IBTNode
+		{
+		public:
+			Delegate ^action;
+			array<T> ^params;
+
+		public:
+			BTAction(Delegate ^action)
+			{
+				this->action = action;
 			}
 
-			BT(Delegate ^test, Object ^testParam) :BT(test)
-			{
-				this->testParams = gcnew array<Object^> {testParam};
+			BTAction(Delegate ^action, T param):BTAction(action)
+			{				
+				this->params = gcnew array<T>{param};
 			}
 
-			virtual void Execute()
+			virtual bool Execute()
 			{
-				auto result = (test == nullptr ? nullptr : test->DynamicInvoke(testParams));
+				action->DynamicInvoke(params);
 
-				if (result != nullptr)
-				{
-					auto r = (T)result;
-
-					if (chanches->ContainsKey(r))
-						chanches[r]->Execute();
-					else
-						for each (auto k in negateChanches->Keys)
-							if (!r->Equals(k))
-								negateChanches[k]->Execute();
-				}
-
-				for each (auto decision in sequentialEndActions)
-					decision->Execute();
+				return true;
 			}
+		};
+
+		generic <class T> ref class BTInverter :BTAction<T>
+		{
+		public:
+			virtual bool Execute() override
+			{
+				return !BTAction::Execute();
+			}
+		};
+
+
+		ref class BTComposite abstract :IBTNode
+		{
+		public:
+			LinkedList<IBTNode^> ^childrens;
+		public:
+			virtual bool Execute() abstract;
+		};
+
+		ref class BTSelector :BTComposite
+		{
+		public:
+			virtual bool Execute() override
+			{
+				for each (auto c in childrens)
+					if (c->Execute())
+						return true;
+
+				return false;
+			}
+		};
+
+		ref class BTSequence :BTComposite
+		{
+		public:
+			virtual bool Execute() override
+			{
+				for each (auto c in childrens)
+					if (!c->Execute())
+						return false;
+
+				return true;
+			}
+		};
+
+
+		ref class BT :IBTNode
+		{
+		public:
+			IBTNode ^node;
+
+		public:
+			BT(IBTNode ^node)
+			{
+				this->node = node;
+			}
+
+			virtual bool Execute()
+			{
+				node->Execute();
+			}			
 		};
 	}
 }

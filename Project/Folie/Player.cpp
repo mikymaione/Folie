@@ -14,81 +14,89 @@ Folie::Player::Player()
 {
 	waiter = gcnew CoroutineQueue();
 
-	DT_rally = gcnew AI::BT<System::Object^>();
-	auto DT_Serving = gcnew AI::BT<bool>(gcnew Func<bool>(this, &Player::Serving));
-
-	auto DT_lookAtTarget = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::lookAtTarget));
-	auto DT_ballIsFlying = gcnew AI::BT<bool>(gcnew Func<bool>(this, &Player::ballIsFlying));
-	auto DT_lookAtTheBall = gcnew AI::BT<System::Object^>(gcnew Action<bool>(this, &Player::lookAtTheBall), true);
-	auto DT_DontLookAtTheBall = gcnew AI::BT<System::Object^>(gcnew Action<bool>(this, &Player::lookAtTheBall), false);
-
-	auto DT_EnableAgent = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::EnableAgent));
-
-	auto DT_getGamePhase = gcnew AI::BT<Enums::eGamePhase>(gcnew Func<Enums::eGamePhase>(this, &Player::getGamePhase));
-	auto DT_playerTakePositionInReception = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::playerTakePositionInReception));
-
-	auto DT_startAttackMode = gcnew AI::BT<System::Object^>();
-	auto DT_ballIsReacheable = gcnew AI::BT<bool>(gcnew Func<bool>(this, &Player::ballIsReacheable));
-	auto DT_getTouch = gcnew AI::BT<UInt16>(gcnew Func<UInt16>(this, &Player::getTouch));
-
-	auto DT_getRole = gcnew AI::BT<Enums::eRole>(gcnew Func<Enums::eRole>(this, &Player::getRole));
-
-	auto DT_pass = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::pass_));
-	auto DT_set = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::set_));
-	auto DT_attack = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::attack));
-
-	auto DT_ballOfNoOne = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::ballOfNoOne));
-
-	auto DT_canIReachTheBallJumping = gcnew AI::BT<bool>(gcnew Func<bool>(this, &Player::canIReachTheBallJumping));
-	auto DT_setJumping = gcnew AI::BT<System::Object^>(gcnew Action<bool>(this, &Player::setJumping), true);
-
-	auto DT_isBallInMyArea = gcnew AI::BT<bool>(gcnew Func<bool>(this, &Player::isBallInMyArea));
-	auto DT_takeCorrectPositionInAttackMode = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::takeCorrectPositionInAttackMode));
-	auto DT_takeCorrectPositionPreAttack = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::takeCorrectPositionPreAttack));
-
-
-	DT_rally->sequentialEndActions->AddLast(DT_Serving);
-	DT_rally->sequentialEndActions->AddLast(DT_lookAtTarget);
-	DT_Serving->chanches->Add(true, DT_ballIsFlying);
-
-	DT_ballIsFlying->chanches->Add(true, DT_lookAtTheBall);
-	DT_ballIsFlying->chanches->Add(false, DT_DontLookAtTheBall);
-
-	DT_DontLookAtTheBall->sequentialEndActions->AddLast(DT_EnableAgent);
-	DT_lookAtTheBall->sequentialEndActions->AddLast(DT_getGamePhase);
-
-	DT_getGamePhase->chanches->Add(Enums::eGamePhase::defence, DT_playerTakePositionInReception);
-	DT_getGamePhase->negateChanches->Add(Enums::eGamePhase::defence, DT_startAttackMode);
-
-
-	DT_startAttackMode->sequentialEndActions->AddLast(DT_ballIsReacheable);
-
-	DT_ballIsReacheable->chanches->Add(true, DT_getTouch);
-	DT_ballIsReacheable->chanches->Add(false, DT_canIReachTheBallJumping);
-
-
-	DT_getTouch->chanches->Add(0, DT_pass);
-	DT_getTouch->chanches->Add(1, DT_getRole);
-	DT_getTouch->chanches->Add(2, DT_attack);
-
-	DT_pass->sequentialEndActions->AddLast(DT_ballOfNoOne);
-	DT_set->sequentialEndActions->AddLast(DT_ballOfNoOne);
-	DT_attack->sequentialEndActions->AddLast(DT_ballOfNoOne);
-
-	DT_getRole->chanches->Add(Enums::eRole::Libero, DT_set);
-	DT_getRole->chanches->Add(Enums::eRole::Setter, DT_set);
-
-	DT_getRole->chanches->Add(Enums::eRole::OutsideHitter, DT_attack);
-	DT_getRole->chanches->Add(Enums::eRole::MiddleBlocker, DT_attack);
-	DT_getRole->chanches->Add(Enums::eRole::Opposite, DT_attack);
-
-
-	DT_canIReachTheBallJumping->chanches->Add(true, DT_setJumping);
-	DT_canIReachTheBallJumping->chanches->Add(false, DT_isBallInMyArea);
-
-	DT_isBallInMyArea->chanches->Add(true, DT_takeCorrectPositionInAttackMode);
-	DT_isBallInMyArea->chanches->Add(false, DT_takeCorrectPositionPreAttack);
+	create_BT_Rally();
+	create_DT_hitTheBall();
 }
+
+//Folie::Player::Player()
+//{
+//	waiter = gcnew CoroutineQueue();
+//
+//	BT_rally = gcnew AI::BT();
+//	auto DT_Serving = gcnew AI::BT<bool>(gcnew Func<bool>(this, &Player::Serving));
+//
+//	auto DT_lookAtTarget = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::lookAtTarget));
+//	auto DT_ballIsFlying = gcnew AI::BT<bool>(gcnew Func<bool>(this, &Player::ballIsFlying));
+//	auto DT_lookAtTheBall = gcnew AI::BT<System::Object^>(gcnew Action<bool>(this, &Player::lookAtTheBall), true);
+//	auto DT_DontLookAtTheBall = gcnew AI::BT<System::Object^>(gcnew Action<bool>(this, &Player::lookAtTheBall), false);
+//
+//	auto DT_EnableAgent = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::EnableAgent));
+//
+//	auto DT_getGamePhase = gcnew AI::BT<Enums::eGamePhase>(gcnew Func<Enums::eGamePhase>(this, &Player::getGamePhase));
+//	auto DT_playerTakePositionInReception = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::playerTakePositionInReception));
+//
+//	auto DT_startAttackMode = gcnew AI::BT<System::Object^>();
+//	auto DT_ballIsReacheable = gcnew AI::BT<bool>(gcnew Func<bool>(this, &Player::ballIsReacheable));
+//	auto DT_getTouch = gcnew AI::BT<UInt16>(gcnew Func<UInt16>(this, &Player::getTouch));
+//
+//	auto DT_getRole = gcnew AI::BT<Enums::eRole>(gcnew Func<Enums::eRole>(this, &Player::getRole));
+//
+//	auto DT_pass = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::pass_));
+//	auto DT_set = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::set_));
+//	auto DT_attack = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::attack));
+//
+//	auto DT_ballOfNoOne = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::ballOfNoOne));
+//
+//	auto DT_canIReachTheBallJumping = gcnew AI::BT<bool>(gcnew Func<bool>(this, &Player::canIReachTheBallJumping));
+//	auto DT_setJumping = gcnew AI::BT<System::Object^>(gcnew Action<bool>(this, &Player::setJumping), true);
+//
+//	auto DT_isBallInMyArea = gcnew AI::BT<bool>(gcnew Func<bool>(this, &Player::isBallInMyArea));
+//	auto DT_takeCorrectPositionInAttackMode = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::takeCorrectPositionInAttackMode));
+//	auto DT_takeCorrectPositionPreAttack = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::takeCorrectPositionPreAttack));
+//
+//
+//	BT_rally->sequentialEndActions->AddLast(DT_Serving);
+//	BT_rally->sequentialEndActions->AddLast(DT_lookAtTarget);
+//	DT_Serving->chanches->Add(true, DT_ballIsFlying);
+//
+//	DT_ballIsFlying->chanches->Add(true, DT_lookAtTheBall);
+//	DT_ballIsFlying->chanches->Add(false, DT_DontLookAtTheBall);
+//
+//	DT_DontLookAtTheBall->sequentialEndActions->AddLast(DT_EnableAgent);
+//	DT_lookAtTheBall->sequentialEndActions->AddLast(DT_getGamePhase);
+//
+//	DT_getGamePhase->chanches->Add(Enums::eGamePhase::defence, DT_playerTakePositionInReception);
+//	DT_getGamePhase->negateChanches->Add(Enums::eGamePhase::defence, DT_startAttackMode);
+//
+//
+//	DT_startAttackMode->sequentialEndActions->AddLast(DT_ballIsReacheable);
+//
+//	DT_ballIsReacheable->chanches->Add(true, DT_getTouch);
+//	DT_ballIsReacheable->chanches->Add(false, DT_canIReachTheBallJumping);
+//
+//
+//	DT_getTouch->chanches->Add(0, DT_pass);
+//	DT_getTouch->chanches->Add(1, DT_getRole);
+//	DT_getTouch->chanches->Add(2, DT_attack);
+//
+//	DT_pass->sequentialEndActions->AddLast(DT_ballOfNoOne);
+//	DT_set->sequentialEndActions->AddLast(DT_ballOfNoOne);
+//	DT_attack->sequentialEndActions->AddLast(DT_ballOfNoOne);
+//
+//	DT_getRole->chanches->Add(Enums::eRole::Libero, DT_set);
+//	DT_getRole->chanches->Add(Enums::eRole::Setter, DT_set);
+//
+//	DT_getRole->chanches->Add(Enums::eRole::OutsideHitter, DT_attack);
+//	DT_getRole->chanches->Add(Enums::eRole::MiddleBlocker, DT_attack);
+//	DT_getRole->chanches->Add(Enums::eRole::Opposite, DT_attack);
+//
+//
+//	DT_canIReachTheBallJumping->chanches->Add(true, DT_setJumping);
+//	DT_canIReachTheBallJumping->chanches->Add(false, DT_isBallInMyArea);
+//
+//	DT_isBallInMyArea->chanches->Add(true, DT_takeCorrectPositionInAttackMode);
+//	DT_isBallInMyArea->chanches->Add(false, DT_takeCorrectPositionPreAttack);
+//}
 
 
 // Unity
@@ -110,7 +118,52 @@ void Folie::Player::Start()
 // Unity
 void Folie::Player::Update()
 {
-	DT_rally->Execute();
+	BT_rally->Execute();
+}
+
+void Folie::Player::create_BT_Rally()
+{
+	auto q1 = gcnew AI::BTSelector();
+	auto q4 = gcnew AI::BTSelector();
+
+	auto s2 = gcnew AI::BTSequence();
+	auto s3 = gcnew AI::BTSequence();
+	auto s4 = gcnew AI::BTSequence();
+	auto s5 = gcnew AI::BTSequence();
+
+
+	BT_rally = gcnew AI::BT(q1);
+
+	q1->childrens->AddLast(s2);
+	q1->childrens->AddLast(gcnew AI::BTAction<Object^>(gcnew Action(this, &Player::lookAtTarget)));
+
+	s2->childrens->AddLast(gcnew AI::BTQuestion(gcnew Func<bool>(this, &Player::Serving)));
+	s2->childrens->AddLast(gcnew AI::BTAction<bool>(gcnew Action<bool>(this, &Player::lookAtTheBall), true));
+	s2->childrens->AddLast(s3);
+
+	s3->childrens->AddLast(q4);
+	s3->childrens->AddLast(s4);
+
+	q4->childrens->AddLast(gcnew AI::BTQuestion(gcnew Func<bool>(this, &Player::isBallInMyCourt)));
+	q4->childrens->AddLast(s5);
+
+	s4->childrens->AddLast(gcnew AI::BTQuestion(gcnew Func<bool>(this, &Player::isBallInMyArea)));
+	s4->childrens->AddLast(gcnew AI::BTAction<Object^>(gcnew Action(this, &Player::takeCorrectPositionPreAttack)));
+	s4->childrens->AddLast(gcnew AI::BTAction<Object^>(gcnew Action(this, &Player::hitTheBall)));
+
+	s5->childrens->AddLast(gcnew AI::BTAction<Object^>(gcnew Action(this, &Player::playerTakePositionInReception)));
+	s5->childrens->AddLast(gcnew AI::BTQuestion(gcnew Func<bool>(this, &Player::imInFrontCourt)));
+	//s5->childrens->AddLast(gcnew AI::BTAction<Object^>(gcnew Action(this, &Player::block))); //to test
+}
+
+void Folie::Player::create_DT_hitTheBall()
+{
+	throw gcnew System::NotImplementedException();
+}
+
+void Folie::Player::hitTheBall()
+{
+	
 }
 
 
@@ -122,6 +175,21 @@ bool Folie::Player::ballIsFlying()
 bool Folie::Player::isBallInMyArea()
 {
 	return (REF::ball->targetArea == currentArea);
+}
+
+bool Folie::Player::isBallInMyCourt()
+{
+	auto bC = GB::getCourtFromCoordinates(REF::ball->transform->position.z);
+	auto mC = getCurrentCourt();
+
+	return (bC == mC);
+}
+
+bool Folie::Player::imInFrontCourt()
+{
+	auto c = getCurrentCourt();
+
+	return (c == Enums::eCourt::front);
 }
 
 bool Folie::Player::canIReachTheBallJumping()
