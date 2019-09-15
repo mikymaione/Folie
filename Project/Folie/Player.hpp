@@ -82,21 +82,9 @@ namespace Folie
 
 		void playerTakePositionsOnTheField(UnityEngine::Vector2 position);
 
-	internal:
-		bool started() override;
-
-	public:
-		Player();
-
 		float getDistanceFromBall();
 
-		void playerTakePositionInReception();
-		void playerTakePositionsOnTheField(Enums::eField field_);
-
-		bool inPosition();
-
 		void move(float speed);
-		void moveToNextPosition();
 		void moveToPosition(float speed, Enums::ePosition position);
 		void moveTo(float speed, UnityEngine::Component ^comp);
 		void moveTo(float speed, UnityEngine::Vector3 position);
@@ -106,22 +94,17 @@ namespace Folie
 		void pass();
 		void set();
 
-		void serveRitual();
-
 		void attack();
 		void attack(Enums::ePosition target);
 
 		float calculateAngleOfAttack(Enums::ePosition target);
 
 		void lookAtTheBall(bool looking);
-		void lookAtAnOpponent();
 		void lookAt(UInt16 seconds, UnityEngine::Vector2 dest);
 		void lookAt(UInt16 seconds, float x, float z);
 		void lookAt(UInt16 seconds, UnityEngine::Vector3 to_);
 
 		bool canTouchTheBall();
-
-		Enums::eCourt getCurrentCourt();
 
 		bool ballIsFlying();
 		bool isBallInMyArea();
@@ -143,7 +126,25 @@ namespace Folie
 
 		UInt16 getTouch();
 
+	internal:
+		bool started() override;
+
+		Enums::eCourt getCurrentCourt();
+
+		bool inPosition();
+
+		void playerTakePositionInReception();
+		void playerTakePositionsOnTheField(Enums::eField field_);
+
+		void serveRitual();
 		void clearQueue();
+
+		void moveToNextPosition();
+
+		void lookAtAnOpponent();
+
+	public:
+		Player();
 
 	};
 }
