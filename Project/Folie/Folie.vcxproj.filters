@@ -54,13 +54,13 @@
     <ClInclude Include="Job.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="SM.hpp">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
     <ClInclude Include="MonoBehaviourEX.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="DT.hpp">
+    <ClInclude Include="AI\DT.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="AI\SM.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

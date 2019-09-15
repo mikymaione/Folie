@@ -10,7 +10,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #include "GB.hpp"
 #include "Ball.hpp"
-#include "DT.hpp"
+#include "AI/DT.hpp"
 
 #using <UnityEngine.AIModule.dll> as_friend
 

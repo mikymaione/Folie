@@ -135,8 +135,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AI\DT.hpp" />
+    <ClInclude Include="AI\SM.hpp" />
     <ClInclude Include="Ball.hpp" />
-    <ClInclude Include="DT.hpp" />
     <ClInclude Include="Enums.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="GB.hpp" />
@@ -145,7 +146,6 @@
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="REF.hpp" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="SM.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Team.hpp" />
     <ClInclude Include="Wait4Seconds.hpp" />
