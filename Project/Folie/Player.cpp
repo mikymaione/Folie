@@ -14,37 +14,37 @@ Folie::Player::Player()
 {
 	waiter = gcnew CoroutineQueue();
 
-	DT_rally = gcnew AI::DT<System::Object^>();
-	auto DT_Serving = gcnew AI::DT<bool>(gcnew Func<bool>(this, &Player::Serving));
+	DT_rally = gcnew AI::BT<System::Object^>();
+	auto DT_Serving = gcnew AI::BT<bool>(gcnew Func<bool>(this, &Player::Serving));
 
-	auto DT_lookAtTarget = gcnew AI::DT<System::Object^>(gcnew Action(this, &Player::lookAtTarget));
-	auto DT_ballIsFlying = gcnew AI::DT<bool>(gcnew Func<bool>(this, &Player::ballIsFlying));
-	auto DT_lookAtTheBall = gcnew AI::DT<System::Object^>(gcnew Action<bool>(this, &Player::lookAtTheBall), true);
-	auto DT_DontLookAtTheBall = gcnew AI::DT<System::Object^>(gcnew Action<bool>(this, &Player::lookAtTheBall), false);
+	auto DT_lookAtTarget = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::lookAtTarget));
+	auto DT_ballIsFlying = gcnew AI::BT<bool>(gcnew Func<bool>(this, &Player::ballIsFlying));
+	auto DT_lookAtTheBall = gcnew AI::BT<System::Object^>(gcnew Action<bool>(this, &Player::lookAtTheBall), true);
+	auto DT_DontLookAtTheBall = gcnew AI::BT<System::Object^>(gcnew Action<bool>(this, &Player::lookAtTheBall), false);
 
-	auto DT_EnableAgent = gcnew AI::DT<System::Object^>(gcnew Action(this, &Player::EnableAgent));
+	auto DT_EnableAgent = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::EnableAgent));
 
-	auto DT_getGamePhase = gcnew AI::DT<Enums::eGamePhase>(gcnew Func<Enums::eGamePhase>(this, &Player::getGamePhase));
-	auto DT_playerTakePositionInReception = gcnew AI::DT<System::Object^>(gcnew Action(this, &Player::playerTakePositionInReception));
+	auto DT_getGamePhase = gcnew AI::BT<Enums::eGamePhase>(gcnew Func<Enums::eGamePhase>(this, &Player::getGamePhase));
+	auto DT_playerTakePositionInReception = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::playerTakePositionInReception));
 
-	auto DT_startAttackMode = gcnew AI::DT<System::Object^>();
-	auto DT_ballIsReacheable = gcnew AI::DT<bool>(gcnew Func<bool>(this, &Player::ballIsReacheable));
-	auto DT_getTouch = gcnew AI::DT<UInt16>(gcnew Func<UInt16>(this, &Player::getTouch));
+	auto DT_startAttackMode = gcnew AI::BT<System::Object^>();
+	auto DT_ballIsReacheable = gcnew AI::BT<bool>(gcnew Func<bool>(this, &Player::ballIsReacheable));
+	auto DT_getTouch = gcnew AI::BT<UInt16>(gcnew Func<UInt16>(this, &Player::getTouch));
 
-	auto DT_getRole = gcnew AI::DT<Enums::eRole>(gcnew Func<Enums::eRole>(this, &Player::getRole));
+	auto DT_getRole = gcnew AI::BT<Enums::eRole>(gcnew Func<Enums::eRole>(this, &Player::getRole));
 
-	auto DT_pass = gcnew AI::DT<System::Object^>(gcnew Action(this, &Player::pass_));
-	auto DT_set = gcnew AI::DT<System::Object^>(gcnew Action(this, &Player::set_));
-	auto DT_attack = gcnew AI::DT<System::Object^>(gcnew Action(this, &Player::attack));
+	auto DT_pass = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::pass_));
+	auto DT_set = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::set_));
+	auto DT_attack = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::attack));
 
-	auto DT_ballOfNoOne = gcnew AI::DT<System::Object^>(gcnew Action(this, &Player::ballOfNoOne));
+	auto DT_ballOfNoOne = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::ballOfNoOne));
 
-	auto DT_canIReachTheBallJumping = gcnew AI::DT<bool>(gcnew Func<bool>(this, &Player::canIReachTheBallJumping));
-	auto DT_setJumping = gcnew AI::DT<System::Object^>(gcnew Action<bool>(this, &Player::setJumping), true);
+	auto DT_canIReachTheBallJumping = gcnew AI::BT<bool>(gcnew Func<bool>(this, &Player::canIReachTheBallJumping));
+	auto DT_setJumping = gcnew AI::BT<System::Object^>(gcnew Action<bool>(this, &Player::setJumping), true);
 
-	auto DT_isBallInMyArea = gcnew AI::DT<bool>(gcnew Func<bool>(this, &Player::isBallInMyArea));
-	auto DT_takeCorrectPositionInAttackMode = gcnew AI::DT<System::Object^>(gcnew Action(this, &Player::takeCorrectPositionInAttackMode));
-	auto DT_takeCorrectPositionPreAttack = gcnew AI::DT<System::Object^>(gcnew Action(this, &Player::takeCorrectPositionPreAttack));
+	auto DT_isBallInMyArea = gcnew AI::BT<bool>(gcnew Func<bool>(this, &Player::isBallInMyArea));
+	auto DT_takeCorrectPositionInAttackMode = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::takeCorrectPositionInAttackMode));
+	auto DT_takeCorrectPositionPreAttack = gcnew AI::BT<System::Object^>(gcnew Action(this, &Player::takeCorrectPositionPreAttack));
 
 
 	DT_rally->sequentialEndActions->AddLast(DT_Serving);

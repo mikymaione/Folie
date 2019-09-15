@@ -15,35 +15,35 @@ namespace Folie
 {
 	namespace AI
 	{
-		interface class IDT
+		interface class IBT
 		{
 			void Execute();
 		};
 
-		generic <class T> ref class DT :IDT
+		generic <class T> ref class BT :IBT
 		{
 		public:
-			LinkedList<IDT^> ^sequentialEndActions;
-			Dictionary<T, IDT^> ^chanches, ^negateChanches;
+			LinkedList<IBT^> ^sequentialEndActions;
+			Dictionary<T, IBT^> ^chanches, ^negateChanches;
 
 			Delegate ^test;
 			array<Object^> ^testParams;
 
 		public:
-			DT()
+			BT()
 			{
-				this->negateChanches = gcnew Dictionary<T, IDT^>();
-				this->chanches = gcnew Dictionary<T, IDT^>();
+				this->negateChanches = gcnew Dictionary<T, IBT^>();
+				this->chanches = gcnew Dictionary<T, IBT^>();
 
-				this->sequentialEndActions = gcnew LinkedList<IDT^>();
+				this->sequentialEndActions = gcnew LinkedList<IBT^>();
 			}
 
-			DT(Delegate ^test) :DT()
+			BT(Delegate ^test) :BT()
 			{
 				this->test = test;
 			}
 
-			DT(Delegate ^test, Object ^testParam) :DT(test)
+			BT(Delegate ^test, Object ^testParam) :BT(test)
 			{
 				this->testParams = gcnew array<Object^> {testParam};
 			}

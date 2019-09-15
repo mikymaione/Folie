@@ -42,9 +42,6 @@
     <ClInclude Include="Enums.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="AI\DT.hpp">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
     <ClInclude Include="AI\SM.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
@@ -61,6 +58,12 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="Unity\Job.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="AI\BH.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="AI\BT.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

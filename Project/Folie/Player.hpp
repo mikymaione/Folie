@@ -10,7 +10,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #include "GB.hpp"
 #include "Ball.hpp"
-#include "AI/DT.hpp"
+#include "AI/BT.hpp"
 
 #using <UnityEngine.AIModule.dll> as_friend
 
@@ -23,7 +23,7 @@ namespace Folie
 	public ref class Player sealed :Unity::MonoBehaviourEX
 	{
 	private:
-		AI::DT<System::Object^> ^DT_rally;
+		AI::BT<System::Object^> ^DT_rally;
 
 		bool jumping;
 

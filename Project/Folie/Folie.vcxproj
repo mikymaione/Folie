@@ -135,7 +135,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AI\DT.hpp" />
+    <ClInclude Include="AI\BH.hpp" />
+    <ClInclude Include="AI\BT.hpp" />
     <ClInclude Include="AI\SM.hpp" />
     <ClInclude Include="Ball.hpp" />
     <ClInclude Include="Enums.hpp" />
