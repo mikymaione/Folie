@@ -47,21 +47,21 @@ Folie::Player::Player()
 	auto DT_takeCorrectPositionPreAttack = gcnew AI::DT<System::Object^>(gcnew Action(this, &Player::takeCorrectPositionPreAttack));
 
 
-	DT_rally->decisions->AddLast(DT_Serving);
-	DT_rally->decisions->AddLast(DT_lookAtTarget);
+	DT_rally->sequentialEndActions->AddLast(DT_Serving);
+	DT_rally->sequentialEndActions->AddLast(DT_lookAtTarget);
 	DT_Serving->chanches->Add(true, DT_ballIsFlying);
 
 	DT_ballIsFlying->chanches->Add(true, DT_lookAtTheBall);
 	DT_ballIsFlying->chanches->Add(false, DT_DontLookAtTheBall);
 
-	DT_DontLookAtTheBall->decisions->AddLast(DT_EnableAgent);
-	DT_lookAtTheBall->decisions->AddLast(DT_getGamePhase);
+	DT_DontLookAtTheBall->sequentialEndActions->AddLast(DT_EnableAgent);
+	DT_lookAtTheBall->sequentialEndActions->AddLast(DT_getGamePhase);
 
 	DT_getGamePhase->chanches->Add(Enums::eGamePhase::defence, DT_playerTakePositionInReception);
 	DT_getGamePhase->negateChanches->Add(Enums::eGamePhase::defence, DT_startAttackMode);
 
 
-	DT_startAttackMode->decisions->AddLast(DT_ballIsReacheable);
+	DT_startAttackMode->sequentialEndActions->AddLast(DT_ballIsReacheable);
 
 	DT_ballIsReacheable->chanches->Add(true, DT_getTouch);
 	DT_ballIsReacheable->chanches->Add(false, DT_canIReachTheBallJumping);
@@ -71,9 +71,9 @@ Folie::Player::Player()
 	DT_getTouch->chanches->Add(1, DT_getRole);
 	DT_getTouch->chanches->Add(2, DT_attack);
 
-	DT_pass->decisions->AddLast(DT_ballOfNoOne);
-	DT_set->decisions->AddLast(DT_ballOfNoOne);
-	DT_attack->decisions->AddLast(DT_ballOfNoOne);
+	DT_pass->sequentialEndActions->AddLast(DT_ballOfNoOne);
+	DT_set->sequentialEndActions->AddLast(DT_ballOfNoOne);
+	DT_attack->sequentialEndActions->AddLast(DT_ballOfNoOne);
 
 	DT_getRole->chanches->Add(Enums::eRole::Libero, DT_set);
 	DT_getRole->chanches->Add(Enums::eRole::Setter, DT_set);

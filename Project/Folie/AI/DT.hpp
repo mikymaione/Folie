@@ -23,10 +23,10 @@ namespace Folie
 		generic <class T> ref class DT :IDT
 		{
 		public:
-			LinkedList<IDT^> ^decisions;
+			LinkedList<IDT^> ^sequentialEndActions;
 			Dictionary<T, IDT^> ^chanches, ^negateChanches;
 
-			Delegate ^Test;
+			Delegate ^test;
 			array<Object^> ^testParams;
 
 		public:
@@ -35,22 +35,22 @@ namespace Folie
 				this->negateChanches = gcnew Dictionary<T, IDT^>();
 				this->chanches = gcnew Dictionary<T, IDT^>();
 
-				this->decisions = gcnew LinkedList<IDT^>();
+				this->sequentialEndActions = gcnew LinkedList<IDT^>();
 			}
 
-			DT(Delegate ^Test) :DT()
+			DT(Delegate ^test) :DT()
 			{
-				this->Test = Test;
+				this->test = test;
 			}
 
-			DT(Delegate ^Test, Object ^testParam) :DT(Test)
+			DT(Delegate ^test, Object ^testParam) :DT(test)
 			{
 				this->testParams = gcnew array<Object^> {testParam};
 			}
 
 			virtual void Execute()
 			{
-				auto result = (Test == nullptr ? nullptr : Test->DynamicInvoke(testParams));
+				auto result = (test == nullptr ? nullptr : test->DynamicInvoke(testParams));
 
 				if (result != nullptr)
 				{
@@ -64,7 +64,7 @@ namespace Folie
 								negateChanches[k]->Execute();
 				}
 
-				for each (auto decision in decisions)
+				for each (auto decision in sequentialEndActions)
 					decision->Execute();
 			}
 		};
