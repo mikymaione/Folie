@@ -63,6 +63,9 @@
     <ClInclude Include="AI\BT.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="AI\DT.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">

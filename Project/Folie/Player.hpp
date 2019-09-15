@@ -11,6 +11,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "GB.hpp"
 #include "Ball.hpp"
 #include "AI/BT.hpp"
+#include "AI/DT.hpp"
 
 #using <UnityEngine.AIModule.dll> as_friend
 
@@ -24,6 +25,7 @@ namespace Folie
 	{
 	private:
 		AI::BT ^BT_rally;
+		AI::DT<System::Object^> ^DT_hitTheBall;
 
 		bool jumping;
 
@@ -118,7 +120,7 @@ namespace Folie
 		bool canIReachTheBallJumping();
 		bool ballIsReacheable();
 
-		bool Serving();
+		bool Served();
 
 		void lookAtTarget();
 		void EnableAgent();

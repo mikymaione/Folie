@@ -23,7 +23,7 @@ namespace Folie
 
 		ref class BTQuestion :IBTNode
 		{
-		public:
+		private:
 			Delegate ^boolFN;
 			array<Object^> ^params;
 
@@ -39,11 +39,11 @@ namespace Folie
 			}
 		};
 
-		generic <class T> ref class BTAction:IBTNode
+		ref class BTAction :IBTNode
 		{
-		public:
+		private:
 			Delegate ^action;
-			array<T> ^params;
+			array<Object^> ^params;
 
 		public:
 			BTAction(Delegate ^action)
@@ -51,9 +51,9 @@ namespace Folie
 				this->action = action;
 			}
 
-			BTAction(Delegate ^action, T param):BTAction(action)
-			{				
-				this->params = gcnew array<T>{param};
+			BTAction(Delegate ^action, Object ^param) :BTAction(action)
+			{
+				this->params = gcnew array<Object^>{param};
 			}
 
 			virtual bool Execute()
@@ -64,9 +64,13 @@ namespace Folie
 			}
 		};
 
-		generic <class T> ref class BTInverter :BTAction<T>
+		ref class BTInverter :BTAction
 		{
 		public:
+			BTInverter(Delegate ^action) : BTAction(action) {}
+
+			BTInverter(Delegate ^action, Object ^param) :BTAction(action, param) {}
+
 			virtual bool Execute() override
 			{
 				return !BTAction::Execute();
@@ -76,9 +80,19 @@ namespace Folie
 
 		ref class BTComposite abstract :IBTNode
 		{
-		public:
+		protected:
 			LinkedList<IBTNode^> ^childrens;
 		public:
+			BTComposite()
+			{
+				this->childrens = gcnew LinkedList<IBTNode^>();
+			}
+
+			void AddChildren(IBTNode ^n)
+			{
+				childrens->AddLast(n);
+			}
+
 			virtual bool Execute() abstract;
 		};
 
@@ -111,7 +125,7 @@ namespace Folie
 
 		ref class BT :IBTNode
 		{
-		public:
+		private:
 			IBTNode ^node;
 
 		public:
@@ -122,8 +136,8 @@ namespace Folie
 
 			virtual bool Execute()
 			{
-				node->Execute();
-			}			
+				return node->Execute();
+			}
 		};
 	}
 }
