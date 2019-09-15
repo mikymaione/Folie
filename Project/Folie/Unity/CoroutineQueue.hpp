@@ -36,7 +36,7 @@ namespace Folie
 					gcnew Action(this, &CoroutineQueue::runNextWork)
 				);
 
-				work->this_->StartCoroutine(ge->GetEnumerator());
+				work->monoBehaviour->StartCoroutine(ge->GetEnumerator());
 			}
 			else
 			{
@@ -44,9 +44,9 @@ namespace Folie
 			}
 		}
 
-		void enqueueWork(Enums::eSequence sequence, UnityEngine::MonoBehaviour ^this_, Delegate ^function, array<Object ^> ^parameters, System::Collections::IEnumerator ^waiter)
+		void enqueueWork(Enums::eSequence sequence, UnityEngine::MonoBehaviour ^monoBehaviour, Delegate ^function, array<Object ^> ^parameters, System::Collections::IEnumerator ^waiter)
 		{
-			auto work = gcnew Job(sequence, this_, function, parameters, waiter);
+			auto work = gcnew Job(sequence, monoBehaviour, function, parameters, waiter);
 			works->Enqueue(work);
 
 			Run();
@@ -71,24 +71,24 @@ namespace Folie
 			running = false;
 		};
 
-		void callAndWait(UnityEngine::MonoBehaviour ^this_, Delegate ^function, array<Object ^> ^parameters, System::Collections::IEnumerator ^waiter)
+		void callAndWait(UnityEngine::MonoBehaviour ^monoBehaviour, Delegate ^function, array<Object ^> ^parameters, System::Collections::IEnumerator ^waiter)
 		{
-			enqueueWork(Enums::eSequence::callAndWait, this_, function, parameters, waiter);
+			enqueueWork(Enums::eSequence::callAndWait, monoBehaviour, function, parameters, waiter);
 		};
 
-		void callAndWait(UnityEngine::MonoBehaviour ^this_, Delegate ^function, System::Collections::IEnumerator ^waiter)
+		void callAndWait(UnityEngine::MonoBehaviour ^monoBehaviour, Delegate ^function, System::Collections::IEnumerator ^waiter)
 		{
-			callAndWait(this_, function, nullptr, waiter);
+			callAndWait(monoBehaviour, function, nullptr, waiter);
 		};
 
-		void waitAndCall(UnityEngine::MonoBehaviour ^this_, System::Collections::IEnumerator ^waiter, Delegate ^function, array<Object ^> ^parameters)
+		void waitAndCall(UnityEngine::MonoBehaviour ^monoBehaviour, System::Collections::IEnumerator ^waiter, Delegate ^function, array<Object ^> ^parameters)
 		{
-			enqueueWork(Enums::eSequence::waitAndCall, this_, function, parameters, waiter);
+			enqueueWork(Enums::eSequence::waitAndCall, monoBehaviour, function, parameters, waiter);
 		};
 
-		void waitAndCall(UnityEngine::MonoBehaviour ^this_, System::Collections::IEnumerator ^waiter, Delegate ^function)
+		void waitAndCall(UnityEngine::MonoBehaviour ^monoBehaviour, System::Collections::IEnumerator ^waiter, Delegate ^function)
 		{
-			waitAndCall(this_, waiter, function, nullptr);
+			waitAndCall(monoBehaviour, waiter, function, nullptr);
 		};
 
 	};

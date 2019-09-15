@@ -21,16 +21,16 @@ namespace Folie
 	internal:
 		bool functionCalled;
 		Enums::eSequence sequence;
-		UnityEngine::MonoBehaviour ^this_;
+		UnityEngine::MonoBehaviour ^monoBehaviour;
 		Delegate ^function;
 		array<Object ^> ^parameters;
 		System::Collections::IEnumerator ^waiter;
 
 	internal:
-		Job(Enums::eSequence sequence, UnityEngine::MonoBehaviour ^this_, Delegate ^function, array<Object ^> ^parameters, System::Collections::IEnumerator ^waiter)
+		Job(Enums::eSequence sequence, UnityEngine::MonoBehaviour ^monoBehaviour, Delegate ^function, array<Object ^> ^parameters, System::Collections::IEnumerator ^waiter)
 		{
 			this->sequence = sequence;
-			this->this_ = this_;
+			this->monoBehaviour = monoBehaviour;
 			this->function = function;
 			this->parameters = parameters;
 			this->waiter = waiter;

@@ -18,33 +18,33 @@ namespace Folie
 		ref class State; // cross reference
 		ref class SMEnumerable; // cross reference
 
-		public ref class Transaction
+		public ref class Transition
 		{
 		internal:
-			State ^toState, ^state;
+			State ^toState, ^fromState;
 
-			Func<bool> ^goToNextStateIfTrue;
+			Func<bool> ^condition;
 
 			System::Collections::IEnumerator ^waiter;
 
 		internal:
-			Transaction(State ^state, State ^toState)
+			Transition(State ^fromState, State ^toState)
 			{
-				this->state = state;
+				this->fromState = fromState;
 				this->toState = toState;
 			}
 
-			Transaction(State ^state, Func<bool> ^goToNextStateIfTrue, State ^toState) :Transaction(state, toState)
+			Transition(State ^fromState, Func<bool> ^condition, State ^toState) :Transition(fromState, toState)
 			{
-				this->goToNextStateIfTrue = goToNextStateIfTrue;
+				this->condition = condition;
 			}
 
-			Transaction(State ^state, State ^toState, System::Collections::IEnumerator ^waiter) :Transaction(state, toState)
+			Transition(State ^fromState, State ^toState, System::Collections::IEnumerator ^waiter) :Transition(fromState, toState)
 			{
 				this->waiter = waiter;
 			}
 
-			Transaction(State ^state, State ^toState, Func<bool> ^endCondition) :Transaction(state, toState, gcnew UnityEngine::WaitUntil(endCondition)) {}
+			Transition(State ^fromState, State ^toState, Func<bool> ^endCondition) :Transition(fromState, toState, gcnew UnityEngine::WaitUntil(endCondition)) {}
 		};
 
 		public ref class State
@@ -52,12 +52,12 @@ namespace Folie
 		internal:
 			String ^name;
 
-			UnityEngine::MonoBehaviour ^this_;
+			UnityEngine::MonoBehaviour ^monoBehaviour;
 
-			Delegate ^entryAction, ^exitAction;
-			array<Object ^> ^entryParameters, ^exitParameters;
+			Delegate ^enterAction, ^exitAction;
+			array<Object ^> ^enterParameters, ^exitParameters;
 
-			HashSet<Transaction ^> ^transactions;
+			HashSet<Transition ^> ^transitions;
 
 		internal:
 			State(String ^name)
@@ -69,31 +69,31 @@ namespace Folie
 		private ref class SMEnumerator sealed :System::Collections::IEnumerator
 		{
 		private:
-			Transaction ^transaction;
+			Transition ^transition;
 			Delegate ^callback_function;
 
 		public:
-			SMEnumerator(Transaction ^transaction, Delegate ^callback_function)
+			SMEnumerator(Transition ^transition, Delegate ^callback_function)
 			{
-				this->transaction = transaction;
+				this->transition = transition;
 				this->callback_function = callback_function;
 			}
 
 			virtual bool MoveNext()
 			{
-				auto state = transaction->state;
+				auto fromState = transition->fromState;
 
-				auto more_elements_available = transaction->waiter->MoveNext();
+				auto more_elements_available = transition->waiter->MoveNext();
 
 				if (!more_elements_available)
 				{
-					if (state->exitAction != nullptr)
-						state->exitAction->DynamicInvoke(state->exitParameters);
+					if (fromState->exitAction != nullptr)
+						fromState->exitAction->DynamicInvoke(fromState->exitParameters);
 
-					auto next_state = transaction->toState;
+					auto next_state = transition->toState;
 
 					if (callback_function != nullptr)
-						callback_function->DynamicInvoke(next_state, state);
+						callback_function->DynamicInvoke(next_state, fromState);
 				}
 
 				return more_elements_available;
@@ -101,14 +101,14 @@ namespace Folie
 
 			virtual void Reset()
 			{
-				transaction->waiter->Reset();
+				transition->waiter->Reset();
 			}
 
 			virtual property Object ^Current
 			{
 				Object ^get()
 				{
-					return transaction->waiter->Current;
+					return transition->waiter->Current;
 				}
 			}
 		};
@@ -119,9 +119,9 @@ namespace Folie
 			SMEnumerator ^smEnumerator;
 
 		public:
-			SMEnumerable(Transaction ^transaction, Delegate ^callback_function)
+			SMEnumerable(Transition ^transition, Delegate ^callback_function)
 			{
-				this->smEnumerator = gcnew SMEnumerator(transaction, callback_function);
+				this->smEnumerator = gcnew SMEnumerator(transition, callback_function);
 			}
 
 			virtual System::Collections::IEnumerator ^GetEnumerator()
@@ -155,7 +155,7 @@ namespace Folie
 				auto transactionToThisStateIsPossible = (from_ == nullptr);
 
 				if (!transactionToThisStateIsPossible)
-					for each (auto t in from_->transactions)
+					for each (auto t in from_->transitions)
 						if (t->toState == to_)
 						{
 							transactionToThisStateIsPossible = true;
@@ -166,15 +166,15 @@ namespace Folie
 				{
 					current = to_;
 
-					if (current->entryAction != nullptr)
-						current->entryAction->DynamicInvoke(current->entryParameters);
+					if (current->enterAction != nullptr)
+						current->enterAction->DynamicInvoke(current->enterParameters);
 
-					for each (auto t in current->transactions)
+					for each (auto t in current->transitions)
 					{
 						if (t->waiter == nullptr)
 						{
-							if (t->goToNextStateIfTrue != nullptr)
-								if (t->goToNextStateIfTrue())
+							if (t->condition != nullptr)
+								if (t->condition())
 									run(t->toState);
 						}
 						else
@@ -184,89 +184,89 @@ namespace Folie
 								gcnew Action<State^, State^>(this, &SM::run)
 							);
 
-							current->this_->StartCoroutine(ge->GetEnumerator());
+							current->monoBehaviour->StartCoroutine(ge->GetEnumerator());
 						}
 					}
 				}
 			}
 
-			State ^addState(String ^name, UnityEngine::MonoBehaviour ^this_)
+			State ^addState(String ^name, UnityEngine::MonoBehaviour ^monoBehaviour)
 			{
-				auto state = gcnew State(name);
+				auto fromState = gcnew State(name);
 
-				state->transactions = gcnew HashSet<Transaction ^>();
-				state->this_ = this_;
+				fromState->transitions = gcnew HashSet<Transition ^>();
+				fromState->monoBehaviour = monoBehaviour;
 
-				states->Add(state);
+				states->Add(fromState);
 
-				return state;
+				return fromState;
 			}
 
-			State ^addState(String ^name, UnityEngine::MonoBehaviour ^this_, Delegate ^entryAction)
+			State ^addState(String ^name, UnityEngine::MonoBehaviour ^monoBehaviour, Delegate ^enterAction)
 			{
-				auto state = addState(name, this_);
+				auto fromState = addState(name, monoBehaviour);
 
-				state->entryAction = entryAction;
+				fromState->enterAction = enterAction;
 
-				return state;
+				return fromState;
 			}
 
-			State ^addState(String ^name, UnityEngine::MonoBehaviour ^this_, Delegate ^entryAction, array<Object ^> ^entryParameters)
+			State ^addState(String ^name, UnityEngine::MonoBehaviour ^monoBehaviour, Delegate ^enterAction, array<Object ^> ^enterParameters)
 			{
-				auto state = addState(name, this_, entryAction);
+				auto fromState = addState(name, monoBehaviour, enterAction);
 
-				state->entryParameters = entryParameters;
+				fromState->enterParameters = enterParameters;
 
-				return state;
+				return fromState;
 			}
 
-			State ^addState(String ^name, UnityEngine::MonoBehaviour ^this_, System::Collections::IEnumerator ^waiter, Delegate ^exitAction, State ^toState)
+			State ^addState(String ^name, UnityEngine::MonoBehaviour ^monoBehaviour, System::Collections::IEnumerator ^waiter, Delegate ^exitAction, State ^toState)
 			{
-				auto state = addState(name, this_);
+				auto fromState = addState(name, monoBehaviour);
 
-				state->exitAction = exitAction;
-				state->transactions->Add(gcnew Transaction(state, toState, waiter));
+				fromState->exitAction = exitAction;
+				fromState->transitions->Add(gcnew Transition(fromState, toState, waiter));
 
-				return state;
+				return fromState;
 			}
 
-			State ^addState(String ^name, UnityEngine::MonoBehaviour ^this_, Delegate ^entryAction, System::Collections::IEnumerator ^waiter, State ^toState)
+			State ^addState(String ^name, UnityEngine::MonoBehaviour ^monoBehaviour, Delegate ^enterAction, System::Collections::IEnumerator ^waiter, State ^toState)
 			{
-				auto state = addState(name, this_);
+				auto fromState = addState(name, monoBehaviour);
 
-				state->entryAction = entryAction;
-				state->transactions->Add(gcnew Transaction(state, toState, waiter));
+				fromState->enterAction = enterAction;
+				fromState->transitions->Add(gcnew Transition(fromState, toState, waiter));
 
-				return state;
+				return fromState;
 			}
 
-			State ^addState(String ^name, UnityEngine::MonoBehaviour ^this_, Delegate ^entryAction, Func<bool> ^endCondition, State ^toState)
+			State ^addState(String ^name, UnityEngine::MonoBehaviour ^monoBehaviour, Delegate ^enterAction, Func<bool> ^endCondition, State ^toState)
 			{
-				auto state = addState(name, this_);
+				auto fromState = addState(name, monoBehaviour);
 
-				state->entryAction = entryAction;
-				state->transactions->Add(gcnew Transaction(state, toState, endCondition));
+				fromState->enterAction = enterAction;
+				fromState->transitions->Add(gcnew Transition(fromState, toState, endCondition));
 
-				return state;
+				return fromState;
 			}
 
-			State ^addState(String ^name, UnityEngine::MonoBehaviour ^this_, Func<bool> ^endCondition, Delegate ^exitAction, State ^toState)
+			State ^addState(String ^name, UnityEngine::MonoBehaviour ^monoBehaviour, Func<bool> ^endCondition, Delegate ^exitAction, State ^toState)
 			{
-				auto state = addState(name, this_);
+				auto fromState = addState(name, monoBehaviour);
 
-				state->exitAction = exitAction;
-				state->transactions->Add(gcnew Transaction(state, toState, endCondition));
+				fromState->exitAction = exitAction;
+				fromState->transitions->Add(gcnew Transition(fromState, toState, endCondition));
 
-				return state;
+				return fromState;
 			}
 
-			State ^addState(String ^name, UnityEngine::MonoBehaviour ^this_, Func<bool> ^endCondition, State ^toState)
+			State ^addState(String ^name, UnityEngine::MonoBehaviour ^monoBehaviour, Func<bool> ^endCondition, State ^toState)
 			{
-				auto state = addState(name, this_);
+				auto fromState = addState(name, monoBehaviour);
 
-				state->transactions->Add(gcnew Transaction(state, toState, endCondition));
+				fromState->transitions->Add(gcnew Transition(fromState, toState, endCondition));
 
-				return state;
+				return fromState;
 			}
 		};
 	}
