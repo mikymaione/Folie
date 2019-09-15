@@ -8,7 +8,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 #pragma once
 
-#include "Wait4Seconds.hpp"
+#include "Unity/Wait4Seconds.hpp"
 #include "CoroutineQueue.hpp"
 #include "Ball.hpp"
 #include "Team.hpp"
@@ -38,7 +38,7 @@ namespace Folie
 			if (s <= 0)
 				s = 0.00001f;
 
-			return gcnew Wait4Seconds(s);
+			return gcnew Unity::Wait4Seconds(s);
 		}
 
 		static System::Collections::IEnumerator ^w4s(UInt16 seconds)
@@ -48,7 +48,7 @@ namespace Folie
 			if (s <= 0)
 				s = 0.00001f;
 
-			return gcnew Wait4Seconds(seconds);
+			return gcnew Unity::Wait4Seconds(seconds);
 		};
 
 		static System::Collections::IEnumerator ^wUntil(System::Func<bool> ^fn)

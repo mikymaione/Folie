@@ -12,30 +12,33 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 namespace Folie
 {
-	ref class Wait4Seconds sealed :UnityEngine::CustomYieldInstruction
+	namespace Unity
 	{
-	private:
-		float timer;
-		float duration;
-
-	public:
-		Wait4Seconds(float seconds)
+		ref class Wait4Seconds sealed :UnityEngine::CustomYieldInstruction
 		{
-			duration = seconds;
+		private:
+			float timer;
+			float duration;
 
-			Reset();
-		};
-
-		property bool keepWaiting
-		{
-			bool get() override
+		public:
+			Wait4Seconds(float seconds)
 			{
-				auto t = timer;
-				timer += UnityEngine::Time::deltaTime;
+				duration = seconds;
 
-				return t < duration;
-			}
+				Reset();
+			};
+
+			property bool keepWaiting
+			{
+				bool get() override
+				{
+					auto t = timer;
+					timer += UnityEngine::Time::deltaTime;
+
+					return t < duration;
+				}
+			};
+
 		};
-
-	};
+	}
 }

@@ -12,12 +12,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 namespace Folie
 {
-	public ref class MonoBehaviourEX :UnityEngine::MonoBehaviour
+	namespace Unity
 	{
-	protected:
-		bool _started;
+		public ref class MonoBehaviourEX :UnityEngine::MonoBehaviour
+		{
+		protected:
+			bool _started;
 
-	internal:
-		virtual bool started() abstract;
-	};
+		internal:
+			virtual bool started() abstract;
+		};
+	}
 }

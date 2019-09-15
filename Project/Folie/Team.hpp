@@ -14,7 +14,7 @@ using namespace System;
 
 namespace Folie
 {
-	public ref class Team sealed :MonoBehaviourEX
+	public ref class Team sealed :Unity::MonoBehaviourEX
 	{
 	private:
 		CoroutineQueue ^waiter;

@@ -20,7 +20,7 @@ namespace Folie
 {
 	ref class Team; // cross reference
 
-	public ref class Player sealed :MonoBehaviourEX
+	public ref class Player sealed :Unity::MonoBehaviourEX
 	{
 	private:
 		AI::DT<System::Object^> ^DT_rally;

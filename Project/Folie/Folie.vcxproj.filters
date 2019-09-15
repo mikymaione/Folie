@@ -39,9 +39,6 @@
     <ClInclude Include="REF.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Wait4Seconds.hpp">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
     <ClInclude Include="Enums.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
@@ -54,13 +51,16 @@
     <ClInclude Include="Job.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="MonoBehaviourEX.hpp">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
     <ClInclude Include="AI\DT.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="AI\SM.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Unity\MonoBehaviourEX.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Unity\Wait4Seconds.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
