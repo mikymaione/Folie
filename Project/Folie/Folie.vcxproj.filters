@@ -60,9 +60,6 @@
     <ClInclude Include="Unity\Job.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="AI\BH.hpp">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
     <ClInclude Include="AI\BT.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
