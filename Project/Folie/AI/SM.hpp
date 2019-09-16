@@ -50,8 +50,6 @@ namespace Folie
 		public ref class State
 		{
 		internal:
-			String ^name;
-
 			UnityEngine::MonoBehaviour ^monoBehaviour;
 
 			Delegate ^enterAction, ^exitAction;
@@ -60,9 +58,19 @@ namespace Folie
 			HashSet<Transition ^> ^transitions;
 
 		internal:
-			State(String ^name)
+			State(UnityEngine::MonoBehaviour ^monoBehaviour)
 			{
-				this->name = name;
+				this->monoBehaviour = monoBehaviour;
+			}
+
+			void addTransition(State ^fromState, State ^toState)
+			{
+				addTransition(gcnew Transition(fromState, toState));
+			}
+
+			void addTransition(Transition ^t)
+			{
+				transitions->Add(t);
 			}
 		};
 
@@ -132,14 +140,18 @@ namespace Folie
 
 		public ref class SM
 		{
+		private:
+			UnityEngine::MonoBehaviour ^monoBehaviour;
+
 		internal:
 			State ^current;
 			HashSet<State ^> ^states;
 
 		public:
-			SM()
+			SM(UnityEngine::MonoBehaviour ^monoBehaviour)
 			{
-				states = gcnew HashSet<State ^>();
+				this->monoBehaviour = monoBehaviour;
+				this->states = gcnew HashSet<State ^>();
 			}
 
 			void run(State ^to_)
@@ -190,30 +202,29 @@ namespace Folie
 				}
 			}
 
-			State ^addState(String ^name, UnityEngine::MonoBehaviour ^monoBehaviour)
+			State ^addState()
 			{
-				auto fromState = gcnew State(name);
+				auto fromState = gcnew State(monoBehaviour);
 
 				fromState->transitions = gcnew HashSet<Transition ^>();
-				fromState->monoBehaviour = monoBehaviour;
 
 				states->Add(fromState);
 
 				return fromState;
 			}
 
-			State ^addState(String ^name, UnityEngine::MonoBehaviour ^monoBehaviour, Delegate ^enterAction)
+			State ^addState(Delegate ^enterAction)
 			{
-				auto fromState = addState(name, monoBehaviour);
+				auto fromState = addState();
 
 				fromState->enterAction = enterAction;
 
 				return fromState;
 			}
 
-			State ^addState(String ^name, UnityEngine::MonoBehaviour ^monoBehaviour, Delegate ^enterAction, array<Object ^> ^enterParameters)
+			State ^addState(Delegate ^enterAction, array<Object ^> ^enterParameters)
 			{
-				auto fromState = addState(name, monoBehaviour, enterAction);
+				auto fromState = addState(enterAction);
 
 				fromState->enterParameters = enterParameters;
 
@@ -222,7 +233,7 @@ namespace Folie
 
 			State ^addState(String ^name, UnityEngine::MonoBehaviour ^monoBehaviour, System::Collections::IEnumerator ^waiter, Delegate ^exitAction, State ^toState)
 			{
-				auto fromState = addState(name, monoBehaviour);
+				auto fromState = addState();
 
 				fromState->exitAction = exitAction;
 				fromState->transitions->Add(gcnew Transition(fromState, toState, waiter));
@@ -230,9 +241,9 @@ namespace Folie
 				return fromState;
 			}
 
-			State ^addState(String ^name, UnityEngine::MonoBehaviour ^monoBehaviour, Delegate ^enterAction, System::Collections::IEnumerator ^waiter, State ^toState)
+			State ^addState(Delegate ^enterAction, System::Collections::IEnumerator ^waiter, State ^toState)
 			{
-				auto fromState = addState(name, monoBehaviour);
+				auto fromState = addState();
 
 				fromState->enterAction = enterAction;
 				fromState->transitions->Add(gcnew Transition(fromState, toState, waiter));
@@ -240,9 +251,9 @@ namespace Folie
 				return fromState;
 			}
 
-			State ^addState(String ^name, UnityEngine::MonoBehaviour ^monoBehaviour, Delegate ^enterAction, Func<bool> ^endCondition, State ^toState)
+			State ^addState(Delegate ^enterAction, Func<bool> ^endCondition, State ^toState)
 			{
-				auto fromState = addState(name, monoBehaviour);
+				auto fromState = addState();
 
 				fromState->enterAction = enterAction;
 				fromState->transitions->Add(gcnew Transition(fromState, toState, endCondition));
@@ -250,9 +261,9 @@ namespace Folie
 				return fromState;
 			}
 
-			State ^addState(String ^name, UnityEngine::MonoBehaviour ^monoBehaviour, Func<bool> ^endCondition, Delegate ^exitAction, State ^toState)
+			State ^addState(Func<bool> ^endCondition, Delegate ^exitAction, State ^toState)
 			{
-				auto fromState = addState(name, monoBehaviour);
+				auto fromState = addState();
 
 				fromState->exitAction = exitAction;
 				fromState->transitions->Add(gcnew Transition(fromState, toState, endCondition));
@@ -260,9 +271,9 @@ namespace Folie
 				return fromState;
 			}
 
-			State ^addState(String ^name, UnityEngine::MonoBehaviour ^monoBehaviour, Func<bool> ^endCondition, State ^toState)
+			State ^addState(Func<bool> ^endCondition, State ^toState)
 			{
-				auto fromState = addState(name, monoBehaviour);
+				auto fromState = addState();
 
 				fromState->transitions->Add(gcnew Transition(fromState, toState, endCondition));
 
