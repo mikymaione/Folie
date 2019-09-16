@@ -25,7 +25,7 @@ namespace Folie
 	{
 	private:
 		AI::BT ^BT_rally;
-		AI::DT<System::Object^> ^DT_hitTheBall;
+		AI::DT<bool> ^DT_hitTheBall;
 
 		bool jumping;
 

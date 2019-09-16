@@ -99,7 +99,7 @@ void Folie::Player::create_BT_Rally()
 
 void Folie::Player::create_DT_hitTheBall()
 {
-	auto DT_hitTheBall = gcnew AI::DT<bool>(gcnew Func<bool>(this, &Player::ballIsReacheable));
+	DT_hitTheBall = gcnew AI::DT<bool>(gcnew Func<bool>(this, &Player::ballIsReacheable));
 	auto DT_getTouch = gcnew AI::DT<UInt16>(gcnew Func<UInt16>(this, &Player::getTouch));
 
 	auto DT_getRole = gcnew AI::DT<Enums::eRole>(gcnew Func<Enums::eRole>(this, &Player::getRole));
