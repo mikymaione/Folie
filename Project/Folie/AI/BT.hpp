@@ -27,15 +27,25 @@ namespace Folie
 			Delegate ^boolFN;
 			array<Object^> ^params;
 
+			Object ^trueValue;
+
 		public:
-			BTQuestion(Delegate ^boolFN)
+			BTQuestion(Delegate ^boolFN) :BTQuestion(boolFN, true)
 			{
 				this->boolFN = boolFN;
 			}
 
+			BTQuestion(Delegate ^boolFN, Object ^trueValue)
+			{
+				this->boolFN = boolFN;
+				this->trueValue = trueValue;
+			}
+
 			virtual bool Execute()
 			{
-				return (bool)boolFN->DynamicInvoke(params);
+				auto v = boolFN->DynamicInvoke(params);
+
+				return trueValue->Equals(v);
 			}
 		};
 

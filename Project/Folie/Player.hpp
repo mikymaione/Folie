@@ -77,6 +77,8 @@ namespace Folie
 		void attack_(Enums::ePosition target);
 		void lookAt_(UnityEngine::Vector3 to_);
 
+		bool iAmJumping();
+
 		void block();
 
 		void serve_(UnityEngine::Vector2 target);
@@ -124,8 +126,6 @@ namespace Folie
 
 		void lookAtTarget();
 		void EnableAgent();
-
-		void ballOfNoOne();
 
 		void takeCorrectPositionPreAttack();
 		void takeCorrectPositionInAttackMode();

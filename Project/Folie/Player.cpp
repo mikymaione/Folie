@@ -48,11 +48,14 @@ void Folie::Player::create_BT_Rally()
 	auto q6 = gcnew AI::BTSelector();
 
 	auto s2 = gcnew AI::BTSequence();
-	auto s4 = gcnew AI::BTSequence();
+	auto s4_2 = gcnew AI::BTSequence();
+	auto s4_1 = gcnew AI::BTSequence();
 	auto s5 = gcnew AI::BTSequence();
-	auto s6 = gcnew AI::BTSequence();
-	auto s7 = gcnew AI::BTSequence();
-
+	auto s6_1 = gcnew AI::BTSequence();
+	auto s6_2 = gcnew AI::BTSequence();
+	auto s6_3 = gcnew AI::BTSequence();
+	auto s6_4 = gcnew AI::BTSequence();
+	auto s6_5 = gcnew AI::BTSequence();
 
 	BT_rally = gcnew AI::BT(q1);
 
@@ -62,24 +65,36 @@ void Folie::Player::create_BT_Rally()
 	s2->AddChildren(gcnew AI::BTQuestion(gcnew Func<bool>(this, &Player::Served)));
 	s2->AddChildren(q3);
 
+	q3->AddChildren(s4_1);
+	q3->AddChildren(s4_2);
 
-	s4->AddChildren(gcnew AI::BTAction(gcnew Func<bool>(this, &Player::ballIsFlying)));
-	s4->AddChildren(gcnew AI::BTAction(gcnew Action<bool>(this, &Player::lookAtTheBall), true));
-	s4->AddChildren(s5);
+	s4_1->AddChildren(gcnew AI::BTQuestion(gcnew Func<bool>(this, &Player::ballIsFlying)));
+	s4_1->AddChildren(gcnew AI::BTAction(gcnew Action<bool>(this, &Player::lookAtTheBall), true));
+	s4_1->AddChildren(s5);
 
-	s5->AddChildren(q6);
-	s5->AddChildren(s6);
+	s4_2->AddChildren(gcnew AI::BTAction(gcnew Action<bool>(this, &Player::lookAtTheBall), false));
+	s4_2->AddChildren(gcnew AI::BTAction(gcnew Action(this, &Player::EnableAgent)));
 
-	q6->AddChildren(gcnew AI::BTQuestion(gcnew Func<bool>(this, &Player::isBallInMyCourt)));
-	q6->AddChildren(s7);
+	s5->AddChildren(s6_1);
+	s5->AddChildren(s6_2);
+	s5->AddChildren(s6_3);
+	s5->AddChildren(s6_4);
+	s5->AddChildren(s6_5);
 
-	s6->AddChildren(gcnew AI::BTQuestion(gcnew Func<bool>(this, &Player::isBallInMyArea)));
-	s6->AddChildren(gcnew AI::BTAction(gcnew Action(this, &Player::takeCorrectPositionPreAttack)));
-	s6->AddChildren(gcnew AI::BTAction(gcnew Action(this, &Player::hitTheBall)));
+	s6_1->AddChildren(gcnew AI::BTQuestion(gcnew Func<Enums::eGamePhase>(this, &Player::getGamePhase), Enums::eGamePhase::defence));
+	s6_1->AddChildren(gcnew AI::BTAction(gcnew Action(this, &Player::playerTakePositionInReception)));
 
-	s7->AddChildren(gcnew AI::BTAction(gcnew Action(this, &Player::playerTakePositionInReception)));
-	s7->AddChildren(gcnew AI::BTQuestion(gcnew Func<bool>(this, &Player::imInFrontCourt)));
-	//s7->childrens->AddLast(gcnew AI::BTAction(gcnew Action(this, &Player::block))); //to test
+	s6_2->AddChildren(gcnew AI::BTQuestion(gcnew Func<bool>(this, &Player::ballIsReacheable)));
+	s6_2->AddChildren(gcnew AI::BTAction(gcnew Action(this, &Player::hitTheBall)));
+
+	s6_3->AddChildren(gcnew AI::BTQuestion(gcnew Func<bool>(this, &Player::canIReachTheBallJumping)));
+	s6_3->AddChildren(gcnew AI::BTAction(gcnew Action<bool>(this, &Player::setJumping), true));
+
+	s6_4->AddChildren(gcnew AI::BTQuestion(gcnew Func<bool>(this, &Player::isBallInMyArea)));
+	s6_4->AddChildren(gcnew AI::BTAction(gcnew Action(this, &Player::takeCorrectPositionInAttackMode)));
+
+	s6_5->AddChildren(gcnew AI::BTQuestion(gcnew Func<bool>(this, &Player::iAmJumping)));
+	s6_5->AddChildren(gcnew AI::BTAction(gcnew Action(this, &Player::takeCorrectPositionPreAttack)));
 }
 
 void Folie::Player::create_DT_hitTheBall()
@@ -116,6 +131,7 @@ void Folie::Player::create_DT_hitTheBall()
 void Folie::Player::hitTheBall()
 {
 	DT_hitTheBall->Execute();
+	team->playerThatSayMia = nullptr;
 }
 
 bool Folie::Player::ballIsFlying()
@@ -176,11 +192,6 @@ void Folie::Player::lookAtTarget()
 void Folie::Player::EnableAgent()
 {
 	agent->enabled = true;
-}
-
-void Folie::Player::ballOfNoOne()
-{
-	team->playerThatSayMia = nullptr;
 }
 
 void Folie::Player::takeCorrectPositionPreAttack()
@@ -654,6 +665,11 @@ void Folie::Player::lookAt_(UnityEngine::Vector3 to_)
 {
 	auto dest = UnityEngine::Vector3(to_.x, transform->position.y, to_.z);
 	transform->LookAt(dest);
+}
+
+bool Folie::Player::iAmJumping()
+{
+	return jumping;
 }
 
 void Folie::Player::block()
