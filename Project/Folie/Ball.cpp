@@ -78,6 +78,11 @@ bool Folie::Ball::started()
 	return _started;
 }
 
+Folie::Enums::eArea Folie::Ball::getTargetArea()
+{
+	return targetArea;
+}
+
 void Folie::Ball::setHitting(bool hitting_)
 {
 	hitting = hitting_;

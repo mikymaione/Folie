@@ -46,6 +46,8 @@ namespace Folie
 
 		bool started() override;
 
+		Enums::eArea getTargetArea();
+
 	private:
 		void Start();
 		void Update();

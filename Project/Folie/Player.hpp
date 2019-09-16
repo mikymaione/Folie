@@ -84,6 +84,7 @@ namespace Folie
 		void serve_(UnityEngine::Vector2 target);
 		void serve();
 		void takeTheBall();
+		bool ballIsFlying();
 
 		bool goToElementReached();
 
@@ -115,10 +116,8 @@ namespace Folie
 
 		bool canTouchTheBall();
 
-		bool ballIsFlying();
 		bool isBallInMyArea();
 		bool isBallInMyCourt();
-		bool imInFrontCourt();
 		bool canIReachTheBallJumping();
 		bool ballIsReacheable();
 

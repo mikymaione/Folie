@@ -45,12 +45,12 @@ void Folie::Player::create_BT_Rally()
 {
 	auto q1 = gcnew AI::BTSelector();
 	auto q3 = gcnew AI::BTSelector();
+	auto q5 = gcnew AI::BTSelector();
 	auto q6 = gcnew AI::BTSelector();
 
 	auto s2 = gcnew AI::BTSequence();
 	auto s4_2 = gcnew AI::BTSequence();
 	auto s4_1 = gcnew AI::BTSequence();
-	auto s5 = gcnew AI::BTSequence();
 	auto s6_1 = gcnew AI::BTSequence();
 	auto s6_2 = gcnew AI::BTSequence();
 	auto s6_3 = gcnew AI::BTSequence();
@@ -70,16 +70,16 @@ void Folie::Player::create_BT_Rally()
 
 	s4_1->AddChildren(gcnew AI::BTQuestion(gcnew Func<bool>(this, &Player::ballIsFlying)));
 	s4_1->AddChildren(gcnew AI::BTAction(gcnew Action<bool>(this, &Player::lookAtTheBall), true));
-	s4_1->AddChildren(s5);
+	s4_1->AddChildren(q5);
 
 	s4_2->AddChildren(gcnew AI::BTAction(gcnew Action<bool>(this, &Player::lookAtTheBall), false));
 	s4_2->AddChildren(gcnew AI::BTAction(gcnew Action(this, &Player::EnableAgent)));
 
-	s5->AddChildren(s6_1);
-	s5->AddChildren(s6_2);
-	s5->AddChildren(s6_3);
-	s5->AddChildren(s6_4);
-	s5->AddChildren(s6_5);
+	q5->AddChildren(s6_1);
+	q5->AddChildren(s6_2);
+	q5->AddChildren(s6_3);
+	q5->AddChildren(s6_4);
+	q5->AddChildren(s6_5);
 
 	s6_1->AddChildren(gcnew AI::BTQuestion(gcnew Func<Enums::eGamePhase>(this, &Player::getGamePhase), Enums::eGamePhase::defence));
 	s6_1->AddChildren(gcnew AI::BTAction(gcnew Action(this, &Player::playerTakePositionInReception)));
@@ -93,7 +93,7 @@ void Folie::Player::create_BT_Rally()
 	s6_4->AddChildren(gcnew AI::BTQuestion(gcnew Func<bool>(this, &Player::isBallInMyArea)));
 	s6_4->AddChildren(gcnew AI::BTAction(gcnew Action(this, &Player::takeCorrectPositionInAttackMode)));
 
-	s6_5->AddChildren(gcnew AI::BTQuestion(gcnew Func<bool>(this, &Player::iAmJumping)));
+	s6_5->AddChildren(gcnew AI::BTQuestion(gcnew Func<bool>(this, &Player::iAmJumping), false));
 	s6_5->AddChildren(gcnew AI::BTAction(gcnew Action(this, &Player::takeCorrectPositionPreAttack)));
 }
 
@@ -134,11 +134,6 @@ void Folie::Player::hitTheBall()
 	team->playerThatSayMia = nullptr;
 }
 
-bool Folie::Player::ballIsFlying()
-{
-	return REF::ball->ballIsFlying();
-}
-
 bool Folie::Player::isBallInMyArea()
 {
 	return (REF::ball->targetArea == currentArea);
@@ -152,13 +147,6 @@ bool Folie::Player::isBallInMyCourt()
 	return (bC == mC);
 }
 
-bool Folie::Player::imInFrontCourt()
-{
-	auto c = getCurrentCourt();
-
-	return (c == Enums::eCourt::front);
-}
-
 bool Folie::Player::canIReachTheBallJumping()
 {
 	auto attack_area = GB::getAttackArea(getCurrentCourt(), role, currentPosition, team->number_of_setters);
@@ -166,8 +154,8 @@ bool Folie::Player::canIReachTheBallJumping()
 	auto distanceFromBall = getDistanceFromBall();
 
 	if (!jumping && GB::samePosition2D(REF::ball->target2D, coord_attack_area))
-		if (distanceFromBall < Enums::min_distance_to_jump && GB::canAttackJumping(role))
-			if (team->getTouch() == 2)
+		if (team->getTouch() == 2)
+			if (distanceFromBall < Enums::min_distance_to_jump && GB::canAttackJumping(role))
 				return true;
 
 	return false;
@@ -506,6 +494,11 @@ void Folie::Player::takeTheBall()
 	REF::ball->attachToHand(name);
 	currentArea = Enums::eArea::a1S;
 	move(walkSpeed);
+}
+
+bool Folie::Player::ballIsFlying()
+{
+	return REF::ball->ballIsFlying();
 }
 
 void Folie::Player::attack_(Enums::ePosition target)

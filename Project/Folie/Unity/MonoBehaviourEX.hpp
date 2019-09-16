@@ -14,7 +14,7 @@ namespace Folie
 {
 	namespace Unity
 	{
-		public ref class MonoBehaviourEX :UnityEngine::MonoBehaviour
+		public ref class MonoBehaviourEX abstract :UnityEngine::MonoBehaviour
 		{
 		protected:
 			bool _started;
